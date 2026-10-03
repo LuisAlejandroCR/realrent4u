@@ -54,7 +54,7 @@ def mini_root(root: Path, raw: bool = True) -> Path:
         header, rows = reader.fieldnames, list(reader)[:MINI_ADDRESSES]
     _write_csv(data / "data" / "sample_addresses.csv", header, rows)
     (root / "derived").mkdir()
-    (root / "derived" / "census").symlink_to(paths.DERIVED / "census", target_is_directory=True)
+    pipeline.link_dir(root / "derived" / "census", paths.DERIVED / "census")
     if raw:
         (root / "runs" / "raw").mkdir(parents=True)
         (root / "runs" / "raw" / "D001.json").write_text(json.dumps({"rules": [RAW_RULE], "meta": {}}))

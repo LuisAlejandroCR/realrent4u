@@ -75,19 +75,31 @@ def plan(online: bool, skip_extract: bool, have_key: bool) -> list[Step]:
 # ---------------------------------------------------------------- staging
 
 
+def link_dir(link: Path, target: Path) -> None:
+    """Directory link: a symlink, or on Windows without the symlink privilege a junction (no admin
+    needed). Removing the staging tree removes the link, never the target."""
+    try:
+        link.symlink_to(target, target_is_directory=True)
+    except OSError:
+        if os.name != "nt":
+            raise
+        import _winapi
+        _winapi.CreateJunction(str(target.resolve()), str(link))
+
+
 def stage_tree(root: Path, stage: Path, online: bool, skip_extract: bool) -> None:
     """Mirror of the repo for the steps: a copy of the code (so paths.ROOT is `stage`), links to the
     read-only inputs and to the caches (runs/raw/, derived/census/), and empty output folders.
     tests/fixtures/ is left out on purpose: a step that falls back to fixture data fails instead."""
     shutil.copytree(PACKAGE, stage / "realrent", ignore=shutil.ignore_patterns("__pycache__"))
-    (stage / "data").symlink_to(root / "data", target_is_directory=True)
+    link_dir(stage / "data", root / "data")
     for cache in ("runs/raw", "derived/census"):
         src = root / cache
         if online:
             src.mkdir(parents=True, exist_ok=True)  # online calls must land in the repo's cache
         (stage / cache).parent.mkdir(parents=True, exist_ok=True)
         if src.is_dir():
-            (stage / cache).symlink_to(src, target_is_directory=True)
+            link_dir(stage / cache, src)
     (stage / "submission").mkdir()
     if skip_extract and (root / "submission" / "rules.json").exists():
         shutil.copyfile(root / "submission" / "rules.json", stage / "submission" / "rules.json")
