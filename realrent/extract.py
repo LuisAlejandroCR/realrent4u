@@ -45,6 +45,7 @@ RULE_SCHEMA = {
         "min_units": {"type": "integer"},
         "exempts_small_owner_occupied": {"type": "boolean"},
         "exemptions": {"type": "string"},
+        "penalty": {"type": "string"},
         "displaces_state_rule": {"type": "boolean"},
         "interaction": {"type": "string"},
         "conflict_note": {"type": "string"},
@@ -54,7 +55,7 @@ RULE_SCHEMA = {
         "jurisdiction", "level", "category", "status", "title", "requirement", "key_value",
         "citation", "quoted_span", "effective_date", "coverage_text", "built_cutoff_date",
         "built_cutoff_basis", "built_cutoff_direction", "min_units", "exempts_small_owner_occupied",
-        "exemptions", "displaces_state_rule", "interaction", "conflict_note", "confidence",
+        "exemptions", "penalty", "displaces_state_rule", "interaction", "conflict_note", "confidence",
     ],
     "additionalProperties": False,
 }
@@ -97,7 +98,8 @@ Rules:
    rule on the same topic (e.g. local rent control displacing a statewide cap); explain in
    interaction.
 9. requirement: one or two plain-language sentences. citation: the official cite (section, chapter,
-   ordinance or bill number). confidence: 0 to 1.
+   ordinance or bill number). penalty: the sanction or remedy for violating the rule (fines, damages,
+   rent refunds), "" if the document states none. confidence: 0 to 1.
 10. Use "" for any text field the document does not state."""
 
 
@@ -179,6 +181,7 @@ def to_rule_record(raw: dict, doc: corpus.Document, quote: str, rule_id: str) ->
         "key_value": _opt(raw["key_value"]),
         "coverage_conditions": coverage,
         "exemptions": _opt(raw["exemptions"]),
+        "penalty": _opt(raw.get("penalty", "")),
         "overrides": [],
         "interaction": _opt(raw["interaction"]),
         "effective_date": effective if effective and _DATE.match(effective) else None,

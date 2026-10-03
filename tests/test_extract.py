@@ -14,7 +14,8 @@ def raw_rule(**overrides):
         "key_value": "", "citation": "BMC ch. 13.63", "quoted_span": D001_QUOTE,
         "effective_date": "2026-03-01", "coverage_text": "", "built_cutoff_date": "",
         "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0,
-        "exempts_small_owner_occupied": False, "exemptions": "", "displaces_state_rule": False,
+        "exempts_small_owner_occupied": False, "exemptions": "", "penalty": "Civil penalty up to $1,000.",
+        "displaces_state_rule": False,
         "interaction": "", "conflict_note": "", "confidence": 0.8,
     }
     rule.update(overrides)
@@ -27,6 +28,7 @@ def test_valid_output_maps_to_official_schema():
     assert [r["team_rule_id"] for r in rules] == ["r-D001-01"]
     assert rules[0]["source_url"].startswith("https://berkeleyca.gov")
     assert rules[0]["exemptions"] is None and rules[0]["conflict_flag"] is False
+    assert rules[0]["penalty"] == "Civil penalty up to $1,000."
     assert validate.check_rules({"rules": rules}) == []
     assert log[0]["action"] == "kept"
 
