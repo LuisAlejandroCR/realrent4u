@@ -354,27 +354,66 @@ def _preempts(state_rule: dict) -> bool:
 # ---------------------------------------------------------------- explanation
 
 _PHRASE = {
-    "applies": "applies to this address",
-    "unknown": "may apply, but coverage cannot be determined",
-    "superseded": "is superseded here",
-    "not_yet_effective": "is enacted but not yet in effect",
-    "pending": "is a pending bill or proposal and is not law",
+    "en": {
+        "applies": "applies to this address",
+        "unknown": "may apply, but coverage cannot be determined",
+        "superseded": "is superseded here",
+        "not_yet_effective": "is enacted but not yet in effect",
+        "pending": "is a pending bill or proposal and is not law",
+    },
+    "es": {
+        "applies": "aplica a esta dirección",
+        "unknown": "podría aplicar, pero no se puede determinar si cubre esta dirección",
+        "superseded": "queda desplazada aquí por otra norma",
+        "not_yet_effective": "está aprobada pero aún no está vigente",
+        "pending": "es un proyecto de ley o propuesta pendiente y no es ley",
+    },
+}
+
+REASON_TEXT_ES = {
+    "missing_year_built": "el año de construcción no está en los datos",
+    "missing_units": "el número de unidades no está en los datos",
+    "cutoff_year_ambiguous": "el edificio es del año de corte y la fecha exacta (por ejemplo, "
+    "el certificado de ocupación) no está en los datos",
+    "cutoff_unparsed": "no se pudo leer la fecha de corte de construcción de la norma",
+    "small_owner_exemption_unresolved": "podría aplicar una exención para edificios pequeños "
+    "ocupados por su dueño y no hay datos de propiedad",
+    "unresolved_address": "no se pudo ubicar la dirección en una jurisdicción legal",
+    "effective_date_ambiguous": "la fecha de vigencia solo indica el mes o el año",
+    "not_yet_effective_no_date": "la ley está aprobada pero no indica su fecha de vigencia",
+    "unrecognized_status": "no se pudo leer el estado de la norma",
+    "bars_local_rent_control": "la ley estatal prohíbe el control de rentas local; no hay tope de renta",
+}
+
+_WORDS = {
+    "en": {"why": "Why", "as_of": "As of", "disclaimer": "Not legal advice.",
+           "effective": "effective", "flag": "Flagged for human review",
+           "flag_default": "state and local rules on this topic may conflict",
+           "sup": "the local rule {name} governs instead",
+           "maybe_sup": "the local rule {name} may govern instead"},
+    "es": {"why": "Motivo", "as_of": "A fecha de", "disclaimer": "No es asesoría legal.",
+           "effective": "vigente desde", "flag": "Marcado para revisión humana",
+           "flag_default": "las normas estatales y locales sobre este tema podrían entrar en conflicto",
+           "sup": "la norma local {name} rige en su lugar",
+           "maybe_sup": "la norma local {name} podría regir en su lugar"},
 }
 
 
-def reason_text(reason: str | None, rules_by_id: dict[str, dict] | None = None) -> str:
+def reason_text(reason: str | None, rules_by_id: dict[str, dict] | None = None,
+                lang: str = "en") -> str:
     if not reason:
         return ""
+    w = _WORDS[lang]
+    table = REASON_TEXT if lang == "en" else REASON_TEXT_ES
     parts = []
     for r in reason.split(","):
         if ":" in r:
             kind, rid = r.split(":", 1)
             other = (rules_by_id or {}).get(rid, {})
             name = other.get("citation") or other.get("title") or rid
-            parts.append(f"the local rule {name} governs instead" if kind == "superseded_by"
-                         else f"the local rule {name} may govern instead")
+            parts.append((w["sup"] if kind == "superseded_by" else w["maybe_sup"]).format(name=name))
         else:
-            parts.append(REASON_TEXT.get(r, r.replace("_", " ")))
+            parts.append(table.get(r, r.replace("_", " ")))
     return "; ".join(parts)
 
 
@@ -392,31 +431,47 @@ def is_rent_control_bar(rule: dict) -> bool:
     return "40p" in cit or bool(_BAR.search(text))
 
 
-def template_explanation(rule: dict, item: dict, as_of: str,
-                         rules_by_id: dict[str, dict] | None = None) -> str:
-    title = rule.get("title") or rule.get("team_rule_id")
+def _bar_explanation(rule: dict, item: dict, as_of: str, rules_by_id, lang: str) -> str:
     cit = rule.get("citation") or rule.get("source_doc_id") or "source"
-    if is_rent_control_bar(rule):
+    w = _WORDS[lang]
+    res = item["result"]
+    if lang == "es":
+        lead = {"applies": "La ley estatal prohíbe", "not_yet_effective": "La ley estatal prohibirá",
+                "pending": "La ley estatal prohibiría"}.get(res, "La ley estatal podría prohibir")
+        out = (f"{lead} a las ciudades imponer control de rentas. "
+               f"No es un tope de renta y no fija ningún límite a los aumentos de renta. "
+               f"Cita: {cit}")
+    else:
         verb = {"applies": "bars", "not_yet_effective": "will bar", "pending": "would bar"}.get(
-            item["result"], "may bar")
+            res, "may bar")
         out = (f"State law ({cit}) {verb} cities and towns from imposing rent control. "
                f"It is not a rent cap and sets no limit on rent increases")
-        if item["result"] not in {"applies", "not_yet_effective", "pending"}:
-            out += f" ({_PHRASE.get(item['result'], item['result'])})"
-        reason = item.get("reason") if item.get("reason") != "bars_local_rent_control" else None
-        if why := reason_text(reason, rules_by_id):
-            out += f". Why: {why}"
-        return out + f". As of {as_of}. Not legal advice."
-    out = f"{title} ({cit}) {_PHRASE.get(item['result'], item['result'])}"
+    if res not in {"applies", "not_yet_effective", "pending"}:
+        out += f" ({_PHRASE[lang].get(res, res)})"
+    reason = item.get("reason") if item.get("reason") != "bars_local_rent_control" else None
+    if why := reason_text(reason, rules_by_id, lang):
+        out += f". {w['why']}: {why}"
+    return out + f". {w['as_of']} {as_of}. {w['disclaimer']}"
+
+
+def template_explanation(rule: dict, item: dict, as_of: str,
+                         rules_by_id: dict[str, dict] | None = None, lang: str = "en") -> str:
+    lang = lang if lang in _WORDS else "en"
+    if is_rent_control_bar(rule):
+        return _bar_explanation(rule, item, as_of, rules_by_id, lang)
+    w = _WORDS[lang]
+    title = rule.get("title") or rule.get("team_rule_id")
+    cit = rule.get("citation") or rule.get("source_doc_id") or "source"
+    out = f"{title} ({cit}) {_PHRASE[lang].get(item['result'], item['result'])}"
     if item["result"] == "not_yet_effective" and rule.get("effective_date"):
-        out += f" (effective {rule['effective_date']})"
+        out += f" ({w['effective']} {rule['effective_date']})"
     out += "."
-    if why := reason_text(item.get("reason"), rules_by_id):
-        out += f" Why: {why}."
+    if why := reason_text(item.get("reason"), rules_by_id, lang):
+        out += f" {w['why']}: {why}."
     if item.get("conflict_flag"):
-        note = rule.get("conflict_note") or "state and local rules on this topic may conflict"
-        out += f" Flagged for human review: {note.rstrip('.')}."
-    return out + f" As of {as_of}. Not legal advice."
+        note = (rule.get("conflict_note") if lang == "en" else None) or w["flag_default"]
+        out += f" {w['flag']}: {note.rstrip('.')}."
+    return out + f" {w['as_of']} {as_of}. {w['disclaimer']}"
 
 
 try:  # W5's explainer, if present; any failure falls back to the template.
@@ -427,21 +482,30 @@ except Exception:  # pragma: no cover - depends on W5 being merged
 _EXPLAIN_CACHE: dict[tuple, str] = {}
 
 
-def explanation(rule: dict, item: dict, as_of: str, rules_by_id: dict[str, dict]) -> str:
-    """Memoized per (rule, result, reason, flag, date): explanations never depend on the address
-    beyond those, so even an LLM-backed explainer is called a bounded number of times."""
+def _call_explain(rule: dict, item: dict, as_of: str, lang: str) -> str:
+    try:
+        return _explain(rule, {**item, "as_of": as_of}, lang, as_of=as_of) or ""
+    except TypeError:  # an explain() without the as_of keyword
+        return _explain(rule, {**item, "as_of": as_of}, lang) or ""
+
+
+def explanation(rule: dict, item: dict, as_of: str, rules_by_id: dict[str, dict],
+                lang: str = "en") -> str:
+    """Memoized per (rule, result, reason, flag, date, lang): explanations never depend on the
+    address beyond those, so even an LLM-backed explainer is called a bounded number of times."""
     key = (rule.get("team_rule_id"), item["result"], item.get("reason"),
-           item.get("conflict_flag"), as_of, rule.get("title"), rule.get("citation"))
+           item.get("conflict_flag"), as_of, rule.get("title"), rule.get("citation"), lang)
     if key in _EXPLAIN_CACHE:
         return _EXPLAIN_CACHE[key]
+    base = {k: v for k, v in item.items() if not k.startswith("explanation")}
     text = ""
     if _explain is not None and not is_rent_control_bar(rule):
         try:
-            text = _explain(rule, {**item, "as_of": as_of}, "en") or ""
+            text = _call_explain(rule, base, as_of, lang)
         except Exception:
             text = ""
     if not text.strip():
-        text = template_explanation(rule, item, as_of, rules_by_id)
+        text = template_explanation(rule, base, as_of, rules_by_id, lang)
     _EXPLAIN_CACHE[key] = text
     return text
 
@@ -531,5 +595,6 @@ def evaluate(rules: list[dict], address_row: dict, jurisdiction: Jurisdiction | 
     items: list[LookupItem] = []
     for rule, item in found:
         item["explanation"] = explanation(rule, item, as_of, by_id)
+        item["explanation_es"] = explanation(rule, item, as_of, by_id, "es")
         items.append(item)  # type: ignore[arg-type]
     return items

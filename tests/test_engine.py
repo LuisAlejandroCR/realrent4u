@@ -22,6 +22,13 @@ def run(aid, as_of=DEFAULT, rules=None, row=None, jur="fixture"):
     return {i["team_rule_id"]: i for i in items}
 
 
+@pytest.fixture
+def template_only(monkeypatch):
+    """Force the engine's own template (W5's explainer, when merged, words things differently)."""
+    monkeypatch.setattr(engine, "_explain", None)
+    monkeypatch.setattr(engine, "_EXPLAIN_CACHE", {})
+
+
 def result(items, rid):
     return items[rid]["result"] if rid in items else None
 
@@ -38,7 +45,7 @@ def sf_row(year, units="21"):
 # ---- A5: precedence
 
 
-def test_sf_1926_ordinance_applies_and_state_cap_superseded():
+def test_sf_1926_ordinance_applies_and_state_cap_superseded(template_only):
     items = run("A0016")
     assert ROWS["A0016"]["year_built"] == "1926"
     assert result(items, "fx-sf-rent-ord") == "applies"
@@ -243,3 +250,38 @@ def test_lookups_build_covers_all_addresses():
     data = lookups.build(FX_RULES, FX_JUR, DEFAULT)
     assert data["as_of"] == DEFAULT
     assert set(data["lookups"]) == set(ROWS)
+
+
+# ---- Spanish view (explanation_es)
+
+
+@pytest.mark.parametrize("as_of", paths.DEMO_DATES)
+def test_every_item_has_spanish_explanation(as_of):
+    for aid in FX_JUR:
+        for item in engine.evaluate(FX_RULES, ROWS[aid], FX_JUR[aid], as_of):
+            es = item["explanation_es"]
+            assert es.endswith("No es asesoría legal.")
+            assert as_of in es
+            assert es != item["explanation"]
+
+
+def test_spanish_template_superseded_and_unknown(template_only):
+    items = run("A0016")
+    assert "S.F. Admin. Code ch. 37" in items["fx-ca-rent-cap"]["explanation_es"]
+    assert "rige en su lugar" in items["fx-ca-rent-cap"]["explanation_es"]
+    assert "año de construcción" in run("A0019")["fx-ca-rent-cap"]["explanation_es"]
+
+
+def test_spanish_rent_control_bar_is_not_a_cap():
+    es = run("A0006", rules=FX_RULES + [D048_LIKE])["t-d048-01"]["explanation_es"]
+    assert ("La ley estatal prohíbe a las ciudades imponer control de rentas. No es un tope de "
+            "renta y no fija ningún límite a los aumentos de renta.") in es
+    assert es.endswith("No es asesoría legal.")
+
+
+def test_spanish_field_passes_validator():
+    from realrent import validate
+
+    data = lookups.build(FX_RULES, FX_JUR, DEFAULT)
+    assert all("explanation_es" in i for items in data["lookups"].values() for i in items)
+    assert validate.check_lookups(data, {r["team_rule_id"] for r in FX_RULES}) == []
