@@ -1,0 +1,22 @@
+# pyproject.toml: Python pipeline for realrent4u (extract, resolve, apply, track).
+# Run tests with `uv run pytest`; validate outputs with `uv run python -m realrent.validate`.
+
+[project]
+name = "realrent"
+version = "0.1.0"
+description = "Rental Housing Law Navigator pipeline"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.69",
+    "jsonschema>=4.23",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
