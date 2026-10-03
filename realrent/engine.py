@@ -37,7 +37,13 @@ REASON_TEXT = {
     "not_yet_effective_no_date": "the law is enacted but its effective date is not stated",
     "unrecognized_status": "the rule status could not be read",
     "bars_local_rent_control": "state law forbids local rent control; there is no rent cap",
+    "effective_date_contradiction": "the sources give contradictory effective dates",
+    "source_discrepancy": "the sources disagree on a detail of this rule",
 }
+
+# Reason tokens that annotate a rule (from its extraction conflict_note) instead of explaining an
+# unknown/superseded result. They never change the result or set conflict_flag.
+NOTE_REASONS = ("effective_date_contradiction", "source_discrepancy")
 
 _WORD_NUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
              "eight": 8, "nine": 9, "ten": 10, "fifteen": 15, "twenty": 20, "thirty": 30}
@@ -142,10 +148,6 @@ def _jur_key(s) -> str:
     for name, code in STATE_NAMES.items():
         t = re.sub(rf"\b{name}\b", code.lower(), t)
     return t
-
-
-def _state_of(rule: dict) -> str:
-    return _jur_key(rule.get("jurisdiction")).rsplit(",", 1)[-1].strip()
 
 
 def _is_state_rule(rule: dict) -> bool:
@@ -346,9 +348,90 @@ def _displaces(local: dict, state_rule: dict) -> bool:
     return False
 
 
-def _preempts(state_rule: dict) -> bool:
-    text = _norm(state_rule.get("interaction")) + " " + _norm(state_rule.get("conflict_note"))
-    return "preempt" in text
+# Conflict signals are read per sentence. A state rule signals a conflict when one sentence of its
+# interaction or conflict note both names local law and says the state law preempts, bars or clashes
+# with it ("preempts local rent control"; "municipalities are prohibited from enacting ordinances
+# that conflict with this act"). A sentence saying the state rule yields to local law is precedence
+# (handled as superseded), not a conflict.
+_LOCAL_WORD = re.compile(r"\b(?:local|municipal\w*|cit(?:y|ies)|count(?:y|ies)|towns?|localit\w*|"
+                         r"ordinances?)\b")
+_PREEMPTS_LOCAL = re.compile(
+    r"pre-?empt|\b(?:conflict\w*|contradict\w*|inconsistent)\b|"
+    r"\b(?:prohibited|barred|precluded|forbidden) from (?:enacting|adopting|enforcing)\b|"
+    r"\b(?:may|shall|can) ?not\b[^.;]{0,30}\b(?:enact|adopt|enforce)")
+_YIELDS_TO_LOCAL = re.compile(r"\byield|\bdoes not apply|\bdo not apply|\bgoverns? instead|"
+                              r"\bdefers? to")
+# A local rule signals a conflict only through its conflict note, naming state law.
+_STATE_WORD = re.compile(r"\b(?:state\w*|statute|legislature|act|civil code|civ\. code)\b|"
+                         r"\b(?:p\.l\.|n\.j\.s\.a|m?\.?g\.l\.)")
+_CONTESTS_STATE = re.compile(r"pre-?empt|\b(?:conflict\w*|contradict\w*|inconsistent)\b")
+
+
+def _sentences(*texts) -> list[str]:
+    return [s for t in texts for s in re.split(r"(?<=[.;])\s+", _norm(t)) if s]
+
+
+def _state_signal(sentence: str) -> bool:
+    return bool(_PREEMPTS_LOCAL.search(sentence) and _LOCAL_WORD.search(sentence)
+                and not _YIELDS_TO_LOCAL.search(sentence))
+
+
+def _local_signal(sentence: str) -> bool:
+    return bool(_CONTESTS_STATE.search(sentence) and _STATE_WORD.search(sentence))
+
+
+def _preempts_local(state_rule: dict) -> bool:
+    """The state rule's interaction or conflict note says it preempts or bars local law."""
+    return any(_state_signal(s) for s in
+               _sentences(state_rule.get("interaction"), state_rule.get("conflict_note")))
+
+
+def _contests_state(local: dict) -> bool:
+    """The local rule's conflict note says state law may preempt or contradict it. Its interaction
+    is not read: a savings clause ("state law governs where they conflict") is not a conflict."""
+    return any(_local_signal(s) for s in _sentences(local.get("conflict_note")))
+
+
+# Results that count as a rule reaching the address for conflicts. Pending bills are not law and a
+# superseded state rule does not govern; neither can conflict.
+_REACHES = {"applies", "unknown", "not_yet_effective"}
+
+
+def _conflicts(state_rule: dict, local: dict) -> bool:
+    """A genuine state/local conflict: same topic, no local-over-state precedence between them
+    (that is resolved as superseded), and one of them signals preemption of or conflict with the
+    other. Both must reach the address; the caller checks that."""
+    if _norm(state_rule.get("category")) != _norm(local.get("category")):
+        return False
+    if _displaces(local, state_rule):
+        return False
+    return _preempts_local(state_rule) or _contests_state(local)
+
+
+_DATE_TOKEN = re.compile(r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d{1,2},? "
+                         r"\d{4}\b|\b\d{4}-\d{1,2}-\d{1,2}\b|\b\d{1,2}/\d{1,2}/\d{4}\b")
+_DATE_WORD = re.compile(r"\b(?:effective|operative|in effect|takes? effect|dated?|dates)\b")
+_CLASH = r"(?:conflict|differ|disagree|contradict|inconsistent)\w*"
+_DATE_CLASH = re.compile(rf"\bdates?\b[^.]{{0,60}}\b{_CLASH}|\b{_CLASH}\b[^.]{{0,60}}\bdates?\b|"
+                         r"\btwo (?:different |conflicting )?(?:effective )?dates\b")
+
+
+def rule_note_kind(rule: dict) -> str | None:
+    """What a rule-level conflict note from extraction is about, unless it is only a preemption
+    signal: 'effective_date_contradiction' (the sources give different dates, e.g. Berkeley
+    ch. 13.63 or the LA RSO bulletins) or 'source_discrepancy' (any other disagreement or caveat).
+    None when there is no such note. These notes describe the rule itself: they surface as a reason
+    token and a note in the explanation, and never set conflict_flag."""
+    note = _norm(rule.get("conflict_note"))
+    if not note and not _bool(rule.get("conflict_flag")):
+        return None
+    dates = {parse_period(m) for m in _DATE_TOKEN.findall(note)} - {None}
+    if _DATE_CLASH.search(note) or (len(dates) >= 2 and _DATE_WORD.search(note)):
+        return "effective_date_contradiction"
+    signal = _state_signal if _is_state_rule(rule) else _local_signal
+    if note and any(signal(s) for s in _sentences(note)):
+        return None  # a preemption note: it flags only where the other rule also reaches
+    return "source_discrepancy"
 
 
 # ---------------------------------------------------------------- explanation
@@ -383,17 +466,22 @@ REASON_TEXT_ES = {
     "not_yet_effective_no_date": "la ley está aprobada pero no indica su fecha de vigencia",
     "unrecognized_status": "no se pudo leer el estado de la norma",
     "bars_local_rent_control": "la ley estatal prohíbe el control de rentas local; no hay tope de renta",
+    "effective_date_contradiction": "las fuentes dan fechas de vigencia contradictorias",
+    "source_discrepancy": "las fuentes no coinciden en un dato de esta norma",
 }
 
 _WORDS = {
     "en": {"why": "Why", "as_of": "As of", "disclaimer": "Not legal advice.",
            "effective": "effective", "flag": "Flagged for human review",
-           "flag_default": "state and local rules on this topic may conflict",
+           "conflict": "may conflict with {names} (possible preemption; not resolved here)",
+           "note": "Note for review",
            "sup": "the local rule {name} governs instead",
            "maybe_sup": "the local rule {name} may govern instead"},
     "es": {"why": "Motivo", "as_of": "A fecha de", "disclaimer": "No es asesoría legal.",
            "effective": "vigente desde", "flag": "Marcado para revisión humana",
-           "flag_default": "las normas estatales y locales sobre este tema podrían entrar en conflicto",
+           "conflict": "podría entrar en conflicto con {names} (posible preempción; no se "
+                       "resuelve aquí)",
+           "note": "Nota para revisión",
            "sup": "la norma local {name} rige en su lugar",
            "maybe_sup": "la norma local {name} podría regir en su lugar"},
 }
@@ -468,10 +556,47 @@ def template_explanation(rule: dict, item: dict, as_of: str,
     out += "."
     if why := reason_text(item.get("reason"), rules_by_id, lang):
         out += f" {w['why']}: {why}."
-    if item.get("conflict_flag"):
-        note = (rule.get("conflict_note") if lang == "en" else None) or w["flag_default"]
-        out += f" {w['flag']}: {note.rstrip('.')}."
     return out + f" {w['as_of']} {as_of}. {w['disclaimer']}"
+
+
+def _rule_name(rule: dict | None, rid: str) -> str:
+    rule = rule or {}
+    return str(rule.get("citation") or rule.get("title") or rid)
+
+
+def review_notes(rule: dict, conflicts_with: tuple[str, ...] = (),
+                 rules_by_id: dict[str, dict] | None = None, lang: str = "en") -> list[str]:
+    """Sentences for human review: the rule's own extraction note (contradictory dates or another
+    discrepancy) and, when flagged, the co-occurring rules it may conflict with."""
+    w = _WORDS[lang]
+    out = []
+    if kind := rule_note_kind(rule):
+        text = (REASON_TEXT if lang == "en" else REASON_TEXT_ES)[kind]
+        detail = str(rule.get("conflict_note") or "").strip().rstrip(".")
+        if lang == "en" and detail:  # the extraction note is in English
+            text += f": {detail}"
+        out.append(f"{w['note']}: {text}.")
+    if conflicts_with:
+        names = "; ".join(dict.fromkeys(_rule_name((rules_by_id or {}).get(i), i)
+                                        for i in conflicts_with))
+        out.append(f"{w['flag']}: {w['conflict'].format(names=names)}.")
+    return out
+
+
+def _with_notes(text: str, notes: list[str], lang: str) -> str:
+    """Insert the review notes before the closing disclaimer."""
+    if not notes:
+        return text
+    disclaimer = _WORDS[lang]["disclaimer"]
+    body, extra = text.rstrip(), " ".join(notes)
+    if body.endswith(disclaimer):
+        return f"{body[:-len(disclaimer)].rstrip()} {extra} {disclaimer}"
+    return f"{body} {extra}"
+
+
+def _strip_notes(reason: str | None) -> str | None:
+    parts = [r for r in (reason or "").split(",") if r and r not in NOTE_REASONS]
+    return ",".join(parts) or None
 
 
 try:  # W5's explainer, if present; any failure falls back to the template.
@@ -490,14 +615,19 @@ def _call_explain(rule: dict, item: dict, as_of: str, lang: str) -> str:
 
 
 def explanation(rule: dict, item: dict, as_of: str, rules_by_id: dict[str, dict],
-                lang: str = "en") -> str:
-    """Memoized per (rule, result, reason, flag, date, lang): explanations never depend on the
-    address beyond those, so even an LLM-backed explainer is called a bounded number of times."""
+                lang: str = "en", conflicts_with: tuple[str, ...] = ()) -> str:
+    """Memoized per (rule, result, reason, flag, conflicting rules, date, lang): explanations never
+    depend on the address beyond those, so even an LLM-backed explainer is called a bounded number
+    of times. Note reasons (effective_date_contradiction, ...) are not coverage gaps: the explainer
+    gets the reason without them, and the notes are added as their own sentences."""
+    conflicts_with = tuple(sorted(conflicts_with))
     key = (rule.get("team_rule_id"), item["result"], item.get("reason"),
-           item.get("conflict_flag"), as_of, rule.get("title"), rule.get("citation"), lang)
+           item.get("conflict_flag"), conflicts_with, as_of, rule.get("title"),
+           rule.get("citation"), rule.get("conflict_note"), lang)
     if key in _EXPLAIN_CACHE:
         return _EXPLAIN_CACHE[key]
     base = {k: v for k, v in item.items() if not k.startswith("explanation")}
+    base["reason"] = _strip_notes(item.get("reason"))
     text = ""
     if _explain is not None and not is_rent_control_bar(rule):
         try:
@@ -506,6 +636,7 @@ def explanation(rule: dict, item: dict, as_of: str, rules_by_id: dict[str, dict]
             text = ""
     if not text.strip():
         text = template_explanation(rule, base, as_of, rules_by_id, lang)
+    text = _with_notes(text, review_notes(rule, conflicts_with, rules_by_id, lang), lang)
     _EXPLAIN_CACHE[key] = text
     return text
 
@@ -571,30 +702,32 @@ def evaluate(rules: list[dict], address_row: dict, jurisdiction: Jurisdiction | 
                 sitem["result"] = "unknown"
                 sitem["reason"] = f"possibly_superseded_by:{lrule['team_rule_id']}"
 
-    # Conflicts. A flagged city rule is always flagged. A flagged (or preempting) state rule is
-    # flagged where a same-category local rule is also present; if no city rule of that category
-    # exists anywhere in its state, the flag is about the rule itself and shows everywhere.
-    for srule, sitem in found:
+    # Conflicts: only between a state rule and a local rule that both reach this address (enacted,
+    # not superseded), on the same topic, with no precedence between them, where one signals
+    # preemption of or conflict with the other (e.g. the NJ FAIR Act vs the Hoboken and Jersey City
+    # bans). Both items are flagged. A rule-level conflict_flag/conflict_note never flags by itself.
+    live = [(r, it) for r, it in found if it["result"] in _REACHES]
+    conflicts: dict[str, list[str]] = {}
+    for srule, sitem in live:
         if not _is_state_rule(srule):
-            if _bool(srule.get("conflict_flag")):
-                sitem["conflict_flag"] = True
             continue
-        if not (_bool(srule.get("conflict_flag")) or _preempts(srule)):
-            continue
-        cat, st = _norm(srule.get("category")), _state_of(srule)
-        peers = [(lr, li) for lr, li in locals_ if _norm(lr.get("category")) == cat]
-        any_local = any(not _is_state_rule(r) and _norm(r.get("category")) == cat
-                        and _state_of(r) == st for r in rules)
-        if peers:
-            sitem["conflict_flag"] = True
-            for _, li in peers:
-                li["conflict_flag"] = True
-        elif not any_local and _bool(srule.get("conflict_flag")):
-            sitem["conflict_flag"] = True
+        for lrule, litem in live:
+            if _is_state_rule(lrule) or not _conflicts(srule, lrule):
+                continue
+            sitem["conflict_flag"] = litem["conflict_flag"] = True
+            conflicts.setdefault(srule["team_rule_id"], []).append(lrule["team_rule_id"])
+            conflicts.setdefault(lrule["team_rule_id"], []).append(srule["team_rule_id"])
 
     items: list[LookupItem] = []
     for rule, item in found:
-        item["explanation"] = explanation(rule, item, as_of, by_id)
-        item["explanation_es"] = explanation(rule, item, as_of, by_id, "es")
+        # The rule's own extraction note (contradictory dates, other discrepancy) is surfaced as a
+        # reason token. The rent-control bar keeps its exact reason: Module C keys on it (T5).
+        kind = rule_note_kind(rule)
+        if kind and item["reason"] != "bars_local_rent_control":
+            item["reason"] = ",".join(dict.fromkeys(
+                [r for r in (item["reason"] or "").split(",") if r] + [kind]))
+        others = tuple(conflicts.get(rule["team_rule_id"], ()))
+        item["explanation"] = explanation(rule, item, as_of, by_id, conflicts_with=others)
+        item["explanation_es"] = explanation(rule, item, as_of, by_id, "es", conflicts_with=others)
         items.append(item)  # type: ignore[arg-type]
     return items
