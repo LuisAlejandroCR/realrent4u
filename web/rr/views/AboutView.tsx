@@ -38,10 +38,13 @@ export function MethodBody({ data: { manifest } }: { data: Dataset }) {
           <h2 className="rr-h2">{tr.dates}</h2>
           <p>
             {manifest.demo_dates.map((d) => (
-              <span key={d} className="rr-chip">{d}{d === manifest.default_as_of ? " ★" : ""}</span>
+              <span key={d} className="rr-chip">
+                {d}
+                {d === manifest.default_as_of && <> <span aria-hidden>★</span><span className="rr-sr">{tr.defaultDate}</span></>}
+              </span>
             ))}
           </p>
-          <p className="rr-muted">lookup_dates: {manifest.lookup_dates.length ? manifest.lookup_dates.join(", ") : tr.none}</p>
+          <p className="rr-muted">{tr.lookupDates}: {manifest.lookup_dates.length ? manifest.lookup_dates.join(", ") : tr.none}</p>
 
           <h2 className="rr-h2">{tr.warnings}</h2>
           {manifest.warnings.length ? (

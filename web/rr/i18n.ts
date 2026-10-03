@@ -280,6 +280,9 @@ const en = {
   viaCensus: (match: string) => `Resolved with the U.S. Census Geocoder${match ? ` (${match} match)` : ""}`,
   skipToContent: "Skip to content",
   primaryNav: "Primary",
+  pipelineNotes: "Pipeline notes (from changes.json)",
+  lookupDates: "Dates with precomputed lookups",
+  defaultDate: "(default date)",
 };
 
 const es: typeof en = {
@@ -549,6 +552,9 @@ const es: typeof en = {
   viaCensus: (match: string) => `Resuelta con el geocodificador del Censo de EE. UU.${match ? ` (coincidencia ${match === "exact" ? "exacta" : match})` : ""}`,
   skipToContent: "Saltar al contenido",
   primaryNav: "Principal",
+  pipelineNotes: "Notas del pipeline (de changes.json)",
+  lookupDates: "Fechas con consultas precalculadas",
+  defaultDate: "(fecha predeterminada)",
 };
 
 export const dict = { en, es };
