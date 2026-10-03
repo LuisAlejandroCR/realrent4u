@@ -3,7 +3,7 @@
 "use client";
 
 import { useApp } from "@/components/Providers";
-import { ResultBadge } from "@/components/RuleCard";
+import { StatusPill } from "@/components/Result";
 import { dictionaries, resultDescriptions } from "@/lib/i18n";
 
 export default function AboutPage() {
@@ -12,9 +12,13 @@ export default function AboutPage() {
   const m = data.manifest;
 
   return (
-    <div>
-      <h1>{t("aboutTitle")}</h1>
-      <p className="callout callout-warn">
+    <div className="column">
+      <p className="eyebrow">{t("appName")}</p>
+      <h1>
+        {t("aboutTitleBefore")}
+        <em className="accent">{t("aboutTitleAccent")}</em>
+      </h1>
+      <p className="notice notice-warn">
         <strong>{t("notLegalAdviceLong")}</strong>
       </p>
 
@@ -32,7 +36,7 @@ export default function AboutPage() {
         <ul className="legend-list">
           {Object.keys(resultDescriptions[lang]).map((r) => (
             <li key={r}>
-              <ResultBadge result={r} /> {resultDescriptions[lang][r]}
+              <StatusPill result={r} /> <span className="small">{resultDescriptions[lang][r]}</span>
             </li>
           ))}
         </ul>
@@ -40,34 +44,39 @@ export default function AboutPage() {
 
       <section className="card" data-testid="audit">
         <h2>
-          {t("dataSources")} {m.uses_fixtures && <span className="badge badge-fixture inline">{t("fixtureBadge")}</span>}
+          {t("dataSources")} {m.uses_fixtures && <span className="fixture-badge inline">{t("fixtureBadge")}</span>}
         </h2>
         <p className="muted small">{t("noServer")}</p>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>{t("file")}</th>
-              <th>{t("kind")}</th>
-              <th>{t("path")}</th>
-              <th>{t("count")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(m.sources).map(([name, s]) => (
-              <tr key={name}>
-                <td>{name}</td>
-                <td>
-                  <span className={`badge kind-${s.kind}`}>{s.kind}</span>
-                </td>
-                <td>
-                  <code>{s.files ? s.files.map((f) => f.path).join(", ") || "—" : s.path ?? "—"}</code>
-                </td>
-                <td>{s.files ? s.files.reduce((n, f) => n + f.items, 0) : s.count ?? "—"}</td>
+        <div className="table-wrap">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>{t("file")}</th>
+                <th>{t("kind")}</th>
+                <th>{t("path")}</th>
+                <th>{t("count")}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <dl className="facts">
+            </thead>
+            <tbody>
+              {Object.entries(m.sources).map(([name, s]) => (
+                <tr key={name}>
+                  <td>{name}</td>
+                  <td>
+                    <span className={`kind kind-${s.kind}`}>
+                      <span className="dot" aria-hidden="true" />
+                      {s.kind}
+                    </span>
+                  </td>
+                  <td>
+                    <code>{s.files ? s.files.map((f) => f.path).join(", ") || "—" : s.path ?? "—"}</code>
+                  </td>
+                  <td>{s.files ? s.files.reduce((n, f) => n + f.items, 0) : s.count ?? "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <dl className="kv">
           <dt>{t("lookupDates")}</dt>
           <dd>{m.lookup_dates.length ? m.lookup_dates.join(", ") : t("none")}</dd>
           <dt>{t("builtAt")}</dt>

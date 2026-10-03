@@ -1,95 +1,108 @@
-// page.tsx (changes): the five organizer change tests T1–T5 with our affected and conflict-flagged
-// addresses and notes from submission/changes.json. Expected behaviour is the organizer's text.
+// page.tsx (changes): the five organizer change tests T1–T5, one section and one address table per test,
+// with affected and conflict-flagged addresses and notes from submission/changes.json.
 "use client";
 
 import Link from "next/link";
 import { useApp } from "@/components/Providers";
+import { ConflictPill } from "@/components/Result";
 import type { Address } from "@/lib/types";
 
-const MAX_CHIPS = 60;
-
-function AddressChips({ ids, byId }: { ids: string[]; byId: Record<string, Address> }) {
-  const { t } = useApp();
-  if (!ids.length) return <span className="muted">{t("none")}</span>;
-  return (
-    <div className="chips">
-      {ids.slice(0, MAX_CHIPS).map((id) => {
-        const a = byId[id];
-        return (
-          <Link key={id} href={`/#${id}`} className="chip" title={a ? `${a.street_address}, ${a.postal_city}, ${a.state}` : id}>
-            {id}
-            {a ? <span className="chip-city"> · {a.postal_city}</span> : null}
-          </Link>
-        );
-      })}
-      {ids.length > MAX_CHIPS && <span className="muted small">+{ids.length - MAX_CHIPS}</span>}
-    </div>
-  );
-}
+const MAX_ROWS = 40;
 
 export default function ChangesPage() {
   const { t, data } = useApp();
   if (!data) return null;
-  const byId = Object.fromEntries(data.addresses.map((a) => [a.address_id, a]));
+  const byId: Record<string, Address> = Object.fromEntries(data.addresses.map((a) => [a.address_id, a]));
   const hasResults = Object.keys(data.changes).length > 0;
 
   return (
-    <div>
-      <h1>{t("changesTitle")}</h1>
-      <p className="muted">{t("changesIntro")}</p>
+    <div className="dense">
+      <p className="eyebrow">T1–T5</p>
+      <h1>
+        {t("changesTitleBefore")}
+        <em className="accent">{t("changesTitleAccent")}</em>
+      </h1>
+      <p className="lead">{t("changesIntro")}</p>
       {!hasResults && (
-        <p className="callout callout-warn" data-testid="no-changes">
+        <p className="notice notice-warn" data-testid="no-changes">
           {t("noChangesYet")}
         </p>
       )}
       {data.changeTests.map((ct) => {
         const res = data.changes[ct.test_id];
         const affected = res?.affected_address_ids ?? [];
-        const flagged = res?.conflict_flag_address_ids ?? [];
+        const flagged = new Set(res?.conflict_flag_address_ids ?? []);
+        const ids = [...new Set([...affected, ...flagged])];
         return (
-          <article key={ct.test_id} className="card change" data-testid="change-card">
-            <div className="rule-head">
+          <section key={ct.test_id} className="card change" data-testid="change-card">
+            <div className="change-head">
               <h2>
                 <span className="test-id">{ct.test_id}</span> {ct.title}
               </h2>
-              <span className="badge">{ct.type}</span>
+              <span className="tag">{ct.type}</span>
             </div>
-            <dl className="facts">
+            <dl className="kv">
               <dt>{t("dates")}</dt>
-              <dd>
-                {ct.as_of_before ? `${ct.as_of_before} (${t("before")}) → ${ct.as_of_after} (${t("after")})` : ct.as_of ?? "—"}
-              </dd>
+              <dd>{ct.as_of_before ? `${ct.as_of_before} (${t("before")}) → ${ct.as_of_after} (${t("after")})` : ct.as_of ?? "—"}</dd>
               <dt>{t("ruleIds")}</dt>
               <dd>
                 {ct.rule_ids.map((r) => (
-                  <code key={r} className="tag">
+                  <code key={r} className="cite">
                     {r}
                   </code>
                 ))}
-                {ct.conflict_with?.length ? <span className="muted small"> ⚑ {ct.conflict_with.join(", ")}</span> : null}
+                {ct.conflict_with?.length ? <span className="muted small"> · ⚑ {ct.conflict_with.join(", ")}</span> : null}
               </dd>
               <dt>{t("expected")}</dt>
               <dd lang="en">{ct.expected_behavior}</dd>
             </dl>
             {res && (
-              <div className="change-results">
-                <h3>
-                  {t("affected")} <span className="count">{affected.length}</span>
-                  {affected.length === 0 && <span className="badge">{t("emptySetOk")}</span>}
-                </h3>
-                <AddressChips ids={affected} byId={byId} />
-                <h3>
-                  {t("conflictFlagged")} <span className="count">{flagged.length}</span>
-                </h3>
-                <AddressChips ids={flagged} byId={byId} />
+              <>
+                <p className="counts">
+                  <span className="count">{affected.length}</span> {t("affected")} · <span className="count">{flagged.size}</span> {t("conflictFlagged")}
+                </p>
+                {ids.length === 0 ? (
+                  <p className="muted small">{t("emptySetOk")}</p>
+                ) : (
+                  <div className="table-wrap">
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>{t("street")}</th>
+                          <th>{t("postalCity")}</th>
+                          <th>{t("flag")}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {ids.slice(0, MAX_ROWS).map((id) => {
+                          const a = byId[id];
+                          return (
+                            <tr key={id}>
+                              <td>
+                                <Link href={`/#${id}`}>
+                                  <code>{id}</code>
+                                </Link>
+                              </td>
+                              <td>{a?.street_address ?? "—"}</td>
+                              <td>{a ? `${a.postal_city}, ${a.state}` : "—"}</td>
+                              <td>{flagged.has(id) ? <ConflictPill /> : null}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                    {ids.length > MAX_ROWS && <p className="muted small">+{ids.length - MAX_ROWS}</p>}
+                  </div>
+                )}
                 {res.notes && (
-                  <p>
-                    <span className="label">{t("notes")}:</span> {res.notes}
+                  <p className="small">
+                    <strong>{t("notes")}:</strong> {res.notes}
                   </p>
                 )}
-              </div>
+              </>
             )}
-          </article>
+          </section>
         );
       })}
     </div>

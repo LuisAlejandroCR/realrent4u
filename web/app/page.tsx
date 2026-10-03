@@ -1,35 +1,59 @@
-// page.tsx: address lookup — search the ~500 sample addresses, show the legal jurisdiction and the
-// rules with their result for the selected as-of date. The selected address lives in the URL hash.
+// page.tsx: landing + address lookup — hero with search over the ~500 sample addresses and date pills, then
+// the address plate and results grouped by category. The selected address lives in the URL hash (#A0016).
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useApp } from "@/components/Providers";
-import { ResultBadge, RuleCard } from "@/components/RuleCard";
-import { resultDescriptions, resultLabels } from "@/lib/i18n";
-import type { Address, LookupItem } from "@/lib/types";
+import { AddressPlate } from "@/components/AddressPlate";
+import { ResultRow, StatusPill } from "@/components/Result";
+import { CATEGORY_ORDER, categoryLabels, dictionaries, formatDate, resultDescriptions } from "@/lib/i18n";
+import type { Address, LookupItem, Rule } from "@/lib/types";
 
-const RESULT_ORDER = ["applies", "unknown", "superseded", "not_yet_effective", "pending"];
-const DEFAULT_ID = "A0016";
-const MAX_RESULTS = 12;
+const RESULT_ORDER = ["applies", "unknown", "not_yet_effective", "pending", "superseded"];
+const MAX_RESULTS = 10;
+const FALLBACK_DATES = ["2025-12-31", "2026-01-02", "2026-10-01", "2027-07-02"];
+
+interface Entry {
+  id: string;
+  rule?: Rule;
+  item?: LookupItem;
+  nested: Entry[];
+}
+
+function groupByCategory(entries: Entry[]): [string, Entry[]][] {
+  const groups: Record<string, Entry[]> = {};
+  for (const e of entries) (groups[e.rule?.category ?? "other"] ??= []).push(e);
+  const order = [...CATEGORY_ORDER, ...Object.keys(groups).filter((c) => !CATEGORY_ORDER.includes(c))];
+  return order.filter((c) => groups[c]).map((c) => [c, groups[c]]);
+}
 
 export default function LookupPage() {
-  const { t, data, asOf, lookups, lang } = useApp();
+  const { t, data, asOf, setAsOf, lookups, lang } = useApp();
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const fromHash = () => {
-      const h = decodeURIComponent(window.location.hash.slice(1)).toUpperCase();
-      if (h) setSelectedId(h);
-    };
+    const fromHash = () => setSelectedId(decodeURIComponent(window.location.hash.slice(1)).toUpperCase() || null);
     fromHash();
     window.addEventListener("hashchange", fromHash);
-    return () => window.removeEventListener("hashchange", fromHash);
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (e.key === "/" && tag !== "INPUT" && tag !== "TEXTAREA" && tag !== "SELECT") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("hashchange", fromHash);
+      window.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   const addresses = data?.addresses ?? [];
   const byId = useMemo(() => Object.fromEntries(addresses.map((a) => [a.address_id, a])), [addresses]);
-  const selected: Address | undefined = byId[selectedId ?? ""] ?? byId[DEFAULT_ID] ?? addresses[0];
+  const selected: Address | undefined = selectedId ? byId[selectedId] : undefined;
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -45,157 +69,165 @@ export default function LookupPage() {
     setSelectedId(id);
     setQuery("");
     history.replaceState(null, "", `#${id}`);
+    requestAnimationFrame(() => document.getElementById("results")?.scrollIntoView({ block: "start" }));
   };
 
   if (!data) return null;
+  const dates = data.manifest.demo_dates?.length ? data.manifest.demo_dates : FALLBACK_DATES;
   const lookupFile = lookups(asOf);
   const juris = selected ? data.jurisdictions[selected.address_id] : undefined;
   const items: LookupItem[] | undefined = selected && lookupFile ? lookupFile.lookups[selected.address_id] : undefined;
-  const sorted = items ? [...items].sort((a, b) => RESULT_ORDER.indexOf(a.result) - RESULT_ORDER.indexOf(b.result)) : undefined;
 
-  // Without lookups, list (not evaluate) the rules on file for the address's state and city.
-  const candidates = selected
-    ? data.rules.filter(
-        (r) => r.status !== "failed" && (r.jurisdiction === selected.state || (juris?.jurisdiction && r.jurisdiction === juris.jurisdiction)),
-      )
+  // Evaluated entries: superseded rules nest under the rule that displaces them, when it is present.
+  let entries: Entry[] = [];
+  if (items) {
+    const all: Entry[] = [...items]
+      .sort((a, b) => RESULT_ORDER.indexOf(a.result) - RESULT_ORDER.indexOf(b.result))
+      .map((it) => ({ id: it.team_rule_id, item: it, rule: data.rulesById[it.team_rule_id], nested: [] }));
+    for (const e of all) {
+      if (e.item?.result !== "superseded") continue;
+      const host = all.find((h) => h !== e && h.item?.result !== "superseded" && h.rule?.overrides?.includes(e.id));
+      if (host) host.nested.push(e);
+    }
+    const nestedIds = new Set(all.flatMap((h) => h.nested.map((n) => n.id)));
+    entries = all.filter((e) => !nestedIds.has(e.id));
+  }
+  // Without lookups: list (not evaluate) the rules on file for the address's state and city.
+  const candidates: Entry[] = selected
+    ? data.rules
+        .filter((r) => r.status !== "failed" && (r.jurisdiction === selected.state || (!!juris?.jurisdiction && r.jurisdiction === juris.jurisdiction)))
+        .map((r) => ({ id: r.team_rule_id, rule: r, nested: [] }))
     : [];
 
-  return (
-    <div className="lookup">
-      <section className="card search">
-        <label htmlFor="q" className="label">
-          {t("searchLabel")}
-        </label>
-        <input
-          id="q"
-          type="search"
-          value={query}
-          autoComplete="off"
-          placeholder={t("searchPlaceholder")}
-          onChange={(e) => setQuery(e.target.value)}
-          data-testid="search"
-        />
-        {query.trim() && (
-          <ul className="matches" role="listbox">
-            {matches.length === 0 && <li className="muted">{t("noMatches")}</li>}
-            {matches.slice(0, MAX_RESULTS).map((a) => (
-              <li key={a.address_id}>
-                <button type="button" onClick={() => choose(a.address_id)}>
-                  <code>{a.address_id}</code> {a.street_address}, {a.postal_city}, {a.state} {a.zip}
-                </button>
-              </li>
-            ))}
-            {matches.length > MAX_RESULTS && (
-              <li className="muted small">
-                +{matches.length - MAX_RESULTS} {t("moreMatches")}
-              </li>
+  const renderGroups = (list: Entry[]) => {
+    let i = 0;
+    return groupByCategory(list).map(([cat, es]) => (
+      <section key={cat} className="cat-group">
+        <h3 className="eyebrow">{categoryLabels[lang][cat] ?? cat.replaceAll("_", " ")}</h3>
+        {es.map((e) => (
+          <ResultRow key={e.id} ruleId={e.id} rule={e.rule} item={e.item} index={i++}>
+            {e.nested.length > 0 && (
+              <details className="displaced">
+                <summary>
+                  {t("displacedRules")} ({e.nested.length})
+                </summary>
+                {e.nested.map((n) => (
+                  <ResultRow key={n.id} ruleId={n.id} rule={n.rule} item={n.item} />
+                ))}
+              </details>
             )}
+          </ResultRow>
+        ))}
+      </section>
+    ));
+  };
+
+  return (
+    <div>
+      <section className="hero">
+        <div className="hero-main">
+          <p className="eyebrow">{t("eyebrow")}</p>
+          <h1>
+            {t("heroBefore")}
+            <em className="accent">{t("heroAccent")}</em>
+            {t("heroAfter")}
+          </h1>
+          <p className="lead">{t("heroLead")}</p>
+          <label htmlFor="q" className="sr-only">
+            {t("searchLabel")}
+          </label>
+          <div className="search">
+            <input
+              id="q"
+              ref={searchRef}
+              type="search"
+              value={query}
+              autoComplete="off"
+              placeholder={t("searchPlaceholder")}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && matches[0]) choose(matches[0].address_id);
+              }}
+              data-testid="search"
+            />
+            {query.trim() && (
+              <ul className="matches" role="listbox">
+                {matches.length === 0 && <li className="muted pad">{t("noMatches")}</li>}
+                {matches.slice(0, MAX_RESULTS).map((a) => (
+                  <li key={a.address_id}>
+                    <button type="button" onClick={() => choose(a.address_id)}>
+                      <code>{a.address_id}</code>
+                      <span>
+                        {a.street_address}, {a.postal_city}, {a.state} {a.zip}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+                {matches.length > MAX_RESULTS && (
+                  <li className="muted small pad">
+                    +{matches.length - MAX_RESULTS} {t("moreMatches")}
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
+          <p className="small muted">{t("searchKeys")}</p>
+          <div className="date-pills" role="group" aria-label={t("asOfDate")}>
+            <span className="eyebrow">{t("asOfDate")}</span>
+            {dates.map((d) => (
+              <button
+                key={d}
+                type="button"
+                className={d === asOf ? "pill on" : "pill"}
+                aria-pressed={d === asOf}
+                onClick={() => setAsOf(d)}
+                data-testid="date-pill"
+                title={data.manifest.lookup_dates.includes(d) ? undefined : t("noDataShort")}
+              >
+                {formatDate(d, lang)}
+                {!data.manifest.lookup_dates.includes(d) && <span className="pill-note"> · {t("noDataShort")}</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+        <aside className="card carries">
+          <h2>{t("carriesTitle")}</h2>
+          <ul>
+            {dictionaries[lang].carries.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
           </ul>
-        )}
+          <div className="legend">
+            {["applies", "unknown", "superseded", "not_yet_effective", "pending"].map((r) => (
+              <div key={r} title={resultDescriptions[lang][r]}>
+                <StatusPill result={r} />
+              </div>
+            ))}
+          </div>
+        </aside>
       </section>
 
-      {!selected ? (
-        <p className="muted">{t("pickAddress")}</p>
-      ) : (
-        <>
-          <section className="grid2">
-            <div className="card">
-              <h2>
-                {t("address")} <code>{selected.address_id}</code>
-              </h2>
-              <p className="street">{selected.street_address}</p>
-              <dl className="facts">
-                <dt>{t("postalCity")}</dt>
-                <dd>
-                  {selected.postal_city}, {selected.state}
-                </dd>
-                <dt>{t("zip")}</dt>
-                <dd>{selected.zip || <em className="missing">{t("missing")}</em>}</dd>
-                <dt>{t("yearBuilt")}</dt>
-                <dd>{selected.year_built || <em className="missing">{t("missing")}</em>}</dd>
-                <dt>{t("units")}</dt>
-                <dd>{selected.units || <em className="missing">{t("missing")}</em>}</dd>
-                <dt>{t("use")}</dt>
-                <dd>{selected.use_description || selected.use_code || "—"}</dd>
-              </dl>
-              <p className="muted small">
-                {selected.source_dataset} · {t("retrieved")} {selected.retrieved_at.replace("T", " ")}
+      {selected && (
+        <section id="results" className="address-view">
+          <AddressPlate address={selected} juris={juris} />
+          <h2 className="section-title">
+            {t("rulesAt")} <span className="muted">· {t("asOf")} {formatDate(asOf, lang)}</span>
+          </h2>
+          {lookupFile === undefined ? (
+            <p className="muted">{t("loading")}</p>
+          ) : lookupFile === null ? (
+            <>
+              <p className="notice notice-warn" data-testid="no-lookups">
+                <strong>{t("noLookupData")}</strong> {t("noLookupDataHint")}
               </p>
-            </div>
-            <div className="card">
-              <h2>{t("legalJurisdiction")}</h2>
-              {juris ? (
-                <>
-                  <p className="juris" data-testid="jurisdiction">
-                    {juris.jurisdiction ?? juris.state}
-                  </p>
-                  {!juris.jurisdiction && <p className="muted small">{t("outsideScope")}</p>}
-                  <dl className="facts">
-                    <dt>{t("place")}</dt>
-                    <dd>{juris.place ?? "—"}</dd>
-                    <dt>{t("county")}</dt>
-                    <dd>{juris.county ?? "—"}</dd>
-                    <dt>{t("postalCity")}</dt>
-                    <dd>{selected.postal_city}</dd>
-                    <dt>{t("match")}</dt>
-                    <dd>
-                      <span className={`badge match-${juris.match}`}>
-                        {juris.match === "exact" ? t("matchExact") : juris.match === "fallback" ? t("matchFallback") : t("matchNone")}
-                      </span>
-                    </dd>
-                    <dt>{t("resolvedBy")}</dt>
-                    <dd>
-                      {juris.source}
-                      {juris.source === "fixture" && <span className="badge badge-fixture inline">{t("fixtureBadge")}</span>}
-                    </dd>
-                  </dl>
-                </>
-              ) : (
-                <>
-                  <p className="juris muted">{selected.state}</p>
-                  <p className="callout">{t("notResolved")}</p>
-                </>
-              )}
-            </div>
-          </section>
-
-          <section>
-            <h2 className="section-title">
-              {t("rulesAt")} · {t("asOf")} {asOf}
-            </h2>
-            {lookupFile === undefined ? (
-              <p className="muted">{t("loading")}</p>
-            ) : lookupFile === null ? (
-              <>
-                <p className="callout callout-warn" data-testid="no-lookups">
-                  <strong>{t("noLookupData")}</strong> {t("noLookupDataHint")}
-                </p>
-                <h3 className="subsection">{t("candidateRules")}</h3>
-                {candidates.length === 0 ? (
-                  <p className="muted">{t("noCandidateRules")}</p>
-                ) : (
-                  candidates.map((r) => <RuleCard key={r.team_rule_id} ruleId={r.team_rule_id} rule={r} />)
-                )}
-              </>
-            ) : !sorted || sorted.length === 0 ? (
-              <p className="callout">{t("noRulesApply")}</p>
-            ) : (
-              sorted.map((it) => <RuleCard key={it.team_rule_id} ruleId={it.team_rule_id} rule={data.rulesById[it.team_rule_id]} item={it} />)
-            )}
-          </section>
-
-          <section className="legend card">
-            <h3>{t("resultLegend")}</h3>
-            <ul>
-              {RESULT_ORDER.map((r) => (
-                <li key={r}>
-                  <ResultBadge result={r} /> <span className="small">{resultDescriptions[lang][r]}</span>
-                  <span className="sr-only">{resultLabels[lang][r]}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </>
+              {candidates.length === 0 ? <p className="muted">{t("noCandidateRules")}</p> : renderGroups(candidates)}
+            </>
+          ) : entries.length === 0 ? (
+            <p className="notice">{t("noRulesApply")}</p>
+          ) : (
+            renderGroups(entries)
+          )}
+        </section>
       )}
     </div>
   );
