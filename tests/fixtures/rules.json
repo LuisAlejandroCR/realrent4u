@@ -1,0 +1,126 @@
+{
+  "_note": "TEST FIXTURE ONLY. Hand-written to unblock engine, changes and web work before extraction runs. Never copy into submission/.",
+  "rules": [
+    {
+      "team_rule_id": "fx-ca-rent-cap",
+      "jurisdiction": "CA", "level": "state", "category": "rent_increase_limits", "status": "in_force",
+      "title": "Statewide rent cap (Tenant Protection Act)",
+      "requirement": "Annual rent increases are capped at 5% plus CPI, up to 10%.",
+      "key_value": "lesser of 5% + CPI or 10%",
+      "coverage_conditions": {"text": "Buildings older than 15 years", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": true, "displaces_state_rule": false},
+      "exemptions": "Owner-occupied duplexes; buildings issued a certificate of occupancy in the last 15 years",
+      "penalty": null, "overrides": [], "interaction": "Yields to stricter local rent control.",
+      "effective_date": "2020-01-01", "citation": "Cal. Civ. Code § 1947.12", "source_doc_id": "D024",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1947.12",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-sf-rent-ord",
+      "jurisdiction": "San Francisco, CA", "level": "city", "category": "rent_increase_limits", "status": "in_force",
+      "title": "San Francisco Rent Ordinance annual increase",
+      "requirement": "Covered units may raise rent once a year by the Rent Board's allowable percentage.",
+      "key_value": "1.4% (3/1/26 - 2/28/27)",
+      "coverage_conditions": {"text": "Units with a certificate of occupancy on or before 1979-06-13", "built_cutoff_date": "1979-06-13", "built_cutoff_basis": "certificate_of_occupancy", "built_cutoff_direction": "on_or_before", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": true},
+      "exemptions": null, "penalty": null, "overrides": ["fx-ca-rent-cap"], "interaction": "Governs instead of Cal. Civ. Code § 1947.12.",
+      "effective_date": "2026-03-01", "citation": "S.F. Admin. Code ch. 37", "source_doc_id": "D080",
+      "source_url": "https://www.sf.gov/news/annual-rent-increase",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-ca-alg",
+      "jurisdiction": "CA", "level": "state", "category": "algorithmic_rent_setting", "status": "in_force",
+      "title": "AB 325 / SB 763 common pricing algorithms",
+      "requirement": "Using or distributing a common pricing algorithm to coordinate rents is a Cartwright Act violation.",
+      "key_value": null,
+      "coverage_conditions": {"text": "Statewide", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": "Cartwright Act civil and criminal penalties", "overrides": [], "interaction": null,
+      "effective_date": "2026-01-01", "citation": "AB 325 (2025)", "source_doc_id": "D022",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB325",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-hob-alg",
+      "jurisdiction": "Hoboken, NJ", "level": "city", "category": "algorithmic_rent_setting", "status": "in_force",
+      "title": "Hoboken algorithmic rent-setting ban",
+      "requirement": "Landlords may not use algorithmic software to set rents in Hoboken.",
+      "key_value": null,
+      "coverage_conditions": {"text": "Residential rentals in Hoboken", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": null, "overrides": [], "interaction": null,
+      "effective_date": null, "citation": "Hoboken Code ch. 155", "source_doc_id": "D032",
+      "source_url": "https://ecode360.com/15252438",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.7, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-jc-alg",
+      "jurisdiction": "Jersey City, NJ", "level": "city", "category": "algorithmic_rent_setting", "status": "in_force",
+      "title": "Jersey City algorithmic rent-setting ban",
+      "requirement": "Landlords may not use algorithmic software to set rents in Jersey City.",
+      "key_value": null,
+      "coverage_conditions": {"text": "Residential rentals in Jersey City", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": null, "overrides": [], "interaction": null,
+      "effective_date": null, "citation": "Jersey City Ord. (2025)", "source_doc_id": "D035",
+      "source_url": "https://hudsoncountyview.com/jersey-city-council-approves-realpage-ban-and-increasing-benefits-for-laborers/",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.7, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-nj-fair",
+      "jurisdiction": "NJ", "level": "state", "category": "algorithmic_rent_setting", "status": "not_yet_effective",
+      "title": "New Jersey FAIR Act",
+      "requirement": "Prohibits algorithmic rent-setting practices statewide once effective.",
+      "key_value": null,
+      "coverage_conditions": {"text": "Statewide", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": null, "overrides": [], "interaction": "May preempt Jersey City and Hoboken ordinances.",
+      "effective_date": "2027-07-01", "citation": "P.L. 2026, c.043", "source_doc_id": "D069",
+      "source_url": "https://pub.njleg.state.nj.us/Bills/2026/PL26/43_.HTM",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": true, "conflict_note": "Possible preemption of local algorithmic bans."
+    },
+    {
+      "team_rule_id": "fx-ma-alg-s2983",
+      "jurisdiction": "MA", "level": "state", "category": "algorithmic_rent_setting", "status": "pending",
+      "title": "S.2983 algorithmic rent-setting bill",
+      "requirement": "Would prohibit algorithmic rent-setting if enacted.",
+      "key_value": null,
+      "coverage_conditions": {"text": "Statewide if enacted", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": null, "overrides": [], "interaction": null,
+      "effective_date": null, "citation": "Mass. S.2983 (194th)", "source_doc_id": "D046",
+      "source_url": "https://malegislature.gov/Bills/194/S2983",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-ma-alg-h5222",
+      "jurisdiction": "MA", "level": "state", "category": "algorithmic_rent_setting", "status": "pending",
+      "title": "H.5222 algorithmic rent-setting bill",
+      "requirement": "Would prohibit algorithmic rent-setting if enacted.",
+      "key_value": null,
+      "coverage_conditions": {"text": "Statewide if enacted", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": null, "overrides": [], "interaction": null,
+      "effective_date": null, "citation": "Mass. H.5222 (194th)", "source_doc_id": "D045",
+      "source_url": "https://malegislature.gov/Bills/194/H5222",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-ma-rent-ballot",
+      "jurisdiction": "MA", "level": "state", "category": "rent_increase_limits", "status": "failed",
+      "title": "Rent-control ballot question (struck)",
+      "requirement": "The proposed local-option rent control was struck from the ballot; no rent cap exists.",
+      "key_value": null,
+      "coverage_conditions": {"text": "None", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": false, "displaces_state_rule": false},
+      "exemptions": null, "penalty": null, "overrides": [], "interaction": null,
+      "effective_date": null, "citation": "IP 25-21", "source_doc_id": "D059",
+      "source_url": "https://www.wbur.org/news/2026/06/23/massachusetts-high-court-rent-control-ballot-question-struck",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    },
+    {
+      "team_rule_id": "fx-nj-deposit",
+      "jurisdiction": "NJ", "level": "state", "category": "security_deposits", "status": "in_force",
+      "title": "Rent Security Deposit Act",
+      "requirement": "A security deposit may not exceed one and one-half months' rent.",
+      "key_value": "1.5 months' rent",
+      "coverage_conditions": {"text": "Residential rentals statewide", "built_cutoff_date": null, "built_cutoff_basis": "none", "built_cutoff_direction": "none", "min_units": 0, "exempts_small_owner_occupied": true, "displaces_state_rule": false},
+      "exemptions": "Owner-occupied premises with 2 or fewer units", "penalty": null, "overrides": [], "interaction": null,
+      "effective_date": null, "citation": "N.J.S.A. 46:8-21.2", "source_doc_id": "D063",
+      "source_url": "https://law.justia.com/codes/new-jersey/title-46/section-46-8-21-2/",
+      "quoted_span": "FIXTURE placeholder, not a corpus quote.", "confidence": 0.9, "conflict_flag": false, "conflict_note": null
+    }
+  ]
+}

@@ -12,6 +12,9 @@ Rental Housing Law Navigator (Hack-Nation 7, Challenge 2 · RealPage). Submissio
 **North star:** `data/mit-rental-housing-law-navigator-challenge-v5-participant-no-scoring-no-hour16.pdf`.
 It defines what is required. If this file disagrees with it, the PDF wins.
 
+**Working in parallel?** Read [docs/PLAN.md](docs/PLAN.md) first: workstreams, file ownership,
+contracts and fixtures.
+
 ## Work cycle
 
 Specify → Plan → Tasks → Implement → **Verify**. Nothing is done until it is verified against the

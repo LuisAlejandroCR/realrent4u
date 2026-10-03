@@ -1,0 +1,19 @@
+# ci.yml: runs the test suite and the submission validator on every PR and push to main.
+# Same commands as AGENTS.md; no network or API key needed.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - run: uv run pytest -q
+      - run: uv run python -m realrent.validate
