@@ -1,23 +1,25 @@
-// layout.tsx: root layout; wraps every page in the data/language providers and the shared shell.
-// The shell carries the "not legal advice" banner and the as-of date on every screen.
-
+// app/layout.tsx: root layout: fonts, the two stylesheets and the language/as-of preferences provider.
 import type { Metadata } from "next";
-import "./globals.css";
-import { Providers } from "@/components/Providers";
-import { Shell } from "@/components/Shell";
+import type { ReactNode } from "react";
+import "../rr/rr.css";
+import "../rr/rr-landing.css";
+import { PrefsProvider } from "../rr/prefs";
 
 export const metadata: Metadata = {
   title: "Rental Housing Law Navigator",
-  description: "Which rental housing rules apply to an address on a date, with citations. Not legal advice.",
+  description: "Informational lookup of rental housing rules by sample address. Not legal advice.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>
-          <Shell>{children}</Shell>
-        </Providers>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" />
+      </head>
+      <body style={{ margin: 0 }}>
+        <PrefsProvider>{children}</PrefsProvider>
       </body>
     </html>
   );
