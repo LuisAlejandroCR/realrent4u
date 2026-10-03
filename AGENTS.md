@@ -92,6 +92,19 @@ B · Resolve   Census Geocoder batch (no key, up to 10,000 addresses) ─► inc
 C · Track     lookups before/after each change ─► changes.json
 ```
 
+## Commands
+
+| Command | What it does |
+|---|---|
+| `uv run pytest -q` | All tests (no network, no LLM) |
+| `uv run python -m realrent.validate` | Validate `submission/*.json`; `--init` writes empty valid files |
+| `uv run python -m realrent.extract` | Module A: extract all docs → `submission/rules.json` (needs `ANTHROPIC_API_KEY`) |
+| `uv run python -m realrent.extract --offline` | Rebuild `rules.json` from cached outputs in `runs/raw/` only |
+| `uv run python -m realrent.extract --only D001 --force` | Re-call the model for specific docs |
+
+Raw model outputs (`runs/raw/`) and audit logs (`runs/extract-*.jsonl`) are committed: they are the
+evidence that extraction is automated.
+
 ## Stack
 
 - **Pipeline:** Python + pytest (extraction, engine, organizer's `score.py`).
