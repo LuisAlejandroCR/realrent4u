@@ -1,0 +1,36 @@
+{
+  "site_url": null,
+  "demo": { "url": null },
+  "videos": [
+    {
+      "id": "product-demo",
+      "title": { "en": "Product demo", "es": "Demo del producto" },
+      "src": null,
+      "url": null,
+      "poster": null,
+      "duration": null,
+      "captions": { "en": null, "es": null },
+      "transcript": { "en": null, "es": null }
+    },
+    {
+      "id": "technical-walkthrough",
+      "title": { "en": "Technical walkthrough", "es": "Recorrido técnico" },
+      "src": null,
+      "url": null,
+      "poster": null,
+      "duration": null,
+      "captions": { "en": null, "es": null },
+      "transcript": { "en": null, "es": null }
+    },
+    {
+      "id": "team-introduction",
+      "title": { "en": "Team introduction", "es": "Presentación del equipo" },
+      "src": null,
+      "url": null,
+      "poster": null,
+      "duration": null,
+      "captions": { "en": null, "es": null },
+      "transcript": { "en": null, "es": null }
+    }
+  ]
+}

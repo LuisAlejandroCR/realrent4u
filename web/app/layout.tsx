@@ -1,8 +1,9 @@
-// app/layout.tsx: root layout: fonts, the two stylesheets and the language/as-of preferences provider.
+// app/layout.tsx: root layout: fonts, the stylesheets and the language/as-of preferences provider.
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "../rr/rr.css";
 import "../rr/rr-landing.css";
+import "../rr/rr-home.css";
 import { PrefsProvider } from "../rr/prefs";
 
 export const metadata: Metadata = {
