@@ -1,0 +1,2 @@
+# Keep LF so the sha256 in manifest.csv matches the checked-out bytes on every OS.
+* text eol=lf

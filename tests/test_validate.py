@@ -22,7 +22,7 @@ def good_rule(**overrides):
 
 
 def test_manifest_counts():
-    docs = corpus.documents()
+    docs = corpus.starter_documents()
     assert len(docs) == 87
     assert sum(d.has_text for d in docs.values()) == 54
     assert len(corpus.addresses()) == 500
