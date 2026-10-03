@@ -1,3 +1,36 @@
 {
-  "rules": []
+  "rules": [
+    {
+      "team_rule_id": "r-D001-01",
+      "jurisdiction": "Berkeley, CA",
+      "level": "city",
+      "category": "algorithmic_rent_setting",
+      "status": "in_force",
+      "title": "Prohibition on sale or use of coordinated pricing algorithms to set rents or occupancy levels",
+      "requirement": "No one may sell, license or otherwise provide Berkeley landlords a coordinated pricing algorithm that sets or recommends rents or occupancy levels for Berkeley residential units, and landlords may not use one. A covered algorithm is one that uses nonpublic competitor data less than 90 days old to recommend rents, fees, occupancy rates or other lease terms in coordination with competitors.",
+      "key_value": "Civil penalties up to $1,000 per violation; each month and each unit is a separate violation",
+      "coverage_conditions": {
+        "text": "Residential dwelling units in the City of Berkeley; sellers/licensors of coordinated pricing algorithms to City of Berkeley landlords and landlords using them.",
+        "built_cutoff_date": null,
+        "built_cutoff_basis": "none",
+        "built_cutoff_direction": "none",
+        "min_units": 0,
+        "exempts_small_owner_occupied": false,
+        "displaces_state_rule": false
+      },
+      "exemptions": "Excludes (a) products publishing aggregated, anonymous rental data that do not recommend rents, fees, occupancy rates or other lease terms; (b) products used to set rent or income limits under government affordable housing guidelines; (c) information used for market research for project financing, appraisals, or research, testing or training for software development (so long as competitor data is not an input when a recommendation is calculated). Competitor Data covers only nonpublic data less than 90 days old about properties not owned or managed by the landlord. The chapter does not regulate the amount of rent.",
+      "penalty": "City Attorney may sue for damages, injunctive relief, restitution/return of illegal profits and civil penalties up to $1,000 per violation; aggrieved tenants may sue landlords for injunctive relief, money damages and civil penalties up to $1,000 per violation; prevailing City Attorney or tenant is awarded reasonable attorney's fees and costs. Each month a violation continues and each unit is a separate violation.",
+      "overrides": [],
+      "interaction": null,
+      "effective_date": null,
+      "citation": "Berkeley Municipal Code Chapter 13.63 (Ordinance No. 7,992-N.S.), §13.63.030",
+      "source_doc_id": "D001",
+      "source_url": "https://berkeleyca.gov/sites/default/files/documents/2025-12-02%20Item%2001%20Ordinance%207992.pdf",
+      "quoted_span": "It shall be unlawful for a landlord to use a coordinated pricing algorithm described in subsection A when setting rents or occupancy levels for residential dwelling units in the City of Berkeley.",
+      "confidence": 0.75,
+      "conflict_flag": true,
+      "conflict_note": "Document records passage to print on November 18, 2025; final adoption date and effective date are not stated in the text, so in-force status is inferred from the December 2, 2025 adoption item.",
+      "retrieved_at": "2026-10-01T22:44Z"
+    }
+  ]
 }

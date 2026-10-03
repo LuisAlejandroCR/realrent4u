@@ -6,6 +6,7 @@ import argparse
 import json
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -237,22 +238,35 @@ def _link_overrides(rules: list[dict]) -> None:
         ]
 
 
-def run(force: bool = False, only: list[str] | None = None, offline: bool = False) -> int:
+def run(force: bool = False, only: list[str] | None = None, offline: bool = False, workers: int = 6) -> int:
     docs = [d for d in corpus.documents().values() if d.has_text and (not only or d.doc_id in only)]
     client = None
     if not offline:
         import anthropic
 
-        client = anthropic.Anthropic()
+        client = anthropic.Anthropic(max_retries=5)
     outputs, log = {}, []
-    for doc in docs:
-        try:
-            outputs[doc.doc_id] = raw_output(client, doc, force=force)
-        except Exception as e:  # one failed document must not stop the run; it is logged
-            log.append({"doc_id": doc.doc_id, "action": "error", "reason": f"{type(e).__name__}: {e}"})
-            print(f"{doc.doc_id}: ERROR {e}", file=sys.stderr)
-            continue
-        print(f"{doc.doc_id}: {len(outputs[doc.doc_id].get('rules', []))} candidate rules")
+
+    def one(doc):
+        return doc, raw_output(client, doc, force=force)
+
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        futures = [pool.submit(one, doc) for doc in docs]
+        for fut, doc in zip(futures, docs):
+            try:
+                _, outputs[doc.doc_id] = fut.result()
+            except Exception as e:  # one failed document must not stop the run; it is logged
+                log.append({"doc_id": doc.doc_id, "action": "error", "reason": f"{type(e).__name__}: {e}"})
+                print(f"{doc.doc_id}: ERROR {e}", file=sys.stderr)
+                continue
+            out = outputs[doc.doc_id]
+            meta = out.get("meta", {})
+            print(f"{doc.doc_id}: {len(out.get('rules', []))} candidate rules"
+                  f"{' · ' + out['error'] if out.get('error') else ''}"
+                  f" · {meta.get('input_tokens', 0)}/{meta.get('output_tokens', 0)} tokens", flush=True)
+    usage_in = sum(o.get("meta", {}).get("input_tokens", 0) for o in outputs.values())
+    usage_out = sum(o.get("meta", {}).get("output_tokens", 0) for o in outputs.values())
+    print(f"tokens in cache: {usage_in} in / {usage_out} out · ~${usage_in * 4e-6 + usage_out * 20e-6:.2f} at Opus 5.5 rates")
     rules = build_rules(outputs, log)
     paths.SUBMISSION.mkdir(exist_ok=True)
     paths.RULES_JSON.write_text(json.dumps({"rules": rules}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -274,8 +288,9 @@ def main(argv: list[str]) -> int:
     p.add_argument("--force", action="store_true", help="re-call the model even if a cached output exists")
     p.add_argument("--only", nargs="*", help="doc_ids to process (default: all with text)")
     p.add_argument("--offline", action="store_true", help="rebuild rules.json from cached outputs only")
+    p.add_argument("--workers", type=int, default=6, help="parallel model calls (default 6)")
     args = p.parse_args(argv)
-    return run(force=args.force, only=args.only, offline=args.offline)
+    return run(force=args.force, only=args.only, offline=args.offline, workers=args.workers)
 
 
 if __name__ == "__main__":
