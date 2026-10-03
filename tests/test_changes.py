@@ -139,3 +139,50 @@ def test_cli_without_engine_fails_clearly(monkeypatch, capsys, tmp_path):
     assert changes.main(["--out", str(out)]) == 2
     assert "realrent.engine" in capsys.readouterr().err
     assert not out.exists()
+
+
+BAR_40P = {
+    "team_rule_id": "r-D048-01", "jurisdiction": "MA", "level": "state",
+    "category": "rent_increase_limits", "status": "in_force",
+    "title": "Statewide bar on local rent control",
+    "requirement": "Cities and towns may not adopt rent control.",
+    "citation": "M.G.L. c. 40P, § 4", "source_doc_id": "D048",
+    "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40P/Section4",
+    "quoted_span": "placeholder quote for a test-only rule", "effective_date": "1994-12-31",
+}
+
+
+def _tag_bar(rule_id):
+    def ev(rules, row, j, as_of):
+        items = stub_evaluate(rules, row, j, as_of)
+        for i in items:
+            if i["team_rule_id"] == rule_id:
+                i["reason"] = "bars_local_rent_control"
+        return items
+    return ev
+
+
+def test_40p_bar_is_never_matched_as_the_struck_rent_cap():
+    assert changes.is_rent_control_bar(BAR_40P)
+    without_ballot = [BAR_40P] + [r for r in RULES if r["team_rule_id"] != "fx-ma-rent-ballot"]
+    assert changes.match_rules(["MA-RENT-P1"], without_ballot) == {"MA-RENT-P1": None}
+    got = changes.match_rules(["MA-RENT-P1"], [BAR_40P] + RULES)["MA-RENT-P1"]
+    assert got["team_rule_id"] == "fx-ma-rent-ballot"
+
+
+@pytest.mark.parametrize("drop_ballot", [False, True])
+def test_t5_stays_empty_when_40p_bar_applies(drop_ballot):
+    rules = [BAR_40P] + [r for r in RULES
+                         if not (drop_ballot and r["team_rule_id"] == "fx-ma-rent-ballot")]
+    out = changes.run_tests(_tag_bar("r-D048-01"), rules, JUR)
+    notes = out["T5"]["notes"]
+    assert out["T5"]["affected_address_ids"] == []
+    assert "Rent caps applying to MA addresses at 2026-10-01: 0 of 3" in notes
+    assert "r-D048-01" in notes and "not a rent cap" in notes
+
+
+def test_t5_excludes_bar_reason_even_without_40p_citation():
+    bar = dict(BAR_40P, team_rule_id="r-bar", citation="Rent Control Prohibition Act")
+    out = changes.run_tests(_tag_bar("r-bar"), [bar] + RULES, JUR)
+    assert out["T5"]["affected_address_ids"] == []
+    assert ": 0 of 3" in out["T5"]["notes"]

@@ -53,8 +53,16 @@ SPECS: dict[str, dict] = {
         "status": ["failed"],
         "hints": ["IP 25-21", "25-21", "ballot", "rent control", "struck"],
         "doc_ids": ["D059", "D055"],
+        "exclude": "bar",  # G.L. c. 40P bars local rent control; it is not the struck rent cap
     },
 }
+
+BAR_REASON = "bars_local_rent_control"
+
+
+def is_rent_control_bar(rule: dict) -> bool:
+    """True for the MA statewide bar on local rent control (G.L. c. 40P), never a rent cap."""
+    return "40p" in _norm(rule.get("citation")).replace(" ", "")
 
 FLIP = ("not_yet_effective", "applies")
 
@@ -73,6 +81,8 @@ def score(rule: dict, spec: dict) -> float | None:
     if _norm(rule.get("jurisdiction")) != _norm(spec["jurisdiction"]):
         return None
     if rule.get("category") != spec["category"]:
+        return None
+    if spec.get("exclude") == "bar" and is_rent_control_bar(rule):
         return None
     s = 1.0
     status = rule.get("status")
@@ -254,6 +264,12 @@ def _t_pending(test: dict, matched: dict, run: Runner) -> dict:
             "notes": " ".join(notes)}
 
 
+def _applies_as_cap(run: "Runner", aid: str, rule_id: str, as_of: str) -> bool:
+    """An 'applies' item that is not the statewide bar on local rent control."""
+    item = run.at(as_of).get(aid, {}).get(rule_id)
+    return bool(item and item.get("result") == "applies" and item.get("reason") != BAR_REASON)
+
+
 def _t_negative(test: dict, matched: dict, run: Runner, all_rules: list[dict]) -> dict:
     """T5: struck measure; affected only if the engine wrongly applies it (expected empty)."""
     as_of = test["as_of"]
@@ -265,20 +281,26 @@ def _t_negative(test: dict, matched: dict, run: Runner, all_rules: list[dict]) -
             notes.append(f"{oid}: no rule extracted for the struck measure, so nothing is in force.")
             continue
         rid = rule["team_rule_id"]
-        affected.update(a for a in run.at(as_of) if run.result(a, rid, as_of) == "applies")
+        affected.update(a for a in run.at(as_of) if _applies_as_cap(run, a, rid, as_of))
         if rule.get("status") == "failed":
             notes.append(f"{oid}: recorded as failed ({rule.get('citation')}); failed rules never apply.")
         else:
             notes.append(f"WARNING {oid}: matched rule has status {rule.get('status')!r}, expected 'failed'.")
-    caps = {r["team_rule_id"] for r in all_rules
-            if r.get("category") == "rent_increase_limits" and state
-            and (r.get("jurisdiction") == state or str(r.get("jurisdiction", "")).endswith(f", {state}"))}
+    in_scope = [r for r in all_rules
+                if r.get("category") == "rent_increase_limits" and state
+                and (r.get("jurisdiction") == state or str(r.get("jurisdiction", "")).endswith(f", {state}"))]
+    bars = [r for r in in_scope if is_rent_control_bar(r)]
+    caps = {r["team_rule_id"] for r in in_scope if not is_rent_control_bar(r)}
     leaking = sorted(a for a in run.at(as_of)
-                     if any(run.result(a, c, as_of) == "applies" for c in caps))
+                     if any(_applies_as_cap(run, a, c, as_of) for c in caps))
     in_state = [a for a in run.at(as_of) if run.state(a) == state]
     notes.append(f"Rent caps applying to {state} addresses at {as_of}: {len(leaking)} of {len(in_state)}"
                  f"{' ' + str(leaking[:5]) if leaking else ''}. Affected set is empty when the measure "
                  "was struck.")
+    for b in bars:
+        n = sum(1 for a in in_state if run.result(a, b["team_rule_id"], as_of) == "applies")
+        notes.append(f"Supporting evidence: {b['team_rule_id']} ({b.get('citation')}) bars local rent "
+                     f"control statewide and applies to {n} {state} addresses; it is not a rent cap.")
     return {"affected_address_ids": sorted(affected), "conflict_flag_address_ids": [],
             "notes": " ".join(notes)}
 
