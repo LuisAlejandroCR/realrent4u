@@ -231,6 +231,149 @@ def test_rent_control_bar_is_not_presented_as_a_cap():
     assert not engine.is_rent_control_bar(FX_RULES[0])  # the CA cap is a real cap
 
 
+# ---- conflict flags: only a genuine state/local conflict where both rules reach the address
+
+FX = {r["team_rule_id"]: r for r in FX_RULES}
+# Shaped like W1's extraction of D069: no rule-level conflict note; the preemption signal is only in
+# `interaction`, and it never says "preempt".
+FAIR_LIKE = {**FX["fx-nj-fair"], "team_rule_id": "t-fair", "conflict_flag": False,
+             "conflict_note": None,
+             "interaction": "State law supplementing the New Jersey Antitrust Act; municipalities are "
+                            "prohibited from enacting ordinances that conflict with this act, except "
+                            "ordinances explicitly authorized or required by other law."}
+BANS = [FX["fx-hob-alg"], FX["fx-jc-alg"]]
+# Shaped like W1's extraction of Civ. Code 1946.2 (D023): conflict note about contradictory dates.
+JUST_CAUSE_CA = {
+    "team_rule_id": "t-ca-jc", "jurisdiction": "CA", "level": "state",
+    "category": "just_cause_eviction", "status": "in_force", "effective_date": "2024-04-01",
+    "title": "Tenant Protection Act just cause", "citation": "Cal. Civ. Code § 1946.2",
+    "requirement": "x", "overrides": [], "coverage_conditions": {"min_units": 0},
+    "interaction": "The state rule yields to a local just cause ordinance adopted on or before "
+                   "September 1, 2019; in those cases the local ordinance applies. A property cannot "
+                   "be subject to both. Local ordinances adopted after September 1, 2019 that are "
+                   "less protective are unenforceable unless this section is repealed.",
+    "conflict_flag": True,
+    "conflict_note": "Subdivision (m) states the section became operative on April 1, 2024. The "
+                     "history note says the current version is effective January 1, 2026.",
+}
+JUST_CAUSE_SF = {**JUST_CAUSE_CA, "team_rule_id": "t-sf-jc", "jurisdiction": "San Francisco, CA",
+                 "level": "city", "citation": "S.F. Admin. Code § 37.9", "interaction": None,
+                 "conflict_flag": False, "conflict_note": None}
+
+
+def flags(items):
+    return {rid for rid, it in items.items() if it["conflict_flag"]}
+
+
+@pytest.mark.parametrize("as_of", ["2026-10-01", "2027-07-02"])
+def test_fair_act_conflicts_with_local_bans_only_in_hoboken_and_jersey_city(as_of):
+    rules = [FAIR_LIKE] + BANS
+    assert flags(run("A0002", as_of, rules)) == {"t-fair", "fx-hob-alg"}
+    assert flags(run("A0008", as_of, rules)) == {"t-fair", "fx-jc-alg"}
+    newark = run("A0003", as_of, rules)
+    assert "t-fair" in newark and flags(newark) == set()
+
+
+def test_conflict_explanation_names_the_other_rule():
+    items = run("A0002", rules=[FAIR_LIKE] + BANS)
+    assert "Hoboken Code ch. 155" in items["t-fair"]["explanation"]
+    assert "P.L. 2026, c.043" in items["fx-hob-alg"]["explanation"]
+    assert "Flagged for human review" in items["fx-hob-alg"]["explanation"]
+    assert "revisión humana" in items["fx-hob-alg"]["explanation_es"]
+    for it in items.values():
+        assert it["explanation"].endswith("Not legal advice.")
+        assert it["explanation_es"].endswith("No es asesoría legal.")
+
+
+def test_state_conflict_note_without_cooccurring_local_rule_is_not_flagged():
+    # The fixture FAIR Act carries a rule-level flag and a preemption note.
+    assert FX["fx-nj-fair"]["conflict_flag"] is True
+    for as_of in ("2026-10-01", "2027-07-02"):
+        newark = run("A0003", as_of)
+        assert flags(newark) == set()
+        assert newark["fx-nj-fair"]["reason"] is None  # a preemption note is not a date note
+    # Same rule with no local ban in the rule set: no flag in Hoboken either.
+    assert flags(run("A0002", rules=[FX["fx-nj-fair"]])) == set()
+
+
+def test_date_contradiction_note_is_not_a_conflict_but_is_surfaced():
+    items = run("A0016", rules=[JUST_CAUSE_CA, JUST_CAUSE_SF])
+    assert flags(items) == set()
+    ca = items["t-ca-jc"]
+    assert ca["result"] == "applies"  # the note never changes the result
+    assert ca["reason"] == "effective_date_contradiction"
+    assert "contradictory effective dates" in ca["explanation"]
+    assert "January 1, 2026" in ca["explanation"]  # the extraction note itself is shown
+    assert "fechas de vigencia contradictorias" in ca["explanation_es"]
+    assert ca["explanation"].endswith("Not legal advice.")
+    assert items["t-sf-jc"]["reason"] is None
+
+
+def test_local_date_contradiction_note_is_not_a_conflict():
+    la = {**JUST_CAUSE_SF, "team_rule_id": "t-la-rpo", "jurisdiction": "Los Angeles, CA",
+          "conflict_flag": True,
+          "conflict_note": "Bulletin B's fee chart is labeled effective July 1, 2025 to June 30, "
+                           "2026. Bulletin A lists the same fees as effective July 1, 2026."}
+    items = run("A0001", rules=[JUST_CAUSE_CA, la])
+    assert flags(items) == set()
+    assert items["t-la-rpo"]["reason"] == "effective_date_contradiction"
+
+
+def test_note_reason_keeps_coverage_reasons_and_is_not_read_as_a_missing_fact():
+    rule = {**JUST_CAUSE_CA, "coverage_conditions": {"exempts_small_owner_occupied": True}}
+    row = {**ROWS["A0019"], "units": "", "use_description": ""}  # no units: exemption unresolved
+    item = run("A0019", rules=[rule], row=row)["t-ca-jc"]
+    assert item["result"] == "unknown"
+    assert item["reason"] == "small_owner_exemption_unresolved,effective_date_contradiction"
+    assert "a fact needed to decide coverage is missing" not in item["explanation"]
+
+
+def test_generic_rule_flag_is_a_source_discrepancy_not_a_conflict():
+    rule = {**JUST_CAUSE_CA, "conflict_note": "The summary page and the code text word the "
+                                              "notice requirement differently."}
+    items = run("A0016", rules=[rule, JUST_CAUSE_SF])
+    assert flags(items) == set()
+    assert items["t-ca-jc"]["reason"] == "source_discrepancy"
+    assert engine.rule_note_kind({"conflict_flag": True}) == "source_discrepancy"
+    assert engine.rule_note_kind({"conflict_note": "Two dates published."}) == \
+        "effective_date_contradiction"
+    assert engine.rule_note_kind(FX["fx-hob-alg"]) is None
+
+
+def test_local_savings_clause_is_not_a_conflict():
+    boston = {**JUST_CAUSE_SF, "team_rule_id": "t-bos-screen", "jurisdiction": "Boston, MA",
+              "category": "screening_restrictions",
+              "interaction": "Where federal or state law imposes a conflicting requirement, the "
+                             "federal or state law preempts this policy."}
+    ma = {**JUST_CAUSE_CA, "team_rule_id": "t-ma-screen", "jurisdiction": "MA",
+          "category": "screening_restrictions", "interaction": None, "conflict_flag": False,
+          "conflict_note": None}
+    assert flags(run("A0006", rules=[ma, boston])) == set()
+
+
+def test_local_note_contesting_state_law_flags_both():
+    hob = {**FX["fx-hob-alg"], "conflict_note": "The state FAIR Act may preempt this ordinance."}
+    fair = {**FAIR_LIKE, "interaction": None}
+    assert flags(run("A0002", rules=[fair, hob])) == {"t-fair", "fx-hob-alg"}
+
+
+def test_pending_bill_and_superseded_rule_never_conflict():
+    pending = {**FAIR_LIKE, "status": "pending"}
+    assert flags(run("A0002", rules=[pending] + BANS)) == set()
+    cap = {**FX["fx-ca-rent-cap"], "interaction": "Preempts local rent ordinances that conflict."}
+    items = run("A0016", rules=[cap, FX["fx-sf-rent-ord"]])
+    assert items["fx-ca-rent-cap"]["result"] == "superseded"
+    assert flags(items) == set()
+
+
+def test_rent_control_bar_keeps_exact_reason_with_a_note():
+    bar = {**D048_LIKE, "conflict_flag": True,
+           "conflict_note": "The code says effective 1994-12-31; the session law says 1995-01-01."}
+    item = run("A0006", rules=[bar])["t-d048-01"]
+    assert item["reason"] == "bars_local_rent_control"  # Module C (T5) keys on it
+    assert "contradictory effective dates" in item["explanation"]
+
+
 # ---- invariants and lookups.py
 
 
