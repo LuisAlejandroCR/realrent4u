@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Berkeley, CA",
+      "level": "city",
+      "category": "algorithmic_rent_setting",
+      "status": "in_force",
+      "title": "Prohibition on the Sale or Use of Coordinated Pricing Algorithms to Set Rents or Manage Occupancy Levels",
+      "requirement": "It is unlawful to sell, license, or provide to Berkeley landlords any coordinated pricing algorithm that sets or recommends rents or occupancy levels for Berkeley residential units. It is also unlawful for landlords to use such an algorithm when setting rents or occupancy levels. A coordinated pricing algorithm is one that uses nonpublic competitor data less than 90 days old.",
+      "key_value": "Sale and use banned; civil penalties up to $1,000 per violation (each month and each unit a separate violation)",
+      "citation": "Berkeley Municipal Code Chapter 13.63 (§§ 13.63.030, 13.63.040), as amended by Ordinance No. 7,992-N.S.",
+      "quoted_span": "It shall be unlawful for a landlord to use a coordinated pricing algorithm described in subsection A when setting rents or occupancy levels for residential dwelling units in the City of Berkeley.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Residential dwelling units in the City of Berkeley. Covers vendors that sell, license, or provide coordinated pricing algorithms to Berkeley landlords, and landlords that use them. Competitor Data means nonpublic information less than 90 days old on rents, occupancy, and lease dates for properties not owned or managed by the landlord.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Excludes the following: (a) reports, studies, or presentations publishing aggregated, anonymous rental data that do not recommend rents, fees, occupancy, or lease terms; (b) products used to set rent or income limits under affordable housing guidelines; (c) market research for project financing, appraisals, or research, testing, or training for software development. Item (c) includes training models on Competitor Data only if that data is not used as an input when a recommendation is calculated.",
+      "penalty": "City Attorney may sue for damages, injunctive relief, restitution or return of illegal profits, and civil penalties up to $1,000 per violation. Aggrieved tenants may sue landlords who use the algorithms for injunctive relief, money damages, and civil penalties up to $1,000 per violation. Prevailing City Attorney or tenant is awarded attorney's fees and costs. Each month and each unit is a separate violation.",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "The document shows the ordinance was passed to print at the November 18, 2025 Council meeting (first reading); it does not state the final adoption date or the effective date. The source URL references a December 2, 2025 agenda item, suggesting second reading and adoption then, but the text does not confirm it. Status of in_force is assumed given the query date. The ordinance amends an existing Chapter 13.63.",
+      "confidence": 0.65
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 5210,
+    "output_tokens": 2079,
+    "at": "2026-10-03T18:19:22+00:00"
+  },
+  "prompt_version": 2
+}

@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "rent_increase_limits",
+      "status": "in_force",
+      "title": "California Tenant Protection Act statewide rent cap (Civil Code 1947.12)",
+      "requirement": "Over any 12-month period, an owner may not raise the gross rent for a covered unit by more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower. The cap is measured from the lowest gross rent in the prior 12 months, with no more than two increases in that period. Initial rent for a new tenancy may be set freely (vacancy decontrol).",
+      "key_value": "Lower of 5% + CPI or 10% per 12 months; max two increments",
+      "citation": "Cal. Civ. Code § 1947.12 (added by Stats. 2023, Ch. 290, Sec. 4 (SB 567))",
+      "quoted_span": "Subject to subdivision (b), an owner of residential real property shall not, over the course of any 12-month period, increase the gross rental rate for a dwelling or a unit more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower, of the lowest gross rental rate charged for that dwelling or unit at any time during the 12 months prior to the effective date of the increase.",
+      "effective_date": "2024-04-01",
+      "enacted_date": "",
+      "coverage_text": "Residential real property, meaning any dwelling or unit intended for human habitation, including mobilehome park units. Applies to rent increases on or after March 15, 2019 (mobilehome tenancies: on or after February 18, 2021). Excludes housing issued a certificate of occupancy within the previous 15 years, unless it is a mobilehome.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": true,
+      "exemptions": "Deed-restricted or subsidized affordable housing; school and university dormitories; housing under stricter local rent control consistent with Costa-Hawkins (Ch. 2.7); housing with a certificate of occupancy issued within the previous 15 years (except mobilehomes); separately alienable units such as single-family homes and condos not owned by a REIT, corporation, LLC with a corporate member, or mobilehome park management, where the tenant received the required written exemption notice; owner-occupied duplexes where neither unit is an ADU or JADU; mobilehome homeowners as defined in Section 798.9.",
+      "penalty": "Civil action by the tenant for injunctive relief, damages equal to the excess rent, and discretionary attorney's fees and costs. Up to three times the excess for willful conduct or oppression, fraud or malice. The Attorney General and the city attorney or county counsel may enforce and seek injunctions. Three-year statute of limitations; waivers are void.",
+      "displaces_state_rule": false,
+      "interaction": "This is the state rule. It does not apply to housing under a local rent or price control ordinance, consistent with Civil Code Chapter 2.7 (Costa-Hawkins), that limits annual increases to less than this cap. The section states it does not expand or limit local authority to regulate rents.",
+      "conflict_note": "",
+      "extraction_note": "Operative text (subdivision (n)) sets the operative date as April 1, 2024. The history note says the law was effective January 1, 2024 and operative April 1, 2024. These describe the effective versus operative distinction rather than a conflict; the operative date is used here. The section is repealed as of January 1, 2030 (sunset), so it is in force on the query date. The 15-year certificate-of-occupancy exemption is a rolling cutoff with no fixed date, so built_cutoff fields are 'none'. The chaptered/signing date of SB 567 is not stated.",
+      "confidence": 0.92
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 7826,
+    "output_tokens": 1889,
+    "at": "2026-10-03T18:20:04+00:00"
+  },
+  "prompt_version": 2
+}

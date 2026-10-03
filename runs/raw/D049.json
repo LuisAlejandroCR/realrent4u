@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Prohibition on discrimination against recipients of public assistance or housing subsidies (source of income)",
+      "requirement": "Anyone providing rental housing may not discriminate against a person because they receive public assistance or a housing subsidy, such as rental assistance, or because of any requirement of that assistance or subsidy program.",
+      "key_value": "Source-of-income (public assistance / housing subsidy) discrimination prohibited",
+      "citation": "M.G.L. c. 151B, § 4(10)",
+      "quoted_span": "For any person furnishing credit, services or rental accommodations to discriminate against any individual who is a recipient of federal, state, or local public assistance, including medical assistance, or who is a tenant receiving federal, state, or local housing subsidies, including rental assistance or rental supplements, because the individual is such a recipient, or because of any requirement of such public assistance, rental assistance, or housing subsidy program.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Any person furnishing credit, services or rental accommodations",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "The document is the current codified text of the statute and gives no effective or enactment date. Subsection 7B separately bars housing advertisements that indicate a preference based on public assistance recipiency. The owner-occupied two-family exemption in subsection 7 is not stated to apply to subsection 10. The criminal-history inquiry limits in subsections 9 and 9 1/2 apply only to employment, not housing, so they were not extracted. No penalty is stated in this section for subsection 10.",
+      "confidence": 0.85
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 18595,
+    "output_tokens": 1204,
+    "at": "2026-10-03T18:20:55+00:00"
+  },
+  "prompt_version": 2
+}

@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "NJ",
+      "level": "state",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "NJ Law Against Discrimination: source of lawful income protection in housing",
+      "requirement": "Landlords may not discriminate in housing based on the source of lawful income or the source of lawful rent payment a tenant uses. For example, a landlord cannot deny a Section 8 HUD voucher holder an apartment based solely on that source of income.",
+      "key_value": "Source-of-income discrimination prohibited (incl. Section 8 vouchers)",
+      "citation": "New Jersey Law Against Discrimination (LAD)",
+      "quoted_span": "The LAD also prohibits housing discrimination  based\non the source of lawful income or source of lawful rent\nor mortgage payment a tenant or purchaser uses.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Applies to the sale or rental of all property including open land, whether for business or residential purposes, with listed exceptions.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": true,
+      "exemptions": "Rental of a single apartment or flat in a two-family dwelling whose other unit is occupied by the owner as a residence; rental of a room or rooms by the owner or occupant of a one-family dwelling occupied as their residence; religious organizations giving preference to persons of the same religion; familial-status prohibition does not apply to housing for older persons (N.J.S.A. 10:5-5mm).",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "Source is a Division on Civil Rights informational brochure (rev. 06.18.15), not statutory text; no specific section cite, effective or enactment date given. Enforcement: complaint may be filed with the Division within 180 days of the alleged violation or in NJ Superior Court within two years; no specific monetary penalties stated. Brochure does not address criminal-history screening.",
+      "confidence": 0.8
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4618,
+    "output_tokens": 1341,
+    "at": "2026-10-03T18:21:21+00:00"
+  },
+  "prompt_version": 2
+}

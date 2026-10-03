@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Cambridge, MA",
+      "level": "city",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Cambridge Fair Housing Ordinance – source-of-income and protected-class discrimination in tenant selection",
+      "requirement": "Landlords and rental agents may not discriminate in renting, viewing, or setting the terms of tenancy based on protected categories, including source of income (Section 8 and public benefits). Any selection standard, such as ability to pay rent or to care for the apartment, must be applied equally and uniformly to all applicants.",
+      "key_value": "Source of income (including Section 8 and public benefits) is a protected category in rental housing",
+      "citation": "Cambridge Fair Housing Ordinance, chapter 14.04",
+      "quoted_span": "Under the law, landlords, sellers and rental agents may use any reasonable standard to determine which applicants are selected, as long as that standard is applied equally and uniformly to all applicants.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Real estate transactions in Cambridge, including viewing or renting an apartment and terms and conditions of tenancy.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": true,
+      "exemptions": "Exemption for 2-family dwellings when the owner lives there.",
+      "penalty": "After a hearing, the Commission may file a criminal complaint in District Court, levy civil fines of up to $300 for each violation, seek injunctive relief in Superior Court, and seek damages, expenses and other relief; either party may remove a probable-cause case to Superior Court or the Attorney General's Office.",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "Source is an informational agency webpage summarizing the ordinance, not the ordinance text. Source of income is listed as a protected category under both the Human Rights Ordinance and the Fair Housing Ordinance. No enactment or effective dates are given for the ordinance; the Commission was established in 1984.",
+      "confidence": 0.6
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 6221,
+    "output_tokens": 1373,
+    "at": "2026-10-03T18:20:12+00:00"
+  },
+  "prompt_version": 2
+}

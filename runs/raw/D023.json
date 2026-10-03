@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "Tenant Protection Act just cause eviction requirement (Civil Code 1946.2)",
+      "requirement": "After a tenant has lawfully occupied a unit for 12 months (or 24 months for one tenant if adult tenants were added), the owner may terminate only for a listed at-fault or no-fault just cause, which must be stated in the written notice. For no-fault terminations, the owner must pay relocation assistance or waive the final month's rent, equal to one month's rent, and curable violations require a notice to cure first.",
+      "key_value": "Just cause required after 12 months' occupancy; no-fault relocation assistance = one month's rent, paid within 15 calendar days of the notice",
+      "citation": "Cal. Civ. Code § 1946.2 (as amended by Stats. 2025, Ch. 203 (AB 1529))",
+      "quoted_span": "Notwithstanding any other law, after a tenant has continuously and lawfully occupied a residential real property for 12 months, the owner of the residential real property shall not terminate a tenancy without just cause, which shall be stated in the written notice to terminate tenancy.",
+      "effective_date": "2024-04-01",
+      "enacted_date": "",
+      "coverage_text": "Residential real property, including dwellings or units in a mobilehome park, after the tenant has continuously and lawfully occupied it for 12 months (or, if adult tenants were added before 24 months, when all tenants have 12+ months or one tenant has 24+ months).",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": true,
+      "exemptions": "Transient/tourist hotel occupancy; nonprofit hospitals, religious facilities, extended care, licensed elderly residential care and adult residential facilities; school and higher-education dormitories; units where the tenant shares bathroom or kitchen with an owner who lives there; single-family owner-occupied residences renting no more than two units or bedrooms (including ADUs/JADUs) and mobilehomes; owner-occupied duplexes (neither unit an ADU/JADU) while the owner remains; housing with a certificate of occupancy issued within the previous 15 years (unless a mobilehome); separately alienable units not owned by a REIT, corporation, LLC with a corporate member, or mobilehome park management, if the required exemption notice is given; deed- or agreement-restricted affordable housing; mobilehome homeowners. The section also does not apply where a qualifying local just cause ordinance applies.",
+      "penalty": "Noncompliance renders the termination notice void. An owner who attempts to recover possession in material violation is liable for actual damages, discretionary reasonable attorney's fees and costs, and up to three times actual damages plus possible punitive damages for willful, oppressive, fraudulent or malicious conduct. The Attorney General and city attorney or county counsel may seek injunctive relief.",
+      "displaces_state_rule": false,
+      "interaction": "The state rule yields to a local just cause ordinance adopted on or before September 1, 2019, or to one adopted or amended after that date that is more protective and contains a binding finding saying so; in those cases the local ordinance applies. A property cannot be subject to both. Local ordinances adopted after September 1, 2019 that are less protective are unenforceable unless this section is repealed.",
+      "conflict_note": "Subdivision (m) of the operative text states the section became operative on April 1, 2024. The history note says the current version, as amended by Stats. 2025, Ch. 203 (AB 1529), is effective January 1, 2026. The operative-text date (2024-04-01) is used here.",
+      "extraction_note": "The section is repealed as of January 1, 2030 by its own terms. The signing or chaptering date of AB 1529 is not stated. The 15-year certificate-of-occupancy exemption is a rolling cutoff, not a fixed date, so no built cutoff was recorded. The rent cap in § 1947.12 is referenced only in the required notices and is not established by this document, so no rent_increase_limits record was created.",
+      "confidence": 0.9
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 10566,
+    "output_tokens": 2202,
+    "at": "2026-10-03T18:20:05+00:00"
+  },
+  "prompt_version": 2
+}

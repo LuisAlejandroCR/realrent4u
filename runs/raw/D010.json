@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Boston, MA",
+      "level": "city",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Boston Fair Chance Tenant Selection Policy (criminal history screening)",
+      "requirement": "Covered housing providers may not use a blanket policy denying housing to anyone with arrests or convictions and must consider applicants case by case. When deciding eligibility or eviction, they may not consider arrests without conviction, sealed or expunged convictions, juvenile records, or convictions more than 5 years old.",
+      "key_value": "No blanket criminal-record bans; exclude non-conviction arrests, sealed/expunged convictions, juvenile records, and convictions older than 5 years",
+      "citation": "Boston Department of Neighborhood Development, Boston Fair Chance Tenant Selection Policy (February 2017)",
+      "quoted_span": "Arrests that did not result in conviction.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Housing providers receiving Department of Neighborhood Development (DND) funding and/or land, or that have income restricted units created under the BPDA Inclusionary Development Policy; also applied to the Office of Fair Housing and Equity Affirmative Marketing Program.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Does not apply where there is a direct relationship between a conviction and the housing sought, or an unreasonable risk of substantial harm to the safety of others; does not apply to current criminal behavior; yields where federal or state law imposes a conflicting criminal history requirement.",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "The policy states that where federal or state law imposes a conflicting criminal history requirement, the federal or state law preempts this policy.",
+      "conflict_note": "",
+      "extraction_note": "This is a city agency policy that providers agree to as a condition of DND funding/land or IDP units, not an ordinance. It is dated February 2017 but gives no explicit adoption or effective date. Status is assumed in_force because the document is presented as a current city-linked policy. The policy also bars using credit scores to approve or deny applications and says lack of credit history alone is not sufficient to reject an applicant. These credit rules fall outside the criminal-history/source-of-income scope and were not extracted separately. Appeals process, DCJIS use and consistent staffing are encouraged, not required.",
+      "confidence": 0.7
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4460,
+    "output_tokens": 2002,
+    "at": "2026-10-03T18:19:45+00:00"
+  },
+  "prompt_version": 2
+}
