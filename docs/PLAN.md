@@ -121,7 +121,8 @@ Paste one per cloud session, on repo `LuisAlejandroCR/realrent4u`. Each prompt a
 > Never suggest how to avoid a rule. Tests run without a key. Open a PR.
 
 **W6 — Web demo**
-> Read AGENTS.md and docs/PLAN.md (W6, Contracts). On branch `feat/web`, build a static Next.js app in
+> Read AGENTS.md, docs/PLAN.md (W6, Contracts) and docs/DESIGN.md (tokens, pages, language). On
+> branch `feat/web`, build a static Next.js app in
 > `web/` deployable to Vercel: search an address from the 500 samples, pick a date from
 > `paths.DEMO_DATES`, show each rule with result, plain-language explanation, citation, quoted span,
 > source link, retrieval date and as-of date; EN/ES toggle; a change-tests page for T1–T5; "Not legal
