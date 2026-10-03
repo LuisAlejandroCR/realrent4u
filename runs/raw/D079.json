@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "San Francisco, CA",
+      "level": "city",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "San Francisco Rent Ordinance just cause eviction requirement",
+      "requirement": "A landlord may evict a tenant from a unit covered by the Rent Ordinance only for one of 17 listed just cause reasons, and that reason must be the dominant motive for the eviction. Expiration of the lease or a change in ownership is not just cause, and removing housing services such as parking, storage or laundry also requires just cause.",
+      "key_value": "17 just cause reasons; reason must be dominant motive",
+      "citation": "San Francisco Rent Ordinance Section 37.9(a)",
+      "quoted_span": "In order to evict a tenant from a rental unit covered by the Rent Ordinance, a landlord must have a \"just cause\" reason that is the dominant motive for pursuing the eviction. Note that the mere expiration of a rental agreement or a change in ownership does not constitute \"just cause\" for eviction.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Rental units covered by the Rent Ordinance. This includes tenancies exempt from the rent increase limits, such as newly constructed units that first obtained a Certificate of Occupancy after June 13, 1979, tenancies eligible for a rent increase under the Costa-Hawkins Rental Housing Act, and some tenancies where rent is regulated by another government agency.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "A landlord who evicts or tries to evict a tenant unlawfully may be subject to substantial civil and/or criminal liability.",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "This is an official Rent Board summary page, not the ordinance text. No effective or enactment date is stated. The June 13, 1979 Certificate of Occupancy date limits only rent increase coverage; post-1979 units remain subject to just cause, so no construction cutoff is recorded for this rule. Notice and relocation requirements are not described. Permitted causes include nonpayment, breach, nuisance, illegal use, refusal to renew, denial of access, unapproved subtenant, owner or relative move-in, condo conversion, demolition, capital improvements, substantial rehabilitation, Ellis Act withdrawal, lead remediation, development agreement, expired Good Samaritan tenancy, and Planning Code Section 317 development.",
+      "confidence": 0.85
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4031,
+    "output_tokens": 1195,
+    "at": "2026-10-03T18:21:41+00:00"
+  },
+  "prompt_version": 2
+}

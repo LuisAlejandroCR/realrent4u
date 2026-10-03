@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "Required form accompanying notice to quit for nonpayment of rent",
+      "requirement": "A landlord's written notice to quit a residential tenant for nonpayment of rent must include a state-developed form with any repayment agreements, information on rental assistance, court rules and eviction restrictions, and a prominent statement that the notice is not an eviction. Courts may not accept a nonpayment eviction filing without proof that the form was delivered.",
+      "key_value": "Notice to quit for nonpayment must include EOHLC form; no court filing without proof of delivery",
+      "citation": "M.G.L. c. 186, § 31",
+      "quoted_span": "No court having jurisdiction over an action for summary process pursuant to chapter 239, including the Boston municipal court department, shall, in an eviction for nonpayment of rent for a residential dwelling unit, accept for filing a writ, summons or complaint without proof of delivery of the form required under this section.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Notices to quit for nonpayment of rent given in writing by a landlord to a residential tenant",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "Court will not accept for filing a summary process writ, summons or complaint for nonpayment without proof of delivery of the form.",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "This is an eviction notice-content requirement rather than a just-cause limitation on permitted eviction grounds; classified under just_cause_eviction because the category covers notice. Effective and enactment dates not stated in the document. The executive office of housing and livable communities develops the form; clause (ii) information must be available in English plus the 5 most common languages in the commonwealth.",
+      "confidence": 0.6
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3368,
+    "output_tokens": 918,
+    "at": "2026-10-03T18:21:04+00:00"
+  },
+  "prompt_version": 2
+}

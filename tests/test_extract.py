@@ -71,3 +71,67 @@ def test_raw_output_uses_cache_without_client(tmp_path, monkeypatch):
     (tmp_path / "D001.json").write_text('{"rules": [], "meta": {}}', encoding="utf-8")
     doc = extract.corpus.documents()["D001"]
     assert extract.raw_output(None, doc) == {"rules": [], "meta": {}}
+
+
+def test_ca_statute_without_date_gets_january_first_after_enactment():
+    alg = raw_rule(jurisdiction="CA", level="state", citation="AB 325", effective_date="",
+                   enacted_date="2025-10-06")
+    rule = extract.build_rules({"D001": {"rules": [alg]}}, [])[0]
+    assert rule["effective_date"] == "2026-01-01"
+    assert rule["status"] == "in_force"
+    assert "derived" in rule["extraction_note"]
+
+
+def test_stated_effective_date_is_never_replaced():
+    alg = raw_rule(jurisdiction="CA", level="state", effective_date="2027-07-01", enacted_date="2025-10-06")
+    assert extract.build_rules({"D001": {"rules": [alg]}}, [])[0]["effective_date"] == "2027-07-01"
+
+
+D069_QUOTE = "a rental property owner, or any agent, representative, or subcontractor thereof"
+
+
+def test_effective_date_derived_from_months_after_enactment_clause():
+    fair = raw_rule(jurisdiction="NJ", level="state", citation="P.L. 2026, c.43", quoted_span=D069_QUOTE,
+                    effective_date="", enacted_date="2026-07-20", status="in_force")
+    rule = extract.build_rules({"D069": {"rules": [fair]}}, [])[0]
+    assert rule["effective_date"] == "2027-07-01"
+    assert rule["status"] == "not_yet_effective"
+    assert "twelfth month next following the date of enactment" in rule["extraction_note"]
+
+
+def test_no_effective_clause_leaves_date_null():
+    alg = raw_rule(effective_date="", enacted_date="2025-10-06")
+    rule = extract.build_rules({"D001": {"rules": [alg]}}, [])[0]
+    assert rule["effective_date"] is None
+    assert rule["status"] == "in_force"
+
+
+def test_stated_effective_date_wins_over_enactment_clause():
+    fair = raw_rule(jurisdiction="NJ", level="state", quoted_span=D069_QUOTE,
+                    effective_date="2027-08-01", enacted_date="2026-07-20")
+    assert extract.build_rules({"D069": {"rules": [fair]}}, [])[0]["effective_date"] == "2027-08-01"
+
+
+def test_state_rule_that_exempts_local_rent_control_is_overridden():
+    state = raw_rule(jurisdiction="CA", level="state", category="rent_increase_limits", citation="1947.12",
+                     exemptions="Housing under valid local rent control that restricts increases is exempt.")
+    local = raw_rule(category="rent_increase_limits", citation="BMC ch. 13.76")
+    rules = {r["team_rule_id"]: r for r in extract.build_rules({"D001": {"rules": [state, local]}}, [])}
+    assert rules["r-D001-02"]["overrides"] == ["r-D001-01"]
+
+
+def test_buildings_exempt_from_local_control_do_not_make_state_yield():
+    state = raw_rule(jurisdiction="CA", level="state", category="rent_increase_limits", citation="x",
+                     exemptions="Subsidized buildings may be exempt from local rent control.")
+    local = raw_rule(category="rent_increase_limits", citation="BMC ch. 13.76")
+    rules = {r["team_rule_id"]: r for r in extract.build_rules({"D001": {"rules": [state, local]}}, [])}
+    assert rules["r-D001-02"]["overrides"] == []
+
+
+def test_stale_prompt_version_is_reextracted_but_offline_uses_it(tmp_path, monkeypatch):
+    monkeypatch.setattr(extract, "RAW", tmp_path)
+    (tmp_path / "D001.json").write_text('{"rules": [], "meta": {}, "prompt_version": 1}', encoding="utf-8")
+    doc = extract.corpus.documents()["D001"]
+    assert extract.raw_output(None, doc)["prompt_version"] == 1
+    monkeypatch.setattr(extract, "call_model", lambda client, d, t: {"rules": [], "meta": {"fresh": True}})
+    assert extract.raw_output(object(), doc)["meta"] == {"fresh": True}

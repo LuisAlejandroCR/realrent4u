@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "algorithmic_rent_setting",
+      "status": "in_force",
+      "title": "Cartwright Act: prohibition on use or distribution of common pricing algorithms (AB 325)",
+      "requirement": "It is unlawful to use or distribute a common pricing algorithm as part of a contract, trust or conspiracy to restrain trade. It is also unlawful to use or distribute one while coercing another person to adopt a price or commercial term it recommends for the same or similar products or services in California.",
+      "key_value": "Ban on using or distributing a 'common pricing algorithm' (any methodology, including software, used by two or more persons that uses competitor data to recommend, align, stabilize, set or influence a price or commercial term) in restraint of trade or with coercion to adopt its recommendations.",
+      "citation": "AB 325 (2025-2026), Stats. 2025, Ch. 338; Bus. & Prof. Code § 16729 (and § 16756.1)",
+      "quoted_span": "It shall be unlawful for a person to use or distribute a common pricing algorithm as part of a contract, combination in the form of a trust, or conspiracy to restrain trade or commerce in violation of this chapter.",
+      "effective_date": "",
+      "enacted_date": "2025-10-06",
+      "coverage_text": "Any person (as defined in Section 16702, excluding the end consumer of a product or service) who uses or distributes a common pricing algorithm, meaning any methodology, including a computer, software, or other technology, used by two or more persons, that uses competitor data to recommend, align, stabilize, set, or otherwise influence a price or commercial term. Commercial term includes level of service, availability and output. Distribution includes selling, licensing, providing access to, or making available by any means, including by subscription.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Does not apply to the end consumer of a product or service, who is excluded from the definition of 'person'.",
+      "penalty": "Violation is a violation of the Cartwright Act, which the digest states is punishable as a crime. The section does not limit other antitrust remedies.",
+      "displaces_state_rule": false,
+      "interaction": "Added to the Cartwright Act. Nothing in § 16729 impairs or limits the applicability of other antitrust laws. New § 16756.1 lowers the pleading standard for any Cartwright Act complaint: it suffices to allege facts making a contract, trust or conspiracy plausible, and the complaint need not allege facts excluding the possibility of independent action.",
+      "conflict_note": "",
+      "extraction_note": "The statute is economy-wide and does not mention rental housing specifically. It is classified as algorithmic_rent_setting because it covers pricing software that uses competitor data to set prices, which would include rent. The text gives no effective date, so effective_date is left blank. Status in_force is assumed from the chaptered/approved status (approved by Governor and filed with Secretary of State 2025-10-06) as of the query date 2026-10-01. The text itself states no effective date.",
+      "confidence": 0.8
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4583,
+    "output_tokens": 1554,
+    "at": "2026-10-03T18:19:55+00:00"
+  },
+  "prompt_version": 2
+}

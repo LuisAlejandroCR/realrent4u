@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Los Angeles, CA",
+      "level": "city",
+      "category": "algorithmic_rent_setting",
+      "status": "pending",
+      "title": "Motion seeking report on feasibility of banning algorithm-based rent-setting software",
+      "requirement": "Proposes that the City Council instruct the Los Angeles Housing Department to report on how many ownership and management entities use algorithm-based software to set rents, and whether a ban on using such software to set rents in the City is feasible. No ban is enacted or drafted.",
+      "key_value": "Report request on feasibility of a ban on algorithm-based rent-setting software",
+      "citation": "Los Angeles City Council Motion (Councilmember Heather Hutt), Council File 24-1031",
+      "quoted_span": "I THEREFORE MOVE that the City Council instruct the Los Angeles Housing Department to \nreport on the number of ownership and management entities that are using algorithm-based \nsoftware to establish rents and the feasibility of instituting a ban on the use of this software to set \nrents in the City.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Ownership and management entities using algorithm-based software to establish rents in the City of Los Angeles",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "The document is a council motion stamped SEP 03 2024 requesting a departmental report; it does not itself establish a ban, prohibited conduct, or penalties. It is treated as pending because the text does not show adoption or any resulting ordinance. The council file number 24-1031 comes from the source URL, not the document body. The San Francisco ban mentioned in the text is background about another jurisdiction and is not extracted.",
+      "confidence": 0.5
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3295,
+    "output_tokens": 1425,
+    "at": "2026-10-03T18:20:22+00:00"
+  },
+  "prompt_version": 2
+}

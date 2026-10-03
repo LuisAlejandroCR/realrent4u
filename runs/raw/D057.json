@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "application_screening_fees",
+      "status": "in_force",
+      "title": "Broker fee paid only by the party who hired the broker",
+      "requirement": "A licensed real estate broker or salesperson may contract solely with either a prospective tenant or a landlord (or landlord's agent), and any fee may only be paid by the party who originally engaged and contracted with the broker. A tenant therefore cannot be charged a broker fee for a broker the landlord hired.",
+      "key_value": "Fee payable only by the party (lessor or tenant) who engaged the broker",
+      "citation": "M.G.L. c. 112, § 87DDD1/2, as amended by St. 2025, c. 9, § 43 (see St. 2025, c. 9, § 136)",
+      "quoted_span": "Any fee shall only be paid by the party, lessor or tenant who originally engaged and entered into a contract with the licensed broker or salesperson.",
+      "effective_date": "2025-08-01",
+      "enacted_date": "",
+      "coverage_text": "Persons engaged in the business of finding dwelling accommodations for prospective tenants for a fee; licensed brokers or salespersons contracting with tenants or landlords for residential rentals.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "The rule governs broker fees, a type of upfront tenant charge, not application or screening fees specifically. It is classified under application_screening_fees as the closest category ('allowed upfront charges'), so the classification is uncertain. The effective date of 2025-08-01 comes from the bracketed note on the amended text. The document does not state the enactment date of St. 2025, c. 9, and it does not state a penalty. The prior version, effective until 2025-08-01, only required that fee-charging apartment finders be licensed.",
+      "confidence": 0.55
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3321,
+    "output_tokens": 1137,
+    "at": "2026-10-03T18:21:07+00:00"
+  },
+  "prompt_version": 2
+}
