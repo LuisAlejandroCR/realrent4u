@@ -326,6 +326,32 @@
   .rr-strip { justify-content: flex-start; gap: 6px 18px; font-size: 13px; }
   .rr-closing { padding: 40px 18px; }
 }
+
+/* Rule card evidence: key value, extracted details, per-card as-of and advice line */
+.rr-rule { overflow-wrap: anywhere; }
+.rr-key { margin: -6px 0 14px; padding: 8px 12px; background: var(--rr-evidence); border-radius: 8px; font-size: 15px; }
+.rr-rule-more { margin: 0 0 14px; border: 1px solid var(--rr-border); border-radius: 8px; padding: 0 12px; }
+.rr-rule-more summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; font-size: 14px; color: var(--rr-ink-2); }
+.rr-rule-more dl { margin: 0 0 12px; display: grid; gap: 10px; }
+.rr-rule-more dt { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rr-ink-2); font-weight: 600; }
+.rr-rule-more dd { margin: 2px 0 0; font-size: 14px; }
+.rr-rule-advice { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--rr-terra); }
+.rr-displaced li p { margin: 4px 0 0; color: var(--rr-ink-2); }
+
+/* Address header: state → county → city */
+.rr-stack { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 6px; width: 100%; font-size: 13px; color: var(--rr-ink-2); }
+.rr-stack li + li::before { content: "›"; margin-right: 6px; color: var(--rr-marigold); }
+.rr-stack-src { width: 100%; }
+
+@media (max-width: 600px) {
+  /* Longer labels (ES "Fecha de consulta") would push the date picker off a 360px screen. */
+  .rr .rr-subbar-row { flex-wrap: wrap; row-gap: 2px; }
+  .rr-rule-advice { margin-left: 0; }
+}
+@media (max-width: 520px) {
+  .rr .rr-tabs { border-radius: 16px; width: 100%; }
+  .rr .rr-tabs button { padding: 0 12px; flex: 1 1 auto; justify-content: center; }
+}
 @media (prefers-reduced-motion: reduce) {
   .rr *, .rr *::before, .rr *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

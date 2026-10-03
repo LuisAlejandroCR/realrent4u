@@ -30,14 +30,14 @@ export function AppShell({ current, children }: AppShellProps) {
 
   return (
     <div className={`rr ${home ? "rr-is-landing" : ""}`}>
-      <a className="rr-skip" href="#main">Skip to content</a>
+      <a className="rr-skip" href="#main">{tr.skipToContent}</a>
       <header className="rr-header">
         <div className="rr-wrap rr-header-row">
           <a className="rr-brand" href={hrefWith("/", prefs)}>
             <span className="rr-brand-mark" aria-hidden>§</span>
             <span className="rr-brand-name">{tr.brand}</span>
           </a>
-          <nav aria-label="Primary" className="rr-nav">
+          <nav aria-label={tr.primaryNav} className="rr-nav">
             {nav.map(([href, label]) => (
               <a key={label} href={href}>{label}</a>
             ))}

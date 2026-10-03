@@ -73,7 +73,7 @@ export function SearchBody({ data }: { data: Dataset }) {
                 {ruleSet.length === 0 ? (
                   <Notice tone="neutral" title={tr.noRules} />
                 ) : (
-                  <ResultsByCategory rules={ruleSet} items={items} allRules={data.rules} lang={lang} tr={tr} />
+                  <ResultsByCategory rules={ruleSet} items={items} allRules={data.rules} asOf={asOf} lang={lang} tr={tr} />
                 )}
               </>
             )}

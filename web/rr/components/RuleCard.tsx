@@ -1,7 +1,9 @@
-// RuleCard.tsx: one rule for one address: result badge, reason, requirement, quoted text, citation, source, retrieval date.
+// RuleCard.tsx: one rule for one address: result badge, reason, requirement, extracted details, quoted text,
+// citation, source document, retrieval date, as-of date and the "not legal advice" line.
 import type { LookupItem, Rule, Lang } from "../types";
 import type { Dict } from "../i18n";
 import { reasonLabel } from "../reason-labels";
+import { blank } from "../data";
 import { StatusBadge } from "./StatusBadge";
 
 export interface DisplacedRule {
@@ -15,15 +17,44 @@ export interface RuleCardProps {
   item?: LookupItem | undefined;
   /** Rules this one displaces (resolved from rule.overrides). */
   displaced?: DisplacedRule[] | undefined;
+  /** The as-of date the result answers for. */
+  asOf: string;
   lang: Lang;
   tr: Dict;
 }
 
-export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps) {
+// Fields rules.json carries beyond the frontend Rule type; read-only here, the contract stays in types.ts.
+type RuleExtra = Rule & { exemptions?: unknown; source_doc_id?: unknown; enacted_date?: unknown };
+const text = (v: unknown): string | null => (typeof v === "string" && !blank(v) ? v : null);
+
+/** Reason line: missing facts say "not in the record"; other reasons (supersession, conflicting sources) do not. */
+function Reason({ reason, lang, tr }: { reason: string; lang: Lang; tr: Dict }) {
+  const missing = reason.split(",").some((r) => r.trim().startsWith("missing_"));
+  return (
+    <p className="rr-missing-line">
+      <strong>{missing ? tr.missingField : tr.reason}:</strong> {reasonLabel(reason, lang)}
+      {missing && <> — <em>{tr.notInRecord}</em></>}
+    </p>
+  );
+}
+
+export function RuleCard({ rule, item, displaced = [], asOf, lang, tr }: RuleCardProps) {
   const kind = item ? item.result : "unevaluated";
   // The engine decides conflicts per address; the rule-level flag only shows when nothing was evaluated.
   const conflict = item ? item.conflict_flag : !!rule.conflict_flag;
   const explanation = item ? (lang === "es" && item.explanation_es ? item.explanation_es : item.explanation) : null;
+  const x = rule as RuleExtra;
+  const docId = text(x.source_doc_id);
+  const keyValue = text(rule.key_value);
+  const details = (
+    [
+      [tr.covers, text(rule.coverage_conditions?.text)],
+      [tr.exemptions, text(x.exemptions)],
+      [tr.penalty, text(rule.penalty)],
+      [tr.enacted, text(x.enacted_date)],
+      [tr.effective, text(rule.effective_date)],
+    ] as [string, string | null][]
+  ).filter((d): d is [string, string] => !!d[1]);
 
   return (
     <article className={`rr-rule rr-rule-${kind}`} aria-labelledby={`h-${rule.team_rule_id}`}>
@@ -35,8 +66,8 @@ export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps
         </div>
         <h3 id={`h-${rule.team_rule_id}`} className="rr-rule-title">{rule.title}</h3>
         <p className="rr-meta">
-          <span className="rr-id">{rule.team_rule_id}</span> · {rule.jurisdiction} · {rule.level}
-          {rule.effective_date && <> · {rule.effective_date}</>}
+          <span className="rr-id">{rule.team_rule_id}</span> · {rule.jurisdiction} · {tr.level[rule.level] ?? rule.level}
+          {rule.effective_date && <> · {tr.effective} {rule.effective_date}</>}
         </p>
       </header>
 
@@ -44,14 +75,25 @@ export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps
         <div className="rr-why">
           <h4>{tr.why}</h4>
           <p>{explanation}</p>
-          {item?.result === "unknown" && item.reason && (
-            <p className="rr-missing-line"><strong>{tr.missingField}:</strong> {reasonLabel(item.reason, lang)} — <em>{tr.notInRecord}</em></p>
-          )}
+          {item?.reason && <Reason reason={item.reason} lang={lang} tr={tr} />}
         </div>
       )}
       {conflict && rule.conflict_note && <p className="rr-review-note">{rule.conflict_note}</p>}
 
       <p className="rr-req">{rule.requirement}</p>
+      {keyValue && <p className="rr-key"><span className="rr-label">{tr.keyValue}</span> {keyValue}</p>}
+
+      {details.length > 0 && (
+        // Coverage explains an unknown result, so it starts open there.
+        <details className="rr-rule-more" open={item?.result === "unknown" || undefined}>
+          <summary>{tr.ruleDetails}</summary>
+          <dl>
+            {details.map(([k, v]) => (
+              <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+            ))}
+          </dl>
+        </details>
+      )}
 
       {rule.quoted_span && (
         <blockquote className="rr-quote">
@@ -61,12 +103,15 @@ export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps
 
       <footer className="rr-rule-foot">
         <span><span className="rr-label">{tr.citation}</span> {rule.citation ?? <span className="rr-missing">{tr.notInRecord}</span>}</span>
-        {rule.retrieved_at && <span><span className="rr-label">{tr.retrieved}</span> {rule.retrieved_at}</span>}
+        {docId && <span><span className="rr-label">{tr.sourceDoc}</span> <span className="rr-mono">{docId}</span></span>}
+        {rule.retrieved_at && <span><span className="rr-label">{tr.retrieved}</span> <span className="rr-mono">{rule.retrieved_at}</span></span>}
+        <span><span className="rr-label">{tr.asOf}</span> <time className="rr-mono" dateTime={asOf}>{asOf}</time></span>
         {rule.source_url && (
           <a href={rule.source_url} target="_blank" rel="noreferrer" className="rr-link">
-            {tr.source} <span aria-hidden>↗</span>
+            {tr.source} <span aria-hidden>↗</span><span className="rr-sr"> ({tr.newTab})</span>
           </a>
         )}
+        <span className="rr-rule-advice">{tr.notAdvice}</span>
       </footer>
 
       {displaced.length > 0 && (
@@ -80,6 +125,7 @@ export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps
                 {displacedItem?.explanation && (
                   <p>{lang === "es" && displacedItem.explanation_es ? displacedItem.explanation_es : displacedItem.explanation}</p>
                 )}
+                {displacedItem?.reason && <Reason reason={displacedItem.reason} lang={lang} tr={tr} />}
               </li>
             ))}
           </ul>
