@@ -1,0 +1,11 @@
+# .gitignore: files kept out of the public repo
+# Local agent config and secrets
+
+CLAUDE.md
+.claude/
+.env
+.env.*
+__pycache__/
+.venv/
+node_modules/
+.next/
