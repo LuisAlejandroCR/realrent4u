@@ -5,12 +5,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import qrcode from "qrcode-generator";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = path.join(WEB, "public");
 const OUT = path.join(PUBLIC, "data");
 const warnings = [];
+let qrcode = null;
+
+try {
+  qrcode = (await import("qrcode-generator")).default;
+} catch (e) {
+  warnings.push(`qrcode-generator unavailable (${e.code ?? e.message}); QR images shown as pending`);
+}
 
 const isHttps = (v) => typeof v === "string" && /^https:\/\/\S+$/.test(v);
 
@@ -26,6 +32,7 @@ function resource(v, what) {
 
 function qr(id, target) {
   if (!isHttps(target)) return null;
+  if (!qrcode) return null;
   const code = qrcode(0, "M");
   code.addData(target);
   code.make();
