@@ -168,6 +168,25 @@ _LOCAL_LAW = re.compile(r"\b(under|subject to|covered by)\b[^.;]{0,30}?\b(local|
 _YIELDS = re.compile(r"exempt|not apply|not covered|more protective|stricter", re.I)
 
 
+_ORDINALS = {w: n for n, w in enumerate(
+    "first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth".split(), start=1)}
+_EFFECTIVE_CLAUSE = re.compile(
+    r"takes? effect on the first day of the (?:(\d+)(?:st|nd|rd|th)?|([a-z]+)) month (?:next )?(?:following|after) "
+    r"(?:the (?:date of )?)?enactment", re.I)
+
+
+def _effective_from_text(doc: corpus.Document, enacted: str) -> tuple[str | None, str | None]:
+    """Date from an effective-date clause in the source text ("shall take effect on the first day of
+    the twelfth month next following the date of enactment"). No clause, no date."""
+    m = _EFFECTIVE_CLAUSE.search(corpus.collapse(doc.text()))
+    n = m and (int(m.group(1)) if m.group(1) else _ORDINALS.get(m.group(2).lower()))
+    if not n:
+        return None, None
+    months = int(enacted[:4]) * 12 + int(enacted[5:7]) - 1 + n
+    effective = f"{months // 12:04d}-{months % 12 + 1:02d}-01"
+    return effective, f'effective_date derived: enacted {enacted}; source text: "{m.group(0)}"'
+
+
 def _opt(value: str) -> str | None:
     value = (value or "").strip()
     return value or None
@@ -179,12 +198,16 @@ def to_rule_record(raw: dict, doc: corpus.Document, quote: str, rule_id: str) ->
     effective = effective if effective and _DATE.match(effective) else None
     status, notes = raw["status"], [_opt(raw.get("extraction_note", ""))]
     enacted = _opt(raw.get("enacted_date", ""))
-    if effective is None and enacted and _FULL_DATE.match(enacted) and raw["jurisdiction"].strip() == "CA"             and raw["level"] == "state" and status in ("in_force", "not_yet_effective"):
-        # Cal. Const. art. IV, sec. 8(c): a non-urgency statute takes effect on January 1 of the year
-        # after enactment. Derived, not quoted — recorded so a reviewer can check it.
-        effective = f"{int(enacted[:4]) + 1}-01-01"
-        notes.append(f"effective_date derived: enacted {enacted}; CA default under Cal. Const. art. IV, sec. 8(c)")
-        status = "in_force" if effective <= paths.DEFAULT_AS_OF else "not_yet_effective"
+    if effective is None and enacted and _FULL_DATE.match(enacted) and status in ("in_force", "not_yet_effective"):
+        effective, note = _effective_from_text(doc, enacted)
+        if effective is None and raw["jurisdiction"].strip() == "CA" and raw["level"] == "state":
+            # Cal. Const. art. IV, sec. 8(c): a non-urgency statute takes effect on January 1 of the year
+            # after enactment. Derived, not quoted — recorded so a reviewer can check it.
+            effective = f"{int(enacted[:4]) + 1}-01-01"
+            note = f"effective_date derived: enacted {enacted}; CA default under Cal. Const. art. IV, sec. 8(c)"
+        if effective:
+            notes.append(note)
+            status = "in_force" if effective <= paths.DEFAULT_AS_OF else "not_yet_effective"
     coverage = {
         "text": _opt(raw["coverage_text"]),
         "built_cutoff_date": _opt(raw["built_cutoff_date"]),

@@ -87,6 +87,31 @@ def test_stated_effective_date_is_never_replaced():
     assert extract.build_rules({"D001": {"rules": [alg]}}, [])[0]["effective_date"] == "2027-07-01"
 
 
+D069_QUOTE = "a rental property owner, or any agent, representative, or subcontractor thereof"
+
+
+def test_effective_date_derived_from_months_after_enactment_clause():
+    fair = raw_rule(jurisdiction="NJ", level="state", citation="P.L. 2026, c.43", quoted_span=D069_QUOTE,
+                    effective_date="", enacted_date="2026-07-20", status="in_force")
+    rule = extract.build_rules({"D069": {"rules": [fair]}}, [])[0]
+    assert rule["effective_date"] == "2027-07-01"
+    assert rule["status"] == "not_yet_effective"
+    assert "twelfth month next following the date of enactment" in rule["extraction_note"]
+
+
+def test_no_effective_clause_leaves_date_null():
+    alg = raw_rule(effective_date="", enacted_date="2025-10-06")
+    rule = extract.build_rules({"D001": {"rules": [alg]}}, [])[0]
+    assert rule["effective_date"] is None
+    assert rule["status"] == "in_force"
+
+
+def test_stated_effective_date_wins_over_enactment_clause():
+    fair = raw_rule(jurisdiction="NJ", level="state", quoted_span=D069_QUOTE,
+                    effective_date="2027-08-01", enacted_date="2026-07-20")
+    assert extract.build_rules({"D069": {"rules": [fair]}}, [])[0]["effective_date"] == "2027-08-01"
+
+
 def test_state_rule_that_exempts_local_rent_control_is_overridden():
     state = raw_rule(jurisdiction="CA", level="state", category="rent_increase_limits", citation="1947.12",
                      exemptions="Housing under valid local rent control that restricts increases is exempt.")

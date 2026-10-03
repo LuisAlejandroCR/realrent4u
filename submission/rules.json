@@ -2312,7 +2312,7 @@
       "penalty": "Conduct is unlawful and a violation of the New Jersey Antitrust Act (C.56:9-1 et seq.); sections 6 through 17 of P.L.1970, c.73 (C.56:9-6 through 9-17) apply to violations. Attorney General to maintain a complaint portal.",
       "overrides": [],
       "interaction": "State law supplementing the New Jersey Antitrust Act; municipalities are prohibited from enacting ordinances that conflict with this act, except ordinances explicitly authorized or required by other law.",
-      "effective_date": null,
+      "effective_date": "2027-07-01",
       "enacted_date": "2026-07-20",
       "citation": "P.L. 2026, c.43 (A3497 1R ACS), §4; C.56:9-20 to 56:9-26",
       "source_doc_id": "D069",
@@ -2321,7 +2321,7 @@
       "confidence": 0.88,
       "conflict_flag": false,
       "conflict_note": null,
-      "extraction_note": "Section 9 states the act takes effect 'on the first day of the twelfth month next following the date of enactment'; with approval on 2026-07-20 this would compute to about 2027-07-01, but no explicit date is given in the text, so effective_date is left blank. Status is not_yet_effective as of 2026-10-01 under any reading of this formula.",
+      "extraction_note": "Section 9 states the act takes effect 'on the first day of the twelfth month next following the date of enactment'; with approval on 2026-07-20 this would compute to about 2027-07-01, but no explicit date is given in the text, so effective_date is left blank. Status is not_yet_effective as of 2026-10-01 under any reading of this formula.; effective_date derived: enacted 2026-07-20; source text: \"take effect on the first day of the twelfth month next following the date of enactment\"",
       "retrieved_at": "2026-10-01T22:56Z"
     },
     {
