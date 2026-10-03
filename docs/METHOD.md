@@ -25,9 +25,8 @@ manifest, and validates. The prompt (version 2) allows only the six categories a
 - **Offline rebuild:** `extract --offline` rebuilds the identical `rules.json` from the cache, with
   no model call.
 
-**In progress:** extraction lives on branch `feat/extract-run`, not merged; `main` still ships empty
-submission files. That run: 94 candidates, 1 dropped (quote not in source), 11 duplicates merged,
-82 rules; 362k input and 109k output tokens, about $3.60.
+Current run: 94 candidates, 1 dropped (quote not in source), 11 duplicates merged, 82 rules from 48
+documents; 362k input and 109k output tokens, about $3.60.
 
 ## Jurisdiction (Module B)
 
@@ -68,9 +67,10 @@ ban only inside its city. T4: addresses where the bills are `pending`. T5: must 
 The extractor flags a rule whose source shows disagreeing dates or possible preemption. In T3, NJ
 addresses where the FAIR Act and a local ban both appear are flagged for human review, not resolved.
 
-**In progress:** on that branch, T1 flips all 250 CA addresses, T3 all 140 NJ addresses, T4
-reaches all 110 MA addresses as pending, and T5 is empty. T2 and the T3 flags are still empty: the
-Hoboken and Jersey City bans (D032–D035) are link-only, so there is no text to extract.
+**In progress:** with the extracted rules, T1 flips all 250 CA addresses, T3 all 140 NJ addresses,
+T4 reaches all 110 MA addresses as pending, and T5 is empty; `lookups.json` and `changes.json` on
+`main` are still empty until the final run. T2 and the T3 flags are empty: the Hoboken and Jersey
+City bans (D032–D035) are link-only, so there is no text to extract.
 
 ## Limits
 

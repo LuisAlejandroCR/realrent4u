@@ -65,7 +65,7 @@ C · Track     change ─► lookups before/after ─► affected addresses + co
 | `data/` | Official starter pack: corpus, addresses, rule schema, change tests, submission templates |
 | `realrent/` | Python pipeline: extract, resolve, engine, lookups, changes, explain, validate |
 | `tests/` | pytest suite and hand-made fixtures (fixtures are never submitted) |
-| `runs/` | Cached raw model outputs (`runs/raw/`) and one audit log per extraction run (arrives with extraction) |
+| `runs/` | Cached raw model outputs (`runs/raw/`) and one audit log per extraction run |
 | `derived/` | Jurisdictions per address, cached Census responses, lookups per demo date |
 | `submission/` | The three deliverable JSON files |
 | `web/` | Static Next.js demo that reads the precomputed JSON ([web/README.md](web/README.md)) |
@@ -100,7 +100,7 @@ the `chore/pipeline` branch (not merged yet); until then, run the steps one by o
 
 Without an API key everything above except a fresh extraction works. Explanations are templates; set
 `REALRENT_LLM_EXPLAIN=1` with a key to let Claude reword them (the rewrite is kept only if citation,
-as-of date and disclaimer survive). While `rules.json` is empty, `lookups` uses the test fixtures
+as-of date and disclaimer survive). If `rules.json` is ever empty, `lookups` uses the test fixtures
 for `derived/lookups/` only and leaves `submission/lookups.json` alone, and `changes` prefixes its
 notes with `[FIXTURE INPUT, not a submission]`: never submit that output.
 
@@ -115,9 +115,10 @@ Deploy notes (Vercel) are in [web/README.md](web/README.md).
 
 ## Status
 
-Resolution, apply engine, change tracking, explanations and the web demo are merged. Extraction
-(Module A) is finishing on `feat/extract-run`; until it merges, `submission/*.json` on `main` are
-valid but empty. [docs/METHOD.md](docs/METHOD.md) says what is done and what is still open.
+Extraction, resolution, apply engine, change tracking, explanations and the web demo are merged, and
+`submission/rules.json` holds 82 extracted rules. `lookups.json` and `changes.json` are still the
+empty placeholders until the final run regenerates them. [docs/METHOD.md](docs/METHOD.md) says what
+is done and what is still open.
 
 ## Responsible use
 
