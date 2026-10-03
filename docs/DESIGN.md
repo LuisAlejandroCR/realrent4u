@@ -27,34 +27,45 @@ accent per heading, pill buttons, soft surfaces. Palette moved from prufture's t
 
 ## Tokens
 
-All tokens live in `web/app/globals.css` as CSS custom properties; components use classes and never
-inline raw hex or px.
+**Palette: Stamp & Marigold** (shared with the mobile app; light only, no dark full-width sections, no
+strong gradients). Tokens live in `web/rr/rr.css` (`:root`); landing styles in `web/rr/rr-home.css`,
+dashboard additions in `web/rr/rr-landing.css`. Components use classes, never raw hex.
 
-| Token | Light | Use |
-|---|---|---|
-| `--ground` | `#F7F5F0` (paper) | page background |
-| `--surface` | `#FFFFFF` | cards |
-| `--surface-soft` | `#EEF4F3` | quiet panels, quote blocks |
-| `--border` | `#DCE3E2` | hairlines |
-| `--ink` | `#1A2B44` (brief navy) | text, headings |
-| `--muted` | `#5A6878` | secondary text (≥ 4.5:1 on paper) |
-| `--primary` | `#1F8A84` (brief teal) | buttons, links, focus ring |
-| `--primary-soft` | `#E3F2F0` | selected pill background |
-| `--accent` | `#B4532F` (brick) | the one italic word per heading, the house mark |
+| Token | Value | Use | Contrast (measured) |
+|---|---|---|---|
+| `--rr-paper` | `#F5F4EF` | page background | — |
+| `--rr-surface` | `#FFFFFF` | cards, controls | — |
+| `--rr-soft` | `#E9EEF8` | quiet sections and panels | — |
+| `--rr-evidence` | `#FFF6E3` | quotes, examples, notes | — |
+| `--rr-ink` | `#141C2E` | headings, body text | 15.4:1 on paper |
+| `--rr-ink-2` | `#4F5869` | secondary text | 6.5:1 paper · 6.2:1 soft |
+| `--rr-stamp` | `#2949A8` | CTAs, links, selection, focus | 7.3:1 paper · white on it 8.0:1 |
+| `--rr-marigold-ink` | `#8F520A` | accent text (italic heading word, kicker) | 5.6:1 paper · 5.3:1 soft |
+| `--rr-marigold` | `#B86A0E` | borders, symbols, details only (3.7:1, non-text) | — |
+| `--rr-highlight` | `#FFE29A` | sparing editorial `<mark>` | ink on it 13.4:1 |
+| `--rr-border` | `#D8DAE0` | lines and separators | — |
 
-Dark mode via `prefers-color-scheme`: ground `#0F1A2A`, surface `#16243A`, ink `#EAF0F5`, muted
-`#A3B1C2`, primary `#3DB5AD`, accent `#E07A55`. Check every text pair at ≥ 4.5:1.
+**Result status**: each result has a written label and its own marker shape, so colour is never the
+only signal.
 
-**Result status** — the hue lives on the dot and the left border only; the label is always `--ink`:
+| Result | Colour | Marker | Label (EN / ES) |
+|---|---|---|---|
+| `applies` | stamp blue | filled dot | Applies / Aplica |
+| `unknown` | marigold text | ring, dashed card border | Unknown / Desconocido (a fact is missing; never guessed) |
+| `superseded` | ink-2 | bar | Superseded / Desplazada |
+| `not_yet_effective` | ink | diamond, dashed | Not yet effective / Aún no vigente |
+| `pending` | ink | diamond, dashed | Pending / Pendiente |
+| conflict flag | white on marigold text | triangle | Needs human review / Requiere revisión humana |
 
-| Result | Dot | Label (EN / ES) |
-|---|---|---|
-| `applies` | teal `#1F8A84` | Applies / Aplica |
-| `unknown` | amber `#C58A1E` | Unknown — missing fact / Desconocido — falta un dato |
-| `superseded` | slate `#7A8797`, title struck through | Superseded by local law / Desplazada por ley local |
-| `not_yet_effective` | blue `#2F6FB2` | Not yet in effect / Aún no vigente |
-| `pending` | violet `#6E58B8`, dashed border | Pending bill / Proyecto pendiente |
-| conflict flag | brick `#B4532F` flag icon | Needs human review / Requiere revisión humana |
+**Landing (`/`)**: the story in six parts. Every example and number comes from the data files.
+1. Hero (address + date)
+2. Problem (postal city ≠ jurisdiction, building facts, date)
+3. How it works (3 steps, ElevenLabs videos with QR)
+4. The five results
+5. T1–T5 over time ("results not available" ≠ "0, confirmed empty")
+6. Closing CTA to `/dashboard`
+
+Videos and QR destinations come from `web/landing.config.json` (see `web/README.md`). Until they are set, the page shows labelled placeholders.
 
 Type: system sans for UI; one serif italic (`Georgia`, `"Iowan Old Style"`) for the accent word.
 Fluid `h1` with `clamp(2rem, 4vw, 3.25rem)`, 16px body, monospace only for citations and address ids.

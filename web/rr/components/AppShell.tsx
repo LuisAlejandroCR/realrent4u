@@ -1,6 +1,7 @@
 "use client";
 // AppShell.tsx: header (brand, nav, EN/ES), the "not legal advice" + as-of bar shown on every screen,
-// data loading states and footer. The landing uses a dark, full-bleed variant.
+// data loading states and footer. On the landing (rr-is-landing) main is full-bleed and the header
+// aligns to the wider landing grid.
 import type { ReactNode } from "react";
 import { useDataset, temporal, type Dataset } from "../data";
 import { hrefWith, usePrefs } from "../prefs";

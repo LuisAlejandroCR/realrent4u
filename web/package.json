@@ -8,9 +8,9 @@
   },
   "scripts": {
     "copy-data": "node scripts/copy-data.mjs",
-    "predev": "node scripts/copy-data.mjs",
+    "predev": "node scripts/copy-data.mjs && node scripts/landing-media.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/copy-data.mjs",
+    "prebuild": "node scripts/copy-data.mjs && node scripts/landing-media.mjs",
     "build": "next build",
     "serve": "npx --yes serve out -l 3000"
   },
@@ -23,6 +23,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "qrcode-generator": "^2.0.4",
     "typescript": "^5"
   }
 }

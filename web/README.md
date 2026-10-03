@@ -41,6 +41,23 @@ Code: the UI lives in `rr/` (views, components, `data.ts`, `i18n.ts`, `rr.css` +
 
 When any fixture is used, a **Fixture data** badge appears in the header.
 
+## Landing videos and QR codes
+
+The landing reads `web/landing.config.json`. `scripts/landing-media.mjs` runs before `dev` and `build`. It checks every entry and writes `public/data/landing.json`, plus one QR SVG per real destination under `public/data/qr/`. Nothing in the dashboard changes. Every field starts as `null`, and the page then shows "pending" placeholders instead of a video or a QR.
+
+| Field | What to put there |
+|---|---|
+| `site_url` | Public https URL of the deployed site (for example the Vercel URL). It builds QR codes for local video files and the default demo link (`<site_url>/dashboard/`). |
+| `demo.url` | Optional https link for the "Open the demo" QR. It overrides `site_url`. |
+| `videos[].src` | An MP4 (H.264) under `web/public/media/` (for example `media/product-demo.mp4`), or an https URL to an MP4 file. It plays in a native player with controls and no autoplay. |
+| `videos[].url` | Optional https page for the video (YouTube, Drive and so on). It is used for the button and the QR. |
+| `videos[].poster` | A JPG or PNG under `web/public/media/`, or an https URL. |
+| `videos[].duration` | Text such as `"0:54"`. Measure it from the final file, for example with `ffprobe`. |
+| `videos[].captions.en` / `.es` | WebVTT (`.vtt`) files under `web/public/media/`. |
+| `videos[].transcript.en` / `.es` | Plain-text transcripts (`.txt`) under `web/public/media/`. |
+
+A local path that does not exist is reported as a build warning and shown as pending. QR codes are generated only for https destinations, with `qrcode-generator` (MIT, no dependencies, build-time only). On phones the landing shows an "open" button and hides the QR.
+
 ## Deploy on Vercel
 
 1. Import the repo, then set **Root Directory** to `web`. The framework preset is Next.js.
