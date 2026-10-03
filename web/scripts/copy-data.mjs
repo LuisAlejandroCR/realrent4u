@@ -1,4 +1,4 @@
-// copy-data.mjs: copies the pipeline outputs (submission/, derived/, sample addresses) into public/data/.
+// copy-data.mjs: copies the pipeline outputs (submission/, derived/, sample addresses, docs/METHOD.md) into public/data/.
 // Falls back to tests/fixtures/ when an output is missing or still empty, and writes manifest.json
 // recording which source each file came from so the UI can show a "fixture data" badge.
 
@@ -173,6 +173,16 @@ const manifest = { generated_at: new Date().toISOString(), uses_fixtures: false,
   );
   writeJson("corpus.json", corpus);
   manifest.sources.corpus = { kind: rows.length ? "starter_pack" : "missing", path: rel(csv), count: rows.length };
+}
+
+// Method note: docs/METHOD.md, rendered to HTML by /method at build time. Optional: the page shows a
+// "not published yet" state while the file is missing or empty.
+{
+  const src = path.join(ROOT, "docs", "METHOD.md");
+  const text = fs.existsSync(src) ? fs.readFileSync(src, "utf8") : "";
+  if (text.trim()) fs.writeFileSync(path.join(OUT, "METHOD.md"), text);
+  else manifest.warnings.push("docs/METHOD.md is not published yet; /method shows a placeholder.");
+  manifest.sources.method_note = { kind: text.trim() ? "docs" : "missing", path: rel(src) };
 }
 
 const dd = demoDates();

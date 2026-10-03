@@ -1,5 +1,5 @@
 // Providers.tsx: client context with language, as-of date and the static data loaded from /data/.
-// URL params (?lang=es&date=2027-07-02) win over the per-browser saved preference.
+// URL params (?lang=es&date=2027-07-02) win over the per-browser saved preference and travel with linkTo().
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
@@ -26,6 +26,8 @@ interface Ctx {
   data: Data | null;
   error: string | null;
   lookups: (asOf: string) => LookupFile | null | undefined;
+  /** In-app href that keeps ?lang= / ?date= when the visitor arrived with them (shareable links). */
+  linkTo: (path: string) => string;
 }
 
 const AppContext = createContext<Ctx | null>(null);
@@ -61,9 +63,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   // undefined = not fetched yet, null = no file for that date
   const [lookupCache, setLookupCache] = useState<Record<string, LookupFile | null>>({});
+  // Which of ?lang= / ?date= the URL carried on arrival; those stay in the URL and in linkTo() hrefs.
+  const [urlParams, setUrlParams] = useState({ lang: false, date: false });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    setUrlParams({ lang: params.has("lang"), date: params.has("date") });
     const l = params.get("lang") ?? load("rr-lang");
     if (l === "en" || l === "es") setLangState(l);
     const d = params.get("date") ?? load("rr-asof");
@@ -114,6 +119,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
     document.documentElement.lang = lang;
   }, [lang]);
 
+  // Keep the URL params the visitor arrived with in step with the toggles, so a reload or a copied link
+  // shows the same language and date.
+  useEffect(() => {
+    if (!urlParams.lang && !urlParams.date) return;
+    const url = new URL(window.location.href);
+    if (urlParams.lang) url.searchParams.set("lang", lang);
+    if (urlParams.date) url.searchParams.set("date", asOf);
+    if (url.href !== window.location.href) window.history.replaceState(null, "", url.href);
+  }, [urlParams, lang, asOf]);
+
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
     save("rr-lang", l);
@@ -127,10 +142,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return Array.isArray(v) ? v.join(" ") : v;
   }, [lang]);
   const lookups = useCallback((d: string) => lookupCache[d], [lookupCache]);
+  const linkTo = useCallback(
+    (p: string) => {
+      const q = new URLSearchParams();
+      if (urlParams.lang) q.set("lang", lang);
+      if (urlParams.date) q.set("date", asOf);
+      const qs = q.toString();
+      return qs ? `${p}?${qs}` : p;
+    },
+    [urlParams, lang, asOf],
+  );
 
   const value = useMemo(
-    () => ({ lang, setLang, asOf, setAsOf, t, data, error, lookups }),
-    [lang, setLang, asOf, setAsOf, t, data, error, lookups],
+    () => ({ lang, setLang, asOf, setAsOf, t, data, error, lookups, linkTo }),
+    [lang, setLang, asOf, setAsOf, t, data, error, lookups, linkTo],
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

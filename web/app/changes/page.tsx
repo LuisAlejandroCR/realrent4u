@@ -1,5 +1,5 @@
 // page.tsx (changes): the five organizer change tests T1–T5, one section and one address table per test,
-// with affected and conflict-flagged addresses and notes from submission/changes.json.
+// with affected and conflict-flagged addresses (each linking to /a/<id>/) and notes from submission/changes.json.
 "use client";
 
 import Link from "next/link";
@@ -10,7 +10,7 @@ import type { Address } from "@/lib/types";
 const MAX_ROWS = 40;
 
 export default function ChangesPage() {
-  const { t, data } = useApp();
+  const { t, data, linkTo } = useApp();
   if (!data) return null;
   const byId: Record<string, Address> = Object.fromEntries(data.addresses.map((a) => [a.address_id, a]));
   const hasResults = Object.keys(data.changes).length > 0;
@@ -80,7 +80,7 @@ export default function ChangesPage() {
                           return (
                             <tr key={id}>
                               <td>
-                                <Link href={`/#${id}`}>
+                                <Link href={linkTo(`/a/${id}/`)} prefetch={false}>
                                   <code>{id}</code>
                                 </Link>
                               </td>

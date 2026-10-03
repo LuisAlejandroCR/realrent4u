@@ -15,6 +15,7 @@
     "serve": "npx --yes serve out -l 3000"
   },
   "dependencies": {
+    "marked": "^18.0.14",
     "next": "15.5.27",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
