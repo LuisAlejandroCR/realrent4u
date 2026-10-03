@@ -1,0 +1,28 @@
+{
+  "name": "realrent-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static demo of the Rental Housing Law Navigator: reads precomputed JSON, no server, no API key.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "copy-data": "node scripts/copy-data.mjs",
+    "predev": "node scripts/copy-data.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/copy-data.mjs",
+    "build": "next build",
+    "serve": "npx --yes serve out -l 3000"
+  },
+  "dependencies": {
+    "next": "15.5.27",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}
