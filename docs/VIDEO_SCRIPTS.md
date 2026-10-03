@@ -6,8 +6,9 @@ la web) y de METHOD.md (nota de método escrita); aquí va solo lo que se graba 
 
 # Video scripts — ElevenLabs
 
-Three videos: **Demo** (show it), **Tech** (how it's built), **Team** (who we are). Target 60 s each;
-if the form asks for longer, stretch the middle and keep the order.
+Three videos, **each up to 60 seconds** (organizer, 2026-10-03): **Product demo**, **Technical
+walkthrough**, **Team introduction**. 60 s is a hard cap: keep each narration clip **≤ 57 s** measured
+with `ffprobe`, leaving room for transitions. If a clip runs long, cut words; never speed up the voice.
 
 ## How to produce
 
@@ -15,8 +16,8 @@ if the form asks for longer, stretch the middle and keep the order.
    *Lauren – Friendly, Comforting and Soft*), stability 50, similarity 75, style 0, speed 1.0.
 2. Paste each **Narration** block as-is. `<break time="0.6s" />` tags add pauses; remove them if your
    model ignores them. One block per clip, so a retake costs one clip.
-3. Measure each clip (`ffprobe -i clip.mp3 -show_entries format=duration -v quiet -of csv=p=0`) and
-   record the screen to that length.
+3. Measure each clip (`ffprobe -i clip.mp3 -show_entries format=duration -v quiet -of csv=p=0`); it must
+   be ≤ 57 s. Then record the screen to that length.
 4. Mix at 1920×1080, 30 fps. Nobody touches the machine while recording.
 5. **Before recording, replace every `{{…}}`** with the value from the final run (W8) and check it
    against its source. Numbers marked ✅ are already measured.
@@ -35,7 +36,7 @@ if the form asks for longer, stretch the middle and keep the order.
 
 ---
 
-## 1. Demo video (~60 s, ~140 words)
+## 1. Product demo (≤ 60 s · narration ~122 words ≈ 54 s)
 
 | Time | Screen |
 |---|---|
@@ -59,7 +60,7 @@ In English or Spanish. And never as legal advice.
 
 ---
 
-## 2. Tech video (~60 s, ~150 words)
+## 2. Technical walkthrough (≤ 60 s · narration ~123 words ≈ 53 s)
 
 | Time | Screen |
 |---|---|
@@ -72,16 +73,16 @@ In English or Spanish. And never as legal advice.
 **Narration**
 
 ```text
-Here's how it works. Claude reads each of the {{TEXT_DOCS}} documents that have text and returns structured rules against the official schema. <break time="0.4s" />
-Then code takes over. Every quoted sentence has to exist, word for word, in its source, or the rule is dropped and logged. {{QUOTES_OK}} of {{QUOTES_TOTAL}} passed. A full extraction costs about {{EXTRACT_COST}}.
-Addresses go through the Census geocoder by street, not ZIP. Some ZIPs in the sample are wrong on purpose, and all 500 addresses still resolve to their legal city.
-A deterministic engine tests each rule against the building's facts and the query date. Local law supersedes state law only where the state's own text says so. Missing facts become unknown, with the reason.
-Model outputs are cached, so one command rebuilds the same answers, offline. The five change tests run on top of that.
+Claude reads each of the {{TEXT_DOCS}} documents with text and returns rules in the official schema. <break time="0.4s" />
+Then code takes over. Every quote must exist, word for word, in its source, or the rule is dropped and logged. {{QUOTES_OK}} of {{QUOTES_TOTAL}} passed, for about {{EXTRACT_COST}} per run.
+Addresses go through the Census geocoder by street, not ZIP. Some sample ZIPs are wrong on purpose; all 500 still resolve to their legal city.
+A deterministic engine tests each rule against the building's facts and the query date. Local law overrides state law only where the state's text says so. Missing facts become unknown, with the reason.
+Outputs are cached, so one command rebuilds the same answers offline, and the five change tests run on top.
 ```
 
 ---
 
-## 3. Team video (~45 s)
+## 3. Team introduction (≤ 60 s · keep the filled narration ≤ 120 words)
 
 Record early. Fill `{{…}}` with your own words; keep it to who, why you, and what's next.
 
@@ -108,4 +109,4 @@ Next, {{WHAT_COMES_NEXT}}. Thanks for watching.
 - [ ] Every screen in the video exists in the deployed app (no mockups).
 - [ ] "Not legal advice" visible in the demo video.
 - [ ] No keys, `.env` or personal data on screen.
-- [ ] Audio matches the screen; each video within the required length.
+- [ ] Audio matches the screen; **every video ≤ 60 s** (narration clip ≤ 57 s by `ffprobe`).
