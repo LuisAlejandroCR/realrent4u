@@ -1,14 +1,20 @@
 // RuleCard.tsx: one rule for one address: result badge, reason, requirement, quoted text, citation, source, retrieval date.
 import type { LookupItem, Rule, Lang } from "../types";
 import type { Dict } from "../i18n";
+import { reasonLabel } from "../reason-labels";
 import { StatusBadge } from "./StatusBadge";
+
+export interface DisplacedRule {
+  rule: Rule;
+  item?: LookupItem | undefined;
+}
 
 export interface RuleCardProps {
   rule: Rule;
   /** Precomputed result. Omit when no lookup exists for this date → shown as "not evaluated". */
   item?: LookupItem | undefined;
   /** Rules this one displaces (resolved from rule.overrides). */
-  displaced?: Rule[] | undefined;
+  displaced?: DisplacedRule[] | undefined;
   lang: Lang;
   tr: Dict;
 }
@@ -39,7 +45,7 @@ export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps
           <h4>{tr.why}</h4>
           <p>{explanation}</p>
           {item?.result === "unknown" && item.reason && (
-            <p className="rr-missing-line"><strong>{tr.missingField}:</strong> {item.reason} — <em>{tr.notInRecord}</em></p>
+            <p className="rr-missing-line"><strong>{tr.missingField}:</strong> {reasonLabel(item.reason, lang)} — <em>{tr.notInRecord}</em></p>
           )}
         </div>
       )}
@@ -67,10 +73,13 @@ export function RuleCard({ rule, item, displaced = [], lang, tr }: RuleCardProps
         <details className="rr-displaced">
           <summary>{tr.displaces(displaced.length)}</summary>
           <ul>
-            {displaced.map((d) => (
+            {displaced.map(({ rule: d, item: displacedItem }) => (
               <li key={d.team_rule_id}>
-                <StatusBadge kind="superseded" tr={tr} /> <span className="rr-id">{d.team_rule_id}</span> {d.title}
+                <StatusBadge kind={displacedItem?.result ?? "superseded"} tr={tr} /> <span className="rr-id">{d.team_rule_id}</span> {d.title}
                 {d.citation && <span className="rr-muted"> · {d.citation}</span>}
+                {displacedItem?.explanation && (
+                  <p>{lang === "es" && displacedItem.explanation_es ? displacedItem.explanation_es : displacedItem.explanation}</p>
+                )}
               </li>
             ))}
           </ul>

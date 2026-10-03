@@ -38,7 +38,10 @@ export function ResultsByCategory({ rules, items, allRules, lang, tr }: ResultsB
               key={r.team_rule_id}
               rule={r}
               item={itemById.get(r.team_rule_id)}
-              displaced={(r.overrides ?? []).map((id) => byId.get(id)).filter((x): x is Rule => !!x)}
+              displaced={(r.overrides ?? []).flatMap((id) => {
+                const displacedRule = byId.get(id);
+                return displacedRule ? [{ rule: displacedRule, item: itemById.get(id) }] : [];
+              })}
               lang={lang}
               tr={tr}
             />

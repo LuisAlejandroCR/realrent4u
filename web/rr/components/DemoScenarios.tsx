@@ -88,10 +88,14 @@ export function buildScenarios(d: Dataset, tr: Dict): Scenario[] {
   // City line: in one state, a city with its own rules on file next to a city with none.
   const localJur = new Set(d.rules.filter((r) => r.level === "city").map((r) => r.jurisdiction));
   const states = Array.from(new Set(resolved.map((a) => jOf(a)!.state).filter((s): s is string => !!s)));
+  states.sort((x, y) => Number(y === "NJ") - Number(x === "NJ"));
   for (const st of states) {
     const inState = resolved.filter((a) => jOf(a)!.state === st);
-    const withRules = inState.find((a) => localJur.has(city(a)));
-    const without = inState.find((a) => !localJur.has(city(a)));
+    const withRules = inState.find((a) => city(a) === "Hoboken, NJ" && localJur.has(city(a)))
+      ?? inState.find((a) => city(a) === "Jersey City, NJ" && localJur.has(city(a)))
+      ?? inState.find((a) => localJur.has(city(a)));
+    const without = inState.find((a) => city(a) === "Newark, NJ" && !localJur.has(city(a)))
+      ?? inState.find((a) => !localJur.has(city(a)));
     if (!withRules || !without) continue;
     out.push({
       id: "city-line",
