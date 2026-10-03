@@ -1,0 +1,4002 @@
+{
+ "A0001": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0002": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0003": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0004": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0005": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0006": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0007": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0008": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0009": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "fallback",
+  "place": "Cambridge",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0010": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0011": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0012": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0013": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0014": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0015": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0016": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0017": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0018": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0019": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0020": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0021": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0022": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0023": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0024": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0025": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0026": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0027": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0028": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0029": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0030": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0031": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0032": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0033": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0034": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0035": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0036": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0037": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0038": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0039": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0040": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0041": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0042": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0043": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0044": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0045": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0046": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0047": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0048": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0049": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0050": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0051": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0052": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0053": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0054": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0055": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0056": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0057": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0058": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0059": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0060": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0061": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0062": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0063": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0064": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0065": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0066": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0067": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0068": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0069": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0070": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0071": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0072": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0073": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0074": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0075": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0076": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0077": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0078": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0079": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0080": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0081": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0082": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0083": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0084": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0085": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0086": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0087": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0088": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0089": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0090": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0091": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0092": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0093": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0094": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0095": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0096": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0097": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0098": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "fallback",
+  "place": "Boston",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0099": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0100": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0101": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0102": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0103": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0104": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0105": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0106": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0107": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0108": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0109": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0110": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0111": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0112": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0113": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0114": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0115": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0116": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0117": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0118": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0119": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0120": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0121": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0122": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0123": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0124": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0125": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0126": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0127": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0128": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "fallback",
+  "place": "Boston",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0129": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0130": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0131": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0132": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0133": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0134": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0135": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0136": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0137": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0138": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0139": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0140": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0141": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0142": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0143": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0144": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0145": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0146": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0147": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0148": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0149": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0150": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0151": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0152": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0153": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0154": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0155": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0156": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "fallback",
+  "place": "San Francisco",
+  "source": "postal_map",
+  "state": "CA"
+ },
+ "A0157": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0158": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0159": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0160": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0161": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0162": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0163": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0164": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0165": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0166": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0167": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0168": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "fallback",
+  "place": "Hoboken",
+  "source": "postal_map",
+  "state": "NJ"
+ },
+ "A0169": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0170": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0171": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0172": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0173": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0174": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0175": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0176": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0177": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0178": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0179": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0180": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0181": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0182": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0183": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0184": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0185": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0186": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0187": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0188": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0189": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0190": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0191": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0192": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0193": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0194": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0195": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0196": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0197": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0198": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0199": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0200": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0201": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0202": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0203": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0204": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0205": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0206": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0207": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0208": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0209": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0210": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0211": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0212": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0213": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0214": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0215": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0216": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0217": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0218": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0219": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0220": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0221": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0222": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0223": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0224": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0225": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0226": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0227": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0228": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0229": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0230": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0231": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0232": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0233": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0234": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0235": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0236": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0237": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0238": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0239": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0240": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0241": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0242": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0243": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0244": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0245": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0246": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0247": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0248": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0249": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0250": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0251": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0252": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0253": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0254": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0255": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0256": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0257": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0258": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0259": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0260": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0261": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0262": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0263": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0264": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0265": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0266": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0267": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0268": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0269": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0270": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0271": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0272": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0273": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0274": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0275": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0276": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0277": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0278": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0279": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "fallback",
+  "place": "Jersey City",
+  "source": "postal_map",
+  "state": "NJ"
+ },
+ "A0280": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0281": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0282": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0283": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0284": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0285": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0286": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0287": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0288": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0289": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0290": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0291": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "fallback",
+  "place": "Cambridge",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0292": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0293": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0294": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0295": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "fallback",
+  "place": "Boston",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0296": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0297": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0298": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0299": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0300": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0301": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0302": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0303": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0304": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0305": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0306": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0307": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0308": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0309": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0310": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0311": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0312": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0313": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0314": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0315": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0316": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0317": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0318": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0319": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0320": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0321": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0322": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0323": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0324": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0325": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0326": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0327": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0328": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0329": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0330": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0331": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0332": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0333": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0334": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0335": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0336": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0337": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0338": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0339": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0340": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0341": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0342": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0343": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0344": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0345": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0346": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "fallback",
+  "place": "San Diego",
+  "source": "postal_map",
+  "state": "CA"
+ },
+ "A0347": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0348": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0349": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0350": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0351": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0352": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "fallback",
+  "place": "Newark",
+  "source": "postal_map",
+  "state": "NJ"
+ },
+ "A0353": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0354": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0355": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0356": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0357": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0358": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0359": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0360": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0361": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0362": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0363": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0364": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0365": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0366": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0367": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0368": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0369": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0370": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0371": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0372": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0373": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0374": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0375": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0376": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "fallback",
+  "place": "Boston",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0377": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0378": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0379": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0380": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "fallback",
+  "place": "Boston",
+  "source": "postal_map",
+  "state": "MA"
+ },
+ "A0381": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0382": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0383": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0384": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "fallback",
+  "place": "San Francisco",
+  "source": "postal_map",
+  "state": "CA"
+ },
+ "A0385": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0386": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0387": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0388": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0389": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0390": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0391": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0392": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0393": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0394": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0395": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0396": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0397": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0398": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0399": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0400": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "fallback",
+  "place": "Newark",
+  "source": "postal_map",
+  "state": "NJ"
+ },
+ "A0401": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0402": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0403": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0404": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0405": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0406": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0407": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0408": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0409": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0410": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0411": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0412": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0413": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0414": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0415": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0416": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0417": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0418": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0419": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0420": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0421": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0422": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0423": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0424": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0425": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0426": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0427": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0428": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "fallback",
+  "place": "Newark",
+  "source": "postal_map",
+  "state": "NJ"
+ },
+ "A0429": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0430": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0431": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0432": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0433": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0434": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0435": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0436": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0437": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0438": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0439": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0440": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0441": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0442": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0443": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0444": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0445": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0446": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0447": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0448": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0449": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0450": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0451": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0452": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0453": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0454": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0455": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0456": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0457": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0458": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0459": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0460": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0461": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0462": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0463": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0464": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0465": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0466": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0467": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0468": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0469": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0470": {
+  "county": "Alameda County",
+  "jurisdiction": "Berkeley, CA",
+  "match": "exact",
+  "place": "Berkeley",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0471": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0472": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0473": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0474": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0475": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0476": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0477": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0478": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0479": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0480": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0481": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0482": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0483": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0484": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0485": {
+  "county": "Middlesex County",
+  "jurisdiction": "Cambridge, MA",
+  "match": "exact",
+  "place": "Cambridge",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0486": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0487": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0488": {
+  "county": "Suffolk County",
+  "jurisdiction": "Boston, MA",
+  "match": "exact",
+  "place": "Boston",
+  "source": "census",
+  "state": "MA"
+ },
+ "A0489": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0490": {
+  "county": "Hudson County",
+  "jurisdiction": "Hoboken, NJ",
+  "match": "exact",
+  "place": "Hoboken",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0491": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0492": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0493": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0494": {
+  "county": "San Francisco County",
+  "jurisdiction": "San Francisco, CA",
+  "match": "exact",
+  "place": "San Francisco",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0495": {
+  "county": "Hudson County",
+  "jurisdiction": "Jersey City, NJ",
+  "match": "exact",
+  "place": "Jersey City",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0496": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0497": {
+  "county": "San Diego County",
+  "jurisdiction": "San Diego, CA",
+  "match": "exact",
+  "place": "San Diego",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0498": {
+  "county": "Essex County",
+  "jurisdiction": "Newark, NJ",
+  "match": "exact",
+  "place": "Newark",
+  "source": "census",
+  "state": "NJ"
+ },
+ "A0499": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ },
+ "A0500": {
+  "county": "Los Angeles County",
+  "jurisdiction": "Los Angeles, CA",
+  "match": "exact",
+  "place": "Los Angeles",
+  "source": "census",
+  "state": "CA"
+ }
+}
