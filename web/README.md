@@ -18,7 +18,11 @@ npm run build    # copies data, then static site in web/out/
 npm run serve    # serve web/out/ on :3000
 ```
 
-URL params: `?lang=es&date=2027-07-02`. The address goes in the hash: `/#A0016`.
+Routes: `/` is the landing page and `/dashboard` is the app, with three tabs: address lookup, change tests and method & audit. `/search`, `/changes` and `/about` open the dashboard on the matching tab.
+
+URL params: `?lang=es&asOf=2027-07-02&tab=lookup&a=A0016`. `tab=tests&t=T3` opens one change test. Its **Run test** button recomputes the test in the browser from the precomputed lookups and checks the result against `changes.json`.
+
+Code: the UI lives in `rr/` (views, components, `data.ts`, `i18n.ts`, `rr.css` + `rr-landing.css`); `app/` only holds the route files.
 
 ## Data
 
