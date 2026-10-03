@@ -24,11 +24,12 @@ verified, report "work in progress".
 | `data/corpus/links_only.csv` | The 33 link-only docs (no text) |
 | `data/data/sample_addresses.csv` | ~500 addresses: street, postal city, ZIP, year, units, use — **no legal jurisdiction** |
 | `data/schema/rule_record.schema.json` | Rule JSON Schema (+ `sample_rule_record.json`) |
-| `data/dev/change_tests.json` | Change tests T1–T5 (T6 arrives at hour 16) |
+| `data/dev/change_tests.json` | The five change tests T1–T5 (the complete set) |
 | `data/submission_templates/` | Shapes of `rules.json`, `lookups.json`, `changes.json` |
 | `data/README.md` | Participant guide |
+| `data/mit-rental-housing-law-navigator-challenge-v5-…pdf` | Challenge brief v5 (6 pages) — the source of truth |
 
-The pack ships **without** `score.py` and the dev key. Until they arrive, self-evaluate with tests
+The pack ships **without** `score.py`, a dev key or scoring weights. Self-evaluate with tests
 against T1–T5.
 
 ## Fixed by the organizer
@@ -42,15 +43,19 @@ against T1–T5.
   Optional: `key_value, coverage_conditions, exemptions, overrides`, among others.
 - `lookups.json = {as_of, lookups: {address_id: [{team_rule_id, result, explanation, conflict_flag}]}}`
 - `changes.json = {test_id: {affected_address_ids, conflict_flag_address_ids, notes}}`
-- **Automated extraction only.** No hand-written rules. Checked live with a fictional ordinance at
-  hour 16 and a re-run during the demo.
+- **Automated extraction only.** No hand-written rules; show the pipeline running in the demo.
+- **Module A captures:** category, jurisdiction, requirement, coverage conditions, exemptions,
+  effective date, status, **penalty**, citation and a quoted span.
+- **Exactly five change cases (T1–T5).** No surprise document or mid-event release (brief v5).
+- **Submission package:** `rules.json`, `lookups.json`, `changes.json`, a live demo and a
+  **one-page method note**.
 
 ## Acceptance criteria
 
 | # | Criterion | How it's tested |
 |---|---|---|
-| A1 | The 3 JSON files validate against the schema and templates; `score.py` runs clean | Validator; `python score.py` on dev set |
-| A2 | One command regenerates `rules.json` from the corpus, no manual edits | Delete `rules.json`, re-run, same score |
+| A1 | The 3 JSON files validate against the schema and templates | `python -m realrent.validate` |
+| A2 | One command regenerates `rules.json` from the corpus, no manual edits | Delete `rules.json`, re-run `--offline`, identical file |
 | A3 | Every `quoted_span` exists verbatim in its source document | Substring test per rule |
 | A4 | Legal jurisdiction, not postal city; stack state → county → city | Dorchester → Boston, San Ysidro → San Diego |
 | A5 | Local rule that displaces state rule → state rule `superseded`, with reason | SF 1962: SF Rent Ordinance `applies`, §1947.12 `superseded` |
@@ -60,15 +65,15 @@ against T1–T5.
 | A9 | Signed-not-effective law + conflict flag with local rules | T3: NJ FAIR Act `not_yet_effective` now, `applies` 2027-07-02, conflicts with the 2 local bans |
 | A10 | Bills are `pending`, never in force, with addresses they would reach | T4: MA S.2983 / H.5222 |
 | A11 | Struck measure = no rule; empty affected set | T5: Boston and Cambridge, no rent cap |
-| A12 | New ordinance extracted unaided in minutes, with its future date | T6 (hour 16): run pipeline, regenerate `changes.json` |
+| A12 | Every answer shows source document, quoted span, retrieval date and as-of date | Lookup output + demo view |
 | A13 | Every screen says "not legal advice" and shows the "as of" date | Visual check + API test |
 | A14 | Auditable log per run: source, model output and change per rule | Log file per run |
 | A15 | With no LLM key, address lookup still works; only Explain degrades to a template | Test with the env var empty |
 
 ## Rules of the domain
 
-- **When in doubt between `applies` and "doesn't apply", answer `unknown`.** Missing an `applies`
-  costs double; `unknown` earns partial credit.
+- **When in doubt between `applies` and "doesn't apply", answer `unknown`.** The brief says
+  "unknown is valid when facts are missing"; a missed `applies` is the costlier error.
 - **Year built ≠ certificate of occupancy.** SF cutoff 1979-06-13, LA 1978-10-01: a building from
   the cutoff year is `unknown`.
 - **Known gaps → `unknown` with reason:** San Diego and Berkeley have no year; Berkeley, Boston `A/`,
@@ -107,14 +112,16 @@ evidence that extraction is automated.
 
 ## Stack
 
-- **Pipeline:** Python + pytest (extraction, engine, organizer's `score.py`).
+- **Pipeline:** Python + pytest (extraction, engine, change tracking).
 - **Demo:** Next.js on Vercel (event rule: Vercel, Replit or Lovable). Reads the precomputed JSON;
   no Python server or model API needed at runtime.
 
-## Scoring (where time goes)
+## Priorities
 
-25 extraction · 20 address coverage · 15 citations · 15 change tracking · 10 plain language ·
-10 responsible design · 5 scalability.
+The v5 pack has no scoring. Its minimum viable submission, in order: Modules A and B (accurate
+extraction, jurisdiction resolution, citations) → Module C and the plain-language view → stretch
+goals (Spanish view, confidence + conflict flag, a new jurisdiction, audit view with source,
+retrieval date, as-of date and reasoning boundary).
 
 ## Conventions
 

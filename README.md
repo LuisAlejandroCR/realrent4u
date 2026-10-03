@@ -55,7 +55,8 @@ C · Track     change ─► lookups before/after ─► affected addresses + co
 |---|---|
 | `rules.json` | Extracted rules, one record per rule, validated against the official schema |
 | `lookups.json` | Results for all addresses at the default date (2026-10-01) |
-| `changes.json` | Affected addresses and conflict flags for each change test |
+| `changes.json` | Affected addresses and conflict flags for each of the five change tests (T1–T5) |
+| Method note | One page: how rules are extracted, resolved, applied and tracked |
 
 ## Repository layout
 
@@ -66,7 +67,7 @@ C · Track     change ─► lookups before/after ─► affected addresses + co
 
 ## Status
 
-Work in progress during the hackathon. Setup, run instructions and the measured score will be added
+Work in progress during the hackathon. Setup, run instructions and validation results will be added
 here as each module lands.
 
 ## Responsible use
