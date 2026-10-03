@@ -67,6 +67,17 @@ only signal.
 
 Videos and QR destinations come from `web/landing.config.json` (see `web/README.md`). Until they are set, the page shows labelled placeholders.
 
+**Landing storyboard (section 3, "How it works")**: one short ElevenLabs video per row, beside its
+title, context and a real example read from the data. These are separate from the three submission
+videos in `VIDEO_SCRIPTS.md`.
+
+| # | id | Topic | Example shown beside it |
+|---|---|---|---|
+| 1 | `why-address-and-date` | Why the rules change with address and date | T1 title and its scenario dates |
+| 2 | `postal-vs-legal` | Postal city vs legal jurisdiction | A0036: South Boston → Boston, MA |
+| 3 | `reading-results` | Reading a result; `unknown` = missing fact, never guessed | A0036 result counts at the as-of date (only if lookups exist) |
+| 4 (optional) | `open-the-source` | Opening the quote and the original source | Quoted span + citation of a sample rule |
+
 Type: system sans for UI; one serif italic (`Georgia`, `"Iowan Old Style"`) for the accent word.
 Fluid `h1` with `clamp(2rem, 4vw, 3.25rem)`, 16px body, monospace only for citations and address ids.
 Spacing 4 / 8 / 12 / 16 / 24 / 40 / 64. Radius 8 / 12 / 20 / pill. Targets ≥ 44px.

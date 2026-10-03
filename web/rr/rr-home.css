@@ -57,17 +57,19 @@
 .rr-l-stats dd { margin: 8px 0 0; color: var(--rr-ink-2); font-size: 14px; max-width: 30ch; }
 
 /* How it works */
-.rr-l-steps { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.rr-l-steps li { background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 16px; padding: 24px; display: grid; gap: 8px; align-content: start; }
-.rr-l-step-n { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--rr-stamp); color: #fff; font-weight: 700; }
-.rr-l-steps h3 { margin: 6px 0 0; font-size: 20px; }
-.rr-l-steps p { margin: 0; color: var(--rr-ink-2); font-size: 15px; }
-.rr-l-steps .rr-l-proof { margin-top: 6px; padding: 10px 12px; background: var(--rr-evidence); border-radius: 8px; color: var(--rr-ink); font-size: 13px; }
-.rr-l-media { margin-top: 56px; }
-.rr-l-media-head { max-width: 68ch; margin-bottom: 20px; }
-.rr-l-media-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 20px; align-items: start; }
-.rr-l-media-side { display: grid; gap: 20px; }
-.rr-l-demo { background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 16px; padding: 20px; }
+/* How it works: one row per storyboard video (video beside its step text), alternating sides. */
+.rr-l-step-n { width: 38px; height: 38px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--rr-stamp); color: #fff; font-weight: 700; }
+.rr-l-story { display: grid; gap: 24px; margin-top: 12px; }
+.rr-video-row { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: stretch; }
+.rr-video-row .rr-video-frame { border-bottom: 0; border-right: 1px solid var(--rr-border); align-self: start; }
+.rr-l-story .rr-video-row:nth-child(even) .rr-video-frame { order: 2; border-right: 0; border-left: 1px solid var(--rr-border); }
+.rr-video-row .rr-video-meta { padding: 24px 26px; align-content: start; }
+.rr-video-row .rr-video-title { font-size: 22px; line-height: 1.25; }
+.rr-video-step { margin: 0; display: flex; align-items: center; gap: 10px; }
+.rr-video-optional { font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 1px dashed var(--rr-ink-2); color: var(--rr-ink-2); }
+.rr-video-context { margin: 0; color: var(--rr-ink-2); font-size: 16px; max-width: 52ch; }
+.rr-l-proof { margin: 0; padding: 10px 12px; background: var(--rr-evidence); border-left: 3px solid var(--rr-marigold); border-radius: 8px; color: var(--rr-ink); font-size: 14px; }
+.rr-l-demo { margin-top: 24px; max-width: 560px; background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 16px; padding: 20px; }
 
 /* Video card */
 .rr-video { background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 16px; overflow: hidden; display: grid; }
@@ -119,12 +121,12 @@
 .rr-l-close-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; margin: 16px 0 0; }
 
 @media (max-width: 1080px) {
-  .rr-l-media-grid { grid-template-columns: 1fr; }
-  .rr-l-media-side { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .rr-video-row { grid-template-columns: 1fr; }
+  .rr-video-row .rr-video-frame, .rr-l-story .rr-video-row:nth-child(even) .rr-video-frame { order: 0; border: 0; border-bottom: 1px solid var(--rr-border); }
 }
 @media (max-width: 900px) {
   .rr-l-hero-grid, .rr-l-split { grid-template-columns: 1fr; gap: 32px; }
-  .rr-l-steps, .rr-l-factors { grid-template-columns: 1fr; }
+  .rr-l-factors { grid-template-columns: 1fr; }
   .rr-l-tests li { grid-template-columns: 48px minmax(0, 1fr); }
   .rr-l-avail, .rr-l-run { grid-column: 2; justify-self: start; }
 }

@@ -49,6 +49,8 @@ The landing reads `web/landing.config.json`. `scripts/landing-media.mjs` runs be
 |---|---|
 | `site_url` | Public https URL of the deployed site (for example the Vercel URL). It builds QR codes for local video files and the default demo link (`<site_url>/dashboard/`). |
 | `demo.url` | Optional https link for the "Open the demo" QR. It overrides `site_url`. |
+| `videos[].title`, `videos[].context` | Title and one-line context (EN/ES) shown beside the video. The four storyboard entries are already filled in. |
+| `videos[].optional` | `true` marks a video the story can do without (video 4). It shows an "Optional" tag. |
 | `videos[].src` | An MP4 (H.264) under `web/public/media/` (for example `media/product-demo.mp4`), or an https URL to an MP4 file. It plays in a native player with controls and no autoplay. |
 | `videos[].url` | Optional https page for the video (YouTube, Drive and so on). It is used for the button and the QR. |
 | `videos[].poster` | A JPG or PNG under `web/public/media/`, or an https URL. |
