@@ -7,7 +7,10 @@ Se distingue de README.md (presentación pública para jueces): aquí van las re
 # AGENTS.md — realrent4u
 
 Rental Housing Law Navigator (Hack-Nation 7, Challenge 2 · RealPage). Submissions close
-**Sun 2026-10-04 09:00 ET**. If this file and the organizer disagree, the organizer wins.
+**Sun 2026-10-04 09:00 ET**.
+
+**North star:** `data/mit-rental-housing-law-navigator-challenge-v5-participant-no-scoring-no-hour16.pdf`.
+It defines what is required. If this file disagrees with it, the PDF wins.
 
 ## Work cycle
 
@@ -29,8 +32,7 @@ verified, report "work in progress".
 | `data/README.md` | Participant guide |
 | `data/mit-rental-housing-law-navigator-challenge-v5-…pdf` | Challenge brief v5 (6 pages) — the source of truth |
 
-The pack ships **without** `score.py`, a dev key or scoring weights. Self-evaluate with tests
-against T1–T5.
+There is no scoring script or answer key. Self-evaluate with tests against T1–T5.
 
 ## Fixed by the organizer
 
@@ -112,9 +114,13 @@ evidence that extraction is automated.
 
 ## Stack
 
-- **Pipeline:** Python + pytest (extraction, engine, change tracking).
-- **Demo:** Next.js on Vercel (event rule: Vercel, Replit or Lovable). Reads the precomputed JSON;
-  no Python server or model API needed at runtime.
+The PDF does not mandate a language or framework; it requires the three JSON files, a live demo and
+a one-page method note. Any backend stack is fine.
+
+- **Current starting point:** a Python pipeline in `realrent/` (corpus loader, quote check,
+  validator, extraction) with pytest. Optional — keep, extend or replace it.
+- **Demo:** must be hosted on Vercel, Replit or Lovable (event rule). Reading the precomputed JSON
+  keeps it independent of a backend server or model API at runtime.
 
 ## Priorities
 
