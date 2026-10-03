@@ -1,8 +1,11 @@
 # .gitignore: generated and dependency folders of the web demo
 # public/data/ is rebuilt by scripts/copy-data.mjs on every dev/build.
 node_modules/
+.npm-cache/
 .next/
 out/
 public/data/
+test-results/
+playwright-report/
 next-env.d.ts
 *.tsbuildinfo
