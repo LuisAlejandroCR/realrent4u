@@ -1,0 +1,60 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Prohibition on source-of-income discrimination in housing",
+      "requirement": "Housing owners may not discriminate against or harass any person because of their source of income, which includes public assistance and housing subsidies such as Section 8 and VASH vouchers. The ban also covers discriminatory advertising and making housing unavailable on that basis.",
+      "key_value": "Source of income (including Section 8 and HUD-VASH vouchers) is a protected characteristic",
+      "citation": "Cal. Gov. Code § 12955(a), (p)",
+      "quoted_span": "(a) For the owner of any housing accommodation to discriminate against or harass any person because of the race, color, religion, sex, gender, gender identity, gender expression, sexual orientation, marital status, national origin, ancestry, familial status, source of income, disability, veteran or military status, or genetic information of that person.",
+      "effective_date": "2024-01-01",
+      "coverage_text": "The owner of any housing accommodation",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "A written or oral inquiry about the level or source of income is not source-of-income discrimination. A landlord is not considered a tenant's representative unless the income is a HUD-VASH voucher.",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "The effective date shown is that of the latest amendment (Stats. 2023, Ch. 776, SB 267). The document does not give the original effective date of the source-of-income protection.",
+      "confidence": 0.85
+    },
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Credit history and income standards for applicants with government rent subsidies",
+      "requirement": "When a tenant has a government rent subsidy, housing providers must base income standards only on the tenant's portion of the rent. They may not use credit history unless they offer the applicant the option of providing alternative evidence of ability to pay, give reasonable time to respond, and reasonably consider that evidence instead of the credit history.",
+      "key_value": "Applicants with subsidies must be offered alternative evidence in lieu of credit history; income standards apply only to the tenant's share of rent",
+      "citation": "Cal. Gov. Code § 12955(o) (as amended by Stats. 2023, Ch. 776, SB 267)",
+      "quoted_span": "(II) Reasonably consider that alternative evidence in lieu of the person’s credit history in determining whether to offer the rental accommodation to the applicant.",
+      "effective_date": "2024-01-01",
+      "coverage_text": "Rental housing in instances in which there is a government rent subsidy",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Owners may still request information to verify employment, request landlord references, or verify identity.",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "confidence": 0.85
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 5721,
+    "output_tokens": 1796,
+    "at": "2026-10-03T18:10:56+00:00"
+  }
+}

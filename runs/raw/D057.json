@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "application_screening_fees",
+      "status": "in_force",
+      "title": "Broker fee paid only by the party who hired the broker",
+      "requirement": "A rental broker's fee may be charged only to the party (landlord or tenant) who originally hired and contracted with the broker. A tenant cannot be made to pay a broker fee for a broker the landlord engaged.",
+      "key_value": "Broker fee payable only by the party who engaged the broker",
+      "citation": "M.G.L. c. 112, § 87DDD1/2 (as amended by St. 2025, c. 9, § 43)",
+      "quoted_span": "Any fee shall only be paid by the party, lessor or tenant who originally engaged and entered into a contract with the licensed broker or salesperson.",
+      "effective_date": "2025-08-01",
+      "coverage_text": "Licensed brokers or salespersons finding dwelling accommodations for prospective tenants for a fee",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "The page shows both the prior text, effective until August 1, 2025, and the amended text, effective August 1, 2025. The fee-payment rule appears only in the amended text. This rule restricts upfront broker fees rather than application or screening fees, so the category fit is approximate.",
+      "confidence": 0.6
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3120,
+    "output_tokens": 796,
+    "at": "2026-10-03T18:11:28+00:00"
+  }
+}

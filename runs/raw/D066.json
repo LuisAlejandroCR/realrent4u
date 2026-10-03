@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "NJ",
+      "level": "state",
+      "category": "application_screening_fees",
+      "status": "in_force",
+      "title": "Residential rental property application fee capped at $50",
+      "requirement": "A landlord or its agent may not require an application or similar fee above $50 to apply to lease or sublease a residential rental unit. The cap is adjusted each January 1 by the CPI change, with adjustments made only when the CPI change is positive.",
+      "key_value": "$50 maximum application fee, CPI-adjusted annually",
+      "citation": "P.L. 2025, c.405 (A4899); N.J.S.A. 46:8-18.1",
+      "quoted_span": "A landlord, or\nagent thereof, shall not require an application or other similar fee to apply\nto lease or sublease a residential rental property for dwelling purposes, which\nexceeds $50.",
+      "effective_date": "2026-05-01",
+      "coverage_text": "Residential rental property for dwelling purposes, excluding dwelling units in one-family or two-family dwellings offered for rent.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 3,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "A dwelling unit in a one-family or two-family dwelling offered for rent. A New Jersey Real Estate Commission licensee, unless the licensee is the landlord of the property.",
+      "penalty": "Up to $500 for a first offense, up to $750 for a second offense, and up to $1,000 for each subsequent offense, enforced by summary proceedings under the Penalty Enforcement Law of 1999 on complaint of the Director of Consumer Affairs or the Attorney General. The amount wrongfully charged is taken from the collected penalty and remitted to the applicant.",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "The text does not state a calendar effective date. The act takes effect on the first day of the fourth month following enactment, and it was approved January 20, 2026, which gives May 1, 2026. CPI adjustments begin January 1 of the year following enactment (2027).",
+      "confidence": 0.88
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3556,
+    "output_tokens": 1038,
+    "at": "2026-10-03T18:11:34+00:00"
+  }
+}

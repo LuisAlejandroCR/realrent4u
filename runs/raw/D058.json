@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "Required form accompanying notice to quit for nonpayment of rent",
+      "requirement": "A landlord's written notice to quit a residential tenant for nonpayment of rent must include a state-developed form. The form documents any repayment agreements, gives information on rental assistance, court rules and legal limits on evictions, and states that the notice is not an eviction.",
+      "key_value": "Notice to quit for nonpayment must include the state form, and courts will not accept an eviction filing without proof the form was delivered.",
+      "citation": "M.G.L. c. 186, § 31",
+      "quoted_span": "Section 31. (a) A notice to quit for nonpayment of rent given in writing by a landlord to a residential tenant pursuant to this chapter shall be accompanied by a form that shall include, but not be limited to: (i) documentation of any agreements between the tenant and landlord for the tenant to repay the landlord for nonpayment of rent; and (ii) information on: (1) rental assistance programs including, but not limited to, the residential assistance for families in transition program; (2) applicable trial court rules, standing orders or emergency administrative orders pertaining to actions for summary process; and (3) any relevant federal or state legal restrictions on residential evictions.",
+      "effective_date": "",
+      "coverage_text": "Written notices to quit for nonpayment of rent given by a landlord to a residential tenant.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "No court with jurisdiction over summary process, including the Boston municipal court department, may accept a writ, summons or complaint for filing in a residential nonpayment eviction without proof that the required form was delivered.",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "This is a notice-procedure requirement for nonpayment evictions. It does not limit the permitted causes for eviction, so it fits the just_cause_eviction category only loosely.",
+      "confidence": 0.5
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3167,
+    "output_tokens": 1124,
+    "at": "2026-10-03T18:11:31+00:00"
+  }
+}

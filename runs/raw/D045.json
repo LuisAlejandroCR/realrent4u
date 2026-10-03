@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "algorithmic_rent_setting",
+      "status": "pending",
+      "title": "An Act relative to preventing algorithmic rent fixing in the rental housing market",
+      "requirement": "Proposed bill aimed at preventing algorithmic rent fixing in the Massachusetts rental housing market. The page does not include the bill text, so its prohibited conduct, covered software and penalties are not stated.",
+      "key_value": "Proposed ban on algorithmic rent fixing (details not in document)",
+      "citation": "Bill H.5222 (194th General Court; new draft of H1564)",
+      "quoted_span": "An Act relative to preventing algorithmic rent fixing in the rental housing market",
+      "effective_date": "",
+      "coverage_text": "",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "The document is a bill status page with no operative text. On 3/12/2026 the Joint Committee on Housing reported the bill favorably and referred it to House Ways and Means, where it currently sits.",
+      "confidence": 0.5
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3090,
+    "output_tokens": 723,
+    "at": "2026-10-03T18:11:03+00:00"
+  }
+}

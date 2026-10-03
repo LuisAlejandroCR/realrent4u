@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "application_screening_fees",
+      "status": "in_force",
+      "title": "Application screening fee cap and conditions",
+      "requirement": "A landlord may charge an applicant a screening fee of no more than actual out-of-pocket costs, capped at $30 per applicant (CPI-adjustable annually from 1998), and may not charge one when no unit is or will soon be available. The fee may be charged only if the landlord either considers applications first-come with written criteria (refunding fees inadvertently collected within 7 days) or refunds the full fee to non-selected applicants; the landlord must give an itemized receipt, return unused amounts, and provide the applicant a copy of the credit report within seven days.",
+      "key_value": "$30 per applicant, CPI-adjusted annually beginning 1998-01-01",
+      "citation": "Cal. Civ. Code § 1950.6 (as amended by Stats. 2025, Ch. 67, Sec. 29 (AB 1170))",
+      "quoted_span": "In no case shall the amount of the application screening fee charged by the landlord or their agent be greater than thirty dollars ($30) per applicant.",
+      "effective_date": "2026-01-01",
+      "coverage_text": "Applies when a landlord or their agent receives a request to rent a residential property from an applicant; \"applicant\" includes guarantors or cosignors.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "No refund required for an applicant denied after consideration for failing the landlord's established screening criteria; landlord may accept a reusable screening report under Section 1950.1; section does not preempt deposit and fee rules of federal or state housing assistance programs.",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "Applies notwithstanding Section 1950.5; the screening fee is not an advance fee under Bus. & Prof. Code § 10026 and is not security under Civ. Code § 1950.5.",
+      "conflict_note": "The effective date reflects the latest amendment (AB 1170, effective January 1, 2026); the $30 cap's CPI adjustment runs from January 1, 1998.",
+      "confidence": 0.93
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4576,
+    "output_tokens": 1140,
+    "at": "2026-10-03T18:10:46+00:00"
+  }
+}

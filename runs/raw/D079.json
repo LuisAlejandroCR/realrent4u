@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "San Francisco, CA",
+      "level": "city",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "San Francisco Rent Ordinance just cause eviction requirement",
+      "requirement": "A landlord may evict a tenant from a unit covered by the Rent Ordinance only for one of 17 listed just cause reasons, and that reason must be the dominant motive for the eviction. Lease expiration or a change in ownership is not just cause, and a landlord also needs just cause to remove housing services such as parking, storage or laundry.",
+      "key_value": "17 just cause reasons; just cause must be the dominant motive",
+      "citation": "San Francisco Rent Ordinance Section 37.9(a)",
+      "quoted_span": "In order to evict a tenant from a rental unit covered by the Rent Ordinance, a landlord must have a \"just cause\" reason that is the dominant motive for pursuing the eviction.",
+      "effective_date": "",
+      "coverage_text": "Rental units covered by the Rent Ordinance. This includes tenancies exempt from the rent increase limits, such as newly constructed units that first obtained a Certificate of Occupancy after June 13, 1979, tenancies eligible for rent increases under the Costa-Hawkins Rental Housing Act, and some tenancies where another government agency regulates the rent.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Under Ordinance Section 37.2(r), a landlord may temporarily remove certain housing services, such as parking and storage, to perform mandatory soft-story seismic retrofit work. The illegal-use cause does not include merely occupying an unwarranted unit or a single short-term rental violation that is cured within 30 days.",
+      "penalty": "A landlord who evicts or tries to evict a tenant unlawfully may be subject to substantial civil and/or criminal liability.",
+      "displaces_state_rule": false,
+      "interaction": "The just cause protections extend to tenancies exempt from local rent increase limits, including Costa-Hawkins-eligible tenancies. The document does not state whether this rule displaces any state rule.",
+      "conflict_note": "",
+      "confidence": 0.88
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3830,
+    "output_tokens": 1070,
+    "at": "2026-10-03T18:11:59+00:00"
+  }
+}

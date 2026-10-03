@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "Tenant Protection Act just cause for termination of tenancy (Civil Code 1946.2)",
+      "requirement": "Once a tenant has continuously and lawfully occupied a unit for 12 months, the owner may terminate the tenancy only for a listed at-fault or no-fault just cause, which must be stated in the written notice. For no-fault terminations, the owner must pay relocation assistance or waive the final month's rent, equal to one month's rent; curable violations require a notice to cure first.",
+      "key_value": "Just cause required after 12 months of occupancy (or 24 months for one tenant if adult tenants are added); no-fault relocation assistance or rent waiver equal to one month's rent, paid within 15 calendar days",
+      "citation": "Cal. Civ. Code § 1946.2 (as amended by Stats. 2025, Ch. 203, AB 1529)",
+      "quoted_span": "Notwithstanding any other law, after a tenant has continuously and lawfully occupied a residential real property for 12 months, the owner of the residential real property shall not terminate a tenancy without just cause, which shall be stated in the written notice to terminate tenancy.",
+      "effective_date": "2024-04-01",
+      "coverage_text": "Residential real property, including dwellings or units in a mobilehome park, after the tenant has continuously and lawfully occupied it for 12 months. If additional adult tenants are added before an existing tenant has occupied it for 24 months, coverage applies only if all tenants have 12+ months or one or more tenants have 24+ months.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": true,
+      "exemptions": "Transient/tourist hotel occupancy; nonprofit hospital, religious, extended care, licensed elderly residential care, or adult residential facilities; school or higher-education dormitories; units where the tenant shares a bathroom or kitchen with an owner who resides there; single-family owner-occupied residences renting no more than two units or bedrooms (including ADU/JADU), and mobilehomes; owner-occupied duplexes where neither unit is an ADU/JADU; housing with a certificate of occupancy issued within the previous 15 years (rolling, except mobilehomes); separately alienable units not owned by a REIT, corporation, LLC with a corporate member, or mobilehome park management, if the required exemption notice is given; deed-restricted or subsidized affordable housing; mobilehome homeowners.",
+      "penalty": "Noncompliance voids the termination notice. An owner who attempts to recover possession in material violation is liable for actual damages, discretionary reasonable attorney's fees and costs, and up to three times actual damages plus punitive damages for willful, oppressive, fraudulent, or malicious conduct. The Attorney General, city attorney, or county counsel may seek injunctive relief.",
+      "displaces_state_rule": false,
+      "interaction": "The section does not apply to property covered by a local just cause ordinance adopted on or before September 1, 2019, or by a later-adopted or amended ordinance that is more protective (with a binding local finding); in those cases the local ordinance applies. A property cannot be subject to both. Local ordinances adopted after September 1, 2019 that are less protective are unenforceable unless this section is repealed. No-fault relocation assistance is credited against relocation assistance required by other law.",
+      "conflict_note": "Subdivision (m) says the section became operative April 1, 2024. The history note says the latest amendment (Stats. 2025, Ch. 203, AB 1529) is effective January 1, 2026. The operative date from the text is used. The section is repealed as of January 1, 2030.",
+      "confidence": 0.92
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 10365,
+    "output_tokens": 1946,
+    "at": "2026-10-03T18:10:39+00:00"
+  }
+}

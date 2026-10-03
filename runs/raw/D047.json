@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "algorithmic_rent_setting",
+      "status": "pending",
+      "title": "An Act prohibiting algorithmic rent setting (S.2983)",
+      "requirement": "Proposed legislation to prohibit algorithmic rent setting in the rental housing market. The bill is a committee redraft of S.994 and S.1016, and this page does not give its substantive terms.",
+      "key_value": "Prohibition on algorithmic rent setting (proposed)",
+      "citation": "Mass. Senate Bill S.2983 (194th General Court)",
+      "quoted_span": "Senate, March 12, 2026 -- The committee on Housing, to whom was referred the petitions (accompanied by bill, Senate, No. 994) of Cindy F. Friedman and Julian Cyr for legislation to prohibit algorithmic rent setting; and (accompanied by bill, Senate, No. 1016) of Michael O. Moore, Patricia D. Jehlen and James B. Eldridge for legislation to establish the Preventing Algorithmic Rent Fixing in the Rental Housing Market Act., report the accompanying bill (Senate, No. 2983).",
+      "effective_date": "",
+      "coverage_text": "",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "This is a bill history page only. The bill was reported favorably by the Joint Committee on Housing on 2026-03-12 and referred to Senate Ways and Means. It is not enacted. The bill text, including covered software, prohibited conduct and penalties, is not included.",
+      "confidence": 0.6
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3298,
+    "output_tokens": 1087,
+    "at": "2026-10-03T18:11:15+00:00"
+  }
+}

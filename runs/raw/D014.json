@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Boston, MA",
+      "level": "city",
+      "category": "just_cause_eviction",
+      "status": "in_force",
+      "title": "Housing Stability Notification Act – Notice of Tenants’ Rights and Resources",
+      "requirement": "A landlord or foreclosing owner ending a tenancy or post-foreclosure occupancy, including by eviction or lease non-renewal, must give the tenant a Notice of Tenants’ Rights and Resources at the same time as the Notice to Quit. The landlord must also send a copy of the Notice to Quit or Notice of Non-renewal, with a Certificate of Compliance/Service, to the City's Office of Housing Stability.",
+      "key_value": "Notice of Tenants’ Rights and Resources must accompany the Notice to Quit or non-renewal notice",
+      "citation": "Housing Stability Notification Act, City of Boston Ordinances Sec. 10-11.7",
+      "quoted_span": "The Notice of Tenants’ Rights and Resources must be delivered at the same time as the Notice to\nQuit.",
+      "effective_date": "2020-11-06",
+      "coverage_text": "The Ordinance applies to all landlords/foreclosing owners intending to end a tenancy or post-foreclosure occupancy of a unit in the City of Boston.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Residences in any hospital, skilled nursing facility or health facility; and residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The requirements may not be waived.",
+      "penalty": "First offense: warning; second and subsequent offenses: $300 per day (enforced by Inspectional Services Department). A violation does not halt the eviction process.",
+      "displaces_state_rule": false,
+      "interaction": "This is a local notice requirement layered onto the eviction process. A violation does not halt the eviction.",
+      "conflict_note": "",
+      "confidence": 0.6
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4159,
+    "output_tokens": 1389,
+    "at": "2026-10-03T18:10:28+00:00"
+  }
+}

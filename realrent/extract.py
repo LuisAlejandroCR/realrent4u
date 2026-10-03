@@ -13,6 +13,7 @@ from pathlib import Path
 from realrent import corpus, paths, validate
 
 MODEL = "claude-opus-5-5"
+PROMPT_VERSION = 2  # bump when SYSTEM or the schema changes; cached outputs of older versions are re-extracted
 RAW = paths.RUNS / "raw"
 
 CATEGORIES = [
@@ -39,6 +40,7 @@ RULE_SCHEMA = {
         "citation": {"type": "string"},
         "quoted_span": {"type": "string"},
         "effective_date": {"type": "string"},
+        "enacted_date": {"type": "string"},
         "coverage_text": {"type": "string"},
         "built_cutoff_date": {"type": "string"},
         "built_cutoff_basis": {"type": "string", "enum": ["none", "year_built", "certificate_of_occupancy"]},
@@ -50,13 +52,14 @@ RULE_SCHEMA = {
         "displaces_state_rule": {"type": "boolean"},
         "interaction": {"type": "string"},
         "conflict_note": {"type": "string"},
+        "extraction_note": {"type": "string"},
         "confidence": {"type": "number"},
     },
     "required": [
         "jurisdiction", "level", "category", "status", "title", "requirement", "key_value",
-        "citation", "quoted_span", "effective_date", "coverage_text", "built_cutoff_date",
+        "citation", "quoted_span", "effective_date", "enacted_date", "coverage_text", "built_cutoff_date",
         "built_cutoff_basis", "built_cutoff_direction", "min_units", "exempts_small_owner_occupied",
-        "exemptions", "penalty", "displaces_state_rule", "interaction", "conflict_note", "confidence",
+        "exemptions", "penalty", "displaces_state_rule", "interaction", "conflict_note", "extraction_note", "confidence",
     ],
     "additionalProperties": False,
 }
@@ -90,7 +93,8 @@ Rules:
    effect later); pending (bill or proposal, not law); failed (struck, vetoed or rejected).
 6. effective_date is YYYY-MM-DD (or YYYY-MM / YYYY if that is all the text gives); "" if not stated.
    If the document gives conflicting effective dates, use the one in the operative text and explain
-   the conflict in conflict_note.
+   the conflict in conflict_note. enacted_date is the date the law was signed, approved, chaptered
+   or adopted, YYYY-MM-DD, "" if not stated. Never infer an effective date the text does not give.
 7. Coverage: built_cutoff_* describe a construction cutoff ("units with a certificate of occupancy
    issued on or before 1979-06-13" -> 1979-06-13, certificate_of_occupancy, on_or_before). Use
    "none"/"" when there is none. min_units is the minimum units in the building for coverage, 0 if
@@ -101,7 +105,10 @@ Rules:
 9. requirement: one or two plain-language sentences. citation: the official cite (section, chapter,
    ordinance or bill number). penalty: the sanction or remedy for violating the rule (fines, damages,
    rent refunds), "" if the document states none. confidence: 0 to 1.
-10. Use "" for any text field the document does not state."""
+10. conflict_note is only for a real conflict: two sources or dates that disagree, or a rule that may
+    preempt or contradict another. Anything else you want to record (missing dates, assumptions,
+    uncertainty) goes in extraction_note.
+11. Use "" for any text field the document does not state."""
 
 
 def _document_message(doc: corpus.Document, text: str) -> str:
@@ -142,16 +149,23 @@ def raw_output(client, doc: corpus.Document, force: bool = False) -> dict:
     """Cached model output for a document; calls the model only when there is no cache."""
     cache = RAW / f"{doc.doc_id}.json"
     if cache.exists() and not force:
-        return json.loads(cache.read_text(encoding="utf-8"))
+        cached = json.loads(cache.read_text(encoding="utf-8"))
+        if client is None or cached.get("prompt_version") == PROMPT_VERSION:
+            return cached
     if client is None:
         raise RuntimeError(f"no cached output for {doc.doc_id} and no API client")
-    out = call_model(client, doc, doc.text())
+    out = {**call_model(client, doc, doc.text()), "prompt_version": PROMPT_VERSION}
     RAW.mkdir(parents=True, exist_ok=True)
     cache.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return out
 
 
 _DATE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
+_FULL_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# A state rule yields to stricter local law when its own text says so ("housing under valid local
+# rent control ... is exempt", "Units subject to the City's RSO are not covered").
+_LOCAL_LAW = re.compile(r"\b(under|subject to|covered by)\b[^.;]{0,30}?\b(local|city'?s?)\s+(just[- ]cause|rent control|rent stabilization|rso)\b", re.I)
+_YIELDS = re.compile(r"exempt|not apply|not covered|more protective|stricter", re.I)
 
 
 def _opt(value: str) -> str | None:
@@ -162,6 +176,15 @@ def _opt(value: str) -> str | None:
 def to_rule_record(raw: dict, doc: corpus.Document, quote: str, rule_id: str) -> dict:
     """Map one model record to the official rule schema (+ structured coverage for the engine)."""
     effective = _opt(raw["effective_date"])
+    effective = effective if effective and _DATE.match(effective) else None
+    status, notes = raw["status"], [_opt(raw.get("extraction_note", ""))]
+    enacted = _opt(raw.get("enacted_date", ""))
+    if effective is None and enacted and _FULL_DATE.match(enacted) and raw["jurisdiction"].strip() == "CA"             and raw["level"] == "state" and status in ("in_force", "not_yet_effective"):
+        # Cal. Const. art. IV, sec. 8(c): a non-urgency statute takes effect on January 1 of the year
+        # after enactment. Derived, not quoted — recorded so a reviewer can check it.
+        effective = f"{int(enacted[:4]) + 1}-01-01"
+        notes.append(f"effective_date derived: enacted {enacted}; CA default under Cal. Const. art. IV, sec. 8(c)")
+        status = "in_force" if effective <= paths.DEFAULT_AS_OF else "not_yet_effective"
     coverage = {
         "text": _opt(raw["coverage_text"]),
         "built_cutoff_date": _opt(raw["built_cutoff_date"]),
@@ -176,7 +199,7 @@ def to_rule_record(raw: dict, doc: corpus.Document, quote: str, rule_id: str) ->
         "jurisdiction": raw["jurisdiction"].strip(),
         "level": raw["level"],
         "category": raw["category"],
-        "status": raw["status"],
+        "status": status,
         "title": raw["title"].strip(),
         "requirement": raw["requirement"].strip(),
         "key_value": _opt(raw["key_value"]),
@@ -185,7 +208,8 @@ def to_rule_record(raw: dict, doc: corpus.Document, quote: str, rule_id: str) ->
         "penalty": _opt(raw.get("penalty", "")),
         "overrides": [],
         "interaction": _opt(raw["interaction"]),
-        "effective_date": effective if effective and _DATE.match(effective) else None,
+        "effective_date": effective,
+        "enacted_date": enacted if enacted and _FULL_DATE.match(enacted) else None,
         "citation": raw["citation"].strip() or doc.doc_id,
         "source_doc_id": doc.doc_id,
         "source_url": doc.url,
@@ -193,6 +217,7 @@ def to_rule_record(raw: dict, doc: corpus.Document, quote: str, rule_id: str) ->
         "confidence": max(0.0, min(1.0, float(raw["confidence"]))),
         "conflict_flag": bool(_opt(raw["conflict_note"])),
         "conflict_note": _opt(raw["conflict_note"]),
+        "extraction_note": "; ".join(n for n in notes if n) or None,
         "retrieved_at": doc.retrieved_at,
     }
 
@@ -226,15 +251,23 @@ def build_rules(outputs: dict[str, dict], log: list[dict]) -> list[dict]:
     return sorted(best.values(), key=lambda r: r["team_rule_id"])
 
 
+def _yields_to_local(rule: dict) -> bool:
+    return any(f and _LOCAL_LAW.search(f) and _YIELDS.search(f) for f in (rule["exemptions"], rule["interaction"]))
+
+
 def _link_overrides(rules: list[dict]) -> None:
-    """A local rule that displaces state law overrides state rules of its category and state."""
+    """A city rule overrides the state rules of its category and state when the city rule says it
+    displaces state law, or when the state rule's own text exempts housing under local law.
+    The engine applies the override only where the city rule covers the address."""
     for local in rules:
-        if local["level"] != "city" or not local["coverage_conditions"]["displaces_state_rule"]:
+        if local["level"] != "city" or local["status"] == "failed":
             continue
         state = local["jurisdiction"].rsplit(", ", 1)[-1]
+        displaces = local["coverage_conditions"]["displaces_state_rule"]
         local["overrides"] = [
             r["team_rule_id"] for r in rules
             if r["level"] == "state" and r["jurisdiction"] == state and r["category"] == local["category"]
+            and (displaces or _yields_to_local(r))
         ]
 
 

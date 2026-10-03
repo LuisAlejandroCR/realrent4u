@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Boston, MA",
+      "level": "city",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Prohibition on rental-assistance (source-of-income) discrimination in Boston housing",
+      "requirement": "Landlords in Boston may not discriminate against applicants or tenants because they receive rental assistance, such as Section 8, social security disability, or veterans vouchers. Refusing to accept rental assistance counts as housing discrimination.",
+      "key_value": "Rental assistance (e.g., Section 8 vouchers) is a protected class; refusing vouchers is discrimination",
+      "citation": "",
+      "quoted_span": "The landlord tells you they don't accept rental assistance. This includes Section\n8 vouchers, social security disability vouchers, and veterans vouchers.",
+      "effective_date": "",
+      "coverage_text": "In the City of Boston, it’s illegal to discriminate when renting, buying, selling, or securing financing for any housing.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "The Boston Fair Housing Commission enforces local, state, and federal fair housing laws for discrimination occurring in Boston. Complaints about discrimination outside Boston go to the state.",
+      "conflict_note": "This is an informational city web page, not the ordinance text. It cites no ordinance section, no effective date, and no specific penalty; it says only that the commission investigates and tries to resolve complaints.",
+      "confidence": 0.6
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3434,
+    "output_tokens": 841,
+    "at": "2026-10-03T18:10:21+00:00"
+  }
+}

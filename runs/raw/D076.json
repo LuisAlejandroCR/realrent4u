@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "San Diego, CA",
+      "level": "city",
+      "category": "algorithmic_rent_setting",
+      "status": "pending",
+      "title": "Prohibition of Anti-Competitive Automated Rent Price-Fixing Ordinance",
+      "requirement": "Proposed ordinance making it unlawful to sell, license, or otherwise provide an algorithmic device that uses nonpublic competitor data to advise or recommend rental rates or occupancy levels to a landlord. It would also bar landlords from using such a device to set rental rates or occupancy levels for residential rental property.",
+      "key_value": "Ban on sale, licensing and use of algorithmic rent-setting devices; civil penalties up to $1,000 per violation",
+      "citation": "San Diego Municipal Code Chapter 9, Article 8, Division 11, §§98.1101-98.1104 (proposed Ordinance O-2025-107)",
+      "quoted_span": "It is unlawful for a landlord to use an algorithmic device to set rental rates or occupancy levels for residential rental property.",
+      "effective_date": "",
+      "coverage_text": "Algorithmic devices that use or incorporate one or more algorithms to perform calculations of nonpublic competitor data concerning rental rates, occupancy levels, or other information regarding the leasing of residential rental property, to advise a landlord on, or recommend to a landlord, rental rates or occupancy levels for residential rental property in the City of San Diego.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Software or products that publish reports on rental rates or occupancy levels from aggregated historical nonpublic competitor data more than 90 days old, or from public information, and do not recommend rates or occupancy levels for future leases or renewals. Also exempt: software used to establish rental rates or income limits under local, state, or federal affordable housing program guidelines.",
+      "penalty": "A tenant may sue a landlord for injunctive relief, damages, or civil penalties of up to $1,000 per violation. Each month a use violation continues, and each residential rental property involved, counts as a separate violation. A prevailing tenant recovers costs and reasonable attorney's fees, and lease clauses limiting fee recovery are unenforceable. Remedies are cumulative.",
+      "displaces_state_rule": false,
+      "interaction": "Remedies are cumulative and in addition to any other remedies at law, statute, or ordinance. The ordinance does not say it displaces any state rule.",
+      "conflict_note": "The document is a staff report and draft ordinance with blank ordinance number and passage date. It takes effect on the thirtieth day after final passage, but no passage date is given.",
+      "confidence": 0.85
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 10767,
+    "output_tokens": 1531,
+    "at": "2026-10-03T18:12:02+00:00"
+  }
+}

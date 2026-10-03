@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Boston, MA",
+      "level": "city",
+      "category": "screening_restrictions",
+      "status": "in_force",
+      "title": "Boston Fair Chance Tenant Selection Policy",
+      "requirement": "Covered housing providers may not use a blanket ban on applicants with arrests or convictions and must review applicants case by case. When deciding eligibility or eviction, they may not consider arrests without conviction, convictions with judicial relief (such as expungement or sealing), juvenile records, or convictions more than 5 years old.",
+      "key_value": "No blanket criminal-history bans; convictions older than 5 years excluded",
+      "citation": "Boston Department of Neighborhood Development, Boston Fair Chance Tenant Selection Policy (February 2017)",
+      "quoted_span": "Housing providers receiving Department of Neighborhood Development (DND) funding and/or land, or that have income restricted units created under the Boston Planning and Development Agency (BPDA) Inclusionary Development Policy will not impose a blanket policy that denies housing to anyone with arrests and or convictions.",
+      "effective_date": "",
+      "coverage_text": "Housing providers receiving DND funding and/or land, or that have income restricted units created under the BPDA Inclusionary Development Policy. The policy also applies to the Office of Fair Housing and Equity Affirmative Marketing Program.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "The limits do not apply where there is a direct relationship between a conviction and the housing sought, or an unreasonable risk of substantial harm to the safety of others. They also do not apply to current criminal behavior.",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "Where federal or state law imposes a conflicting criminal history requirement, the federal or state law preempts this policy.",
+      "conflict_note": "The document is dated February 2017 but does not state an effective date. It also has separate credit-score and credit-history rules, which fall outside the six categories and are not captured as a separate record.",
+      "confidence": 0.8
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 4259,
+    "output_tokens": 1567,
+    "at": "2026-10-03T18:10:17+00:00"
+  }
+}

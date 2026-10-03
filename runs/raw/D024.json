@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "CA",
+      "level": "state",
+      "category": "rent_increase_limits",
+      "status": "in_force",
+      "title": "Tenant Protection Act statewide rent cap (Civil Code 1947.12)",
+      "requirement": "Over any 12-month period, an owner may not raise the gross rent by more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower, measured from the lowest rent charged in the prior 12 months. A continuing tenant's rent may be raised in no more than two increments per 12 months, and the owner may set the initial rent freely for a new tenancy.",
+      "key_value": "5% + CPI, max 10%, per 12 months; max two increases per 12 months",
+      "citation": "Cal. Civ. Code § 1947.12 (Stats. 2023, Ch. 290, Sec. 4, SB 567)",
+      "quoted_span": "Subject to subdivision (b), an owner of residential real property shall not, over the course of any 12-month period, increase the gross rental rate for a dwelling or a unit more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower, of the lowest gross rental rate charged for that dwelling or unit at any time during the 12 months prior to the effective date of the increase.",
+      "effective_date": "2024-04-01",
+      "coverage_text": "Residential real property, meaning any dwelling or unit intended for human habitation, including mobilehome park units. Housing issued a certificate of occupancy within the previous 15 years is exempt unless it is a mobilehome; this is a rolling cutoff, not a fixed date. The section applies to rent increases on or after March 15, 2019, and to mobilehome tenancies on or after February 18, 2021.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": true,
+      "exemptions": "Exempt properties: (1) deed- or agreement-restricted affordable housing; (2) school and university dormitories; (3) housing under valid local rent control that restricts increases to less than this section; (4) housing with a certificate of occupancy issued within the previous 15 years, unless a mobilehome; (5) separately alienable units such as single-family homes and condos, if the owner is not a REIT, corporation or LLC with a corporate member (or mobilehome park management) and tenants received the required written exemption notice; (6) owner-occupied two-unit structures where neither unit is an ADU or JADU; (7) mobilehome homeowners as defined in Section 798.9. Initial rent for a new tenancy is not capped.",
+      "penalty": "Civil liability to the tenant for: injunctive relief; damages equal to the excess rent; reasonable attorney's fees and costs at the court's discretion; and up to three times the excess for willful, oppressive, fraudulent or malicious conduct. The Attorney General and the city attorney or county counsel may enforce and seek injunctive relief. Actions must be brought within 3 years, and waivers are void.",
+      "displaces_state_rule": false,
+      "interaction": "This is the state rule. Housing under local rent control (consistent with Civil Code Chapter 2.7) that restricts annual increases to less than this cap is exempt from the section, so stricter local rent control applies there instead. The section does not expand or limit local rent-control authority.",
+      "conflict_note": "Subdivision (n) of the operative text says the section becomes operative April 1, 2024, which is the date used here. The history note says the statute was effective January 1, 2024 and operative April 1, 2024. Subdivision (h) applies the cap to increases on or after March 15, 2019 (February 18, 2021 for mobilehomes). The section is repealed as of January 1, 2030.",
+      "confidence": 0.92
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 7625,
+    "output_tokens": 1867,
+    "at": "2026-10-03T18:10:43+00:00"
+  }
+}
