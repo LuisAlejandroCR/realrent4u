@@ -53,6 +53,8 @@ const videos = (cfg.videos ?? []).map((v) => {
   return {
     id: v.id,
     title: v.title ?? { en: v.id, es: v.id },
+    context: { en: v.context?.en ?? null, es: v.context?.es ?? null },
+    optional: v.optional === true,
     src,
     url: page,
     poster: resource(v.poster, `${v.id}.poster`),

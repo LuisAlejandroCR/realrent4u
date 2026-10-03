@@ -7,6 +7,8 @@ export interface LangPair { en: string | null; es: string | null }
 export interface VideoConfig {
   id: string;
   title: { en: string; es: string };
+  context: LangPair;
+  optional: boolean;
   src: string | null;
   url: string | null;
   poster: string | null;

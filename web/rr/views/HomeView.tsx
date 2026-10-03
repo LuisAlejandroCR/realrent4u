@@ -48,7 +48,23 @@ function Landing({ data }: { data: Dataset }) {
   const places = new Set(data.rules.map((r) => r.jurisdiction)).size;
   const dates = data.manifest.lookup_dates.length ? data.manifest.lookup_dates : data.manifest.demo_dates;
   const dash = (extra: Record<string, string> = {}) => hrefWith("/dashboard", prefs, extra);
-  const [featured, ...more] = media.videos;
+  const t1 = data.changeTests.find((t) => t.as_of_before);
+  const counts = new Map<string, number>();
+  for (const i of items ?? []) counts.set(i.result, (counts.get(i.result) ?? 0) + 1);
+  // A real example from the data for each storyboard video (by id); other ids get none.
+  const proof = (id: string) => {
+    if (!s) return null;
+    const p = (c: ReactNode) => <p className="rr-l-proof">{c}</p>;
+    if (id === "why-address-and-date" && t1)
+      return p(<><span className="rr-test-id">{t1.test_id}</span> {t1.title}: <span className="rr-mono">{t1.as_of_before} → {t1.as_of_after}</span></>);
+    if (id === "postal-vs-legal")
+      return p(<>{s.a.address_id} · {tr.postalCity} {s.a.postal_city} → {tr.legalJurisdiction} <strong>{s.j.jurisdiction}</strong></>);
+    if (id === "reading-results" && counts.size)
+      return p(<>{s.a.address_id}, {asOf}: {[...counts].map(([k, n]) => `${n} ${tr.result[k] ?? k}`).join(" · ")}</>);
+    if (id === "open-the-source")
+      return p(<>“{s.rule.quoted_span!.slice(0, 110)}{s.rule.quoted_span!.length > 110 ? "…" : ""}” <span className="rr-muted">— {s.rule.citation}</span></>);
+    return null;
+  };
   const fact = (v: string | null | undefined) => (blank(v) ? <span className="rr-missing">{tr.notInRecord}</span> : v);
 
   return (
@@ -127,41 +143,22 @@ function Landing({ data }: { data: Dataset }) {
         </dl>
       </Section>
 
-      {/* 3 · How it works */}
+      {/* 3 · How it works: one storyboard video per step, each beside a real example from the data */}
       <Section n={3} label={tr.lCh[1]!} id="how" tone="soft">
-        <h2 className="rr-l-h2">{tr.lHowTitle} <em>{tr.lHowEm}</em></h2>
-        <ol className="rr-l-steps">
-          {tr.lSteps.map(([t, b], i) => (
-            <li key={t}>
-              <span className="rr-l-step-n">{i + 1}</span>
-              <h3>{t}</h3>
-              <p>{b}</p>
-              {s && (
-                <p className="rr-l-proof">
-                  {i === 0 && <>{s.a.postal_city} → <strong>{s.j.jurisdiction}</strong></>}
-                  {i === 1 && <>{s.j.jurisdiction}: {tr.rulesOnRecord(s.rules.filter((r) => r.level === "state").length, s.rules.filter((r) => r.level !== "state").length)}</>}
-                  {i === 2 && <>“{s.rule.quoted_span!.slice(0, 96)}{s.rule.quoted_span!.length > 96 ? "…" : ""}” <span className="rr-muted">— {s.rule.citation}</span></>}
-                </p>
-              )}
-            </li>
+        <div className="rr-l-read">
+          <h2 className="rr-l-h2">{tr.lHowTitle} <em>{tr.lHowEm}</em></h2>
+          <p>{tr.lVideosBody}</p>
+        </div>
+        <div className="rr-l-story">
+          {media.videos.map((v, i) => (
+            <VideoCard key={v.id} video={v} lang={lang} tr={tr} step={i + 1}>
+              {proof(v.id)}
+            </VideoCard>
           ))}
-        </ol>
-
-        <div className="rr-l-media">
-          <div className="rr-l-media-head">
-            <h3 className="rr-l-h3">{tr.lVideosTitle}</h3>
-            <p className="rr-l-read-p">{tr.lVideosBody}</p>
-          </div>
-          <div className="rr-l-media-grid">
-            {featured && <VideoCard video={featured} lang={lang} tr={tr} featured />}
-            <div className="rr-l-media-side">
-              {more.map((v) => <VideoCard key={v.id} video={v} lang={lang} tr={tr} />)}
-              <div className="rr-l-demo">
-                <h3 className="rr-video-title">{tr.openDemo}</h3>
-                <QrBlock label={tr.openDemo} target={media.demo.url} qr={media.demo.qr} tr={tr} />
-              </div>
-            </div>
-          </div>
+        </div>
+        <div className="rr-l-demo">
+          <h3 className="rr-video-title">{tr.openDemo}</h3>
+          <QrBlock label={tr.openDemo} target={media.demo.url} qr={media.demo.qr} tr={tr} />
         </div>
       </Section>
 

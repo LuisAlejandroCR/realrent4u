@@ -2,7 +2,7 @@
 // VideoCard.tsx: one configured video: native player (controls, no autoplay, poster, WebVTT captions),
 // title, duration, transcript and its QR. Without a configured file or link it renders a labelled
 // placeholder that names what is missing; nothing is simulated.
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { Lang } from "../types";
 import type { Dict } from "../i18n";
 import type { VideoConfig } from "../landing";
@@ -14,6 +14,10 @@ export interface VideoCardProps {
   tr: Dict;
   /** Large layout for the featured video. */
   featured?: boolean;
+  /** Storyboard step number; renders the card as a row (video beside its text). */
+  step?: number;
+  /** Extra content under the context, e.g. a real example from the data. */
+  children?: ReactNode;
 }
 
 function Transcript({ src, tr }: { src: string | null; tr: Dict }) {
@@ -31,8 +35,9 @@ function Transcript({ src, tr }: { src: string | null; tr: Dict }) {
   );
 }
 
-export function VideoCard({ video: v, lang, tr, featured }: VideoCardProps) {
+export function VideoCard({ video: v, lang, tr, featured, step, children }: VideoCardProps) {
   const title = v.title[lang] ?? v.title.en;
+  const context = v.context?.[lang] ?? v.context?.en ?? null;
   const caption = v.captions[lang] ?? v.captions.en;
   const transcript = v.transcript[lang] ?? v.transcript.en;
   const playable = !!v.src;
@@ -44,7 +49,7 @@ export function VideoCard({ video: v, lang, tr, featured }: VideoCardProps) {
   ].filter(Boolean) as string[];
 
   return (
-    <article className={`rr-video ${featured ? "rr-video-featured" : ""}`} aria-labelledby={`v-${v.id}`}>
+    <article className={`rr-video ${featured ? "rr-video-featured" : ""} ${step ? "rr-video-row" : ""}`} aria-labelledby={`v-${v.id}`}>
       <div className="rr-video-frame">
         {playable ? (
           <video controls preload="none" playsInline poster={v.poster ?? undefined} className="rr-video-el">
@@ -62,7 +67,15 @@ export function VideoCard({ video: v, lang, tr, featured }: VideoCardProps) {
         )}
       </div>
       <div className="rr-video-meta">
+        {step && (
+          <p className="rr-video-step">
+            <span className="rr-l-step-n">{step}</span>
+            {v.optional && <span className="rr-video-optional">{tr.optionalVideo}</span>}
+          </p>
+        )}
         <h3 id={`v-${v.id}`} className="rr-video-title">{title}</h3>
+        {context && <p className="rr-video-context">{context}</p>}
+        {children}
         <p className="rr-meta">
           {v.duration ? <><span className="rr-label">{tr.duration}</span> {v.duration}</> : tr.durationPending}
           {v.src && !caption && <> · {tr.noCaptions}</>}

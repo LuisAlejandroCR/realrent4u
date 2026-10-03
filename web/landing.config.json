@@ -3,8 +3,13 @@
   "demo": { "url": null },
   "videos": [
     {
-      "id": "product-demo",
-      "title": { "en": "Product demo", "es": "Demo del producto" },
+      "id": "why-address-and-date",
+      "optional": false,
+      "title": { "en": "Why the address and the date matter", "es": "Por qué importan la dirección y la fecha" },
+      "context": {
+        "en": "The same building can fall under different rules depending on the city it legally belongs to and on the date you ask.",
+        "es": "Un mismo edificio puede quedar bajo reglas distintas según la ciudad a la que pertenece legalmente y la fecha de la consulta."
+      },
       "src": null,
       "url": null,
       "poster": null,
@@ -13,8 +18,13 @@
       "transcript": { "en": null, "es": null }
     },
     {
-      "id": "technical-walkthrough",
-      "title": { "en": "Technical walkthrough", "es": "Recorrido técnico" },
+      "id": "postal-vs-legal",
+      "optional": false,
+      "title": { "en": "Postal city vs legal jurisdiction", "es": "Ciudad postal vs jurisdicción legal" },
+      "context": {
+        "en": "How a mailing address that names a neighborhood is resolved to the city whose ordinances apply.",
+        "es": "Cómo una dirección postal que nombra un barrio se resuelve a la ciudad cuyas ordenanzas aplican."
+      },
       "src": null,
       "url": null,
       "poster": null,
@@ -23,8 +33,28 @@
       "transcript": { "en": null, "es": null }
     },
     {
-      "id": "team-introduction",
-      "title": { "en": "Team introduction", "es": "Presentación del equipo" },
+      "id": "reading-results",
+      "optional": false,
+      "title": { "en": "Reading a result, and what unknown means", "es": "Cómo leer un resultado y qué significa desconocido" },
+      "context": {
+        "en": "Each rule gets one of five results. Unknown means a needed fact is missing from the record; the system does not guess it.",
+        "es": "Cada regla recibe uno de cinco resultados. Desconocido significa que falta un dato necesario en el registro; el sistema no lo supone."
+      },
+      "src": null,
+      "url": null,
+      "poster": null,
+      "duration": null,
+      "captions": { "en": null, "es": null },
+      "transcript": { "en": null, "es": null }
+    },
+    {
+      "id": "open-the-source",
+      "optional": true,
+      "title": { "en": "Opening the quote and the original source", "es": "Abrir la cita y la fuente original" },
+      "context": {
+        "en": "Every result links to the quoted text, its citation, the retrieval date and the public document it comes from.",
+        "es": "Cada resultado enlaza al texto citado, su cita, la fecha de recuperación y el documento público del que proviene."
+      },
       "src": null,
       "url": null,
       "poster": null,
