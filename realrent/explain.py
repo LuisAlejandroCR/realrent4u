@@ -46,6 +46,27 @@ SUPERSEDED_REASON = {
     "en": "a local rule ({id}) governs instead of it",
     "es": "una regla local ({id}) rige en su lugar",
 }
+POSSIBLY_SUPERSEDED_REASON = {
+    "en": "a local rule ({id}) may govern instead of it, but we cannot tell whether that local rule "
+    "covers this address",
+    "es": "una regla local ({id}) podría regir en su lugar, pero no podemos saber si esa regla local "
+    "cubre esta dirección",
+}
+POSSIBLY_SUPERSEDED_GENERIC = {
+    "en": "a local rule may govern instead of it, but we cannot tell whether that local rule covers "
+    "this address",
+    "es": "una regla local podría regir en su lugar, pero no podemos saber si esa regla local cubre "
+    "esta dirección",
+}
+# Not a coverage gap but a description of what the rule does; appended as its own clause.
+BARS_LOCAL_RENT_CONTROL = "bars_local_rent_control"
+BARS_NOTE = {
+    "en": "This state law bars cities from imposing rent control; it is not a rent cap and sets no "
+    "limit on rent increases.",
+    "es": "Esta ley estatal prohíbe a las ciudades imponer control de rentas; no es un tope de renta "
+    "y no fija ningún límite a los aumentos de renta.",
+}
+AND = {"en": " and ", "es": " y "}
 SUPERSEDED_GENERIC = {
     "en": "a local rule governs instead of it",
     "es": "una regla local rige en su lugar",
@@ -95,14 +116,31 @@ def _text(value) -> str:
     return str(value).strip() if value not in (None, "") else ""
 
 
-def _reason_text(reason, lang: str) -> str:
-    reason = _text(reason)
+def _reasons(reason) -> list[str]:
+    """Split a (possibly comma-joined) machine reason into its parts, in order, without duplicates."""
+    parts = [p.strip() for p in _text(reason).split(",")]
+    return list(dict.fromkeys(p for p in parts if p))
+
+
+def _one_reason(reason: str, lang: str) -> str:
     if reason.startswith("superseded_by:"):
         rid = reason.split(":", 1)[1].strip()
-        return (SUPERSEDED_REASON[lang].format(id=rid) if rid else SUPERSEDED_GENERIC[lang])
+        return SUPERSEDED_REASON[lang].format(id=rid) if rid else SUPERSEDED_GENERIC[lang]
+    if reason.startswith("possibly_superseded_by:"):
+        rid = reason.split(":", 1)[1].strip()
+        return POSSIBLY_SUPERSEDED_REASON[lang].format(id=rid) if rid else POSSIBLY_SUPERSEDED_GENERIC[lang]
     if reason in REASONS:
         return REASONS[reason][lang]
     return GENERIC_REASON[lang]
+
+
+def _reason_text(reason, lang: str) -> str:
+    """Human text for one or more reasons (bars_local_rent_control is a note, not a reason)."""
+    texts = [_one_reason(r, lang) for r in _reasons(reason) if r != BARS_LOCAL_RENT_CONTROL]
+    texts = list(dict.fromkeys(texts)) or [GENERIC_REASON[lang]]
+    if len(texts) == 1:
+        return texts[0]
+    return ", ".join(texts[:-1]) + AND[lang] + texts[-1]
 
 
 def citation_of(rule: dict, lang: str = "en") -> str:
@@ -118,9 +156,9 @@ def template(rule: dict, item: dict, lang: str = "en", as_of: str | None = None)
     reason = item.get("reason")
 
     if result == "superseded":
-        if not _text(reason):
+        if not [r for r in _reasons(reason) if r != BARS_LOCAL_RENT_CONTROL]:
             overrider = _text(item.get("superseded_by"))
-            reason = f"superseded_by:{overrider}" if overrider else "superseded_by:"
+            reason = ",".join([f"superseded_by:{overrider}"] + _reasons(reason))
         first = RESULT_TEXT[result][lang].format(title=title, reason=_reason_text(reason, lang))
     elif result == "unknown":
         first = RESULT_TEXT[result][lang].format(title=title, reason=_reason_text(reason, lang))
@@ -133,6 +171,8 @@ def template(rule: dict, item: dict, lang: str = "en", as_of: str | None = None)
     else:
         first = UNKNOWN_RESULT[lang].format(title=title)
 
+    if BARS_LOCAL_RENT_CONTROL in _reasons(reason):
+        first = f"{first} {BARS_NOTE[lang]}"
     second = SOURCE[lang].format(citation=citation_of(rule, lang), as_of=as_of)
     return f"{first} {second} {DISCLAIMER[lang]}"
 

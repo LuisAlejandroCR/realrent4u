@@ -174,3 +174,51 @@ def test_use_llm_false_ignores_client():
     client = FakeClient(reply="x")
     ex.explain(RULE, {"result": "applies"}, "en", AS_OF, use_llm=False, client=client)
     assert client.calls == []
+
+
+def test_possibly_superseded_reason():
+    item = {"result": "unknown", "reason": "possibly_superseded_by:fx-sf-rent-ord"}
+    en = ex.explain(RULE, item, "en", AS_OF)
+    es = ex.explain(RULE, item, "es", AS_OF)
+    assert "may govern instead" in en and "fx-sf-rent-ord" in en and "cannot tell" in en
+    assert "podría regir en su lugar" in es and "fx-sf-rent-ord" in es
+    generic = ex.explain(RULE, {"result": "unknown", "reason": "possibly_superseded_by:"}, "en", AS_OF)
+    assert "a local rule may govern instead" in generic
+
+
+@pytest.mark.parametrize("lang", ["en", "es"])
+@pytest.mark.parametrize("result", ["applies", "not_yet_effective", "pending"])
+def test_bars_local_rent_control_is_never_a_cap(result, lang):
+    rule = dict(RULE, title="Rent control prohibition", citation="M.G.L. c. 40P")
+    out = ex.explain(rule, {"result": result, "reason": "bars_local_rent_control"}, lang, AS_OF)
+    assert ex.BARS_NOTE[lang] in out
+    assert "M.G.L. c. 40P" in out and AS_OF in out and out.endswith(ex.DISCLAIMER[lang])
+    lowered = out.lower().replace("not a rent cap", "").replace("no es un tope de renta", "")
+    assert "cap" not in lowered and "tope" not in lowered
+
+
+def test_bars_local_rent_control_combined_with_other_reason():
+    item = {"result": "unknown", "reason": "missing_units,bars_local_rent_control"}
+    out = ex.explain(RULE, item, "en", AS_OF)
+    assert "number of units" in out and ex.BARS_NOTE["en"] in out
+    assert "a fact needed" not in out
+
+
+def test_multiple_reasons_comma_joined():
+    item = {"result": "unknown", "reason": "missing_year_built, missing_units"}
+    en = ex.explain(RULE, item, "en", AS_OF)
+    es = ex.explain(RULE, item, "es", AS_OF)
+    assert ("because the year the building was built is not in our data and "
+            "the number of units in the building is not in our data.") in en
+    assert "no tenemos el año de construcción del edificio y no tenemos el número de unidades" in es
+    three = ex.explain(RULE, {"result": "unknown",
+                              "reason": "missing_year_built,missing_units,unresolved_address"}, "en", AS_OF)
+    assert "not in our data, the number of units" in three and " and we could not confirm" in three
+    dup = ex.explain(RULE, {"result": "unknown", "reason": "missing_units,missing_units,"}, "en", AS_OF)
+    assert dup.count("number of units") == 1
+
+
+def test_superseded_with_multiple_reasons():
+    item = {"result": "superseded", "reason": "superseded_by:fx-sf-rent-ord,superseded_by:fx-la-rso"}
+    out = ex.explain(RULE, item, "en", AS_OF)
+    assert "fx-sf-rent-ord" in out and "fx-la-rso" in out
