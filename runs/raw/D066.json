@@ -5,23 +5,25 @@
       "level": "state",
       "category": "application_screening_fees",
       "status": "in_force",
-      "title": "Residential rental property application fee capped at $50",
-      "requirement": "A landlord or its agent may not require an application or similar fee above $50 to apply to lease or sublease a residential rental unit. The cap is adjusted each January 1 by the CPI change, with adjustments made only when the CPI change is positive.",
-      "key_value": "$50 maximum application fee, CPI-adjusted annually",
-      "citation": "P.L. 2025, c.405 (A4899); N.J.S.A. 46:8-18.1",
+      "title": "Residential rental property application fee not to exceed $50",
+      "requirement": "A landlord or its agent may not charge an application or similar fee above $50 to apply to lease or sublease a residential rental unit. The cap is adjusted each January 1 by the CPI change, and only if that change is positive.",
+      "key_value": "$50 maximum application fee, CPI-adjusted annually starting January 1 of the year after enactment",
+      "citation": "P.L. 2025, c.405 (A4899 4R); N.J.S.A. C.46:8-18.1",
       "quoted_span": "A landlord, or\nagent thereof, shall not require an application or other similar fee to apply\nto lease or sublease a residential rental property for dwelling purposes, which\nexceeds $50.",
       "effective_date": "2026-05-01",
-      "coverage_text": "Residential rental property for dwelling purposes, excluding dwelling units in one-family or two-family dwellings offered for rent.",
+      "enacted_date": "2026-01-20",
+      "coverage_text": "Fees to apply to lease or sublease a residential rental property for dwelling purposes; does not apply to dwelling units in one-family or two-family dwellings offered for rent.",
       "built_cutoff_date": "",
       "built_cutoff_basis": "none",
       "built_cutoff_direction": "none",
       "min_units": 3,
       "exempts_small_owner_occupied": false,
-      "exemptions": "A dwelling unit in a one-family or two-family dwelling offered for rent. A New Jersey Real Estate Commission licensee, unless the licensee is the landlord of the property.",
-      "penalty": "Up to $500 for a first offense, up to $750 for a second offense, and up to $1,000 for each subsequent offense, enforced by summary proceedings under the Penalty Enforcement Law of 1999 on complaint of the Director of Consumer Affairs or the Attorney General. The amount wrongfully charged is taken from the collected penalty and remitted to the applicant.",
+      "exemptions": "(1) A dwelling unit in a one-family or two-family dwelling offered for rent. (2) A licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the property.",
+      "penalty": "Penalty of up to $500 for a first offense, up to $750 for a second offense, and up to $1,000 for each later offense. Penalties are enforced by summary proceedings under the Penalty Enforcement Law of 1999 on complaint of the Director of Consumer Affairs or the Attorney General. The amount wrongfully charged is taken from the collected penalty and remitted to the applicant.",
       "displaces_state_rule": false,
       "interaction": "",
-      "conflict_note": "The text does not state a calendar effective date. The act takes effect on the first day of the fourth month following enactment, and it was approved January 20, 2026, which gives May 1, 2026. CPI adjustments begin January 1 of the year following enactment (2027).",
+      "conflict_note": "",
+      "extraction_note": "The effective date is computed from section 3, 'first day of the fourth month next following the date of enactment,' and the approval date of January 20, 2026; the text does not state a calendar date. The one- and two-family exemption applies regardless of owner occupancy, so exempts_small_owner_occupied is false; min_units of 3 is derived from that exemption. The CPI adjustment uses CPI-U New York-Northern New Jersey-Long Island, with the 12-month period ending October 31; the State Treasurer determines the adjustment by December 1, and the Director of Consumer Affairs publishes the limit annually. The quoted_span keeps the source document's line breaks.",
       "confidence": 0.88
     }
   ],
@@ -29,8 +31,9 @@
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 3556,
-    "output_tokens": 1038,
-    "at": "2026-10-03T18:11:34+00:00"
-  }
+    "input_tokens": 3757,
+    "output_tokens": 1540,
+    "at": "2026-10-03T18:21:14+00:00"
+  },
+  "prompt_version": 2
 }

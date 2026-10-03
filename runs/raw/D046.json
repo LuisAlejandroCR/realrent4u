@@ -5,12 +5,13 @@
       "level": "state",
       "category": "algorithmic_rent_setting",
       "status": "pending",
-      "title": "An Act prohibiting algorithmic rent setting",
-      "requirement": "Proposed bill to prohibit algorithmic rent setting in Massachusetts rental housing. The bill text, including covered software, prohibited conduct and penalties, is not included in this document.",
-      "key_value": "Prohibition of algorithmic rent setting (proposed)",
+      "title": "An Act prohibiting algorithmic rent setting (S.2983)",
+      "requirement": "Proposed bill that would prohibit algorithmic rent setting in Massachusetts rental housing. The page does not include the bill's operative text, so covered software, prohibited conduct and penalties are not stated.",
+      "key_value": "Prohibition on algorithmic rent setting (proposed)",
       "citation": "Senate Bill S.2983 (194th General Court); new draft of S.994 and S.1016",
       "quoted_span": "Senate, March 12, 2026 -- The committee on Housing, to whom was referred the petitions (accompanied by bill, Senate, No. 994) of Cindy F. Friedman and Julian Cyr for legislation to prohibit algorithmic rent setting; and (accompanied by bill, Senate, No. 1016) of Michael O. Moore, Patricia D. Jehlen and James B. Eldridge for legislation to establish the Preventing Algorithmic Rent Fixing in the Rental Housing Market Act., report the accompanying bill (Senate, No. 2983).",
       "effective_date": "",
+      "enacted_date": "",
       "coverage_text": "",
       "built_cutoff_date": "",
       "built_cutoff_basis": "none",
@@ -21,7 +22,8 @@
       "penalty": "",
       "displaces_state_rule": false,
       "interaction": "",
-      "conflict_note": "The page shows only bill status and history, not the bill text. The bill was reported favorably by the Joint Committee on Housing on 3/12/2026 and referred to Senate Ways and Means. It is not enacted.",
+      "conflict_note": "",
+      "extraction_note": "The document is a bill status page only, with no bill text. It shows the bill was reported favorably by the Joint Committee on Housing on 2026-03-12 and referred to Senate Ways and Means. There is no record of enactment, so the status is pending. Substantive provisions, penalties and effective date are not stated.",
       "confidence": 0.6
     }
   ],
@@ -29,8 +31,9 @@
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 3292,
-    "output_tokens": 1087,
-    "at": "2026-10-03T18:11:13+00:00"
-  }
+    "input_tokens": 3493,
+    "output_tokens": 1122,
+    "at": "2026-10-03T18:20:43+00:00"
+  },
+  "prompt_version": 2
 }

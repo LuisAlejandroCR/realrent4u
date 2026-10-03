@@ -1,36 +1,12 @@
 {
-  "rules": [
-    {
-      "jurisdiction": "San Francisco, CA",
-      "level": "city",
-      "category": "screening_restrictions",
-      "status": "in_force",
-      "title": "Fair Chance Ordinance – criminal history in affordable housing decisions",
-      "requirement": "San Francisco's Fair Chance Ordinance protects people with arrest or conviction history in affordable housing decisions. This page gives no details on screening limits or timing.",
-      "key_value": "Protects applicants with arrest or conviction history in affordable housing",
-      "citation": "",
-      "quoted_span": "San Francisco's Fair Chance Ordinance protects residents with arrest or conviction history in affordable housing decisions.",
-      "effective_date": "",
-      "coverage_text": "Affordable housing decisions in San Francisco",
-      "built_cutoff_date": "",
-      "built_cutoff_basis": "none",
-      "built_cutoff_direction": "none",
-      "min_units": 0,
-      "exempts_small_owner_occupied": false,
-      "exemptions": "",
-      "penalty": "",
-      "displaces_state_rule": false,
-      "interaction": "",
-      "conflict_note": "The source is an agency landing page that only references the ordinance. It gives no citation, effective date, or operative details.",
-      "confidence": 0.5
-    }
-  ],
+  "rules": [],
   "meta": {
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 4591,
-    "output_tokens": 773,
-    "at": "2026-10-03T18:11:57+00:00"
-  }
+    "input_tokens": 4792,
+    "output_tokens": 277,
+    "at": "2026-10-03T18:21:29+00:00"
+  },
+  "prompt_version": 2
 }

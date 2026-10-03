@@ -5,13 +5,14 @@
       "level": "city",
       "category": "just_cause_eviction",
       "status": "in_force",
-      "title": "2026 inflation-adjusted relocation assistance for owner move-in and Ellis Act evictions",
-      "requirement": "Owners who evict tenants for owner move-in, or to remove a property from the rental market under the Ellis Act, must pay relocation assistance. From January 1, 2026 the standard payment is $19,413, plus an additional $6,471 for qualifying households.",
-      "key_value": "$19,413 standard payment; $6,471 additional for qualifying households (1.5% CPI adjustment)",
-      "citation": "Berkeley Rent Stabilization and Good Cause for Eviction Ordinance; Ellis Implementation Ordinance (Rent Board approval, October 16, 2025 Special Meeting)",
-      "quoted_span": "The Rent Stabilization and Good Cause for Eviction Ordinance requires owners to pay tenants relocation assistance in the event of an owner move-in eviction.",
+      "title": "2026 inflation adjustment of relocation assistance payments for owner move-in and Ellis Act evictions",
+      "requirement": "Owners who evict tenants for owner move-in or to withdraw a property from the rental market under the Ellis Act must pay relocation assistance. Starting January 1, 2026, the standard payment is $19,413, and qualifying households receive an additional $6,471.",
+      "key_value": "Standard $19,413; additional $6,471 for qualifying households (1.5% CPI increase)",
+      "citation": "Berkeley Rent Stabilization and Good Cause for Eviction Ordinance; Ellis Implementation Ordinance (Rent Board annual adjustment approved October 16, 2025)",
+      "quoted_span": "At its October 16, 2025 Special Meeting, the Rent Board approved relocation assistance payment increases that will go into effect on January 1, 2026.",
       "effective_date": "2026-01-01",
-      "coverage_text": "Tenants evicted for owner move-in or so the owner can remove a property from the rental housing market (Ellis Act).",
+      "enacted_date": "2025-10-16",
+      "coverage_text": "The Rent Stabilization and Good Cause for Eviction Ordinance requires owners to pay tenants relocation assistance in the event of an owner move-in eviction. The Ellis Implementation Ordinance requires the same relocation assistance payments for tenants evicted so the owner can remove a property from the rental housing market.",
       "built_cutoff_date": "",
       "built_cutoff_basis": "none",
       "built_cutoff_direction": "none",
@@ -20,8 +21,9 @@
       "exemptions": "",
       "penalty": "",
       "displaces_state_rule": false,
-      "interaction": "The payments are indexed annually to the CPI-U for the San Francisco-Oakland-San Jose region, and the Rent Board publishes the yearly adjustment.",
+      "interaction": "",
       "conflict_note": "",
+      "extraction_note": "This is a Rent Board news notice, not the ordinance text, and it gives no section numbers. The amounts are a 1.5% increase tied to the 12-month change in the CPI-U for the San Francisco-Oakland-San Jose region. The notice does not define which households qualify for the additional payment and does not state any penalty. The enacted date is the date the Rent Board approved the adjustment.",
       "confidence": 0.85
     }
   ],
@@ -29,8 +31,9 @@
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 2985,
-    "output_tokens": 1206,
-    "at": "2026-10-03T18:10:02+00:00"
-  }
+    "input_tokens": 3186,
+    "output_tokens": 1063,
+    "at": "2026-10-03T18:19:11+00:00"
+  },
+  "prompt_version": 2
 }

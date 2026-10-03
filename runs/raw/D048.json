@@ -5,32 +5,35 @@
       "level": "state",
       "category": "rent_increase_limits",
       "status": "in_force",
-      "title": "Statewide prohibition on local rent control, with narrow exception (M.G.L. c. 40P, § 4)",
-      "requirement": "No Massachusetts city or town may enact, maintain or enforce rent control of any kind. The only exception is for a city or town that accepts the chapter, which may adopt rent control that becomes voluntary for owners after six months, excludes small-portfolio and higher-rent units, and requires the municipality to compensate owners for the gap between fair market rent and controlled rent.",
-      "key_value": "Local rent control prohibited; any permitted local scheme must be voluntary after 6 months, exclude owners of fewer than 10 rental units and units with fair market rent over $400, and compensate owners from general funds",
-      "citation": "M.G.L. c. 40P, § 4",
+      "title": "Statewide prohibition on local rent control, with limited voluntary exception (G.L. c. 40P, § 4)",
+      "requirement": "Massachusetts cities and towns may not enact, maintain or enforce rent control of any kind. The only exception is for a municipality that accepts chapter 40P, and its regulation must be voluntary for owners after six months, may not regulate evictions or similar matters, may not cover owners of fewer than ten units or units with fair market rent above $400, and must compensate owners from general funds.",
+      "key_value": "Local rent control prohibited; exception limited to voluntary programs that exclude owners of fewer than 10 units and units with fair market rent above $400, with municipal compensation to owners",
+      "citation": "Mass. Gen. Laws ch. 40P, § 4",
       "quoted_span": "Section 4. No city or town may enact, maintain or enforce rent control of any kind, except that any city or town that accepts this chapter may adopt rent control regulation that provides:",
       "effective_date": "",
-      "coverage_text": "Applies to all cities and towns in Massachusetts. Any permitted local rent control may not apply to any rental unit owned by a person or entity owning less than ten rental units, or to any unit with a fair market rent exceeding $400.",
+      "enacted_date": "",
+      "coverage_text": "Applies statewide to all cities and towns. Any permitted local rent control may not apply to any rental unit owned by a person or entity owning less than ten rental units, or to any unit with a fair market rent exceeding $400. Owner compliance must be voluntary after six months from initial adoption.",
       "built_cutoff_date": "",
       "built_cutoff_basis": "none",
       "built_cutoff_direction": "none",
       "min_units": 0,
       "exempts_small_owner_occupied": false,
-      "exemptions": "Permitted local regulation may not apply to units owned by a person or entity owning fewer than ten rental units, or to units with fair market rent exceeding $400. It may not regulate occupancy, services, evictions, condominium conversion or the removal of properties from regulation. Owner compliance becomes entirely voluntary six months after initial adoption.",
+      "exemptions": "Any permitted local regulation may not cover units owned by a person or entity owning fewer than ten rental units, or units with fair market rent over $400. It may not regulate occupancy, services, evictions, condominium conversion or removal of properties from regulation.",
       "penalty": "",
       "displaces_state_rule": false,
-      "interaction": "This state law preempts local rent control. Municipalities may adopt rent control only under the restrictive conditions of the section, including municipal compensation to owners funded from general funds.",
+      "interaction": "This is a state rule that preempts local rent control in Massachusetts. Any local rent control is allowed only within the narrow conditions of § 4 for municipalities that accept chapter 40P.",
       "conflict_note": "",
-      "confidence": 0.85
+      "extraction_note": "The document is the current codified text of the General Laws and gives no enactment or effective date. Status is treated as in_force on that basis. The ten-unit threshold counts units owned by a person or entity, not units in a building, so min_units is set to 0. This is a prohibition on local rent caps rather than a cap formula itself.",
+      "confidence": 0.8
     }
   ],
   "meta": {
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 3017,
-    "output_tokens": 1073,
-    "at": "2026-10-03T18:11:20+00:00"
-  }
+    "input_tokens": 3218,
+    "output_tokens": 1183,
+    "at": "2026-10-03T18:20:56+00:00"
+  },
+  "prompt_version": 2
 }

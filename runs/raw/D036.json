@@ -5,23 +5,25 @@
       "level": "city",
       "category": "rent_increase_limits",
       "status": "in_force",
-      "title": "Jersey City Rent Control Ordinance – coverage (1-4 unit properties exempt)",
-      "requirement": "Jersey City regulates rents under its Rent Control Ordinance, Chapter 260 of the Municipal Code, which the Office of Landlord/Tenant Relations administers and enforces. Properties with 1-4 units are exempt from rent control.",
-      "key_value": "1-4 unit properties exempt; rent increase formula not stated on this page",
-      "citation": "Jersey City Municipal Code, Chapter 260 (Rent Control Ordinance)",
+      "title": "Jersey City Rent Control Ordinance coverage – 1-4 unit properties exempt",
+      "requirement": "Jersey City regulates rents under its Rent Control Ordinance (Municipal Code Chapter 260), administered by the Office of Landlord/Tenant Relations. Properties with 1-4 units are exempt from rent control.",
+      "key_value": "Rent control applies only to properties with 5 or more units; 1-4 unit properties exempt",
+      "citation": "Jersey City Municipal Code Chapter 260 (Rent Control Ordinance)",
       "quoted_span": "(Please Note: All 1-4 Unit Properties are exempt from rent control)",
       "effective_date": "",
-      "coverage_text": "Rental properties of five or more units; all 1-4 unit properties are exempt. Owners may submit a Rent Control Exemption Request if they meet the criteria for a permitted exemption.",
+      "enacted_date": "",
+      "coverage_text": "All 1-4 Unit Properties are exempt from rent control",
       "built_cutoff_date": "",
       "built_cutoff_basis": "none",
       "built_cutoff_direction": "none",
       "min_units": 5,
       "exempts_small_owner_occupied": true,
-      "exemptions": "All 1-4 unit properties; other permitted exemptions in the ordinance, available through a Rent Control Exemption Request (criteria not stated on this page).",
+      "exemptions": "All 1-4 unit properties; other exemptions under the Rent Control Ordinance may be requested via a Rent Control Exemption Request.",
       "penalty": "",
       "displaces_state_rule": false,
-      "interaction": "The page does not describe any interaction with a state rent cap.",
-      "conflict_note": "The page links to a Consumer Price Index chart and lists capital improvement and hardship rent increase applications, but it does not state the rent increase formula.",
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "Source is an informational city web page, not the ordinance text. The rent increase formula, effective date and enactment date are not stated. The page references a CPI chart, capital improvement and hardship increase applications, and tenant Illegal Rent Petitions, but gives no details. The 1-4 unit exemption applies regardless of owner occupancy, so small owner-occupied buildings are exempt as a subset.",
       "confidence": 0.6
     }
   ],
@@ -29,8 +31,9 @@
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 5184,
-    "output_tokens": 1133,
-    "at": "2026-10-03T18:10:55+00:00"
-  }
+    "input_tokens": 5385,
+    "output_tokens": 1023,
+    "at": "2026-10-03T18:20:17+00:00"
+  },
+  "prompt_version": 2
 }

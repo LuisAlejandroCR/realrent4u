@@ -5,23 +5,25 @@
       "level": "city",
       "category": "just_cause_eviction",
       "status": "in_force",
-      "title": "Housing Stability Notification Act – Notice of Tenants’ Rights and Resources",
-      "requirement": "A landlord or foreclosing owner ending a tenancy or post-foreclosure occupancy, including by eviction or lease non-renewal, must give the tenant a Notice of Tenants’ Rights and Resources at the same time as the Notice to Quit. The landlord must also send a copy of the Notice to Quit or Notice of Non-renewal, with a Certificate of Compliance/Service, to the City's Office of Housing Stability.",
-      "key_value": "Notice of Tenants’ Rights and Resources must accompany the Notice to Quit or non-renewal notice",
-      "citation": "Housing Stability Notification Act, City of Boston Ordinances Sec. 10-11.7",
-      "quoted_span": "The Notice of Tenants’ Rights and Resources must be delivered at the same time as the Notice to\nQuit.",
+      "title": "Housing Stability Notification Act – Notice of Tenants' Rights and Resources",
+      "requirement": "Landlords and foreclosing owners ending a tenancy or post-foreclosure occupancy, including by lease non-renewal, must give the tenant a Notice of Tenants' Rights and Resources at the same time as the Notice to Quit. They must also send a copy of the Notice to Quit or Notice of Non-renewal, with a Certificate of Compliance/Service, to the City's Office of Housing Stability.",
+      "key_value": "Notice of Tenants' Rights and Resources delivered with Notice to Quit or non-renewal notice; copy filed with Office of Housing Stability",
+      "citation": "Boston Ordinance Sec. 10-11.7 (Housing Stability Notification Act)",
+      "quoted_span": "The HSNA requires that landlords give this Notice of Tenants’ Rights and Resources\nto tenants when the landlord starts the eviction process, or when the landlord\ndecides to not offer the tenant a renewal of their lease agreement.",
       "effective_date": "2020-11-06",
-      "coverage_text": "The Ordinance applies to all landlords/foreclosing owners intending to end a tenancy or post-foreclosure occupancy of a unit in the City of Boston.",
+      "enacted_date": "",
+      "coverage_text": "Applies to all landlords/foreclosing owners intending to end a tenancy or post-foreclosure occupancy of a unit in the City of Boston.",
       "built_cutoff_date": "",
       "built_cutoff_basis": "none",
       "built_cutoff_direction": "none",
       "min_units": 0,
       "exempts_small_owner_occupied": false,
-      "exemptions": "Residences in any hospital, skilled nursing facility or health facility; and residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The requirements may not be waived.",
-      "penalty": "First offense: warning; second and subsequent offenses: $300 per day (enforced by Inspectional Services Department). A violation does not halt the eviction process.",
+      "exemptions": "Residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The requirements cannot be waived by lease or agreement.",
+      "penalty": "Enforced by Inspectional Services Department: warning for 1st offense; $300 per day for 2nd and subsequent offenses. A violation does not halt the eviction process.",
       "displaces_state_rule": false,
-      "interaction": "This is a local notice requirement layered onto the eviction process. A violation does not halt the eviction.",
+      "interaction": "",
       "conflict_note": "",
+      "extraction_note": "This is a tenant FAQ, not the ordinance text itself. The HSNA is an eviction notice requirement rather than a just-cause (permitted causes) rule; it is classified under just_cause_eviction because that category covers eviction notice. The ordinance was passed in October 2020, but no exact adoption date is given, so enacted_date is left blank.",
       "confidence": 0.6
     }
   ],
@@ -29,8 +31,9 @@
     "model": "claude-opus-5-5",
     "stop_reason": "end_turn",
     "request_id": null,
-    "input_tokens": 4159,
-    "output_tokens": 1389,
-    "at": "2026-10-03T18:10:28+00:00"
-  }
+    "input_tokens": 4360,
+    "output_tokens": 1879,
+    "at": "2026-10-03T18:19:56+00:00"
+  },
+  "prompt_version": 2
 }
