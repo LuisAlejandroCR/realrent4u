@@ -1,0 +1,14 @@
+{
+  "_note": "TEST FIXTURE ONLY. Expected legal jurisdictions for a few sample addresses; the real file is derived/jurisdictions.json.",
+  "A0001": {"state": "CA", "county": "Los Angeles County", "place": "Los Angeles", "jurisdiction": "Los Angeles, CA", "match": "exact", "source": "fixture"},
+  "A0002": {"state": "NJ", "county": "Hudson County", "place": "Hoboken", "jurisdiction": "Hoboken, NJ", "match": "exact", "source": "fixture"},
+  "A0003": {"state": "NJ", "county": "Essex County", "place": "Newark", "jurisdiction": "Newark, NJ", "match": "fallback", "source": "fixture"},
+  "A0005": {"state": "CA", "county": "Alameda County", "place": "Berkeley", "jurisdiction": "Berkeley, CA", "match": "exact", "source": "fixture"},
+  "A0006": {"state": "MA", "county": "Suffolk County", "place": "Boston", "jurisdiction": "Boston, MA", "match": "exact", "source": "fixture"},
+  "A0008": {"state": "NJ", "county": "Hudson County", "place": "Jersey City", "jurisdiction": "Jersey City, NJ", "match": "fallback", "source": "fixture"},
+  "A0009": {"state": "MA", "county": "Middlesex County", "place": "Cambridge", "jurisdiction": "Cambridge, MA", "match": "exact", "source": "fixture"},
+  "A0016": {"state": "CA", "county": "San Francisco County", "place": "San Francisco", "jurisdiction": "San Francisco, CA", "match": "exact", "source": "fixture"},
+  "A0019": {"state": "CA", "county": "San Diego County", "place": "San Diego", "jurisdiction": "San Diego, CA", "match": "exact", "source": "fixture"},
+  "A0065": {"state": "MA", "county": "Suffolk County", "place": "Boston", "jurisdiction": "Boston, MA", "match": "exact", "source": "fixture"},
+  "A0322": {"state": "CA", "county": "San Diego County", "place": "San Diego", "jurisdiction": "San Diego, CA", "match": "exact", "source": "fixture"}
+}
