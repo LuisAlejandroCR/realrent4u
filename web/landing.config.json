@@ -1,8 +1,24 @@
 {
   "site_url": "https://realrent4u.vercel.app",
   "demo": {
-    "url": null
+    "url": "https://realrent4u.vercel.app/"
   },
+  "downloads": [
+    {
+      "id": "android-preview",
+      "eyebrow": { "en": "ANDROID PREVIEW", "es": "VISTA PREVIA PARA ANDROID" },
+      "title": { "en": "Scan to get the APK", "es": "Escanea para obtener el APK" },
+      "description": { "en": "Opens the Expo build page", "es": "Abre la página del build en Expo" },
+      "url": "https://expo.dev/accounts/alejoooo-team/projects/realrent4u/builds/8aac457c-db48-4042-b5f8-17a87b3d5766"
+    },
+    {
+      "id": "ios-testflight",
+      "eyebrow": { "en": "IOS · TESTFLIGHT", "es": "IOS · TESTFLIGHT" },
+      "title": { "en": "Scan to join the beta", "es": "Escanea para unirte a la beta" },
+      "description": { "en": "Needs the free TestFlight app", "es": "Necesitas la app gratuita TestFlight" },
+      "url": "https://testflight.apple.com/join/YEj2p41y"
+    }
+  ],
   "videos": [
     {
       "id": "how-it-works",

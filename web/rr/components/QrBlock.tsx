@@ -9,9 +9,12 @@ export interface QrBlockProps {
   /** Generated QR image for that destination, or null. */
   qr: string | null;
   tr: Dict;
+  eyebrow?: string;
+  description?: string | null;
+  className?: string;
 }
 
-export function QrBlock({ label, target, qr, tr }: QrBlockProps) {
+export function QrBlock({ label, target, qr, tr, eyebrow, description, className }: QrBlockProps) {
   if (!target) {
     return (
       <div className="rr-qr is-pending" role="note">
@@ -31,7 +34,7 @@ export function QrBlock({ label, target, qr, tr }: QrBlockProps) {
     }
   })();
   return (
-    <div className="rr-qr">
+    <div className={`rr-qr${className ? ` ${className}` : ""}`}>
       <a className="rr-qr-btn" href={target} target="_blank" rel="noreferrer">
         {label} <span aria-hidden>↗</span>
       </a>
@@ -41,8 +44,9 @@ export function QrBlock({ label, target, qr, tr }: QrBlockProps) {
         </figure>
       )}
       <div className="rr-qr-copy">
+        {eyebrow && <p className="rr-qr-eyebrow">{eyebrow}</p>}
         <p className="rr-qr-label">{label}</p>
-        <p className="rr-meta">{tr.qrScan}</p>
+        <p className="rr-meta">{description ?? tr.qrScan}</p>
         <a className="rr-link rr-qr-text" href={target} target="_blank" rel="noreferrer">{host}</a>
       </div>
     </div>

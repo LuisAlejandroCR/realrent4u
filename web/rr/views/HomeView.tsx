@@ -187,8 +187,10 @@ function Landing({ data }: { data: Dataset }) {
             </div>
           </div>
           {media.demo.url && (
-            <div className="rr-cine-qr">
-              <QrBlock label={tr.openDemo} target={media.demo.url} qr={media.demo.qr} tr={tr} />
+            <div className="rr-cine-qr rr-cine-qr-list">
+              {media.downloads.map((item) => (
+                <QrBlock key={item.id} label={item.title[lang] ?? item.id} eyebrow={item.eyebrow[lang] ?? undefined} description={item.description[lang]} target={item.url} qr={item.qr} tr={tr} className="rr-cine-download" />
+              ))}
             </div>
           )}
         </div>

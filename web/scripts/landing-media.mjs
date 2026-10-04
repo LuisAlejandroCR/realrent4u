@@ -74,7 +74,15 @@ const videos = (cfg.videos ?? []).map((v) => {
 });
 
 const demoTarget = isHttps(cfg.demo?.url) ? cfg.demo.url : site ? `${site}/dashboard/` : null;
-const landing = { site_url: site, demo: { url: demoTarget, qr: qr("demo", demoTarget) }, videos, warnings };
+const downloads = (cfg.downloads ?? []).map((item) => ({
+  id: item.id,
+  eyebrow: item.eyebrow ?? { en: item.id, es: item.id },
+  title: item.title ?? { en: item.id, es: item.id },
+  description: item.description ?? { en: null, es: null },
+  url: isHttps(item.url) ? item.url : null,
+  qr: qr(`download-${item.id}`, isHttps(item.url) ? item.url : null),
+}));
+const landing = { site_url: site, demo: { url: demoTarget, qr: qr("demo", demoTarget) }, downloads, videos, warnings };
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, "landing.json"), JSON.stringify(landing));
 
