@@ -2,16 +2,16 @@
 // HomeView.tsx: cinematic landing in five beats: a dark hero with the live "address × date" stage, a three-step
 // diagram (legal city, building facts, date) with counted stats, the five results, the T1–T5 timeline and a dark
 // closing bookend. Every example and number is read from the data files; videos appear only once configured.
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { AppShell } from "../components/AppShell";
 import { StatusBadge } from "../components/StatusBadge";
 import { QrBlock } from "../components/QrBlock";
-import { VideoCard } from "../components/VideoCard";
 import { HeroStage } from "../components/HeroStage";
 import { LawTimeline } from "../components/LawTimeline";
 import { blank, rulesInRecord, type Dataset } from "../data";
 import { useLandingConfig } from "../landing";
-import { useCountUp, useHero, useReveal } from "../hero";
+import { reducedMotion, useCountUp, useHero, useReveal } from "../hero";
+import type { VideoConfig } from "../landing";
 import { hrefWith, usePrefs } from "../prefs";
 
 // First address whose postal city differs from its legal jurisdiction and has a quoted, sourced rule.
@@ -33,6 +33,25 @@ function Section({ n, label, id, tone, children }: { n: number; label: string; i
         {children}
       </div>
     </section>
+  );
+}
+
+/** Silent section clip: loops while on screen, paused off screen; reduced motion shows the poster only. */
+function SectionClip({ video, title }: { video: VideoConfig; title: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || reducedMotion() || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(([e]) => (e?.isIntersecting ? v.play().catch(() => {}) : v.pause()), { threshold: 0.4 });
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <figure className="rr-clip">
+      <video ref={ref} muted loop playsInline preload="metadata" poster={video.poster ?? undefined} aria-label={title}>
+        <source src={video.src!} type="video/mp4" />
+      </video>
+    </figure>
   );
 }
 
@@ -58,10 +77,11 @@ function Landing({ data }: { data: Dataset }) {
   const dates = data.manifest.lookup_dates.length ? data.manifest.lookup_dates : data.manifest.demo_dates;
   const dash = (extra: Record<string, string> = {}) => hrefWith("/dashboard", prefs, extra);
   const fact = (v: string | null | undefined) => (blank(v) ? <span className="rr-missing">{tr.notInRecord}</span> : v);
-  // One narrated clip per section (docs/LANDING_CLIPS.md), shown only once it has a real file or link.
-  const clip = (id: string) => {
-    const v = media.videos.find((x) => x.id === id && (x.src || x.url));
-    return v ? <div className="rr-l-story"><VideoCard video={v} lang={lang} tr={tr} featured /></div> : null;
+  // One silent clip per section (docs/LANDING_CLIPS.md), shown once landing.config.json has its file.
+  const clip = (id: string, head: ReactNode) => {
+    const v = media.videos.find((x) => x.id === id && x.src);
+    if (!v) return head;
+    return <div className="rr-l-head">{head}<SectionClip video={v} title={v.title[lang] ?? v.title.en} /></div>;
   };
 
   return (
@@ -91,7 +111,7 @@ function Landing({ data }: { data: Dataset }) {
 
       {/* 2 · How it works: three facts, one picture each */}
       <Section n={1} label={tr.lCh[1]!} id="how" tone="white">
-        <h2 className="rr-l-h2">{tr.lHowTitle2} <em>{tr.lHowEm2}</em></h2>
+        {clip("how-it-works", <h2 className="rr-l-h2">{tr.lHowTitle2} <em>{tr.lHowEm2}</em></h2>)}
         <ol className="rr-steps3">
           <li>
             <div className="rr-step-vis" aria-hidden>
@@ -137,15 +157,16 @@ function Landing({ data }: { data: Dataset }) {
           <Stat value={quoted} label={tr.statQuoted(places)} />
           <Stat value={dates.length} label={tr.statDates} />
         </dl>
-        {clip("how-it-works")}
       </Section>
 
       {/* 3 · Results */}
       <Section n={2} label={tr.lCh[2]!}>
-        <div className="rr-l-read">
-          <h2 className="rr-l-h2">{tr.lResultsTitle} <em>{tr.lResultsEm}</em></h2>
-          <p>{tr.lResultsBody}</p>
-        </div>
+        {clip("five-results", (
+          <div className="rr-l-read">
+            <h2 className="rr-l-h2">{tr.lResultsTitle} <em>{tr.lResultsEm}</em></h2>
+            <p>{tr.lResultsBody}</p>
+          </div>
+        ))}
         <dl className="rr-states rr-l-states">
           {(["applies", "unknown", "superseded", "not_yet_effective", "pending"] as const).map((key, i) => (
             <div key={key} className={`rr-state rr-rule-${key}`} style={{ ["--i" as string]: i }}>
@@ -154,15 +175,16 @@ function Landing({ data }: { data: Dataset }) {
             </div>
           ))}
         </dl>
-        {clip("five-results")}
       </Section>
 
       {/* 4 · Change over time */}
       <Section n={3} label={tr.lCh[3]!} tone="white">
-        <div className="rr-l-read">
-          <h2 className="rr-l-h2">{tr.lTestsTitle} <em>{tr.lTestsEm}</em></h2>
-          <p>{tr.lTestsBody}</p>
-        </div>
+        {clip("change-over-time", (
+          <div className="rr-l-read">
+            <h2 className="rr-l-h2">{tr.lTestsTitle} <em>{tr.lTestsEm}</em></h2>
+            <p>{tr.lTestsBody}</p>
+          </div>
+        ))}
         <LawTimeline
           tests={data.changeTests}
           results={data.changeResults}
@@ -170,7 +192,6 @@ function Landing({ data }: { data: Dataset }) {
           href={(id) => dash({ tab: "tests", t: id })}
           tr={tr}
         />
-        {clip("change-over-time")}
       </Section>
 
       {/* 5 · Closing: dark bookend */}

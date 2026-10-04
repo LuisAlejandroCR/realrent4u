@@ -6,16 +6,34 @@
   "downloads": [
     {
       "id": "android-preview",
-      "eyebrow": { "en": "ANDROID PREVIEW", "es": "VISTA PREVIA PARA ANDROID" },
-      "title": { "en": "Scan to get the APK", "es": "Escanea para obtener el APK" },
-      "description": { "en": "Opens the Expo build page", "es": "Abre la página del build en Expo" },
+      "eyebrow": {
+        "en": "ANDROID PREVIEW",
+        "es": "VISTA PREVIA PARA ANDROID"
+      },
+      "title": {
+        "en": "Scan to get the APK",
+        "es": "Escanea para obtener el APK"
+      },
+      "description": {
+        "en": "Opens the Expo build page",
+        "es": "Abre la página del build en Expo"
+      },
       "url": "https://expo.dev/accounts/alejoooo-team/projects/realrent4u/builds/8aac457c-db48-4042-b5f8-17a87b3d5766"
     },
     {
       "id": "ios-testflight",
-      "eyebrow": { "en": "IOS · TESTFLIGHT", "es": "IOS · TESTFLIGHT" },
-      "title": { "en": "Scan to join the beta", "es": "Escanea para unirte a la beta" },
-      "description": { "en": "Needs the free TestFlight app", "es": "Necesitas la app gratuita TestFlight" },
+      "eyebrow": {
+        "en": "IOS · TESTFLIGHT",
+        "es": "IOS · TESTFLIGHT"
+      },
+      "title": {
+        "en": "Scan to join the beta",
+        "es": "Escanea para unirte a la beta"
+      },
+      "description": {
+        "en": "Needs the free TestFlight app",
+        "es": "Necesitas la app gratuita TestFlight"
+      },
       "url": "https://testflight.apple.com/join/YEj2p41y"
     }
   ],
@@ -31,10 +49,10 @@
         "en": "Legal city, building record and date, shown on a real Boston address.",
         "es": "Ciudad legal, registro del edificio y fecha, sobre una dirección real de Boston."
       },
-      "src": null,
+      "src": "media/how-it-works.mp4",
       "url": null,
-      "poster": null,
-      "duration": null,
+      "poster": "media/how-it-works.jpg",
+      "duration": "0:05",
       "captions": {
         "en": null,
         "es": null
@@ -55,10 +73,10 @@
         "en": "What applies, unknown, superseded, not yet effective and pending mean, with real examples.",
         "es": "Qué significan aplica, desconocido, desplazada, aún no vigente y pendiente, con ejemplos reales."
       },
-      "src": null,
+      "src": "media/five-results.mp4",
       "url": null,
-      "poster": null,
-      "duration": null,
+      "poster": "media/five-results.jpg",
+      "duration": "0:05",
       "captions": {
         "en": null,
         "es": null
@@ -79,10 +97,10 @@
         "en": "T1–T5 on the map: which addresses each change reaches, and which it does not.",
         "es": "T1–T5 en el mapa: qué direcciones alcanza cada cambio y cuáles no."
       },
-      "src": null,
+      "src": "media/change-over-time.mp4",
       "url": null,
-      "poster": null,
-      "duration": null,
+      "poster": "media/change-over-time.jpg",
+      "duration": "0:05",
       "captions": {
         "en": null,
         "es": null

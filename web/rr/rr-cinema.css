@@ -398,3 +398,10 @@ em.rr-cine-line { animation-delay: .14s; }
   .rr-find-head { text-align: left; justify-items: start; }
   .rr-find-head .rr-lead { margin-left: 0; }
 }
+
+/* Landing section clips: silent, looping, beside the section heading */
+.rr-l-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px; align-items: center; }
+.rr-l-head .rr-l-h2 { margin-bottom: 0; }
+.rr-clip { margin: 0; border-radius: 20px; overflow: hidden; background: var(--rr-night); box-shadow: 0 30px 60px -36px rgba(20, 28, 46, .55); aspect-ratio: 16 / 9; }
+.rr-clip video { width: 100%; height: 100%; display: block; object-fit: cover; }
+@media (max-width: 900px) { .rr-l-head { grid-template-columns: 1fr; gap: 20px; } }
