@@ -15,7 +15,11 @@ export function MethodBody({ data: { manifest } }: { data: Dataset }) {
           <header className="rr-page-head">
             <h1 className="rr-h1"><em>{tr.aboutTitle}</em></h1>
             <p className="rr-lead">{tr.aboutLead}</p>
-            <p><a href={METHOD_NOTE_URL} target="_blank" rel="noopener noreferrer">{tr.methodNote} ↗</a></p>
+            <p>
+              <a className="rr-link" href={METHOD_NOTE_URL} target="_blank" rel="noopener noreferrer">
+                {tr.methodNote} <span aria-hidden>↗</span><span className="rr-sr"> ({tr.newTab})</span>
+              </a>
+            </p>
           </header>
           <ol className="rr-steps">
             {[tr.m1, tr.m2, tr.m3, tr.m4].map((m, i) => (
