@@ -20,6 +20,6 @@ Inputs stay local (gitignored): `media/realrental4u-technical.mp4` (iPhone recor
 
 5. `python web/scripts/videos/brand-and-score.py` → `media/out/final/`: realrent4u card at the start and end (extra
    seconds when there is room under 60 s, overlaid otherwise) and an ElevenLabs Music bed from `media/music/<name>.mp3`
-   that ducks under the voice; loudness normalised to −16 LUFS.
+   that ducks under the voice; loudness normalised to −18 LUFS.
 
 All three carry soft EN/ES subtitle tracks; `.srt` and `.vtt` files are written next to each video.

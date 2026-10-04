@@ -103,9 +103,9 @@ def finish(name: str):
         v = (f"[1:v]format=rgba,fade=t=out:st=1.6:d=0.5:alpha=1[i];[2:v]format=rgba,fade=t=in:st={total - 2.6}:d=0.5:alpha=1[o];"
              f"[0:v][i]overlay=0:0:enable='lte(t,2.1)'[a];[a][o]overlay=0:0:enable='gte(t,{total - 2.6})',format=yuv420p[v];"
              f"[0:a]apad,atrim=0:{total}[voice]")
-    a = (f";[3:a]atrim=0:{total},asetpts=PTS-STARTPTS,volume=0.22,afade=t=in:d=1.2,afade=t=out:st={total - 1.8}:d=1.8[bed];"
+    a = (f";[3:a]atrim=0:{total},asetpts=PTS-STARTPTS,volume=0.11,afade=t=in:d=1.2,afade=t=out:st={total - 1.8}:d=1.8[bed];"
          "[voice]asplit[v1][v2];[bed][v2]sidechaincompress=threshold=0.03:ratio=6:attack=30:release=500[duck];"
-         "[v1][duck]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11[aout]")
+         "[v1][duck]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-18:TP=-2:LRA=11[aout]")
     OUT.mkdir(parents=True, exist_ok=True)
     out = OUT / f"{name}.mp4"
     bp.run([*ins, "-filter_complex", v + a, "-map", "[v]", "-map", "[aout]", "-map", "4", "-map", "5", "-t", f"{total}",
