@@ -1,4 +1,4 @@
-// _layout.tsx: root stack: prefs provider, safe area, the tab group, the date and profile form sheets
+// _layout.tsx: root stack: prefs provider, safe area, the tab group, the date and profile form sheets, the area map
 // and the stamp toast that floats above every screen.
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -42,6 +42,8 @@ function RootStack() {
           contentStyle: { backgroundColor: color.surface },
         }}
       />
+      {/* Full-screen area map from an address (swipe down / Done to close). */}
+      <Stack.Screen name="map" options={{ presentation: "modal", headerShown: false, title: ms.where, contentStyle: { backgroundColor: color.paper } }} />
     </Stack>
   );
 }

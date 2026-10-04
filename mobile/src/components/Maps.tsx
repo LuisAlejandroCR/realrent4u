@@ -2,7 +2,8 @@
 // LocationMap = one approximate area, never a pin on a rooftop. PointsMap = scenario dots, tap to open.
 // Web preview uses Maps.web.tsx (same exports).
 import { useRef } from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
+import { haptic } from "../feel";
 import MapView, { Circle, Marker } from "react-native-maps";
 import { color, radius } from "../theme";
 import { MapLabel } from "./MapLabel";
@@ -12,10 +13,11 @@ export { MapLabel };
 export interface MapPoint { id: string; lat: number; lon: number; fill: string; ring?: string }
 
 /** Approximate location: a soft circle (~150 m for street matches, ~2 km for city-area fallbacks). Static. */
-export function LocationMap({ lat, lon, area, label }: { lat: number; lon: number; area: boolean; label: string }) {
+export function LocationMap({ lat, lon, area, label, onPress, hint }: { lat: number; lon: number; area: boolean; label: string; onPress?: () => void; hint?: string }) {
   const delta = area ? 0.09 : 0.014;
   return (
-    <View style={{ height: 150, borderRadius: radius.md, overflow: "hidden", borderWidth: 1, borderColor: color.line }} accessible accessibilityRole="image" accessibilityLabel={label}>
+    <Pressable onPress={() => { haptic.tap(); onPress?.(); }} disabled={!onPress} accessibilityRole={onPress ? "button" : "image"} accessibilityLabel={label} accessibilityHint={hint}
+      style={{ height: 150, borderRadius: radius.md, overflow: "hidden", borderWidth: 1, borderColor: color.line }}>
       <MapView
         style={{ flex: 1 }}
         initialRegion={{ latitude: lat, longitude: lon, latitudeDelta: delta, longitudeDelta: delta }}
@@ -25,24 +27,39 @@ export function LocationMap({ lat, lon, area, label }: { lat: number; lon: numbe
         <Circle center={{ latitude: lat, longitude: lon }} radius={area ? 2000 : 150} fillColor="rgba(41,73,168,0.18)" strokeColor={color.primary} strokeWidth={2} />
       </MapView>
       <MapLabel text={label} />
-    </View>
+      {onPress ? <MapLabel text="⤢" corner /> : null}
+    </Pressable>
   );
 }
 
-/** Scenario map: one dot per address; fits all points; tapping a dot opens that address. */
-export function PointsMap({ points, onPress, height = 240 }: { points: MapPoint[]; onPress: (id: string) => void; height?: number }) {
+/**
+ * Dot map: one dot per address. Tapping a dot SELECTS it (bigger, ink ring) and the parent shows a card;
+ * tapping the map background clears the selection. Fits all points unless `focus` sets the region.
+ */
+export function PointsMap({ points, selected, onSelect, height = 240, focus }: {
+  points: MapPoint[]; selected?: string | null; onSelect: (id: string | null) => void; height?: number | "100%";
+  focus?: { lat: number; lon: number; delta: number };
+}) {
   const ref = useRef<MapView>(null);
   if (!points.length) return null;
-  const fit = () => ref.current?.fitToCoordinates(points.map((p) => ({ latitude: p.lat, longitude: p.lon })), { edgePadding: { top: 30, right: 30, bottom: 30, left: 30 }, animated: false });
+  const fit = () => !focus && ref.current?.fitToCoordinates(points.map((p) => ({ latitude: p.lat, longitude: p.lon })), { edgePadding: { top: 30, right: 30, bottom: 30, left: 30 }, animated: false });
+  const sel = points.find((p) => p.id === selected);
   return (
     <View style={{ height, borderRadius: radius.md, overflow: "hidden", borderWidth: 1, borderColor: color.line }}>
       <MapView ref={ref} style={{ flex: 1 }} onMapReady={fit} toolbarEnabled={false} rotateEnabled={false} pitchEnabled={false}
-        initialRegion={{ latitude: points[0].lat, longitude: points[0].lon, latitudeDelta: 1, longitudeDelta: 1 }}>
+        onPress={(e) => { if (e.nativeEvent.action !== "marker-press") onSelect(null); }}
+        initialRegion={focus ? { latitude: focus.lat, longitude: focus.lon, latitudeDelta: focus.delta, longitudeDelta: focus.delta } : { latitude: points[0].lat, longitude: points[0].lon, latitudeDelta: 1, longitudeDelta: 1 }}>
         {points.map((p) => (
-          <Marker key={p.id} coordinate={{ latitude: p.lat, longitude: p.lon }} tracksViewChanges={false} onPress={() => onPress(p.id)} anchor={{ x: 0.5, y: 0.5 }}>
-            <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: p.fill, borderWidth: 2, borderColor: p.ring ?? color.surface }} />
+          <Marker key={p.id} coordinate={{ latitude: p.lat, longitude: p.lon }} tracksViewChanges={false} onPress={() => { haptic.select(); onSelect(p.id); }} anchor={{ x: 0.5, y: 0.5 }}>
+            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.fill, borderWidth: 2, borderColor: p.ring ?? color.surface }} />
           </Marker>
         ))}
+        {/* The selected dot is its own marker (new key) so it re-renders even with tracksViewChanges off. */}
+        {sel && (
+          <Marker key={`sel-${sel.id}`} coordinate={{ latitude: sel.lat, longitude: sel.lon }} anchor={{ x: 0.5, y: 0.5 }} zIndex={10}>
+            <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: sel.fill, borderWidth: 4, borderColor: color.ink }} />
+          </Marker>
+        )}
       </MapView>
     </View>
   );
