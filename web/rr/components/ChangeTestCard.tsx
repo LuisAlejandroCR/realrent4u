@@ -49,6 +49,11 @@ export function ChangeTestCard({ test, result, rules, addresses, addressHref, da
               <span className={`rr-avail ${has ? "is-yes" : "is-no"}`}>
                 <span aria-hidden>{has ? "●" : "○"}</span> {has ? tr.resAvailable : tr.resNotAvailable}
               </span>
+              {has && (
+                <span className="rr-test-counts">
+                  {tr.nAffected(affected.length)} · {tr.nConflicts(conflicts.size)}
+                </span>
+              )}
             </span>
             {!open && test.expected_behavior && <span className="rr-test-teaser">{test.expected_behavior}</span>}
           </span>

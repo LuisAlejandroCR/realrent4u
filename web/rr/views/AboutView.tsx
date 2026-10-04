@@ -11,19 +11,21 @@ const METHOD_NOTE_URL = "https://github.com/LuisAlejandroCR/realrent4u/blob/main
 export function MethodBody({ data: { manifest } }: { data: Dataset }) {
   const { tr } = usePrefs();
   return (
-        <div className="rr-about">
-          <header className="rr-page-head">
-            <h1 className="rr-h1"><em>{tr.aboutTitle}</em></h1>
-            <p className="rr-lead">{tr.aboutLead}</p>
-            <p><a href={METHOD_NOTE_URL} target="_blank" rel="noopener noreferrer">{tr.methodNote} ↗</a></p>
-          </header>
-          <ol className="rr-steps">
-            {[tr.m1, tr.m2, tr.m3, tr.m4].map((m, i) => (
-              <li key={i}><span className="rr-step-n">{i + 1}</span><p>{m}</p></li>
-            ))}
-          </ol>
+    <div className="rr-about">
+      <header className="rr-page-head">
+        <h1 className="rr-h1"><em>{tr.aboutTitle}</em></h1>
+        <p className="rr-lead">{tr.aboutLead}</p>
+        <p><a href={METHOD_NOTE_URL} target="_blank" rel="noopener noreferrer">{tr.methodNote} ↗</a></p>
+      </header>
+      <ol className="rr-steps">
+        {[tr.m1, tr.m2, tr.m3, tr.m4].map((m, i) => (
+          <li key={i}><span className="rr-step-n">{i + 1}</span><p>{m}</p></li>
+        ))}
+      </ol>
 
-          <h2 className="rr-h2">{tr.dataFiles}</h2>
+      <div className="rr-audit-grid">
+        <section aria-labelledby="rr-data-files-title">
+          <h2 id="rr-data-files-title" className="rr-h2">{tr.dataFiles}</h2>
           <div className="rr-table-wrap">
             <table className="rr-table">
               <thead><tr><th scope="col">{tr.file}</th><th scope="col">{tr.kind}</th><th scope="col">{tr.count}</th></tr></thead>
@@ -38,24 +40,32 @@ export function MethodBody({ data: { manifest } }: { data: Dataset }) {
               </tbody>
             </table>
           </div>
+        </section>
 
-          <h2 className="rr-h2">{tr.dates}</h2>
-          <p>
-            {manifest.demo_dates.map((d) => (
-              <span key={d} className="rr-chip">{d}{d === manifest.default_as_of ? " ★" : ""}</span>
-            ))}
-          </p>
-          <p className="rr-muted">lookup_dates: {manifest.lookup_dates.length ? manifest.lookup_dates.join(", ") : tr.none}</p>
+        <div className="rr-audit-side">
+          <section aria-labelledby="rr-available-dates-title">
+            <h2 id="rr-available-dates-title" className="rr-h2">{tr.dates}</h2>
+            <p>
+              {manifest.demo_dates.map((d) => (
+                <span key={d} className="rr-chip">{d}{d === manifest.default_as_of ? " ★" : ""}</span>
+              ))}
+            </p>
+            <p className="rr-muted rr-lookup-dates">lookup_dates: {manifest.lookup_dates.length ? manifest.lookup_dates.join(", ") : tr.none}</p>
+          </section>
 
-          <h2 className="rr-h2">{tr.warnings}</h2>
-          {manifest.warnings.length ? (
-            <Notice tone="warn" title={`${manifest.warnings.length}`}>
-              <ul>{manifest.warnings.map((w) => <li key={w}>{w}</li>)}</ul>
-            </Notice>
-          ) : (
-            <p className="rr-muted">{tr.none}</p>
-          )}
+          <section aria-labelledby="rr-build-warnings-title">
+            <h2 id="rr-build-warnings-title" className="rr-h2">{tr.warnings}</h2>
+            {manifest.warnings.length ? (
+              <Notice tone="warn" title={`${manifest.warnings.length}`}>
+                <ul>{manifest.warnings.map((w) => <li key={w}>{w}</li>)}</ul>
+              </Notice>
+            ) : (
+              <p className="rr-muted">{tr.none}</p>
+            )}
+          </section>
           <Notice tone="info" title={tr.notAdvice}>{tr.notAdviceLong}</Notice>
         </div>
+      </div>
+    </div>
   );
 }
