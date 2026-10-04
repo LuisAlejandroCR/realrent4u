@@ -6,8 +6,9 @@ import { haptic, nativeDriver, useReduceMotion } from "../feel";
 import { badge, type BadgeKind } from "../theme";
 
 /** Pressable that dips to 97 % on press and springs back, with an optional haptic on press. */
-export function Tap({ children, onPress, style, feel = "tap", accessibilityRole = "button", accessibilityLabel, accessibilityHint, accessibilityState, disabled }: {
-  children: ReactNode; onPress?: () => void; style?: StyleProp<ViewStyle>; feel?: keyof typeof haptic | "none";
+export function Tap({ children, onPress, style, containerStyle, feel = "tap", accessibilityRole = "button", accessibilityLabel, accessibilityHint, accessibilityState, disabled }: {
+  /** containerStyle sizes the pressable in its parent (flex, flexBasis); style draws the animated content. */
+  children: ReactNode; onPress?: () => void; style?: StyleProp<ViewStyle>; containerStyle?: StyleProp<ViewStyle>; feel?: keyof typeof haptic | "none";
   accessibilityRole?: AccessibilityRole; accessibilityLabel?: string; accessibilityHint?: string;
   accessibilityState?: { selected?: boolean; expanded?: boolean; disabled?: boolean; checked?: boolean }; disabled?: boolean;
 }) {
@@ -24,8 +25,9 @@ export function Tap({ children, onPress, style, feel = "tap", accessibilityRole 
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       accessibilityState={accessibilityState}
+      style={containerStyle}
     >
-      <Animated.View style={[style, { transform: [{ scale }] }]}>{children}</Animated.View>
+      <Animated.View style={[containerStyle ? { flexGrow: 1 } : null, style, { transform: [{ scale }] }]}>{children}</Animated.View>
     </Pressable>
   );
 }

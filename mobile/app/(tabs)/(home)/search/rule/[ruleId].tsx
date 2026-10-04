@@ -3,13 +3,13 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
-import { LegalDateBar } from "../../../../src/components/Chrome";
-import { Stamp, Tap } from "../../../../src/components/motion";
-import { Disclosure, EvidencePanel, Fold, Kicker, Notice, T } from "../../../../src/components/ui";
-import { haptic } from "../../../../src/feel";
-import { readableDate, reasonText } from "../../../../src/format";
-import { usePrefs } from "../../../../src/prefs";
-import { badge, color, radius, space } from "../../../../src/theme";
+import { LegalDateBar } from "../../../../../src/components/Chrome";
+import { Stamp, Tap } from "../../../../../src/components/motion";
+import { Disclosure, EvidencePanel, Fold, Kicker, Notice, T } from "../../../../../src/components/ui";
+import { haptic } from "../../../../../src/feel";
+import { readableDate, reasonText } from "../../../../../src/format";
+import { usePrefs } from "../../../../../src/prefs";
+import { badge, color, radius, space } from "../../../../../src/theme";
 
 /** Reading order: result → why → what it requires → the source. Everything else is one tap away. */
 export default function RuleScreen() {

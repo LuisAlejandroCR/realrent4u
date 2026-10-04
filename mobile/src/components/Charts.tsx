@@ -34,11 +34,12 @@ export function KpiRow({ items }: { items: Kpi[] }) {
             </View>
           </>
         );
-        const style = { flexBasis: "47%" as const, flexGrow: 1, padding: space.md, borderRadius: radius.md, backgroundColor: k.active ? (k.tone ?? chartBar) : color.surface, borderWidth: 1, borderColor: k.active ? (k.tone ?? chartBar) : color.line, borderTopWidth: 3, borderTopColor: k.tone ?? chartBar };
+        const size = { flexBasis: "47%" as const, flexGrow: 1 };
+        const style = { padding: space.md, borderRadius: radius.md, backgroundColor: k.active ? (k.tone ?? chartBar) : color.surface, borderWidth: 1, borderColor: k.active ? (k.tone ?? chartBar) : color.line, borderTopWidth: 3, borderTopColor: k.tone ?? chartBar };
         return k.onPress ? (
-          <Tap key={k.label} onPress={k.onPress} feel="select" accessibilityLabel={`${k.value} ${k.label}`} accessibilityState={{ selected: !!k.active }} style={style}>{tile}</Tap>
+          <Tap key={k.label} onPress={k.onPress} feel="select" accessibilityLabel={`${k.value} ${k.label}`} accessibilityState={{ selected: !!k.active }} containerStyle={size} style={style}>{tile}</Tap>
         ) : (
-          <View key={k.label} accessible accessibilityLabel={`${k.value} ${k.label}`} style={style}>{tile}</View>
+          <View key={k.label} accessible accessibilityLabel={`${k.value} ${k.label}`} style={[size, style]}>{tile}</View>
         );
       })}
     </View>

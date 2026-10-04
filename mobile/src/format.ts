@@ -16,6 +16,14 @@ export function readableDate(raw: string, lang: Lang): string {
   return lang === "es" ? `${d} ${name} ${y}` : `${name} ${d}, ${y}`;
 }
 
+/** Two-line axis label: "Dec 31" / "2025" (EN) or "31 dic" / "2025" (ES). */
+export function shortDate(raw: string, lang: Lang): [string, string] {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
+  const name = m ? MONTHS[lang][Number(m[2]) - 1] : undefined;
+  if (!m || !name) return [raw, ""];
+  return [lang === "es" ? `${Number(m[3])} ${name}` : `${name} ${Number(m[3])}`, m[1]];
+}
+
 /**
  * Engine reason codes ("missing_units,superseded_by:r-D041-01") → plain sentences, joined with " · ".
  * Unknown codes are shown as-is rather than hidden.

@@ -1,19 +1,19 @@
-// index.tsx: 02 address search over the 500 samples; postal city vs legal jurisdiction per row.
+// index.tsx: 02 address search over the 500 samples (pushed from Home); postal city vs legal jurisdiction per row.
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AccessibilityInfo, FlatList, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LegalDateBar } from "../../../src/components/Chrome";
-import { ProfileButton, QuickWins } from "../../../src/components/Story";
-import { SearchIcon } from "../../../src/components/Icons";
-import { LoadingState } from "../../../src/components/States";
-import { Chevron, Id, StateBlock, T } from "../../../src/components/ui";
-import { searchAddresses } from "../../../src/data";
-import { haptic } from "../../../src/feel";
-import { preview } from "../../../src/platform";
-import { usePrefs } from "../../../src/prefs";
-import { color, minTouch, radius, shadow, space, type } from "../../../src/theme";
-import type { Address } from "../../../src/types";
+import { LegalDateBar } from "../../../../src/components/Chrome";
+import { QuickWins } from "../../../../src/components/Story";
+import { SearchIcon } from "../../../../src/components/Icons";
+import { LoadingState } from "../../../../src/components/States";
+import { Chevron, Id, StateBlock, T } from "../../../../src/components/ui";
+import { searchAddresses } from "../../../../src/data";
+import { haptic } from "../../../../src/feel";
+import { preview } from "../../../../src/platform";
+import { usePrefs } from "../../../../src/prefs";
+import { color, minTouch, radius, shadow, space, type } from "../../../../src/theme";
+import type { Address } from "../../../../src/types";
 
 const LIMIT = 50;
 
@@ -28,7 +28,7 @@ export default function SearchScreen() {
   useEffect(() => { if (focus) { const id = setTimeout(() => input.current?.focus(), 250); return () => clearTimeout(id); } }, [focus]);
   useEffect(() => { const p = preview.param("q"); if (p) setQ(p); }, [setQ]);
   // Count every match, render the first LIMIT: the count must never claim fewer matches than exist.
-  const all = useMemo(() => searchAddresses(data.addresses, q, Infinity), [data.addresses, q]);
+  const all = useMemo(() => searchAddresses(data.addresses, q, Infinity, (id) => data.jurisdictions[id]?.jurisdiction), [data.addresses, data.jurisdictions, q]);
   const matches = all.slice(0, LIMIT);
   const typed = q.trim().length > 0;
   const loading = preview.param("state") === "loading";
@@ -41,15 +41,12 @@ export default function SearchScreen() {
   }, [countText, typed]);
 
   return (
-    <SafeAreaView edges={["top"]} style={{ flex: 1, backgroundColor: color.surface }}>
-      <Stack.Screen options={{ headerShown: false, title: tr.navSearch }} />
+    <SafeAreaView edges={[]} style={{ flex: 1, backgroundColor: color.surface }}>
+      {/* Native header with Back to Home; the band below holds only the field. */}
+      <Stack.Screen options={{ headerShown: true, title: ms.searchTitle }} />
       <KeyboardAvoidingView style={{ flex: 1, backgroundColor: color.paper }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
         {/* Header band */}
         <View style={{ backgroundColor: color.tint, paddingHorizontal: space.lg, paddingTop: space.sm, paddingBottom: space.md, gap: space.sm }}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            <T variant="title" serif accessibilityRole="header">{ms.searchTitle}</T>
-            <ProfileButton />
-          </View>
           
           <View style={[{ flexDirection: "row", alignItems: "center", gap: space.sm, backgroundColor: color.surface, borderWidth: 2, borderColor: focused ? color.primary : color.ink, borderRadius: radius.lg, paddingLeft: space.md }, shadow]}>
             <SearchIcon color={color.primary} />
