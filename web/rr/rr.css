@@ -343,11 +343,19 @@
 .rr-test-notes summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; color: var(--rr-ink-2); }
 .rr-test-notes p { margin: 0; padding: 10px 12px; background: var(--rr-evidence); border-radius: 8px; font-family: var(--rr-mono); font-size: 13px; white-space: pre-wrap; }
 
+/* The EN/ES group (overflow: hidden) and the scrolling mobile nav clip an outside focus ring; draw it inside.
+   The inner white band keeps it visible on the dark selected language button. */
+.rr .rr-lang button:focus-visible, .rr .rr-nav a:focus-visible { outline-offset: -3px; box-shadow: inset 0 0 0 5px var(--rr-surface); }
+
 /* Address header: state → county → city */
 .rr-stack { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 6px; width: 100%; font-size: 13px; color: var(--rr-ink-2); }
 .rr-stack li + li::before { content: "›"; margin-right: 6px; color: var(--rr-marigold); }
 .rr-stack-src { width: 100%; }
 
+@media (max-width: 860px) {
+  /* ES nav needs ~400px; a sideways-scrolling strip hid "Método y auditoría" at 360–414px with no cue. Wrap instead. */
+  .rr .rr-nav { flex-wrap: wrap; overflow-x: visible; }
+}
 @media (max-width: 600px) {
   /* Longer labels (ES "Fecha de consulta") would push the date picker off a 360px screen. */
   .rr .rr-subbar-row { flex-wrap: wrap; row-gap: 2px; }
