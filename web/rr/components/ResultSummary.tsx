@@ -1,6 +1,7 @@
 "use client";
 // ResultSummary.tsx: "at a glance" strip above an address's results: a result-mix bar, a count per result and conflict flags,
-// each jumping to its first card, with the as-of date and "not legal advice". No counts when nothing was evaluated.
+// each filtering the cards below (or jumping to the first one), with the as-of date and "not legal advice".
+// No counts when nothing was evaluated.
 import type { LookupItem, LookupResult, Rule } from "../types";
 import type { Dict } from "../i18n";
 import { StatusBadge } from "./StatusBadge";
@@ -15,6 +16,10 @@ export interface ResultSummaryProps {
   items?: LookupItem[] | undefined;
   asOf: string;
   tr: Dict;
+  /** Selected result filter ("review" = conflict flags); null shows every card. */
+  filter?: string | null;
+  /** When set, a chip toggles the filter instead of jumping to the first card. */
+  onFilter?: (k: string | null) => void;
 }
 
 /** Scrolls to a rule's card. A displaced rule has no card of its own, so open it inside the rule that displaces it. */
@@ -34,7 +39,7 @@ function jumpTo(id: string, rules: Rule[]) {
   target.focus({ preventScroll: true });
 }
 
-export function ResultSummary({ rules, items, asOf, tr }: ResultSummaryProps) {
+export function ResultSummary({ rules, items, asOf, tr, filter = null, onFilter }: ResultSummaryProps) {
   const first = new Map<string, string>();
   const counts = new Map<string, number>();
   for (const i of items ?? []) {
@@ -69,7 +74,7 @@ export function ResultSummary({ rules, items, asOf, tr }: ResultSummaryProps) {
           <ul className="rr-sum-list">
             {ORDER.filter((k) => counts.has(k)).map((k) => (
               <li key={k}>
-                <button type="button" className="rr-sum-btn" aria-label={`${counts.get(k)} · ${tr.sumJump(tr.result[k] ?? k)}`} onClick={() => jumpTo(first.get(k)!, rules)}>
+                <button type="button" className={`rr-sum-btn${filter === k ? " is-on" : ""}`} aria-pressed={onFilter ? filter === k : undefined} aria-label={`${counts.get(k)} · ${onFilter ? tr.sumFilter(tr.result[k] ?? k) : tr.sumJump(tr.result[k] ?? k)}`} onClick={() => (onFilter ? onFilter(filter === k ? null : k) : jumpTo(first.get(k)!, rules))}>
                   <StatusBadge kind={k} tr={tr} />
                   <span className="rr-sum-n">{counts.get(k)}</span>
                 </button>
@@ -77,13 +82,25 @@ export function ResultSummary({ rules, items, asOf, tr }: ResultSummaryProps) {
             ))}
             {flagged.length > 0 && (
               <li>
-                <button type="button" className="rr-sum-btn" aria-label={`${flagged.length} · ${tr.sumJump(tr.needsReview)}`} onClick={() => jumpTo(flagged[0]!.team_rule_id, rules)}>
+                <button type="button" className={`rr-sum-btn${filter === "review" ? " is-on" : ""}`} aria-pressed={onFilter ? filter === "review" : undefined} aria-label={`${flagged.length} · ${onFilter ? tr.sumFilter(tr.needsReview) : tr.sumJump(tr.needsReview)}`} onClick={() => (onFilter ? onFilter(filter === "review" ? null : "review") : jumpTo(flagged[0]!.team_rule_id, rules))}>
                   <StatusBadge kind="review" tr={tr} />
                   <span className="rr-sum-n">{flagged.length}</span>
                 </button>
               </li>
             )}
+            {onFilter && filter && (
+              <li>
+                <button type="button" className="rr-sum-btn rr-sum-all" onClick={() => onFilter(null)}>
+                  {tr.sumShowAll} <span aria-hidden>×</span>
+                </button>
+              </li>
+            )}
           </ul>
+          {onFilter && filter && (
+            <p className="rr-meta" role="status">
+              {tr.sumShowing(filter === "review" ? flagged.length : counts.get(filter) ?? 0, items.length)}
+            </p>
+          )}
         </>
       )}
     </section>

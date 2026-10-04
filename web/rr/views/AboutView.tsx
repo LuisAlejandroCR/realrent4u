@@ -1,19 +1,90 @@
 "use client";
-// AboutView.tsx: dashboard tab "Method & audit": the pipeline diagram (how a result is produced), the data
-// files behind the demo, available dates and build warnings.
+// AboutView.tsx: dashboard tab "Method & audit": the pipeline diagram (how a result is produced), every result
+// at the as-of date with its top reasons on demand, the data files behind the demo, dates and build warnings.
+import { useState } from "react";
 import { Notice } from "../components/Notice";
+import { StatusBadge } from "../components/StatusBadge";
 import { Pipeline } from "../components/Pipeline";
 import { BarChart, Kpis, MetroGrid } from "../components/Charts";
 import { useGeo } from "../visual";
-import type { Dataset } from "../data";
+import { useLookups, type Dataset } from "../data";
 import { usePrefs } from "../prefs";
+import { reasonLabel } from "../reason-labels";
+import type { Lang, LookupResult } from "../types";
+import type { Dict } from "../i18n";
+
+const ORDER: LookupResult[] = ["applies", "unknown", "superseded", "not_yet_effective", "pending"];
+
+/** Every lookup result at the as-of date as one bar; picking a result lists the reasons behind it (mobile H4). */
+function ResultMix({ data, asOf, lang, tr }: { data: Dataset; asOf: string; lang: Lang; tr: Dict }) {
+  const lookups = useLookups(data.manifest, asOf);
+  const [pick, setPick] = useState<LookupResult | null>("unknown");
+  if (lookups.state !== "ready" || !lookups.data) return null;
+  const counts = new Map<LookupResult, number>();
+  const reasons = new Map<LookupResult, Map<string, number>>();
+  let total = 0;
+  for (const items of Object.values(lookups.data)) {
+    for (const i of items) {
+      total++;
+      counts.set(i.result, (counts.get(i.result) ?? 0) + 1);
+      const m = reasons.get(i.result) ?? new Map<string, number>();
+      for (const r of (i.reason ?? "").split(",").map((x) => x.trim()).filter(Boolean)) m.set(r, (m.get(r) ?? 0) + 1);
+      reasons.set(i.result, m);
+    }
+  }
+  if (!total) return null;
+  const shown = ORDER.filter((k) => counts.has(k));
+  const sel = pick && counts.has(pick) ? pick : null;
+  const top = sel ? [...(reasons.get(sel) ?? new Map<string, number>())].sort((a, b) => b[1] - a[1]).slice(0, 5) : [];
+  return (
+    <section className="rr-mix" aria-labelledby="rr-mix-h">
+      <h2 id="rr-mix-h" className="rr-h2">{tr.mixTitle} <span className="rr-muted">· {tr.asOf} {asOf}</span></h2>
+      <p className="rr-meta">{tr.mixTotal(total, Object.keys(lookups.data).length)} · {tr.mixPick}</p>
+      <div className="rr-stage-bar rr-sum-bar rr-mix-bar">
+        {shown.map((k) => (
+          <button
+            key={k}
+            type="button"
+            className={`rr-seg rr-seg-${k}${sel === k ? " is-on" : ""}`}
+            style={{ width: `${((counts.get(k) ?? 0) / total) * 100}%` }}
+            aria-pressed={sel === k}
+            aria-label={`${counts.get(k)} ${tr.result[k] ?? k}`}
+            onClick={() => setPick(sel === k ? null : k)}
+          />
+        ))}
+      </div>
+      <ul className="rr-sum-list">
+        {shown.map((k) => (
+          <li key={k}>
+            <button type="button" className={`rr-sum-btn${sel === k ? " is-on" : ""}`} aria-pressed={sel === k} onClick={() => setPick(sel === k ? null : k)}>
+              <StatusBadge kind={k} tr={tr} />
+              <span className="rr-sum-n">{counts.get(k)}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      {sel && (
+        top.length ? (
+          <BarChart
+            title={tr.mixReasons(tr.result[sel] ?? sel)}
+            rows={top.map(([r, n]) => ({ label: reasonLabel(r, lang), value: n }))}
+          />
+        ) : (
+          <p className="rr-meta" role="status">{tr.mixReasons(tr.result[sel] ?? sel)}: {tr.mixNoReason}</p>
+        )
+      )}
+    </section>
+  );
+}
 
 /** The one-page method note (docs/METHOD.md), read on GitHub so the demo stays a static export. */
 const METHOD_NOTE_URL = "https://github.com/LuisAlejandroCR/realrent4u/blob/main/docs/METHOD.md";
 
 export function MethodBody({ data }: { data: Dataset }) {
   const { manifest } = data;
-  const { tr } = usePrefs();
+  const prefs = usePrefs();
+  const { tr, lang } = prefs;
+  const asOf = prefs.asOf ?? manifest.default_as_of;
   const geo = useGeo();
   const byJur = new Map<string, { n: number; level: string }>();
   for (const r of data.rules) byJur.set(r.jurisdiction, { n: (byJur.get(r.jurisdiction)?.n ?? 0) + 1, level: r.level });
@@ -41,6 +112,7 @@ export function MethodBody({ data }: { data: Dataset }) {
         ]}
       />
       <Pipeline data={data} tr={tr} />
+      <ResultMix data={data} asOf={asOf} lang={lang} tr={tr} />
       <div className="rr-method-vis">
         {geo && (
           <section aria-labelledby="rr-cov-h">

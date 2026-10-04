@@ -11,7 +11,7 @@ import { Kpis, MetroGrid } from "./Charts";
 import { useGeo } from "../visual";
 
 /** KPI tiles and the affected addresses on the metro maps of the states the test touches. */
-function TestVisuals({ test, result, data, tr }: { test: ChangeTest; result: ChangeResult; data: Dataset; tr: Dict }) {
+function TestVisuals({ test, result, data, addressHref, tr }: { test: ChangeTest; result: ChangeResult; data: Dataset; addressHref: (id: string, asOf?: string) => string; tr: Dict }) {
   const geo = useGeo();
   const affected = new Set(result.affected_address_ids ?? []);
   const flagged = new Set(result.conflict_address_ids ?? []);
@@ -38,6 +38,7 @@ function TestVisuals({ test, result, data, tr }: { test: ChangeTest; result: Cha
           tone={(id) => (flagged.has(id) ? "flag" : affected.has(id) ? "on" : "off")}
           tip={(id) => `${id} · ${street.get(id) ?? ""} · ${jurOf(id)}`}
           legend={[["on", tr.lgAffected], ["flag", tr.lgConflict], ["off", tr.lgNotAffected]]}
+          link={{ href: (id) => addressHref(id, test.as_of_after ?? test.as_of) }}
           tr={tr}
         />
       )}
@@ -102,7 +103,7 @@ export function ChangeTestCard({ test, result, rules, addresses, addressHref, da
       </h2>
 
       <div id={`${id}-p`} className="rr-test-body" hidden={!open}>
-        {open && result && <TestVisuals test={test} result={result} data={data} tr={tr} />}
+        {open && result && <TestVisuals test={test} result={result} data={data} addressHref={addressHref} tr={tr} />}
         <div className="rr-scenario-dates">
           <span className="rr-scenario-label">{tr.scenarioDates}</span>
           <span className="rr-scenario-values">

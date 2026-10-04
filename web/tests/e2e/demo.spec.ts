@@ -173,3 +173,42 @@ test("an open change test shows KPI tiles and a map of affected addresses", asyn
   await expect(card.locator(".rr-dot.is-flag").first()).toBeVisible();
   await expect(page.locator("#test-T1 .rr-test-body")).toBeHidden();
 });
+
+test("result chips filter an address's rule cards and show all again", async ({ page }) => {
+  await page.goto("/dashboard?a=A0322&asOf=2026-10-01");
+  const summary = page.getByRole("region", { name: "At a glance" });
+  const unknown = summary.getByRole("button", { name: /Show only Unknown results/ });
+  await unknown.click();
+  await expect(unknown).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("article.rr-rule:not(.rr-rule-unknown)")).toHaveCount(0);
+  await expect(summary.getByRole("status")).toContainText(/Showing \d+ of \d+/);
+  await summary.getByRole("button", { name: /Show all/ }).click();
+  await expect(page.locator("article.rr-rule-applies").first()).toBeVisible();
+});
+
+test("a neighbour dot on the address map opens that address", async ({ page }) => {
+  await page.goto("/dashboard?a=A0322&asOf=2026-10-01");
+  const dot = page.getByRole("region", { name: "Where and when" }).locator(".rr-dot-link").first();
+  const id = (await dot.getAttribute("aria-label"))!.split(" · ")[0]!;
+  await dot.click();
+  await expect(page).toHaveURL(new RegExp(`a=${id}`));
+  await expect(page.locator(".rr-summary .rr-id")).toContainText(id);
+});
+
+test("method tab lists the top reasons behind a result", async ({ page }) => {
+  await page.goto("/dashboard?tab=method&asOf=2026-10-01");
+  const mix = page.getByRole("region", { name: /Every result on this date/ });
+  await expect(mix.locator(".rr-bars")).toContainText("owner information");
+  await mix.locator(".rr-sum-btn", { hasText: "Pending" }).click();
+  await expect(mix).toContainText("Top reasons · Pending");
+});
+
+test("change-test tiles filter the tests", async ({ page }) => {
+  await page.goto("/dashboard?tab=tests");
+  await page.getByRole("button", { name: /Need review/ }).click();
+  await expect(page.locator(".rr-tests > *")).toHaveCount(2);
+  await expect(page.locator("#test-T2")).toBeVisible();
+  await expect(page.locator("#test-T3")).toBeVisible();
+  await page.getByRole("button", { name: /Need review/ }).click();
+  await expect(page.locator(".rr-tests > *")).toHaveCount(5);
+});
