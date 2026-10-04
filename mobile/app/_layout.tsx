@@ -1,8 +1,10 @@
-// _layout.tsx: root stack: prefs provider, safe area, the tab group and the date form sheet.
+// _layout.tsx: root stack: prefs provider, safe area, the tab group, the date and profile form sheets
+// and the stamp toast that floats above every screen.
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { PreviewChrome } from "../src/components/PreviewChrome";
+import { StampToast } from "../src/components/Story";
 import { PrefsProvider, usePrefs } from "../src/prefs";
 import { color } from "../src/theme";
 
@@ -28,6 +30,18 @@ function RootStack() {
           contentStyle: { backgroundColor: color.surface },
         }}
       />
+      <Stack.Screen
+        name="profile"
+        options={{
+          presentation: "formSheet",
+          sheetAllowedDetents: "fitToContents",
+          sheetGrabberVisible: true,
+          sheetCornerRadius: 24,
+          headerShown: false,
+          title: ms.profile,
+          contentStyle: { backgroundColor: color.surface },
+        }}
+      />
     </Stack>
   );
 }
@@ -39,6 +53,7 @@ export default function RootLayout() {
         <StatusBar style="dark" />
         <PreviewChrome>
           <RootStack />
+          <StampToast />
         </PreviewChrome>
       </PrefsProvider>
     </SafeAreaProvider>

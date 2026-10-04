@@ -1,9 +1,8 @@
-// StackHeader.tsx: per-tab native stack with back button, centered title and language toggle.
+// StackHeader.tsx: per-tab native stack with back button and centered title (language lives in the profile sheet).
 import { Stack, useRouter } from "expo-router";
 import { Pressable, Text } from "react-native";
 import { usePrefs } from "../prefs";
 import { color, minTouch } from "../theme";
-import { LangToggle } from "./Chrome";
 
 /**
  * Native stack per tab. iOS: compact header, "‹ Back" + edge swipe. Android: Material top bar with ←;
@@ -32,7 +31,6 @@ export function TabStack({ backTitle, root }: { backTitle: string; root: string 
         headerBackTitle: backTitle,
         headerBackButtonDisplayMode: "generic",
         headerTitleAlign: "center",
-        headerRight: () => <LangToggle />,
         contentStyle: { backgroundColor: color.paper },
       })}
     />
