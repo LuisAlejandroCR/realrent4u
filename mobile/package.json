@@ -1,0 +1,38 @@
+{
+  "name": "realrent4u-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "build-data": "node scripts/build-data.mjs",
+    "prestart": "node scripts/build-data.mjs",
+    "start": "expo start",
+    "ios": "expo start --ios",
+    "android": "expo start --android",
+    "preweb": "node scripts/build-data.mjs",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit",
+    "pretypecheck": "node scripts/build-data.mjs"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~57.0.16",
+    "expo": "~57.0.26",
+    "expo-constants": "~57.0.20",
+    "expo-linking": "~57.0.11",
+    "expo-router": "~57.0.24",
+    "expo-status-bar": "~57.0.1",
+    "expo-web-browser": "~57.0.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "^0.21.2"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "description": "React Native (Expo Router) app of the Rental Housing Law Navigator: reads the precomputed pipeline JSON bundled at build time."
+}
