@@ -19,16 +19,21 @@ accent per heading, pill buttons, soft surfaces. Palette moved from prufture's t
 
 ## Dials
 
-- DESIGN_VARIANCE 5: one asymmetric moment on the landing (1.5fr search + promise vs 1fr "what every
-  answer carries" card). Every other page is a single calm column.
-- MOTION_INTENSITY 2: one 0.2s fade per view and result rows fading up with a 40ms stagger (max 8),
-  all gated behind `prefers-reduced-motion`. No gradients, no parallax.
+- DESIGN_VARIANCE 6: the landing opens and closes on a dark "night" band (cinematic bookends); the
+  sections between stay light. The dashboard is unchanged: one calm working surface.
+- MOTION_INTENSITY 5 on the landing, 2 on the dashboard. Landing: hero lines rise in, the live stage
+  replays three real addresses across the four dates (pause button, hover/focus holds it), sections
+  reveal on scroll, stats count up, the T1–T5 spans draw. Everything is off under
+  `prefers-reduced-motion` (no autoplay, no reveal). Two soft radial glows on the dark bands only.
+- "Less is more, a picture over a paragraph": a section earns its place with one visual made from the
+  data (the stage, the three-step diagram, the timeline). Pending media never shows as a placeholder.
 - VISUAL_DENSITY 3 on landing and address pages, 5 on the change-tests page (one table per test).
 
 ## Tokens
 
-**Palette: Stamp & Marigold** (shared with the mobile app; light only, no dark full-width sections, no
-strong gradients). Tokens live in `web/rr/rr.css` (`:root`); landing styles in `web/rr/rr-home.css`,
+**Palette: Stamp & Marigold** (shared with the mobile app). Light everywhere except the landing's two
+dark bands, which add night `#0F1626`, moon `#F5F4EF` / `#B9C1D3` and glow `#F2B65C` (9.6:1 on night),
+in `web/rr/rr-cinema.css`. Tokens live in `web/rr/rr.css` (`:root`); landing styles in `web/rr/rr-home.css`,
 dashboard additions in `web/rr/rr-landing.css`. Components use classes, never raw hex.
 
 | Token | Value | Use | Contrast (measured) |
@@ -57,15 +62,27 @@ only signal.
 | `pending` | ink | diamond, dashed | Pending / Pendiente |
 | conflict flag | white on marigold text | triangle | Needs human review / Requiere revisión humana |
 
-**Landing (`/`)**: the story in six parts. Every example and number comes from the data files.
-1. Hero (address + date)
-2. Problem (postal city ≠ jurisdiction, building facts, date)
-3. How it works (3 steps, ElevenLabs videos with QR)
-4. The five results
-5. T1–T5 over time ("results not available" ≠ "0, confirmed empty")
-6. Closing CTA to `/dashboard`
+**Landing (`/`)**: five beats. Every example and number comes from the data files.
+1. Hero, dark: the promise + the **live stage** (`HeroStage`, data from `public/data/hero.json`): three
+   addresses picked by predicate (the date changes it · missing facts, flagged · postal ≠ legal city) ×
+   the four lookup dates. Shows the address plate (postal city struck → legal city), facts, the result
+   mix bar, three rules that flip in place, one quoted source and "Not legal advice · As of".
+2. How it works: three facts (legal jurisdiction, building facts, as-of date), one mini-visual each, then
+   the counted stats. Configured videos appear here; videos without a file or link are not shown.
+3. The five results.
+4. T1–T5 on one date axis (`LawTimeline`; "results not available" ≠ "0, confirmed empty").
+5. Closing, dark: CTA, links and the demo QR (QR hidden on phones).
 
-Videos and QR destinations come from `web/landing.config.json` (see `web/README.md`). Until they are set, the page shows labelled placeholders.
+**Dashboard (`/dashboard`)** shares the dark header (night band with the "Not legal advice" + As of bar).
+- Lookup, no address: one big centred search (`/` focuses it) with the demo scenarios as cards below.
+  With an address: the side panel returns; "At a glance" adds the result-mix bar; rule cards rise in with a
+  40 ms stagger.
+- Change tests: the same T1–T5 timeline on top; a lane opens its card (only that one) and scrolls to it.
+- Method & audit: the pipeline as one diagram (documents → extract → quote-checked rules; addresses →
+  geocoder → facts; both → deterministic engine → dated results), every count read from the build.
+
+Acceptance: hero fits a 1440×900 screen with the header; no horizontal scroll at 360 px; the stage never
+claims a result that is not in the lookup files; reduced motion shows every state without autoplay.
 
 **Landing storyboard (section 3, "How it works")**: one short ElevenLabs video per row, beside its
 title, context and a real example read from the data. These are separate from the three submission

@@ -1,5 +1,5 @@
 "use client";
-// ResultSummary.tsx: "at a glance" strip above an address's results: a count per result and conflict flags,
+// ResultSummary.tsx: "at a glance" strip above an address's results: a result-mix bar, a count per result and conflict flags,
 // each jumping to its first card, with the as-of date and "not legal advice". No counts when nothing was evaluated.
 import type { LookupItem, LookupResult, Rule } from "../types";
 import type { Dict } from "../i18n";
@@ -61,6 +61,11 @@ export function ResultSummary({ rules, items, asOf, tr }: ResultSummaryProps) {
       ) : (
         <>
           <p className="rr-sum-line rr-muted">{tr.sumOf(items.length)}</p>
+          <div className="rr-stage-bar rr-sum-bar" role="img" aria-label={ORDER.filter((k) => counts.has(k)).map((k) => `${counts.get(k)} ${tr.result[k] ?? k}`).join(", ")}>
+            {ORDER.map((k) => (
+              <span key={k} className={`rr-seg rr-seg-${k}`} style={{ width: `${((counts.get(k) ?? 0) / items.length) * 100}%` }} />
+            ))}
+          </div>
           <ul className="rr-sum-list">
             {ORDER.filter((k) => counts.has(k)).map((k) => (
               <li key={k}>

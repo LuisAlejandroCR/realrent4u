@@ -116,3 +116,41 @@ test("evaluated states render summaries, readable reasons, conflicts and superse
   await expect(localRule).toContainText("The Berkeley rule displaces the state rule.");
   await expect(localRule).toContainText("superseded by r-D006-01");
 });
+
+test("the landing stage replays address × date and hands control to the visitor", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const stage = page.locator(".rr-stage");
+  await expect(stage).toBeVisible();
+  // Reduced motion: no autoplay.
+  await expect(stage.getByRole("button", { name: "Play" })).toHaveAttribute("aria-pressed", "false");
+  await expect(stage.locator(".rr-stage-foot")).toContainText(/not legal advice/i);
+
+  const dates = stage.locator(".rr-scrub button");
+  await dates.last().click();
+  await expect(page).toHaveURL(/asOf=2027-07-02/);
+  await expect(page.locator("#rr-asof")).toHaveValue("2027-07-02");
+  await expect(stage.locator(".rr-stage-foot time")).toHaveAttribute("datetime", "2027-07-02");
+
+  await stage.locator(".rr-stage-tabs button").nth(1).click();
+  await expect(stage.locator(".rr-stage-tabs button").nth(1)).toHaveAttribute("aria-pressed", "true");
+  await expect(stage.locator(".rr-stage-foot a")).toHaveAttribute("href", /tab=lookup&a=A\d{4}/);
+});
+
+test("change-test timeline opens the picked test", async ({ page }) => {
+  await page.goto("/dashboard?tab=tests");
+  const lane = page.locator(".rr-tl-lane").filter({ hasText: "T3" });
+  await lane.click();
+  await expect(page).toHaveURL(/t=T3/);
+  await expect(lane).toHaveAttribute("aria-current", "true");
+  await expect(page.locator("#test-T3 .rr-test-toggle")).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#test-T1 .rr-test-toggle")).toHaveAttribute("aria-expanded", "false");
+});
+
+test("method tab draws the pipeline with counts from the data", async ({ page }) => {
+  await page.goto("/dashboard?tab=method");
+  const pipe = page.getByRole("figure", { name: /From public text/ });
+  await expect(pipe).toContainText(/\d+ public documents/);
+  await expect(pipe).toContainText(/\d+ rules kept/);
+  await expect(pipe).toContainText("Deterministic engine");
+});

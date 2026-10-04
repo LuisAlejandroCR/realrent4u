@@ -37,23 +37,33 @@ export function SearchBody({ data }: { data: Dataset }) {
     }
   };
 
+  // No address yet: one big search, centred, with the demo scenarios under it. The side panel only
+  // appears once an address is open, where it keeps search and scenarios within reach.
+  if (!address) {
+    return (
+      <section className="rr-find">
+        <div className="rr-find-head">
+          <p className="rr-kicker">{data.addresses.length} · {tr.addressId}</p>
+          <h1 className="rr-h1"><em>{tr.emptyTitle}</em></h1>
+          <p className="rr-lead">{tr.emptyBody}</p>
+          <div className="rr-find-box">
+            <AddressSearch addresses={data.addresses} tr={tr} onSelect={(a) => select(a)} />
+            <p className="rr-meta rr-find-key"><kbd>/</kbd> {tr.findShortcut}</p>
+          </div>
+        </div>
+        <DemoScenarios data={data} tr={tr} onPick={select} currentId={addrId} asOf={asOf} />
+      </section>
+    );
+  }
+
   return (
     <div className="rr-search-layout">
       <aside className="rr-panel">
         <AddressSearch addresses={data.addresses} tr={tr} onSelect={(a) => select(a)} />
-        {address && <DemoScenarios data={data} tr={tr} onPick={select} compact currentId={addrId} asOf={asOf} />}
+        <DemoScenarios data={data} tr={tr} onPick={select} compact currentId={addrId} asOf={asOf} />
       </aside>
 
       <div className="rr-results" ref={resultsRef}>
-        {!address && (
-          <section className="rr-empty">
-            <p className="rr-kicker">{data.addresses.length} · {tr.addressId}</p>
-            <h1 className="rr-h1"><em>{tr.emptyTitle}</em></h1>
-            <p className="rr-lead">{tr.emptyBody}</p>
-            <DemoScenarios data={data} tr={tr} onPick={select} currentId={addrId} asOf={asOf} />
-          </section>
-        )}
-
         {address && (
           <>
             <AddressSummary address={address} jurisdiction={j} asOf={asOf} tr={tr} />
