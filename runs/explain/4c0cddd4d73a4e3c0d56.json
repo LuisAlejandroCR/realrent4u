@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2026-01-02",
+ "template": "Rent increases must not be unconscionable aplica a esta dirección. Fuente: N.J.S.A. 2A:18-61.1(f); a fecha de 2026-01-02. No es asesoría legal.",
+ "rewrite": "A esta dirección se le aplica la regla de que los aumentos de renta no pueden ser abusivos. Fuente: N.J.S.A. 2A:18-61.1(f), vigente a fecha de 2026-01-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:11:41+00:00"
+}

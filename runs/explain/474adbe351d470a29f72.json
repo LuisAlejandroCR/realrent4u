@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2026-01-02",
+ "template": "Nonpayment eviction threshold of one month Fair Market Rent applies to this address. Source: Berkeley Rent Ordinance, as amended by Measure BB (November 2024); as of 2026-01-02. Not legal advice.",
+ "rewrite": "For this address, evictions for unpaid rent are subject to a threshold of one month of Fair Market Rent. Source: Berkeley Rent Ordinance, as amended by Measure BB (November 2024); as of 2026-01-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:11:57+00:00"
+}

@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2027-07-02",
+ "template": "Cambridge Fair Housing Ordinance – source-of-income and protected-class discrimination in tenant selection applies to this address. Source: Cambridge Fair Housing Ordinance, chapter 14.04; as of 2027-07-02. Not legal advice.",
+ "rewrite": "At this address, the Cambridge Fair Housing Ordinance's rules on source-of-income and protected-class discrimination in choosing tenants apply. Source: Cambridge Fair Housing Ordinance, chapter 14.04; as of 2027-07-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:15:54+00:00"
+}

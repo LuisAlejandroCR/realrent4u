@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2026-01-02",
+ "template": "No podemos saber si Tenant Protection Act just cause eviction requirement (Civil Code 1946.2) aplica a esta dirección porque no tenemos el año de construcción del edificio. Fuente: Cal. Civ. Code § 1946.2 (as amended by Stats. 2025, Ch. 203 (AB 1529)); a fecha de 2026-01-02. No es asesoría legal.",
+ "rewrite": "No sabemos si la regla de desalojo solo por causa justa de la Tenant Protection Act (Código Civil 1946.2) se aplica a esta dirección, porque nos falta el año en que se construyó el edificio. Fuente: Cal. Civ. Code § 1946.2 (as amended by Stats. 2025, Ch. 203 (AB 1529)), vigente al 2026-01-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:12:02+00:00"
+}

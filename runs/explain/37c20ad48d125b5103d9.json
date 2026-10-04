@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2027-07-02",
+ "template": "Jersey City ban on algorithmic rent coordination services applies to this address. Source: Jersey City Code § 218-12; as of 2027-07-02. Not legal advice.",
+ "rewrite": "Jersey City's ban on algorithmic rent coordination services applies to this address. This is based on Jersey City Code § 218-12, as of 2027-07-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:15:51+00:00"
+}

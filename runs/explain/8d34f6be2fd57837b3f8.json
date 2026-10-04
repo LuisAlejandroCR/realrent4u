@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2026-01-02",
+ "template": "San Francisco Rent Ordinance just cause eviction requirement applies to this address. Source: San Francisco Rent Ordinance Section 37.9(a); as of 2026-01-02. Not legal advice.",
+ "rewrite": "At this address, the San Francisco Rent Ordinance's \"just cause\" eviction requirement applies. Source: San Francisco Rent Ordinance Section 37.9(a), as of 2026-01-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:12:27+00:00"
+}

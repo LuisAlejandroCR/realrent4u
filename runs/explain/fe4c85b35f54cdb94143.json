@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2025-12-31",
+ "template": "Return of security deposit within 30 days; permitted deductions aplica a esta dirección. Fuente: M.G.L. c. 186, § 15B(4), (6), (7); a fecha de 2025-12-31. No es asesoría legal.",
+ "rewrite": "A esta dirección le aplica la norma sobre la devolución del depósito de seguridad en un plazo de 30 días y las deducciones permitidas. Fuente: M.G.L. c. 186, § 15B(4), (6), (7); a fecha de 2025-12-31. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:10:34+00:00"
+}

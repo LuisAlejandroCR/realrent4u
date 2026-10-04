@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2027-07-02",
+ "template": "Service member higher-security disclosure and return applies to this address. Source: Cal. Civ. Code § 1950.5(c)(4); as of 2027-07-02. Not legal advice.",
+ "rewrite": "The rule on disclosing and returning a higher security deposit for a service member applies to this address. Source: Cal. Civ. Code § 1950.5(c)(4), as of 2027-07-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:14:46+00:00"
+}

@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2026-10-01",
+ "template": "Just Cause Ordinance (JCO) – just cause required and relocation assistance for no-fault evictions applies to this address. Source: Los Angeles Just Cause Ordinance (JCO); as of 2026-10-01. Not legal advice.",
+ "rewrite": "This address is covered by the Just Cause Ordinance (JCO), so a landlord needs a valid reason to evict and must pay relocation assistance if the tenant isn't at fault. Source: Los Angeles Just Cause Ordinance (JCO); as of 2026-10-01. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:14:21+00:00"
+}

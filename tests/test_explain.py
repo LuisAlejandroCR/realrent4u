@@ -16,8 +16,9 @@ RESULTS = ["applies", "unknown", "superseded", "not_yet_effective", "pending"]
 
 
 @pytest.fixture(autouse=True)
-def no_key(monkeypatch):
+def no_key(monkeypatch, tmp_path):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.setattr(ex, "CACHE_DIR", tmp_path / "explain")
     monkeypatch.delenv("REALRENT_LLM_EXPLAIN", raising=False)
 
 
@@ -222,3 +223,21 @@ def test_superseded_with_multiple_reasons():
     item = {"result": "superseded", "reason": "superseded_by:fx-sf-rent-ord,superseded_by:fx-la-rso"}
     out = ex.explain(RULE, item, "en", AS_OF)
     assert "fx-sf-rent-ord" in out and "fx-la-rso" in out
+
+
+def test_rewrite_is_cached_and_reused_offline(monkeypatch):
+    good = "Statewide rent cap covers this address. Source: Cal. Civ. Code § 1947.12; as of 2026-10-01. Not legal advice."
+    client = FakeClient(reply=good)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
+    monkeypatch.setenv("REALRENT_LLM_EXPLAIN", "1")
+    import anthropic
+
+    monkeypatch.setattr(anthropic, "Anthropic", lambda: client)
+    assert ex.explain(RULE, {"result": "applies"}, "en", AS_OF) == good
+    # No key and no flag: the cached rewrite is reused without building a client.
+    monkeypatch.delenv("ANTHROPIC_API_KEY")
+    monkeypatch.delenv("REALRENT_LLM_EXPLAIN")
+    monkeypatch.setattr(anthropic, "Anthropic", lambda: pytest.fail("client must not be built"))
+    assert ex.explain(RULE, {"result": "applies"}, "en", AS_OF) == good
+    assert len(client.calls) == 1
+    assert ex.explain(RULE, {"result": "applies"}, "en", AS_OF, use_llm=False) != good

@@ -89,13 +89,13 @@ def link_dir(link: Path, target: Path) -> None:
 
 def stage_tree(root: Path, stage: Path, online: bool, skip_extract: bool) -> None:
     """Mirror of the repo for the steps: a copy of the code (so paths.ROOT is `stage`), links to the
-    read-only inputs and to the caches (runs/raw/, derived/census/), and empty output folders.
+    read-only inputs and to the caches (runs/raw/, runs/explain/, derived/census/), and empty output folders.
     tests/fixtures/ is left out on purpose: a step that falls back to fixture data fails instead."""
     shutil.copytree(PACKAGE, stage / "realrent", ignore=shutil.ignore_patterns("__pycache__"))
     link_dir(stage / "data", root / "data")
     if (root / "data_extra").is_dir():  # team-fetched texts (data_extra/README.md) are read-only inputs too
         link_dir(stage / "data_extra", root / "data_extra")
-    for cache in ("runs/raw", "derived/census"):
+    for cache in ("runs/raw", "runs/explain", "derived/census"):
         src = root / cache
         if online:
             src.mkdir(parents=True, exist_ok=True)  # online calls must land in the repo's cache

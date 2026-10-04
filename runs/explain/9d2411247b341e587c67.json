@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2027-07-02",
+ "template": "No podemos saber si RSO legal reasons for eviction, notice, and relocation assistance aplica a esta dirección porque no tenemos el año de construcción del edificio. Fuente: Los Angeles Municipal Code 151.09.C.9 & 165.05.B.5; a fecha de 2027-07-02. No es asesoría legal.",
+ "rewrite": "No sabemos si las normas de la RSO sobre causas legales de desalojo, avisos y ayuda para la reubicación se aplican a esta dirección, porque nos falta el año de construcción del edificio. Fuente: Los Angeles Municipal Code 151.09.C.9 & 165.05.B.5; a fecha de 2027-07-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:16:20+00:00"
+}

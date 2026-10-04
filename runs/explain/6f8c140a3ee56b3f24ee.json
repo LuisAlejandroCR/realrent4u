@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2025-12-31",
+ "template": "Prohibition on algorithmic rent-fixing applies to this address. Source: X001; as of 2025-12-31. Not legal advice.",
+ "rewrite": "Using algorithms to fix rent is banned at this address. Source: X001; as of 2025-12-31. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:10:05+00:00"
+}
