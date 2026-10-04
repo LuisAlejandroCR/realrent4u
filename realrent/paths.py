@@ -18,7 +18,7 @@ CHANGES_JSON = SUBMISSION / "changes.json"
 
 RUNS = ROOT / "runs"
 
-# Intermediate outputs shared between workstreams (see docs/PLAN.md, "Contracts").
+# Intermediate outputs shared between pipeline steps.
 DERIVED = ROOT / "derived"
 JURISDICTIONS_JSON = DERIVED / "jurisdictions.json"
 LOOKUPS_BY_DATE = DERIVED / "lookups"  # one <as_of>.json per query date, same shape as lookups.json

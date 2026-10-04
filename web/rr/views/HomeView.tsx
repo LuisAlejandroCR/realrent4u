@@ -77,7 +77,7 @@ function Landing({ data }: { data: Dataset }) {
   const dates = data.manifest.lookup_dates.length ? data.manifest.lookup_dates : data.manifest.demo_dates;
   const dash = (extra: Record<string, string> = {}) => hrefWith("/dashboard", prefs, extra);
   const fact = (v: string | null | undefined) => (blank(v) ? <span className="rr-missing">{tr.notInRecord}</span> : v);
-  // One silent clip per section (docs/LANDING_CLIPS.md), shown once landing.config.json has its file.
+  // One silent clip per section, shown once landing.config.json has its file.
   const clip = (id: string, head: ReactNode) => {
     const v = media.videos.find((x) => x.id === id && x.src);
     if (!v) return head;
