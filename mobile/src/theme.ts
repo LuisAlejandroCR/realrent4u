@@ -1,4 +1,4 @@
-// theme.ts: Stamp & Marigold tokens, spacing, type scale and result badge colours.
+// theme.ts: Stamp & Marigold tokens, spacing, type scale, result badge colours and validated chart fills.
 import { Platform } from "react-native";
 import { isAndroid } from "./platform";
 
@@ -72,3 +72,21 @@ export const badge: Record<BadgeKind, { fg: string; bg: string; glyph: string }>
   unevaluated: { fg: "#4F5869", bg: "#FFFFFF", glyph: "○" },
   review: { fg: "#A3282B", bg: "#FBE3E3", glyph: "!" },
 };
+
+/**
+ * Chart fills for results (strips, stacked bars, map dots). Separate from `badge`, whose dark shades are tuned for
+ * text and fail chart checks (teal vs violet ΔE 4.6 under deuteranopia). These are the dataviz reference slots,
+ * validated (light, white surface): lightness band, chroma, CVD ≥ 9.2, normal ≥ 27.6 all PASS. Yellow/aqua are
+ * below 3:1 against the surface, so every chart carries visible labels.
+ */
+export const chart: Record<Exclude<BadgeKind, "review">, string> = {
+  applies: "#2a78d6",
+  unknown: "#eda100",
+  superseded: "#4a3aa7",
+  not_yet_effective: "#1baf7a",
+  pending: "#eb6834",
+  unevaluated: "#9AA0AD",
+};
+/** One-hue magnitude bars (slot 1) and their recessive track. */
+export const chartBar = "#2a78d6";
+export const chartTrack = "#E8E9ED";

@@ -24,7 +24,7 @@ export default function DateSheet() {
       <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm, paddingHorizontal: space.xl }}>
         <CalendarIcon color={color.primary} size={22} />
         <T variant="title" serif accessibilityRole="header" style={{ flex: 1 }}>{ms.dateTitle}</T>
-        <Pressable onPress={() => router.back()} accessibilityRole="button" style={{ minHeight: minTouch, minWidth: minTouch, justifyContent: "center", alignItems: "flex-end" }}>
+        <Pressable onPress={() => router.back()} accessibilityRole="button" accessibilityLabel={ms.done} style={{ minHeight: minTouch, minWidth: minTouch, justifyContent: "center", alignItems: "flex-end" }}>
           <Text style={{ color: color.primary, fontWeight: "800" }}>{ms.done}</Text>
         </Pressable>
       </View>

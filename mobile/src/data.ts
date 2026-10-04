@@ -1,4 +1,5 @@
-// data.ts: loads the bundled JSON from assets/data, unpacks lookups and adapts changes.json; no evaluation.
+// data.ts: loads the bundled JSON from assets/data (incl. approximate geo points), unpacks lookups, adapts
+// changes.json and reads the organizer→pipeline rule matches from its notes; no evaluation.
 import type { Address, ChangeResult, ChangeTest, Jurisdiction, LookupItem, Manifest, Rule } from "./types";
 
 /**
@@ -13,6 +14,7 @@ import jurisdictionsJson from "../assets/data/jurisdictions.json";
 import changeTestsJson from "../assets/data/change_tests.json";
 import changesJson from "../assets/data/changes.json";
 import lookupsJson from "../assets/data/lookups.json";
+import geoJson from "../assets/data/geo.json";
 
 export interface Dataset {
   manifest: Manifest;
@@ -24,6 +26,8 @@ export interface Dataset {
   changeResults: ChangeResult[] | null;
   /** Precomputed lookups keyed by as_of → address_id. Empty when the pipeline has not produced any. */
   lookups: Record<string, Record<string, LookupItem[]>>;
+  /** Approximate map point per address: [lat, lon] rounded to ~100 m; "area" = jurisdiction centroid. */
+  geo: Record<string, [number, number, "street" | "area"]>;
 }
 
 export function loadDataset(): Dataset {
@@ -37,6 +41,7 @@ export function loadDataset(): Dataset {
     changeTests: changeTestsJson as unknown as ChangeTest[],
     changeResults: changeList && changeList.length > 0 ? changeList : null,
     lookups: unpackLookups(lookupsJson as unknown as PackedLookups),
+    geo: (geoJson ?? {}) as unknown as Dataset["geo"],
   };
 }
 
@@ -104,4 +109,14 @@ export function groupByCategory(rules: Rule[]): [string, Rule[]][] {
   const map = new Map<string, Rule[]>();
   rules.forEach((r) => map.set(r.category, [...(map.get(r.category) ?? []), r]));
   return [...map.entries()];
+}
+
+/**
+ * Change tests name rules by organizer id (CA-ALG-01); the pipeline records the match in changes.json notes
+ * ("Matched: CA-ALG-01 -> r-D022-01 (...)"). Returns organizer id → team_rule_id. Display only.
+ */
+export function matchedRules(notes: string | undefined): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const m of (notes ?? "").matchAll(/([A-Z]+-[A-Z]+-[A-Z0-9]+) -> (r-[A-Za-z0-9-]+)/g)) out[m[1]] ??= m[2];
+  return out;
 }

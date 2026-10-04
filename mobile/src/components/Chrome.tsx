@@ -1,6 +1,7 @@
-// Chrome.tsx: EN/ES toggle and the legal notice + as-of date strip shown on every screen.
+// Chrome.tsx: EN/ES toggle (profile sheet) and the legal notice + as-of date strip shown on every screen.
 import { useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { haptic } from "../feel";
 import { usePrefs } from "../prefs";
 import { color, minTouch, radius, space, type } from "../theme";
 import { CalendarIcon } from "./Icons";
@@ -14,7 +15,8 @@ export function LangToggle() {
         <Pressable
           key={l}
           accessibilityRole="radio"
-          accessibilityState={{ selected: lang === l }}
+          accessibilityLabel={l === "en" ? "English" : "Español"}
+          accessibilityState={{ selected: lang === l, checked: lang === l }}
           onPress={() => setLang(l)}
           style={[st.seg, lang === l && { backgroundColor: color.ink }]}
         >
@@ -39,7 +41,7 @@ export function LegalDateBar() {
         <Text maxFontSizeMultiplier={1.6} style={{ color: color.accent, fontWeight: "700", ...type.micro }}>{tr.notAdvice}</Text>
       </View>
       <Pressable
-        onPress={() => router.push("/date")}
+        onPress={() => { haptic.tap(); router.push("/date"); }}
         accessibilityRole="button"
         accessibilityLabel={`${tr.asOf} ${asOf}, ${ms.selected}`}
         accessibilityHint={ms.openDatePicker}

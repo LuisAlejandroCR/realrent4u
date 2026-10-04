@@ -2,6 +2,7 @@
 import { useState, type ReactNode } from "react";
 import { Pressable, StyleSheet, Text, View, type ViewStyle } from "react-native";
 import * as WebBrowser from "expo-web-browser";
+import { haptic } from "../feel";
 import { isAndroid } from "../platform";
 import { badge, color, font, minTouch, radius, shadow, space, type, type BadgeKind } from "../theme";
 import type { Dict } from "../i18n";
@@ -134,7 +135,7 @@ export function Disclosure({ label, children, initiallyOpen = false }: { label: 
   return (
     <View>
       <Pressable
-        onPress={() => setOpen(!open)}
+        onPress={() => { haptic.select(); setOpen(!open); }}
         accessibilityRole="button"
         accessibilityState={{ expanded: open }}
         style={{ minHeight: minTouch, flexDirection: "row", alignItems: "center", gap: space.sm }}
@@ -152,7 +153,7 @@ export function Disclosure({ label, children, initiallyOpen = false }: { label: 
  * Collapsible section. When closed it shows a one-line preview from the record (or `empty` text when the record has
  * nothing), so closed sections still tell you what is inside. The full text is never truncated once open.
  */
-export function Fold({ title, children, initiallyOpen = false, preview, empty, hint }: { title: string; children?: ReactNode; initiallyOpen?: boolean; preview?: string | null; empty?: string; hint?: string }) {
+export function Fold({ title, children, initiallyOpen = false, preview, empty, hint, onOpen }: { title: string; children?: ReactNode; initiallyOpen?: boolean; preview?: string | null; empty?: string; hint?: string; onOpen?: () => void }) {
   const [open, setOpen] = useState(initiallyOpen);
   const hasContent = children != null && children !== false;
   // Never truncate legal text: a preview is shown only when it fits whole on a line; otherwise just the title.
@@ -161,7 +162,12 @@ export function Fold({ title, children, initiallyOpen = false, preview, empty, h
   return (
     <View style={{ backgroundColor: color.surface, borderRadius: radius.md, borderWidth: 1, borderColor: color.line, overflow: "hidden" }}>
       <Pressable
-        onPress={() => hasContent && setOpen(!open)}
+        onPress={() => {
+          if (!hasContent) return;
+          haptic.select();
+          if (!open) onOpen?.();
+          setOpen(!open);
+        }}
         disabled={!hasContent}
         accessibilityRole="button"
         accessibilityLabel={line && !open ? `${title}. ${line}` : title}
@@ -181,7 +187,7 @@ export function Fold({ title, children, initiallyOpen = false, preview, empty, h
 }
 
 /** Document-excerpt panel for quoted source text + citation + retrieval date + link. Only renders fields that exist. */
-export function EvidencePanel({ rule, tr, hint, retrievedLabel }: { rule: Rule; tr: Dict; hint: string; retrievedLabel?: string }) {
+export function EvidencePanel({ rule, tr, hint, retrievedLabel, onSource }: { rule: Rule; tr: Dict; hint: string; retrievedLabel?: string; onSource?: () => void }) {
   return (
     <View style={s.evidence}>
       <Kicker tone="muted">{tr.quoted}</Kicker>
@@ -197,7 +203,7 @@ export function EvidencePanel({ rule, tr, hint, retrievedLabel }: { rule: Rule; 
           label={tr.source}
           hint={hint}
           icon={<ExternalIcon color={color.primary} />}
-          onPress={() => WebBrowser.openBrowserAsync(rule.source_url!, { toolbarColor: color.surface, controlsColor: color.primary })}
+          onPress={() => { haptic.tap(); onSource?.(); WebBrowser.openBrowserAsync(rule.source_url!, { toolbarColor: color.surface, controlsColor: color.primary }); }}
         />
       ) : null}
     </View>

@@ -1,8 +1,10 @@
-// index.tsx: 06 change tests T1-T5 with result availability per scenario.
+// index.tsx: 06 change tests T1-T5: each card leads with its affected-address count.
 import { Stack, useRouter } from "expo-router";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LangToggle, LegalDateBar } from "../../../src/components/Chrome";
+import { LegalDateBar } from "../../../src/components/Chrome";
+import { ProfileButton } from "../../../src/components/Story";
+import { FadeIn, Tap } from "../../../src/components/motion";
 import { Chevron, T } from "../../../src/components/ui";
 import { usePrefs } from "../../../src/prefs";
 import { color, font, minTouch, radius, space } from "../../../src/theme";
@@ -21,7 +23,7 @@ export default function ChangesScreen() {
       <View style={{ backgroundColor: color.tint, paddingHorizontal: space.lg, paddingVertical: space.md, gap: space.sm }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
           <T variant="display" serif accessibilityRole="header">{tr.changesTitle}</T>
-          <LangToggle />
+          <ProfileButton />
         </View>
         {/* Availability meter: k of n filled segments + text */}
         <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm }} accessible accessibilityLabel={tr.resultsAvailable(k, data.changeTests.length)}>
@@ -38,33 +40,40 @@ export default function ChangesScreen() {
         keyExtractor={(t) => t.test_id}
         contentContainerStyle={{ padding: space.lg, gap: space.sm }}
         ListHeaderComponent={<T variant="small" muted numberOfLines={2} style={{ marginBottom: space.xs }}>{tr.changesIntro}</T>}
-        renderItem={({ item }) => <TestCard t={item} available={have(item.test_id)} />}
+        renderItem={({ item, index }) => <FadeIn index={index}><TestCard t={item} n={results?.find((r) => r.test_id === item.test_id)?.affected_address_ids?.length} /></FadeIn>}
         ListFooterComponent={!results ? <T variant="small" muted style={{ marginTop: space.sm }}>{tr.resultsMissingAll}</T> : null}
       />
     </SafeAreaView>
   );
 }
 
-function TestCard({ t, available }: { t: ChangeTest; available: boolean }) {
-  const { tr } = usePrefs();
+/** Card: ID, title, dates — and the affected count as the headline number (or "not available"). */
+function TestCard({ t, n }: { t: ChangeTest; n: number | undefined }) {
+  const { tr, ms } = usePrefs();
   const router = useRouter();
+  const available = n != null;
   const dates = t.as_of ? t.as_of : t.as_of_before && t.as_of_after ? `${t.as_of_before} → ${t.as_of_after}` : null;
   return (
-    <Pressable
+    <Tap
       onPress={() => router.push(`/changes/${t.test_id}`)}
       accessibilityRole="link"
-      accessibilityLabel={`${t.test_id}. ${t.title}. ${dates ? `${tr.scenarioDates} ${dates}. ` : ""}${available ? tr.resAvailable : tr.resNotAvailable}`}
-      style={({ pressed }) => ({ minHeight: minTouch + 20, flexDirection: "row", gap: space.md, paddingVertical: space.md, paddingHorizontal: space.md, alignItems: "center", backgroundColor: pressed ? color.tint : color.surface, borderRadius: radius.md, borderWidth: 1, borderColor: color.line })}
+      accessibilityLabel={`${t.test_id}. ${t.title}. ${dates ? `${tr.scenarioDates} ${dates}. ` : ""}${available ? tr.nAffected(n) : tr.resNotAvailable}`}
+      style={{ minHeight: minTouch + 20, flexDirection: "row", gap: space.md, paddingVertical: space.md, paddingHorizontal: space.md, alignItems: "center", backgroundColor: color.surface, borderRadius: radius.md, borderWidth: 1, borderColor: color.line }}
     >
       <Text style={{ fontFamily: font.mono, fontWeight: "800", color: color.accent, fontSize: 15, width: 28 }}>{t.test_id}</Text>
       <View style={{ flex: 1, gap: 2 }}>
         <T bold numberOfLines={2}>{t.title}</T>
-        <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
-          {dates && <T variant="micro" mono muted>{dates}</T>}
-          <T variant="micro" bold style={{ color: available ? color.primary : color.amber }}>{available ? "● " + tr.resAvailable : "○ " + tr.resNotAvailable}</T>
-        </View>
+        {dates && <T variant="micro" mono muted>{dates}</T>}
       </View>
+      {available ? (
+        <View style={{ alignItems: "flex-end", minWidth: 48 }}>
+          <Text maxFontSizeMultiplier={1.4} style={{ fontFamily: font.serif, fontSize: 24, fontWeight: "700", color: n ? color.primary : color.ink2 }}>{n}</Text>
+          <Text maxFontSizeMultiplier={1.4} style={{ fontSize: 11, color: color.ink2 }}>{ms.addressesShort}</Text>
+        </View>
+      ) : (
+        <T variant="micro" bold style={{ color: color.amber }}>○ {tr.resNotAvailable}</T>
+      )}
       <Chevron />
-    </Pressable>
+    </Tap>
   );
 }

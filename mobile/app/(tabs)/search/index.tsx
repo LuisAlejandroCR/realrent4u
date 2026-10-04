@@ -3,15 +3,19 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AccessibilityInfo, FlatList, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LangToggle, LegalDateBar } from "../../../src/components/Chrome";
+import { LegalDateBar } from "../../../src/components/Chrome";
+import { ProfileButton, QuickWins } from "../../../src/components/Story";
 import { SearchIcon } from "../../../src/components/Icons";
 import { LoadingState } from "../../../src/components/States";
 import { Chevron, Id, StateBlock, T } from "../../../src/components/ui";
 import { searchAddresses } from "../../../src/data";
+import { haptic } from "../../../src/feel";
 import { preview } from "../../../src/platform";
 import { usePrefs } from "../../../src/prefs";
 import { color, minTouch, radius, shadow, space, type } from "../../../src/theme";
 import type { Address } from "../../../src/types";
+
+const LIMIT = 50;
 
 /** 02 Search — the main task. Strong header band, big field, designed empty / no-match / loading states. */
 export default function SearchScreen() {
@@ -23,10 +27,12 @@ export default function SearchScreen() {
   // Arriving from Home's CTA: focus the field so the keyboard is ready.
   useEffect(() => { if (focus) { const id = setTimeout(() => input.current?.focus(), 250); return () => clearTimeout(id); } }, [focus]);
   useEffect(() => { const p = preview.param("q"); if (p) setQ(p); }, [setQ]);
-  const matches = useMemo(() => searchAddresses(data.addresses, q, 50), [data.addresses, q]);
+  // Count every match, render the first LIMIT: the count must never claim fewer matches than exist.
+  const all = useMemo(() => searchAddresses(data.addresses, q, Infinity), [data.addresses, q]);
+  const matches = all.slice(0, LIMIT);
   const typed = q.trim().length > 0;
   const loading = preview.param("state") === "loading";
-  const countText = typed ? (matches.length ? tr.matches(matches.length) : tr.noMatches) : "";
+  const countText = typed ? (all.length ? tr.matches(all.length) + (all.length > LIMIT ? ` · ${ms.matchesFirst(LIMIT)}` : "") : tr.noMatches) : "";
 
   useEffect(() => {
     if (!typed) return;
@@ -42,7 +48,7 @@ export default function SearchScreen() {
         <View style={{ backgroundColor: color.tint, paddingHorizontal: space.lg, paddingTop: space.sm, paddingBottom: space.md, gap: space.sm }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
             <T variant="title" serif accessibilityRole="header">{ms.searchTitle}</T>
-            <LangToggle />
+            <ProfileButton />
           </View>
           
           <View style={[{ flexDirection: "row", alignItems: "center", gap: space.sm, backgroundColor: color.surface, borderWidth: 2, borderColor: focused ? color.primary : color.ink, borderRadius: radius.lg, paddingLeft: space.md }, shadow]}>
@@ -65,7 +71,7 @@ export default function SearchScreen() {
               style={{ flex: 1, minHeight: minTouch + 10, color: color.ink, ...type.body, fontWeight: "600", ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as object) : null) }}
             />
             {typed && (
-              <Pressable onPress={() => setQ("")} accessibilityRole="button" accessibilityLabel={ms.clear} style={{ minWidth: minTouch, minHeight: minTouch, alignItems: "center", justifyContent: "center" }}>
+              <Pressable onPress={() => { haptic.select(); setQ(""); input.current?.focus(); }} accessibilityRole="button" accessibilityLabel={ms.clear} style={{ minWidth: minTouch, minHeight: minTouch, alignItems: "center", justifyContent: "center" }}>
                 <Text style={{ color: color.ink2, fontSize: 18, fontWeight: "700" }}>✕</Text>
               </Pressable>
             )}
@@ -85,15 +91,15 @@ export default function SearchScreen() {
             contentContainerStyle={{ paddingHorizontal: space.lg, paddingVertical: focused ? space.sm : space.lg, gap: space.sm }}
             ListHeaderComponent={
               <View accessibilityLiveRegion="polite">
-                {typed && matches.length > 0 && <T variant="small" bold muted>{tr.matches(matches.length)}</T>}
+                {typed && matches.length > 0 && <T variant="small" bold muted>{countText}</T>}
               </View>
             }
             ListEmptyComponent={
               !typed ? (
-                // Task-focused hint, not a second Home: what you can type, nothing else.
-                <View style={{ gap: 4 }}>
+                // What you can type, plus three one-tap stories instead of a paragraph.
+                <View style={{ gap: space.md }}>
                   <T variant="small" muted>{ms.searchSub}</T>
-                  {!focused && <T variant="small" muted>{ms.sampleCount(data.addresses.length)}</T>}
+                  <QuickWins />
                 </View>
               ) : (
                 // Compact so it sits right under the field when the keyboard is open.
@@ -108,7 +114,7 @@ export default function SearchScreen() {
                 </View>
               )
             }
-            renderItem={({ item }) => <AddressRow a={item} onPress={() => router.push(`/search/${item.address_id}`)} />}
+            renderItem={({ item }) => <AddressRow a={item} onPress={() => { haptic.tap(); router.push(`/search/${item.address_id}`); }} />}
           />
         )}
       </KeyboardAvoidingView>
