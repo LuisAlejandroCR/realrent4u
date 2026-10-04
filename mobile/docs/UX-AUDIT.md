@@ -62,6 +62,17 @@ exploration earns small wins. Never legal advice, never invented data.
   pipeline ids (r-D022-01) only in `changes.json` notes; the app now reads that match and links the rule.
 - Case file strip on Home expands in place instead of opening the profile sheet.
 
+## Third pass — every tap answers, less text (spec)
+
+| # | Change | Acceptance |
+|---|---|---|
+| I1 | Maps select, then open: tapping a dot highlights it and shows a card (address, legal jurisdiction, status, Open) | Tap dot → card; Open → address |
+| I2 | Address map opens a full-screen interactive map of that jurisdiction's sample addresses | Tap mini-map → `/map` |
+| I3 | Charts drill down: Method result segment → that result by category; category bar → its rules; scenario jurisdiction bar → filters map + addresses | Tap "Unknown" → breakdown |
+| I4 | KPI tiles navigate or filter (addresses → search, dates → date sheet, needs review → flagged only) | Tap tile → effect |
+| R1 | Rules on record grouped by outcome (Applies · Can't tell · Displaced · Not yet in force); one compact row per rule, category as a tag | No status line repeated per row |
+| R2 | Rule detail: stamp + one-line reason; status / effective / jurisdiction tiles; requirement clamped to 3 lines; quote card visible; engine text behind "Full explanation"; empty sections hidden | No "No information" rows |
+
 ## Verify — 2026-10-04
 
 Done: `npm run typecheck` passes; web preview on a cache-cleared Metro: B1 (T1–T5 = 250/90/140/110/0), B2
@@ -69,4 +80,9 @@ Done: `npm run typecheck` passes; web preview on a cache-cleared Metro: B1 (T1�
 console), B9 (Back present), filters, stamp toast, time jump, profile + ES switch.
 Second pass: typecheck passes; web preview: T1 before→after, T2 by-jurisdiction (Newark 0/50), Method KPIs + charts,
 address approximate-map card, clean console.
+Third pass: typecheck passes; web preview: I1 (dot → card "A0040 · Needs review · Hoboken, NJ"), I2 (`/map?address=A0322`,
+50 San Diego dots), I3 (Hoboken bar → 40 dots / 40 addresses; Method "Unknown" → by category + reasons, 890 = owner
+not in record), I4 ("need human review" tile → 90), R1 (Applies 16 → 4 + "Show all"), R2 (stamp, tiles, clamp).
+Known, web preview only: ~12 React-Native-Web "Unknown event handler property onResponder*" warnings on a full page
+load (none on in-app navigation); not reproduced on native.
 Pending on a device in Expo Go: haptics, native sheets, native maps (Apple/Google tiles).
