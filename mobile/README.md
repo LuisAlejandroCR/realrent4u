@@ -47,7 +47,7 @@ Equivalente React Navigation: `NativeStack(Home, Tabs, Date{presentation:'formSh
 ## Pantallas y componentes
 | Archivo | Pantalla |
 |---|---|
-| `app/(tabs)/(home)/index.tsx` | 01 Inicio: marca, CTA de búsqueda, casos rápidos, expediente |
+| `app/(tabs)/(home)/index.tsx` | 01 Inicio como resumen ejecutivo: búsqueda, KPIs, hoja de ruta "Empieza aquí", mapa de burbujas por jurisdicción, resultados con motivos |
 | `app/(tabs)/(home)/search/index.tsx` | 02 Búsqueda: vacía, sin coincidencias, resultados; teclado (`KeyboardAvoidingView`, `keyboardShouldPersistTaps`) |
 | `app/(tabs)/(home)/search/[id].tsx` | 03 Dirección: jurisdicción ≠ ciudad postal, datos ausentes, fecha + Cambiar, reglas por categoría |
 | `app/(tabs)/(home)/search/rule/[ruleId].tsx` | 04 Regla: estado, motivo, cita, texto literal, fuente (navegador in-app), recuperación, conflicto |

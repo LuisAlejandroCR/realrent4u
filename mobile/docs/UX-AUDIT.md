@@ -82,6 +82,15 @@ exploration earns small wins. Never legal advice, never invented data.
 | C1 | Changes list: KPI row (tests · address changes · need review · no effect) that filters the list | "Need review" → T2, T3 only |
 | C2 | One timeline row per test: ID, title, a track across the four dates (dot = one date, bar = before → after), affected count; date header sets the as-of date | Tap T1 row → scenario; tap a date → as-of changes |
 
+## Fifth pass — Home as an executive summary (spec)
+
+| # | Change | Acceptance |
+|---|---|---|
+| H1 | KPI row: addresses · jurisdictions · rules · dates; each tile acts (search, scroll to map, Method, date sheet) | Tap "dates" → date sheet |
+| H2 | "Start here" roadmap: the five stamps as ordered steps, each deep-linking to its screen; next step highlighted; collapses to one line when complete. Replaces case file + quick wins on Home | Step 2 → A0065 |
+| H3 | Jurisdiction bubble map (size = sample addresses); tap → card with addresses, rules, % unknown and "See its addresses" (search filtered by jurisdiction) | Tap Boston → card → search shows Boston addresses incl. Dorchester |
+| H4 | Results chart at the as-of date; tapping a segment lists its top reasons | Tap Unknown → reasons |
+
 ## Verify — 2026-10-04
 
 Done: `npm run typecheck` passes; web preview on a cache-cleared Metro: B1 (T1–T5 = 250/90/140/110/0), B2
@@ -95,6 +104,9 @@ not in record), I4 ("need human review" tile → 90), R1 (Applies 16 → 4 + "Sh
 Fourth pass: typecheck passes; web preview: three tabs (Home · Changes · Method); Home → search pushes with Back;
 `/search/A0002` from T2 opens with Home tab active and Back; Changes KPIs 5 · 590 · 2 · 1, "need review" → T2, T3;
 timeline rows with dot / before→after bar, date header labels "Dec 31 / 2025"; KPI tiles equal width.
+Fifth pass: typecheck passes; web preview: Home KPIs 500 · 9 · 85 · 4; roadmap step 2 → `/search/A0065`, progress
+2 of 5, Next moves to step 3; 9 jurisdiction bubbles, Boston card "60 sample addresses · 18 rules on record · 0% of results
+unknown" → search "60 matches" incl. Dorchester; Unknown segment → top reasons (890 / 302 / 189).
 Known, web preview only: ~12 React-Native-Web "Unknown event handler property onResponder*" warnings on a full page
 load (none on in-app navigation); not reproduced on native.
 Pending on a device in Expo Go: haptics, native sheets, native maps (Apple/Google tiles).
