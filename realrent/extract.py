@@ -259,6 +259,10 @@ def build_rules(outputs: dict[str, dict], log: list[dict]) -> list[dict]:
                 log.append({**entry, "action": "dropped", "reason": "quote_not_in_source",
                             "quoted_span": raw.get("quoted_span")})
                 continue
+            if not _in_doc_scope(raw.get("jurisdiction", ""), doc.jurisdiction):
+                log.append({**entry, "action": "dropped", "reason": "jurisdiction_outside_source_scope",
+                            "source_jurisdiction": doc.jurisdiction})
+                continue
             rule = to_rule_record(raw, doc, quote, f"r-{doc_id}-{n:02d}")
             key = (rule["jurisdiction"], rule["category"], rule["citation"].lower(), rule["status"])
             kept = best.get(key)
@@ -272,6 +276,14 @@ def build_rules(outputs: dict[str, dict], log: list[dict]) -> list[dict]:
             log.append({**entry, "action": "kept", "rule": rule["team_rule_id"]})
     _link_overrides(list(best.values()))
     return sorted(best.values(), key=lambda r: r["team_rule_id"])
+
+
+def _in_doc_scope(jurisdiction: str, doc_jurisdiction: str) -> bool:
+    """A document backs rules only for the jurisdiction the manifest lists for it, or that
+    jurisdiction's state. A survey article (e.g. D037, listed for Jersey City) mentioning other
+    cities' ordinances is not their source; those cities' own documents are."""
+    j = jurisdiction.strip()
+    return j in (doc_jurisdiction, doc_jurisdiction.rsplit(", ", 1)[-1])
 
 
 def _yields_to_local(rule: dict) -> bool:

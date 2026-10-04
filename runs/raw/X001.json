@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "Hoboken, NJ",
+      "level": "city",
+      "category": "algorithmic_rent_setting",
+      "status": "in_force",
+      "title": "Prohibition on algorithmic rent-fixing",
+      "requirement": "Landlords renting residential units in Hoboken may not use software, algorithms, or data-sharing platforms to coordinate, recommend, or implement rental prices, lease terms, or occupancy levels among competing landlords.",
+      "key_value": "Ban on algorithmic rent-setting software used to coordinate pricing among competing landlords",
+      "citation": "",
+      "quoted_span": "It will now be illegal for landlords renting residential units in Hoboken to engage in price-fixing through algorithmic rent-fixing, meaning they can no longer use software, algorithms, or data-sharing platforms to coordinate, recommend, or implement rental prices, lease terms, or occupancy levels among competing landlords.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "Landlords renting residential units in Hoboken",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "Source is a city press release, not the ordinance text. It says the City Council adopted the legislation at its July 9 meeting but gives no year, so enacted_date is left blank. No ordinance number, effective date, penalties or exemptions are stated. Status in_force is assumed from the statement that the conduct 'will now be illegal' and from the press release being retrieved after adoption.",
+      "confidence": 0.7
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3045,
+    "output_tokens": 873,
+    "at": "2026-10-04T02:58:06+00:00"
+  },
+  "prompt_version": 2
+}

@@ -1,0 +1,113 @@
+{"doc_id": "D001", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Municipal Code Chapter 13.63 (§§ 13.63.030, 13.63.040), as amended by Ordinance No. 7,992-N.S.", "action": "kept", "rule": "r-D001-01"}
+{"doc_id": "D003", "n": 1, "category": "screening_restrictions", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Municipal Code Chapter 13.106", "action": "kept", "rule": "r-D003-01"}
+{"doc_id": "D004", "n": 1, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Stabilization and Good Cause for Eviction Ordinance; Ellis Implementation Ordinance (Rent Board annual adjustment approved October 16, 2025)", "action": "kept", "rule": "r-D004-01"}
+{"doc_id": "D005", "n": 1, "category": "application_screening_fees", "jurisdiction": "CA", "citation": "California Civil Code Section 1950.6", "action": "kept", "rule": "r-D005-01"}
+{"doc_id": "D005", "n": 2, "category": "application_screening_fees", "jurisdiction": "Berkeley, CA", "citation": "BMC 13.78.010", "action": "kept", "rule": "r-D005-02"}
+{"doc_id": "D005", "n": 3, "category": "application_screening_fees", "jurisdiction": "Berkeley, CA", "citation": "BMC 13.78.016", "action": "kept", "rule": "r-D005-03"}
+{"doc_id": "D006", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "kept", "rule": "r-D006-01"}
+{"doc_id": "D006", "n": 2, "category": "rent_increase_limits", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "dropped", "reason": "duplicate_of r-D006-01"}
+{"doc_id": "D006", "n": 3, "category": "rent_increase_limits", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "dropped", "reason": "duplicate_of r-D006-01"}
+{"doc_id": "D006", "n": 4, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "kept", "rule": "r-D006-04"}
+{"doc_id": "D006", "n": 5, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "dropped", "reason": "duplicate_of r-D006-04"}
+{"doc_id": "D006", "n": 6, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "dropped", "reason": "duplicate_of r-D006-04"}
+{"doc_id": "D006", "n": 7, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "dropped", "reason": "duplicate_of r-D006-04"}
+{"doc_id": "D006", "n": 8, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance, as amended by Measure BB (November 2024)", "action": "dropped", "reason": "duplicate_of r-D006-04"}
+{"doc_id": "D007", "n": 1, "category": "security_deposits", "jurisdiction": "CA", "citation": "Assembly Bill 12", "action": "kept", "rule": "r-D007-01"}
+{"doc_id": "D007", "n": 2, "category": "security_deposits", "jurisdiction": "CA", "citation": "", "action": "kept", "rule": "r-D007-02"}
+{"doc_id": "D007", "n": 3, "category": "security_deposits", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Ordinance", "action": "kept", "rule": "r-D007-03"}
+{"doc_id": "D008", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Stabilization Board Regulation 1148; Berkeley Municipal Code section 13.76.110A", "action": "kept", "rule": "r-D008-01"}
+{"doc_id": "D009", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Stabilization and Eviction for Just Cause Ordinance", "action": "kept", "rule": "r-D009-01"}
+{"doc_id": "D009", "n": 2, "category": "just_cause_eviction", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Rent Stabilization and Eviction for Just Cause Ordinance", "action": "kept", "rule": "r-D009-02"}
+{"doc_id": "D010", "n": 1, "category": "screening_restrictions", "jurisdiction": "Boston, MA", "citation": "Boston Department of Neighborhood Development, Boston Fair Chance Tenant Selection Policy (February 2017)", "action": "kept", "rule": "r-D010-01"}
+{"doc_id": "D011", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Boston, MA", "citation": "Bill H.3744, 193rd General Court (2023-2024)", "action": "kept", "rule": "r-D011-01"}
+{"doc_id": "D011", "n": 2, "category": "just_cause_eviction", "jurisdiction": "Boston, MA", "citation": "Bill H.3744, 193rd General Court (2023-2024)", "action": "kept", "rule": "r-D011-02"}
+{"doc_id": "D012", "n": 1, "category": "screening_restrictions", "jurisdiction": "Boston, MA", "citation": "", "action": "kept", "rule": "r-D012-01"}
+{"doc_id": "D013", "n": 1, "category": "just_cause_eviction", "jurisdiction": "Boston, MA", "citation": "City of Boston Ordinances Sec. 10-11.7 (Housing Stability Notification Act)", "action": "kept", "rule": "r-D013-01"}
+{"doc_id": "D014", "n": 1, "category": "just_cause_eviction", "jurisdiction": "Boston, MA", "citation": "Boston Ordinance Sec. 10-11.7 (Housing Stability Notification Act)", "action": "kept", "rule": "r-D014-01"}
+{"doc_id": "D016", "n": 1, "category": "screening_restrictions", "jurisdiction": "CA", "citation": "California Fair Employment and Housing Act (FEHA)", "action": "kept", "rule": "r-D016-01"}
+{"doc_id": "D016", "n": 2, "category": "screening_restrictions", "jurisdiction": "CA", "citation": "California Fair Employment and Housing Act (FEHA)", "action": "dropped", "reason": "duplicate_of r-D016-01"}
+{"doc_id": "D022", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "CA", "citation": "AB 325 (2025-2026), Stats. 2025, Ch. 338; Bus. & Prof. Code § 16729 (and § 16756.1)", "action": "kept", "rule": "r-D022-01"}
+{"doc_id": "D023", "n": 1, "category": "just_cause_eviction", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1946.2 (as amended by Stats. 2025, Ch. 203 (AB 1529))", "action": "kept", "rule": "r-D023-01"}
+{"doc_id": "D024", "n": 1, "category": "rent_increase_limits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1947.12 (added by Stats. 2023, Ch. 290, Sec. 4 (SB 567))", "action": "kept", "rule": "r-D024-01"}
+{"doc_id": "D025", "n": 1, "category": "security_deposits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.5(c)(1), (c)(6)", "action": "kept", "rule": "r-D025-01"}
+{"doc_id": "D025", "n": 2, "category": "security_deposits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.5(c)(5)", "action": "kept", "rule": "r-D025-02"}
+{"doc_id": "D025", "n": 3, "category": "security_deposits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.5(c)(4)", "action": "kept", "rule": "r-D025-03"}
+{"doc_id": "D025", "n": 4, "category": "security_deposits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.5(h)", "action": "kept", "rule": "r-D025-04"}
+{"doc_id": "D025", "n": 5, "category": "security_deposits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.5(g)", "action": "kept", "rule": "r-D025-05"}
+{"doc_id": "D025", "n": 6, "category": "security_deposits", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.5(n)", "action": "kept", "rule": "r-D025-06"}
+{"doc_id": "D026", "n": 1, "category": "application_screening_fees", "jurisdiction": "CA", "citation": "Cal. Civ. Code § 1950.6 (as amended by Stats. 2025, Ch. 67, Sec. 29 (AB 1170))", "action": "kept", "rule": "r-D026-01"}
+{"doc_id": "D027", "n": 1, "category": "screening_restrictions", "jurisdiction": "CA", "citation": "Cal. Gov. Code § 12955(a), (c), (p)", "action": "kept", "rule": "r-D027-01"}
+{"doc_id": "D027", "n": 2, "category": "screening_restrictions", "jurisdiction": "CA", "citation": "Cal. Gov. Code § 12955(o)(1)(A)", "action": "kept", "rule": "r-D027-02"}
+{"doc_id": "D027", "n": 3, "category": "screening_restrictions", "jurisdiction": "CA", "citation": "Cal. Gov. Code § 12955(o)(1)(B)", "action": "kept", "rule": "r-D027-03"}
+{"doc_id": "D029", "n": 1, "category": "screening_restrictions", "jurisdiction": "Cambridge, MA", "citation": "Cambridge Fair Housing Ordinance, chapter 14.04", "action": "kept", "rule": "r-D029-01"}
+{"doc_id": "D036", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Jersey City, NJ", "citation": "Jersey City Municipal Code Chapter 260 (Rent Control Ordinance)", "action": "kept", "rule": "r-D036-01"}
+{"doc_id": "D037", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "Jersey City, NJ", "citation": "Jersey City Code § 218-12", "action": "kept", "rule": "r-D037-01"}
+{"doc_id": "D037", "n": 2, "category": "algorithmic_rent_setting", "jurisdiction": "San Francisco, CA", "citation": "S.F. Admin. Code § 37.10C", "action": "kept", "rule": "r-D037-02"}
+{"doc_id": "D037", "n": 3, "category": "algorithmic_rent_setting", "jurisdiction": "San Diego, CA", "citation": "San Diego Mun. Code §§ 98.1101–98.1104", "action": "kept", "rule": "r-D037-03"}
+{"doc_id": "D037", "n": 4, "category": "algorithmic_rent_setting", "jurisdiction": "Seattle, WA", "citation": "Seattle Mun. Code ch. 7.34", "action": "kept", "rule": "r-D037-04"}
+{"doc_id": "D037", "n": 5, "category": "algorithmic_rent_setting", "jurisdiction": "Philadelphia, PA", "citation": "Phila. Code § 9-813", "action": "kept", "rule": "r-D037-05"}
+{"doc_id": "D037", "n": 6, "category": "algorithmic_rent_setting", "jurisdiction": "Providence, RI", "citation": "Providence Code of Ordinances ch. 13, art. X, §§ 13-69–13-73", "action": "kept", "rule": "r-D037-06"}
+{"doc_id": "D037", "n": 7, "category": "algorithmic_rent_setting", "jurisdiction": "Berkeley, CA", "citation": "Berkeley Mun. Code ch. 13.63", "action": "kept", "rule": "r-D037-07"}
+{"doc_id": "D037", "n": 8, "category": "algorithmic_rent_setting", "jurisdiction": "Santa Ana, CA", "citation": "Santa Ana Ordinance No. NS-3090", "action": "kept", "rule": "r-D037-08"}
+{"doc_id": "D037", "n": 9, "category": "algorithmic_rent_setting", "jurisdiction": "Minneapolis, MN", "citation": "Minneapolis Code of Ordinances § 244.2070", "action": "kept", "rule": "r-D037-09"}
+{"doc_id": "D037", "n": 10, "category": "algorithmic_rent_setting", "jurisdiction": "Hoboken, NJ", "citation": "Hoboken City Code, ch. 158-2", "action": "kept", "rule": "r-D037-10"}
+{"doc_id": "D037", "n": 11, "category": "algorithmic_rent_setting", "jurisdiction": "King County, WA", "citation": "King County Code ch. 12.23", "action": "kept", "rule": "r-D037-11"}
+{"doc_id": "D037", "n": 12, "category": "algorithmic_rent_setting", "jurisdiction": "Spokane, WA", "citation": "Spokane Mun. Code § 10.57.180", "action": "kept", "rule": "r-D037-12"}
+{"doc_id": "D037", "n": 13, "category": "algorithmic_rent_setting", "jurisdiction": "Portland, OR", "citation": "Portland City Code § 30.01.088", "action": "kept", "rule": "r-D037-13"}
+{"doc_id": "D037", "n": 14, "category": "algorithmic_rent_setting", "jurisdiction": "Rockville, MD", "citation": "Rockville City Code § 18-148", "action": "kept", "rule": "r-D037-14"}
+{"doc_id": "D039", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles City Council Motion (Councilmember Heather Hutt), Council File 24-1031", "action": "kept", "rule": "r-D039-01"}
+{"doc_id": "D040", "n": 1, "category": "just_cause_eviction", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles Just Cause Ordinance (JCO)", "action": "kept", "rule": "r-D040-01"}
+{"doc_id": "D040", "n": 2, "category": "just_cause_eviction", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles Just Cause Ordinance (JCO)", "action": "dropped", "reason": "duplicate_of r-D040-01"}
+{"doc_id": "D040", "n": 3, "category": "just_cause_eviction", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles Just Cause Ordinance (JCO) / RSO", "action": "kept", "rule": "r-D040-03"}
+{"doc_id": "D040", "n": 4, "category": "rent_increase_limits", "jurisdiction": "CA", "citation": "AB 1482 (Civil Code Sections 1946.2, 1947.12)", "action": "dropped", "reason": "quote_not_in_source", "quoted_span": "A\nnual rent increases are limited to no more than 5% plus the percentage change in the cost of living for the region in which the property is located, or 10% whichever is lower)."}
+{"doc_id": "D041", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles Rent Stabilization Ordinance (LAMC Chapter XV)", "action": "kept", "rule": "r-D041-01"}
+{"doc_id": "D041", "n": 2, "category": "rent_increase_limits", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles Rent Stabilization Ordinance (LAMC Chapter XV)", "action": "dropped", "reason": "duplicate_of r-D041-01"}
+{"doc_id": "D041", "n": 3, "category": "just_cause_eviction", "jurisdiction": "Los Angeles, CA", "citation": "Los Angeles Municipal Code 151.09.C.9 & 165.05.B.5", "action": "kept", "rule": "r-D041-03"}
+{"doc_id": "D042", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Los Angeles, CA", "citation": "City of Los Angeles Rent Stabilization Ordinance (RSO)", "action": "kept", "rule": "r-D042-01"}
+{"doc_id": "D042", "rule": "r-D042-01", "action": "dropped", "reason": "duplicate_of r-D042-02"}
+{"doc_id": "D042", "n": 2, "category": "rent_increase_limits", "jurisdiction": "Los Angeles, CA", "citation": "City of Los Angeles Rent Stabilization Ordinance (RSO)", "action": "kept", "rule": "r-D042-02"}
+{"doc_id": "D042", "n": 3, "category": "rent_increase_limits", "jurisdiction": "Los Angeles, CA", "citation": "City of Los Angeles Rent Stabilization Ordinance (RSO); Systematic Code Enforcement Program (SCEP)", "action": "kept", "rule": "r-D042-03"}
+{"doc_id": "D043", "n": 1, "category": "just_cause_eviction", "jurisdiction": "Los Angeles, CA", "citation": "LAMC 151.09.A.8-14, 165.03.H-M, 165.06, 151.30, 47.06-47.07; RAC Regulations 960.00", "action": "kept", "rule": "r-D043-01"}
+{"doc_id": "D043", "n": 2, "category": "just_cause_eviction", "jurisdiction": "Los Angeles, CA", "citation": "LA Resident Protections Ordinance, Ordinances #188481 and #188482; LAMC 165.03.I(1); LAMC 151.22-151.28; Cal. Gov. Code 66300 et seq., 66300.6(b)(4)(A)", "action": "kept", "rule": "r-D043-02"}
+{"doc_id": "D045", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "MA", "citation": "Bill H.5222 (194th General Court), new draft of H1564", "action": "kept", "rule": "r-D045-01"}
+{"doc_id": "D046", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "MA", "citation": "Senate Bill S.2983 (194th General Court); new draft of S.994 and S.1016", "action": "kept", "rule": "r-D046-01"}
+{"doc_id": "D047", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "MA", "citation": "Senate Bill S.2983, 194th General Court (new draft of S.994 and S.1016)", "action": "kept", "rule": "r-D047-01"}
+{"doc_id": "D048", "n": 1, "category": "rent_increase_limits", "jurisdiction": "MA", "citation": "Mass. Gen. Laws ch. 40P, § 4", "action": "kept", "rule": "r-D048-01"}
+{"doc_id": "D049", "n": 1, "category": "screening_restrictions", "jurisdiction": "MA", "citation": "M.G.L. c. 151B, § 4(10)", "action": "kept", "rule": "r-D049-01"}
+{"doc_id": "D052", "n": 1, "category": "security_deposits", "jurisdiction": "MA", "citation": "M.G.L. c. 186, § 15B(1)(b)(iii), (1)(d)", "action": "kept", "rule": "r-D052-01"}
+{"doc_id": "D052", "n": 2, "category": "security_deposits", "jurisdiction": "MA", "citation": "M.G.L. c. 186, § 15B(2)(b)-(d), (3)", "action": "kept", "rule": "r-D052-02"}
+{"doc_id": "D052", "n": 3, "category": "security_deposits", "jurisdiction": "MA", "citation": "M.G.L. c. 186, § 15B(4), (6), (7)", "action": "kept", "rule": "r-D052-03"}
+{"doc_id": "D052", "n": 4, "category": "application_screening_fees", "jurisdiction": "MA", "citation": "M.G.L. c. 186, § 15B(1)(b), as amended by St. 2025, c. 9, §§ 54-55", "action": "kept", "rule": "r-D052-04"}
+{"doc_id": "D057", "n": 1, "category": "application_screening_fees", "jurisdiction": "MA", "citation": "M.G.L. c. 112, § 87DDD1/2, as amended by St. 2025, c. 9, § 43 (see St. 2025, c. 9, § 136)", "action": "kept", "rule": "r-D057-01"}
+{"doc_id": "D058", "n": 1, "category": "just_cause_eviction", "jurisdiction": "MA", "citation": "M.G.L. c. 186, § 31", "action": "kept", "rule": "r-D058-01"}
+{"doc_id": "D059", "n": 1, "category": "rent_increase_limits", "jurisdiction": "MA", "citation": "", "action": "kept", "rule": "r-D059-01"}
+{"doc_id": "D065", "n": 1, "category": "screening_restrictions", "jurisdiction": "NJ", "citation": "P.L. 2021, c.110, §4 (C.46:8-55)", "action": "kept", "rule": "r-D065-01"}
+{"doc_id": "D065", "n": 2, "category": "screening_restrictions", "jurisdiction": "NJ", "citation": "P.L. 2021, c.110, §5 (C.46:8-56)", "action": "kept", "rule": "r-D065-02"}
+{"doc_id": "D066", "n": 1, "category": "application_screening_fees", "jurisdiction": "NJ", "citation": "P.L. 2025, c.405 (A4899 4R); N.J.S.A. C.46:8-18.1", "action": "kept", "rule": "r-D066-01"}
+{"doc_id": "D067", "n": 1, "category": "security_deposits", "jurisdiction": "NJ", "citation": "N.J.S.A. 46:8-21.2", "action": "kept", "rule": "r-D067-01"}
+{"doc_id": "D067", "n": 2, "category": "just_cause_eviction", "jurisdiction": "NJ", "citation": "N.J.S.A. 2A:18-61.1 to 61.12", "action": "kept", "rule": "r-D067-02"}
+{"doc_id": "D067", "n": 3, "category": "just_cause_eviction", "jurisdiction": "NJ", "citation": "N.J.S.A. 2A:18-61.1(g); N.J.S.A. 2A:18-61.1(h); N.J.A.C. 5:11-8.5(c)", "action": "kept", "rule": "r-D067-03"}
+{"doc_id": "D067", "n": 4, "category": "rent_increase_limits", "jurisdiction": "NJ", "citation": "N.J.S.A. 2A:18-61.1(f)", "action": "kept", "rule": "r-D067-04"}
+{"doc_id": "D067", "n": 5, "category": "rent_increase_limits", "jurisdiction": "NJ", "citation": "N.J.S.A. 2A:18-61.31", "action": "kept", "rule": "r-D067-05"}
+{"doc_id": "D067", "n": 6, "category": "application_screening_fees", "jurisdiction": "NJ", "citation": "15 U.S.C.A. § 1681m", "action": "kept", "rule": "r-D067-06"}
+{"doc_id": "D067", "n": 7, "category": "screening_restrictions", "jurisdiction": "NJ", "citation": "N.J.S.A. 10:5-12(g) to -(h)", "action": "kept", "rule": "r-D067-07"}
+{"doc_id": "D068", "n": 1, "category": "screening_restrictions", "jurisdiction": "NJ", "citation": "New Jersey Law Against Discrimination (LAD)", "action": "kept", "rule": "r-D068-01"}
+{"doc_id": "D069", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "NJ", "citation": "P.L. 2026, c.43 (A3497 1R ACS), §4; C.56:9-20 to 56:9-26", "action": "kept", "rule": "r-D069-01"}
+{"doc_id": "D073", "n": 1, "category": "just_cause_eviction", "jurisdiction": "San Diego, CA", "citation": "San Diego Municipal Code §§98.0704, 98.0706 (O-21647 N.S.; amended O-21769 N.S.)", "action": "kept", "rule": "r-D073-01"}
+{"doc_id": "D073", "n": 2, "category": "just_cause_eviction", "jurisdiction": "San Diego, CA", "citation": "San Diego Municipal Code §98.0706(c)-(d) (O-21647 N.S.)", "action": "kept", "rule": "r-D073-02"}
+{"doc_id": "D076", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "San Diego, CA", "citation": "Proposed San Diego Municipal Code ch. 9, art. 8, div. 11, §§98.1101-98.1104 (O-2025-107)", "action": "kept", "rule": "r-D076-01"}
+{"doc_id": "D079", "n": 1, "category": "just_cause_eviction", "jurisdiction": "San Francisco, CA", "citation": "San Francisco Rent Ordinance Section 37.9(a)", "action": "kept", "rule": "r-D079-01"}
+{"doc_id": "D080", "n": 1, "category": "rent_increase_limits", "jurisdiction": "San Francisco, CA", "citation": "San Francisco Rent Board annual allowable increase announcement (3/1/26 - 2/28/27)", "action": "kept", "rule": "r-D080-01"}
+{"doc_id": "D081", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "San Francisco, CA", "citation": "San Francisco Rent Ordinance Section 37.10C", "action": "kept", "rule": "r-D081-01"}
+{"doc_id": "D082", "n": 1, "category": "just_cause_eviction", "jurisdiction": "San Francisco, CA", "citation": "San Francisco Rent Ordinance Section 37.9C", "action": "kept", "rule": "r-D082-01"}
+{"doc_id": "D083", "n": 1, "category": "rent_increase_limits", "jurisdiction": "San Francisco, CA", "citation": "SF Rent Board, 571 Allowable Annual Increases", "action": "kept", "rule": "r-D083-01"}
+{"doc_id": "D082", "rule": "r-D082-01", "action": "dropped", "reason": "duplicate_of r-D083-02"}
+{"doc_id": "D083", "n": 2, "category": "just_cause_eviction", "jurisdiction": "San Francisco, CA", "citation": "San Francisco Rent Ordinance Section 37.9C", "action": "kept", "rule": "r-D083-02"}
+{"doc_id": "D083", "n": 3, "category": "just_cause_eviction", "jurisdiction": "San Francisco, CA", "citation": "San Francisco Rent Ordinance Section 37.9A", "action": "kept", "rule": "r-D083-03"}
+{"doc_id": "D083", "n": 4, "category": "security_deposits", "jurisdiction": "San Francisco, CA", "citation": "SF Rent Board, 572 Security Deposit Interest Rates", "action": "kept", "rule": "r-D083-04"}
+{"doc_id": "D084", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Santa Ana, CA", "citation": "Santa Ana Rent Stabilization and Just Cause Eviction Ordinance", "action": "kept", "rule": "r-D084-01"}
+{"doc_id": "D084", "n": 2, "category": "just_cause_eviction", "jurisdiction": "Santa Ana, CA", "citation": "Santa Ana Rent Stabilization and Just Cause Eviction Ordinance", "action": "kept", "rule": "r-D084-02"}
+{"doc_id": "D085", "n": 1, "category": "rent_increase_limits", "jurisdiction": "Santa Ana, CA", "citation": "Santa Ana Rent Stabilization Ordinance", "action": "kept", "rule": "r-D085-01"}
+{"doc_id": "D085", "n": 2, "category": "just_cause_eviction", "jurisdiction": "Santa Ana, CA", "citation": "Santa Ana Just Cause Eviction Ordinance", "action": "kept", "rule": "r-D085-02"}
+{"doc_id": "X001", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "Hoboken, NJ", "citation": "", "action": "kept", "rule": "r-X001-01"}
+{"doc_id": "X002", "n": 1, "category": "algorithmic_rent_setting", "jurisdiction": "Hoboken, NJ", "citation": "", "action": "kept", "rule": "r-X002-01"}
