@@ -132,13 +132,20 @@ export function buildScenarios(d: Dataset, tr: Dict): Scenario[] {
   for (const t of d.changeTests) {
     if (t.type !== "pending" || !t.states?.length) continue;
     const states = t.states;
-    const pending = d.rules.filter((r) => r.status === "pending" && inStates(r.jurisdiction, states)).length;
+    const pending = d.rules.filter((r) => r.status === "pending" && inStates(r.jurisdiction, states));
     const a = resolved.find((x) => states.includes(jOf(x)!.state ?? ""));
-    if (!a || !pending) continue;
+    if (!a || !pending.length) continue;
+    // One bill can be extracted from more than one source document (S.2983 is), so count bills by their number
+    // in the citation or title; a record without a recognisable number counts as its own bill.
+    const bills = Array.from(new Set(pending.map((r) => {
+      const m = `${r.citation ?? ""} ${r.title}`.match(/\b([HS])\.\s?(\d{2,5})\b/);
+      return m ? `${m[1]}.${m[2]}` : r.team_rule_id;
+    })));
+    const numbered = bills.filter((b) => /^[HS]\.\d+$/.test(b));
     out.push({
       id: `pending-${t.test_id}`,
       title: t.title,
-      body: tr.scPendingB(pending),
+      body: tr.scPendingB(bills.length, pending.length, numbered.join(", ")),
       tag: t.test_id,
       picks: [{ address: a, asOf: t.as_of, detail: `${city(a)}${t.as_of ? ` · ${t.as_of}` : ""}` }],
     });

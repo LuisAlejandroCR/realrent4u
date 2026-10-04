@@ -257,7 +257,9 @@ const en = {
   scCityLineT: "Local rules stop at the city line",
   scCityLineB: (st: string) => `Two cities in ${st}: one has its own rules on file, the other has none. Local rules reach only addresses inside their city.`,
   scDatedB: "Same address, two dates. Switch between them and watch the result change.",
-  scPendingB: (n: number) => `${n} pending bill${n === 1 ? " is" : "s are"} on file for this state. A bill shows as pending, never as law in force.`,
+  scPendingB: (bills: number, records: number, ids: string) =>
+    `${bills} pending bill${bills === 1 ? "" : "s"}${ids ? ` (${ids})` : ""} on file for this state` +
+    `${records > bills ? `, from ${records} extracted source records (one bill appears in more than one)` : ""}. A bill shows as pending, never as law in force.`,
   scBefore: "Before",
   scAfter: "After",
   scNone: "No sample address fits these cases.",
@@ -532,7 +534,9 @@ const es: typeof en = {
   scCityLineT: "Las reglas locales terminan en el límite de la ciudad",
   scCityLineB: (st: string) => `Dos ciudades de ${st}: una tiene reglas propias registradas y la otra ninguna. Las reglas locales solo alcanzan direcciones dentro de su ciudad.`,
   scDatedB: "La misma dirección en dos fechas. Cambia entre ellas y mira cómo cambia el resultado.",
-  scPendingB: (n: number) => `Hay ${n} proyecto${n === 1 ? "" : "s"} de ley pendiente${n === 1 ? "" : "s"} registrado${n === 1 ? "" : "s"} para este estado. Un proyecto aparece como pendiente, nunca como ley vigente.`,
+  scPendingB: (bills, records, ids) =>
+    `${bills === 1 ? "Hay 1 proyecto de ley pendiente" : `Hay ${bills} proyectos de ley pendientes`}${ids ? ` (${ids})` : ""} para este estado` +
+    `${records > bills ? `, a partir de ${records} registros extraídos de las fuentes (un proyecto aparece en más de uno)` : ""}. Un proyecto aparece como pendiente, nunca como ley vigente.`,
   scBefore: "Antes",
   scAfter: "Después",
   scNone: "Ninguna dirección de muestra encaja con estos casos.",
