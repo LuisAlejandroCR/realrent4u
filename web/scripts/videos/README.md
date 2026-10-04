@@ -15,4 +15,7 @@ Inputs stay local (gitignored): `media/realrental4u-technical.mp4` (iPhone recor
 3. `python web/scripts/videos/build-technical.py` → `media/out/technical.mp4` (55 s): same phone layout plus two
    full How it works screenshots with a magnified card.
 
-Both carry soft EN/ES subtitle tracks; `.srt` and `.vtt` files are written next to each video.
+4. `python web/scripts/videos/build-team.py` → `media/out/team.mp4` (≤ 60 s) from `media/out/team-video.mov`:
+   long pauses cut, speaker left, cards right, the app beside him while the project is described.
+
+All three carry soft EN/ES subtitle tracks; `.srt` and `.vtt` files are written next to each video.
