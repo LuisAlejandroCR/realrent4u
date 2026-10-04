@@ -69,9 +69,11 @@ C · Track     lookups before/after each change ─► affected addresses + conf
 
 - **Every answer carries its evidence:** result label, plain-language reason, quoted text, citation, source link,
   retrieval date and as-of date. Every screen says **"Not legal advice"** and shows the as-of date.
-- **Show, don't tell.** The landing replays three real addresses across the four dates; the dashboard pins each
-  address on a map (rounded to ~1 km), charts its results on every date, draws T1–T5 on one date axis, and shows
-  the method as a pipeline diagram with counts read from the build.
+- **Show, don't tell.** The landing replays three real addresses across the four dates; the dashboard opens on a
+  "Start here" roadmap and a bubble map of the sample, shows each address as a soft circle on a street map (rounded
+  to ~1 km, never a pin) with the postal city struck and the legal one stamped, groups its rules by outcome, charts
+  its results on every date, draws T1–T5 on one date axis, and shows the method as a pipeline diagram with counts
+  read from the build. Every chip, tile and map dot filters or opens something.
 - **Five results, never colour alone:** each has a written label and its own marker shape.
 - **English and Spanish** in the web app, the explanations and the video subtitles.
 - **Videos** (≤ 60 s each, EN/ES subtitles): product demo, technical walkthrough, team.
