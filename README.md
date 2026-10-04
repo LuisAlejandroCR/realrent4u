@@ -16,12 +16,57 @@ postal one), checks every rental rule against the building's facts and the date,
 labelled results, the exact quoted sentence, its source and the date it was read. When a fact is missing, the
 answer is **unknown**, never a guess.
 
+[<img src="docs/img/web-landing.png" alt="Landing page: the address and the date decide which rules apply; a live card replays one Los Angeles address across the four as-of dates with its results, a quoted source sentence and its retrieval date">](https://realrent4u.vercel.app)
+
 | | |
 |---|---|
 | Coverage | California · New Jersey · Massachusetts — 9 cities with sample addresses, 12 jurisdictions with rules |
 | Data | 87 public documents (54 with full text) + 3 team-fetched · 500 sample addresses |
 | Output | 85 rules · 9,332 results on 2026-10-01 · 4 as-of dates · change tests T1–T5 |
 | Deliverables | [`submission/rules.json`](submission/rules.json) · [`lookups.json`](submission/lookups.json) · [`changes.json`](submission/changes.json) · [`docs/METHOD.md`](docs/METHOD.md) |
+
+---
+
+## See it
+
+**One address, start to finish.** 63 Bailey St gets its mail as *Dorchester*, but legally it is in **Boston**, so
+Boston's rules apply. The postal city is struck through and the legal one is stamped. The building appears as a
+soft circle on a street map, never a pin, and each rule shows its result, the quoted sentence and its source.
+
+| Web dashboard | Mobile app (iOS / Android) |
+|---|---|
+| <img src="docs/img/web-address-story.png" alt="Address header: postal city Dorchester struck through, legal jurisdiction Boston, MA stamped, building facts as chips with missing ones dashed" width="420"><br><img src="docs/img/web-address-map.png" alt="Street map with the address as a soft circle among neighbouring sample addresses, and the results on each of the four dates" width="420"> | <img src="docs/img/app-address.png" alt="Mobile address screen: Dorchester → Boston, MA, approximate-location map, missing facts, rules grouped by result" width="260"> |
+
+**Start here, then explore.** Both apps open with a five-step roadmap that earns a stamp at each step: find an
+address, spot a postal/legal mismatch, read a source, change the date, open a scenario. A bubble map shows where
+the 500 sample addresses are. Click a bubble to see its rules and how many of its results are unknown.
+
+| Web dashboard | Mobile app |
+|---|---|
+| <img src="docs/img/web-start-here.png" alt="Start here roadmap with five steps, the next one highlighted" width="420"><br><img src="docs/img/web-bubbles.png" alt="Map of the United States with one bubble per legal jurisdiction, sized by sample addresses" width="420"> | <img src="docs/img/app-home.png" alt="Mobile home: search, four KPI tiles and the Start here roadmap" width="260"> |
+
+**Rules grouped by what they mean for the building.** The groups are Applies, Can't tell yet, Displaced, Not yet in
+force and Pending bills. Each group shows four cards and then "Show all". The chips at the top filter the list.
+
+<img src="docs/img/web-rules-by-outcome.png" alt="Applies group: rule cards with result badge, category tag, short summary, quoted source sentence, citation, retrieval date and as-of date" width="560">
+
+**Change tests T1–T5 on a map.** In T2, Hoboken and Jersey City ban algorithmic rent-setting and Newark does not.
+The map shows this without any text: Newark stays white and the other two cities are flagged for human review.
+
+| Web dashboard | Mobile app |
+|---|---|
+| <img src="docs/img/web-t2-map.png" alt="T2: 90 of 500 addresses affected, 90 need review, map of Newark (not affected) and Jersey City and Hoboken (flagged)" width="520"> | <img src="docs/img/app-scenario.png" alt="Mobile T2 scenario with KPI tiles, dot map and affected addresses by jurisdiction" width="260"> |
+
+**Method and audit.** Every result on the as-of date sits in one bar. Pick a result to see why the engine gave it.
+For *Unknown*, the top reasons are facts the record does not have: 890 results cite the missing owner, 302 the
+year built and 189 the unit count.
+
+| Web dashboard | Mobile app |
+|---|---|
+| <img src="docs/img/web-method-reasons.png" alt="All 9,332 results on 2026-10-01 in one bar, with the top reasons behind Unknown" width="520"> | <img src="docs/img/app-method.png" alt="Mobile method screen: KPI tiles, every result on the date and rules by category" width="240"> |
+
+<sub>Screenshots taken on 2026-10-04: the web from the live demo; the app from its web preview at phone size (on a
+phone, the maps use Apple or Google tiles). Every screen says "Not legal advice" and shows the as-of date.</sub>
 
 ---
 
@@ -135,6 +180,7 @@ The build copies the pipeline outputs into `web/public/data/` and precomputes th
 | `derived/` | Jurisdictions, cached Census responses, lookups for each as-of date |
 | `submission/` | The three deliverable JSON files |
 | `web/`, `mobile/` | The two apps; `web/scripts/videos/` rebuilds the submission videos |
+| `docs/img/` | README screenshots of the web dashboard and the mobile app |
 | `tests/` | pytest suite and fixtures (never submitted) |
 
 ## Responsible use
