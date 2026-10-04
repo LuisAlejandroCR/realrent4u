@@ -12,6 +12,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/copy-data.mjs && node scripts/landing-media.mjs",
     "build": "next build",
+    "test:e2e": "playwright test",
     "serve": "npx --yes serve out -l 3000"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

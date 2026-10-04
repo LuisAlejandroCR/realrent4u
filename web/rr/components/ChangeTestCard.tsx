@@ -118,6 +118,13 @@ export function ChangeTestCard({ test, result, rules, addresses, addressHref, da
                   )}
                 </>
               )}
+              {result?.notes && (
+                // The pipeline's own notes: how organizer rule ids were matched and anything it could not decide.
+                <details className="rr-test-notes">
+                  <summary>{tr.pipelineNotes}</summary>
+                  <p>{result.notes}</p>
+                </details>
+              )}
             </>
           )}
         </div>

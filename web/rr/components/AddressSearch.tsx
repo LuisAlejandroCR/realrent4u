@@ -1,6 +1,7 @@
 "use client";
 // AddressSearch.tsx: accessible combobox over the 500 sample addresses (ID, street, city, ZIP).
-import { useId, useState } from "react";
+// "/" anywhere outside a text field focuses it (docs/DESIGN.md, keyboard rule).
+import { useEffect, useId, useRef, useState } from "react";
 import type { Address } from "../types";
 import type { Dict } from "../i18n";
 import { searchAddresses } from "../data";
@@ -18,6 +19,19 @@ export function AddressSearch({ addresses, onSelect, tr }: AddressSearchProps) {
   const id = useId();
   const hits = searchAddresses(addresses, q);
   const open = q.trim().length > 0;
+  const input = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (t && (t.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(t.tagName))) return;
+      e.preventDefault();
+      input.current?.focus();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const pick = (a: Address) => {
     onSelect(a);
@@ -29,7 +43,9 @@ export function AddressSearch({ addresses, onSelect, tr }: AddressSearchProps) {
       <label htmlFor={`${id}-q`} className="rr-search-label">{tr.searchLabel}</label>
       <p id={`${id}-help`} className="rr-muted">{tr.searchHelp}</p>
       <input
+        ref={input}
         id={`${id}-q`}
+        aria-keyshortcuts="/"
         type="search"
         role="combobox"
         aria-expanded={open && hits.length > 0}

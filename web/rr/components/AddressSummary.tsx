@@ -1,4 +1,5 @@
-// AddressSummary.tsx: address header: postal data vs legal jurisdiction and building facts, gaps shown explicitly.
+// AddressSummary.tsx: address header: postal data vs legal jurisdiction (with the state → county → city stack)
+// and building facts, gaps shown explicitly.
 import type { Address, Jurisdiction } from "../types";
 import type { Dict } from "../i18n";
 import { blank } from "../data";
@@ -38,6 +39,13 @@ export function AddressSummary({ address: a, jurisdiction: j, asOf, tr }: Addres
             {resolved ? <strong>{j!.jurisdiction}</strong> : <span className="rr-missing">{tr.unresolved}</span>}
             {differs && <span className="rr-flag">≠ {tr.differs}</span>}
             {j?.match === "fallback" && <span className="rr-flag">{tr.fallback}</span>}
+            {resolved && (
+              // Rules stack from the state down to the city; the county is shown when the resolver recorded one.
+              <ol className="rr-stack" aria-label={tr.stack}>
+                {[j!.state, j!.county, j!.jurisdiction].filter((x): x is string => !!x).map((x) => <li key={x}>{x}</li>)}
+              </ol>
+            )}
+            {resolved && j!.source === "census" && <span className="rr-meta rr-stack-src">{tr.viaCensus(j!.match ?? "")}</span>}
           </dd>
         </div>
         <Fact label={tr.yearBuilt} value={a.year_built} tr={tr} />

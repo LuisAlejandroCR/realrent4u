@@ -1,0 +1,40 @@
+/* rr-scenarios.css: lookup-tab additions: the demo scenario picker (full grid and compact panel list) and
+   the "at a glance" result summary strip. Uses the tokens in rr.css; no raw colours. */
+
+/* Scenario picker */
+.rr-sc { margin-top: 8px; }
+.rr-sc .rr-section-title { margin-top: 6px; }
+.rr-sc-intro { margin: -6px 0 18px; max-width: 62ch; font-size: 15px; }
+.rr-sc-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.rr-sc-card { display: flex; flex-direction: column; gap: 8px; min-width: 0; background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: var(--rr-radius); padding: 16px; box-shadow: var(--rr-shadow); }
+.rr-sc-title { margin: 0; font-size: 16px; line-height: 1.35; display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; }
+.rr-sc-body { margin: 0; font-size: 14px; color: var(--rr-ink-2); }
+.rr-sc-picks { display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 4px; }
+
+.rr-sc-pick { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; row-gap: 2px; align-items: baseline; width: 100%; min-height: 44px; padding: 8px 12px; text-align: left; border: 1.5px solid var(--rr-border); border-radius: 8px; background: var(--rr-paper); color: var(--rr-ink); font: 15px var(--rr-sans); cursor: pointer; }
+.rr-sc-pick:hover { border-color: var(--rr-stamp); }
+.rr-sc-pick[aria-pressed="true"] { border-color: var(--rr-stamp); background: var(--rr-soft); box-shadow: inset 3px 0 0 var(--rr-stamp); }
+.rr-sc-street { overflow-wrap: anywhere; }
+.rr-sc-detail { grid-column: 2; font-size: 13px; color: var(--rr-ink-2); overflow-wrap: anywhere; }
+
+/* Compact list under the search box */
+.rr-sc-compact { margin-top: 16px; border-top: 1px solid var(--rr-border); padding-top: 12px; }
+.rr-sc-compact summary { min-height: 44px; display: flex; align-items: center; font-weight: 700; cursor: pointer; }
+.rr-sc-compact-group { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.rr-sc-compact-title { margin: 0; font-size: 13px; font-weight: 600; color: var(--rr-ink-2); }
+.rr-sc-compact .rr-sc-pick { font-size: 14px; padding: 6px 10px; }
+
+/* Result summary strip */
+.rr-sum { margin: 24px 0 8px; padding: 14px 16px; background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: var(--rr-radius); }
+.rr-sum-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.rr-sum-title { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rr-ink-2); }
+.rr-sum-stamp { margin: 0; font-size: 13px; font-weight: 600; color: var(--rr-terra); }
+.rr-sum-line { margin: 8px 0 0; font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.rr-sum-list { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.rr-sum-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 12px 4px 6px; border: 1px solid var(--rr-border); border-radius: 999px; background: var(--rr-paper); color: var(--rr-ink); font: 15px var(--rr-sans); cursor: pointer; }
+.rr-sum-btn:hover { border-color: var(--rr-stamp); }
+.rr-sum-n { font-family: var(--rr-mono); font-weight: 700; font-size: 16px; }
+
+@media (max-width: 520px) {
+  .rr-sum-head { flex-direction: column; }
+}

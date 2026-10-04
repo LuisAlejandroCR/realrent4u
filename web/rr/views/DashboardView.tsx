@@ -44,9 +44,18 @@ export function DashboardView({ initial = "lookup" }: { initial?: Tab }) {
                   tabIndex={tab === t ? 0 : -1}
                   onClick={() => choose(t)}
                   onKeyDown={(e) => {
+                    // Roving tabindex: move focus with the selection, or the focused tab drops out of the tab order.
                     const i = TABS.indexOf(t);
-                    if (e.key === "ArrowRight") choose(TABS[(i + 1) % TABS.length]!);
-                    if (e.key === "ArrowLeft") choose(TABS[(i + TABS.length - 1) % TABS.length]!);
+                    const next =
+                      e.key === "ArrowRight" ? TABS[(i + 1) % TABS.length]
+                      : e.key === "ArrowLeft" ? TABS[(i + TABS.length - 1) % TABS.length]
+                      : e.key === "Home" ? TABS[0]
+                      : e.key === "End" ? TABS[TABS.length - 1]
+                      : undefined;
+                    if (!next) return;
+                    e.preventDefault();
+                    choose(next);
+                    document.getElementById(`tab-${next}`)?.focus();
                   }}
                 >
                   {label[t]}

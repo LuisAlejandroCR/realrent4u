@@ -125,9 +125,13 @@ export function TestRunPanel({ test, result, data, tr, onOutcome }: TestRunPanel
         </button>
         <p id={`run-${test.test_id}`} className="rr-meta">{tr.runHelp}</p>
       </div>
+      {/* Always mounted, so screen readers announce the change; a live region inserted with its content is often missed. */}
+      <p className="rr-sr" role="status">
+        {state === "running" ? tr.loading : state === "error" ? tr.runError : state === "done" && out ? tr.runStepCount(out.affected.length, out.conflicts.length) : ""}
+      </p>
       {state === "error" && <p className="rr-unavail"><strong>{tr.runError}</strong></p>}
       {out && state !== "error" && (
-        <div className="rr-run-out" aria-live="polite">
+        <div className="rr-run-out">
           <ol className="rr-run-steps">
             <li><b>1</b> {tr.runStepRules}{" "}
               {out.ruleIds.length ? out.ruleIds.map((r) => <span key={r} className="rr-id">{r} </span>) : <span className="rr-missing">{tr.runNoRule}</span>}
