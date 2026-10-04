@@ -456,7 +456,7 @@ em.rr-cine-line { animation-delay: .14s; }
 .rr-story-k { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--rr-ink-2); }
 .rr-story-line s { color: var(--rr-ink-2); text-decoration-thickness: 2px; text-decoration-color: var(--rr-marigold); }
 .rr-story-arrow { color: var(--rr-ink-2); }
-.rr-story-legal { font-size: 22px; color: var(--rr-stamp); padding: 0 8px; border: 2px solid var(--rr-stamp); border-radius: 6px; transform: rotate(-2deg); display: inline-block; animation: rr-stamp-in .45s cubic-bezier(.2,1.6,.4,1); }
+.rr-story-legal { margin-left: 4px; font-size: 22px; color: var(--rr-stamp); padding: 0 8px; border: 2px solid var(--rr-stamp); border-radius: 6px; transform: rotate(-2deg); display: inline-block; animation: rr-stamp-in .45s cubic-bezier(.2,1.6,.4,1); }
 .rr-story-flag { justify-self: start; margin: 0; }
 .rr-factchips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .rr-factchips li { padding: 6px 12px; border-radius: 999px; background: var(--rr-soft); font-size: 14px; }
@@ -516,6 +516,6 @@ em.rr-cine-line { animation-delay: .14s; }
 .rr-group-h { display: flex; align-items: center; gap: 8px; }
 .rr-group-h .rr-seg-key { width: 14px; height: 14px; }
 .rr-group-n { font: 700 14px var(--rr-mono); color: var(--rr-ink-2); padding: 2px 8px; border-radius: 999px; background: var(--rr-soft); }
-.rr-tag { font-size: 12px; font-weight: 600; color: var(--rr-ink-2); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rr-border); background: var(--rr-paper); }
+.rr-cat-tag { font-size: 12px; font-weight: 600; color: var(--rr-ink-2); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rr-border); background: var(--rr-paper); }
 .rr-group-more { margin: 4px 0 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--rr-stamp); background: var(--rr-surface); color: var(--rr-stamp); font: 700 14px var(--rr-sans); cursor: pointer; }
 .rr-group-more:hover { background: var(--rr-soft); }

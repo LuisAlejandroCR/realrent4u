@@ -66,7 +66,7 @@ export function RuleCard({ rule, item, displaced = [], asOf, lang, tr, showCateg
         <div className="rr-badges">
           <StatusBadge kind={kind} tr={tr} />
           {conflict && <StatusBadge kind="review" tr={tr} />}
-          {showCategory && <span className="rr-tag">{tr.category[rule.category] ?? rule.category}</span>}
+          {showCategory && <span className="rr-cat-tag">{tr.category[rule.category] ?? rule.category}</span>}
         </div>
         <h3 id={`h-${rule.team_rule_id}`} className="rr-rule-title">{rule.title}</h3>
         {item?.reason && <Reason reason={item.reason} lang={lang} tr={tr} />}

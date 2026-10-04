@@ -240,7 +240,7 @@ test("rules are grouped by outcome, four at a time", async ({ page }) => {
   await page.goto("/dashboard?a=A0322&asOf=2026-10-01");
   const applies = page.getByRole("region", { name: /^Applies/ });
   await expect(applies.locator("article")).toHaveCount(4);
-  await expect(applies.locator(".rr-tag").first()).toBeVisible();
+  await expect(applies.locator(".rr-cat-tag").first()).toBeVisible();
   await applies.getByRole("button", { name: /Show all \d+/ }).click();
   await expect(applies.locator("article")).toHaveCount(16);
   await expect(page.getByRole("region", { name: /Can't tell yet/ }).locator("article")).toHaveCount(3);
