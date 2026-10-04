@@ -28,7 +28,7 @@ export default function SearchScreen() {
   useEffect(() => { if (focus) { const id = setTimeout(() => input.current?.focus(), 250); return () => clearTimeout(id); } }, [focus]);
   useEffect(() => { const p = preview.param("q"); if (p) setQ(p); }, [setQ]);
   // Count every match, render the first LIMIT: the count must never claim fewer matches than exist.
-  const all = useMemo(() => searchAddresses(data.addresses, q, Infinity), [data.addresses, q]);
+  const all = useMemo(() => searchAddresses(data.addresses, q, Infinity, (id) => data.jurisdictions[id]?.jurisdiction), [data.addresses, data.jurisdictions, q]);
   const matches = all.slice(0, LIMIT);
   const typed = q.trim().length > 0;
   const loading = preview.param("state") === "loading";
