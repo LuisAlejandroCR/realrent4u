@@ -1,4 +1,5 @@
 # corpus.py: loads the corpus manifest, document texts and sample addresses.
+# Team-fetched texts in data_extra/ (see data_extra/README.md) override link-only entries of the pack.
 # Also holds the quote check: a rule survives only if its quoted span exists in its source text
 # (compared with whitespace collapsed, since the captured texts keep PDF line breaks).
 
@@ -12,6 +13,9 @@ from realrent import paths
 
 _WS = re.compile(r"\s+")
 
+EXTRA = paths.ROOT / "data_extra"
+EXTRA_MANIFEST = EXTRA / "manifest.csv"
+
 
 @dataclass(frozen=True)
 class Document:
@@ -21,6 +25,7 @@ class Document:
     source_type: str
     retrieved_at: str
     text_file: Path | None
+    origin: str = "starter"  # "starter" (data/, organizer pack) or "team-fetched" (data_extra/)
 
     @property
     def has_text(self) -> bool:
@@ -41,13 +46,12 @@ def collapse(text: str) -> str:
     return _WS.sub(" ", text).strip()
 
 
-@lru_cache(maxsize=1)
-def documents() -> dict[str, Document]:
-    with paths.MANIFEST.open(encoding="utf-8", newline="") as f:
+def _load(manifest: Path, base: Path, origin: str) -> dict[str, Document]:
+    with manifest.open(encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
     docs = {}
     for r in rows:
-        text_file = paths.CORPUS / r["text_file"] if r["status"] == "ok" and r["text_file"] else None
+        text_file = base / r["text_file"] if r["status"] == "ok" and r["text_file"] else None
         docs[r["doc_id"]] = Document(
             doc_id=r["doc_id"],
             jurisdiction=r["jurisdictions"],
@@ -55,7 +59,26 @@ def documents() -> dict[str, Document]:
             source_type=r["source_type"],
             retrieved_at=r["retrieved_at"],
             text_file=text_file,
+            origin=origin,
         )
+    return docs
+
+
+@lru_cache(maxsize=1)
+def starter_documents() -> dict[str, Document]:
+    """The 87 documents of the organizer pack, as shipped in data/corpus/."""
+    return _load(paths.MANIFEST, paths.CORPUS, "starter")
+
+
+@lru_cache(maxsize=1)
+def documents() -> dict[str, Document]:
+    """Pack documents plus team-fetched ones; a fetched text replaces a link-only entry, never a captured one."""
+    docs = dict(starter_documents())
+    if EXTRA_MANIFEST.exists():
+        for doc_id, doc in _load(EXTRA_MANIFEST, EXTRA, "team-fetched").items():
+            if doc_id in docs and docs[doc_id].has_text:
+                continue
+            docs[doc_id] = doc
     return docs
 
 

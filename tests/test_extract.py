@@ -42,6 +42,15 @@ def test_invented_quote_is_dropped_and_logged():
                     "action": "dropped", "reason": "quote_not_in_source", "quoted_span": fake["quoted_span"]}]
 
 
+def test_rule_outside_source_jurisdiction_is_dropped_and_logged():
+    log = []
+    other_city = raw_rule(jurisdiction="Seattle, WA")
+    rules = extract.build_rules({"D001": {"rules": [other_city, raw_rule(jurisdiction="CA", level="state")]}}, log)
+    assert [r["jurisdiction"] for r in rules] == ["CA"]
+    assert log[0]["reason"] == "jurisdiction_outside_source_scope"
+    assert log[0]["source_jurisdiction"] == "Berkeley, CA"
+
+
 def test_bad_date_becomes_null_and_conflict_note_sets_flag():
     rules = extract.build_rules(
         {"D001": {"rules": [raw_rule(effective_date="March 2026", conflict_note="Two dates published.")]}}, [])

@@ -1,0 +1,4 @@
+doc_id,jurisdictions,url,source_type,capture,retrieved_at,sha256,text_file,status
+D037,"Jersey City, NJ",https://www.morganlewis.com/pubs/2026/08/algorithmic-rent-pricing-litigation-expands-under-new-state-and-local-laws,secondary (law firm / news / mirror),team-fetched,2026-10-03T18:59Z,4b9773a13d05dcae4316ba2108bd8b37c5ed6e410a06c17ed3dcaf22026d5c0d,text/D037.txt,ok
+D059,MA,https://www.wbur.org/news/2026/06/23/massachusetts-high-court-rent-control-ballot-question-struck,secondary (law firm / news / mirror),team-fetched,2026-10-03T18:58Z,40567537cd8b6af58a8250bfe94254ac5cbddce5f03dd87fb74026a80ee27d7f,text/D059.txt,ok
+X001,"Hoboken, NJ",https://hobokennj.gov/news/city-of-hoboken-outlaws-algorithmic-rent-fixing,official,team-fetched,2026-10-03T18:55Z,18aa731cbd267e428dbcf19c0aab326e4fb36d942725ca3801927e48c017752e,text/X001.txt,ok

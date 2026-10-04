@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "jurisdiction": "MA",
+      "level": "state",
+      "category": "rent_increase_limits",
+      "status": "failed",
+      "title": "Proposed statewide rent control ballot question (struck by Supreme Judicial Court)",
+      "requirement": "A proposed ballot initiative would have limited annual rent increases for residences, with exemptions for several types of units. The Supreme Judicial Court ruled it cannot go on the November 2026 ballot because it includes a religious exemption.",
+      "key_value": "Annual rent increase limit proposed; cap formula not stated; ballot question struck",
+      "citation": "",
+      "quoted_span": "The state’s Supreme Judicial Court ruled a ballot question seeking to bring rent control back to Massachusetts cannot go forward this November, because it includes a religious exemption.",
+      "effective_date": "",
+      "enacted_date": "",
+      "coverage_text": "The proposal limits annual rent increases for residences, with exemptions for several types of units.",
+      "built_cutoff_date": "",
+      "built_cutoff_basis": "none",
+      "built_cutoff_direction": "none",
+      "min_units": 0,
+      "exempts_small_owner_occupied": false,
+      "exemptions": "Several types of units, including ones operated solely for religious purposes, plus other secular exemptions (not detailed).",
+      "penalty": "",
+      "displaces_state_rule": false,
+      "interaction": "",
+      "conflict_note": "",
+      "extraction_note": "Secondary news source (WBUR, published 2026-06-23). The article does not give the rent cap formula, petition number, or the full list of exemptions. The Supreme Judicial Court found the petition 'relates to religion, religious practices or religious institutions,' which the state Constitution bars from the ballot. Proponents hinted at a possible 2028 petition. A compromise bill was urged but was not passed according to the article.",
+      "confidence": 0.8
+    }
+  ],
+  "meta": {
+    "model": "claude-opus-5-5",
+    "stop_reason": "end_turn",
+    "request_id": null,
+    "input_tokens": 3445,
+    "output_tokens": 882,
+    "at": "2026-10-04T02:58:05+00:00"
+  },
+  "prompt_version": 2
+}
