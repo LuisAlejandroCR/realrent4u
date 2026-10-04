@@ -1,4 +1,4 @@
-// format.ts: display-only date formatting (EN/ES).
+// format.ts: display-only formatting (EN/ES): readable dates and plain-language engine reason codes.
 import type { Lang } from "./types";
 
 const MONTHS = {
@@ -14,4 +14,18 @@ export function readableDate(raw: string, lang: Lang): string {
   const name = MONTHS[lang][mo - 1];
   if (!name) return raw;
   return lang === "es" ? `${d} ${name} ${y}` : `${name} ${d}, ${y}`;
+}
+
+/**
+ * Engine reason codes ("missing_units,superseded_by:r-D041-01") → plain sentences, joined with " · ".
+ * Unknown codes are shown as-is rather than hidden.
+ */
+export function reasonText(reason: string | undefined, reasons: Record<string, string>, displacedBy: (r: string) => string, titleOf: (id: string) => string | undefined): string | null {
+  if (!reason) return null;
+  return reason
+    .split(",")
+    .map((c) => c.trim())
+    .filter(Boolean)
+    .map((c) => (c.startsWith("superseded_by:") ? displacedBy(titleOf(c.slice(14)) ?? c.slice(14)) : reasons[c] ?? c.replace(/_/g, " ")))
+    .join(" · ");
 }

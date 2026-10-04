@@ -1,28 +1,59 @@
-// method.tsx: 08 Method & audit: how results are produced, data sources, dates, warnings and limits.
+// method.tsx: 08 Method & audit: KPIs and charts at a glance, then how results are produced, data sources,
+// dates, warnings and limits.
 import type { ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LangToggle, LegalDateBar } from "../../src/components/Chrome";
+import { LegalDateBar } from "../../src/components/Chrome";
+import { ProfileButton } from "../../src/components/Story";
+import { BarList, KpiRow, StackedBar } from "../../src/components/Charts";
 import { Card, Disclosure, Kicker, Notice, T } from "../../src/components/ui";
 import { allDates } from "../../src/data";
+import { readableDate } from "../../src/format";
 import { usePrefs } from "../../src/prefs";
-import { color, radius, space } from "../../src/theme";
+import { badge, chart, color, radius, space } from "../../src/theme";
+import type { LookupResult } from "../../src/types";
 
 /** 08 Method & audit — three plain sections: How it works · Data used · Limits. */
 export default function MethodScreen() {
-  const { tr, ms, data } = usePrefs();
+  const { tr, ms, data, asOf, lang } = usePrefs();
   const mf = data.manifest;
+  const byCat = Object.entries(data.rules.reduce<Record<string, number>>((acc, r) => ({ ...acc, [r.category]: (acc[r.category] ?? 0) + 1 }), {}))
+    .map(([k, v]) => ({ key: k, label: tr.category[k] ?? k, value: v }))
+    .sort((a, b) => b.value - a.value);
+  const counts: Record<string, number> = {};
+  Object.values(data.lookups[asOf] ?? {}).forEach((items) => items.forEach((i) => { counts[i.result] = (counts[i.result] ?? 0) + 1; }));
+  const results = (["applies", "unknown", "superseded", "not_yet_effective", "pending"] as LookupResult[])
+    .map((k) => ({ key: k, label: tr.result[k] ?? k, value: counts[k] ?? 0, color: chart[k], glyph: badge[k].glyph }));
   return (
     <SafeAreaView edges={["top"]} style={{ flex: 1, backgroundColor: color.surface }}>
       <View style={{ backgroundColor: color.tint, paddingHorizontal: space.lg, paddingVertical: space.md, gap: 4 }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
           <T variant="display" serif accessibilityRole="header">{tr.aboutTitle}</T>
-          <LangToggle />
+          <ProfileButton />
         </View>
         <T variant="small" muted>{tr.aboutLead}</T>
       </View>
       <LegalDateBar />
       <ScrollView style={{ backgroundColor: color.paper }} contentContainerStyle={{ padding: space.lg, gap: space.md, paddingBottom: space.xxxl }}>
+        {/* Numbers and pictures first; prose only where a picture can't say it. */}
+        <Kicker tone="muted">{ms.glance}</Kicker>
+        <KpiRow items={[
+          { value: data.rules.length, label: ms.kpiRules },
+          { value: mf.sources.corpus?.count ?? "—", label: ms.kpiDocs },
+          { value: data.addresses.length, label: ms.kpiAddresses },
+          { value: mf.lookup_dates.length, label: ms.kpiDates },
+        ]} />
+        {Object.keys(counts).length > 0 && (
+          <Card flat style={{ gap: space.sm, padding: space.md }}>
+            <StackedBar title={ms.resultsAt(readableDate(asOf, lang))} segments={results} />
+            <T variant="micro" muted>{ms.tapSegment}</T>
+          </Card>
+        )}
+        <Card flat style={{ gap: space.sm, padding: space.md }}>
+          <T variant="small" bold>{ms.rulesByCategory}</T>
+          <BarList rows={byCat} />
+        </Card>
+
         <Section n="1" title={ms.howTitle}>
           <T>{ms.howSummary}</T>
           <Disclosure label={ms.moreSteps}>
