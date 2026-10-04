@@ -22,6 +22,8 @@ Routes: `/` is the landing page and `/dashboard` is the app, with three tabs: ad
 
 URL params: `?lang=es&asOf=2027-07-02&tab=lookup&a=A0016`. `tab=tests&t=T3` opens one change test. Its **Run test** button recomputes the test in the browser from the precomputed lookups and checks the result against `changes.json`.
 
+Every tap answers, as in the mobile app: the result chips above an address filter its rule cards, a dot on any map opens that address, the change-test tiles (tests · address changes · need review · no effect) filter the tests, and Method shows every result at the as-of date with the top reasons behind the one you pick.
+
 Code: the UI lives in `rr/` (views, components, `data.ts`, `i18n.ts`, `rr.css` + `rr-landing.css`); `app/` only holds the route files.
 
 ## Data

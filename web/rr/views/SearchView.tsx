@@ -10,14 +10,15 @@ import { DemoScenarios } from "../components/DemoScenarios";
 import { ResultSummary } from "../components/ResultSummary";
 import { Notice } from "../components/Notice";
 import { rulesInRecord, useLookups, type Dataset } from "../data";
-import { setParam, usePrefs } from "../prefs";
+import { hrefWith, setParam, usePrefs } from "../prefs";
 import type { Address, Jurisdiction } from "../types";
 import type { Dict } from "../i18n";
 import { DatesChart, MetroMap } from "../components/Charts";
 import { metroOf, useAddressDates, useGeo } from "../visual";
 
 /** Approximate location in its metro and the result mix across the precomputed dates. */
-function WhereWhen({ address, j, asOf, onDate, data, tr }: { address: Address; j?: Jurisdiction; asOf: string; onDate: (d: string) => void; data: Dataset; tr: Dict }) {
+function WhereWhen({ address, j, asOf, onDate, onOpen, data, tr }: { address: Address; j?: Jurisdiction; asOf: string; onDate: (d: string) => void; onOpen: (a: Address) => void; data: Dataset; tr: Dict }) {
+  const prefs = usePrefs();
   const geo = useGeo();
   const ad = useAddressDates();
   const metro = geo ? metroOf(geo, j?.jurisdiction) : null;
@@ -37,12 +38,26 @@ function WhereWhen({ address, j, asOf, onDate, data, tr }: { address: Address; j
     <section className="rr-where" aria-label={tr.whereTitle}>
       {metro && (
         <div className="rr-where-map">
-          <MetroMap metro={metro} dots={dots} selected={sel} title={metro.name} tr={tr} />
+          <MetroMap
+            metro={metro}
+            dots={dots}
+            selected={sel}
+            title={metro.name}
+            // Every other dot is a neighbour: clicking one opens it here, like the mobile map card's Open.
+            link={{
+              href: (id) => hrefWith("/dashboard", prefs, { tab: "lookup", a: id }),
+              onPick: (id) => {
+                const next = data.addresses.find((a) => a.address_id === id);
+                if (next) onOpen(next);
+              },
+            }}
+            tr={tr}
+          />
           <ul className="rr-map-legend">
             <li><i className="rr-mkey is-sel" aria-hidden /> {tr.lgThis}</li>
             <li><i className="rr-mkey is-off" aria-hidden /> {tr.lgOthers}</li>
           </ul>
-          <p className="rr-meta">{p ? tr.whereNote : tr.notPlaced}</p>
+          <p className="rr-meta">{p ? tr.whereNote : tr.notPlaced} {dots.length > 0 && tr.mapPickHint}</p>
         </div>
       )}
       {rows && ad && <DatesChart order={ad.order} dates={ad.dates} rows={rows} current={asOf} onPick={onDate} tr={tr} />}
@@ -55,6 +70,7 @@ export function SearchBody({ data }: { data: Dataset }) {
   const { tr, lang } = prefs;
   const asOf = prefs.asOf ?? data.manifest.default_as_of;
   const [addrId, setAddrId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<string | null>(null);
   useEffect(() => setAddrId(new URLSearchParams(window.location.search).get("a")), []);
   const lookups = useLookups(data.manifest, asOf);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -64,6 +80,9 @@ export function SearchBody({ data }: { data: Dataset }) {
   const rules = rulesInRecord(data.rules, j);
   const items = address && lookups.state === "ready" ? lookups.data?.[address.address_id] : undefined;
   const ruleSet = items ? data.rules.filter((r) => items.some((i) => i.team_rule_id === r.team_rule_id)) : rules;
+
+  // A filter belongs to one address and one date; drop it when either changes.
+  useEffect(() => setFilter(null), [addrId, asOf]);
 
   const select = (a: Address, date?: string) => {
     setAddrId(a.address_id);
@@ -105,7 +124,7 @@ export function SearchBody({ data }: { data: Dataset }) {
         {address && (
           <>
             <AddressSummary address={address} jurisdiction={j} asOf={asOf} tr={tr} />
-            <WhereWhen address={address} j={j} asOf={asOf} onDate={prefs.setAsOf} data={data} tr={tr} />
+            <WhereWhen address={address} j={j} asOf={asOf} onDate={prefs.setAsOf} onOpen={(a) => select(a)} data={data} tr={tr} />
             <h2 className="rr-section-title">
               {tr.results} <span className="rr-muted">· {tr.asOf} {asOf}</span>
             </h2>
@@ -118,11 +137,11 @@ export function SearchBody({ data }: { data: Dataset }) {
                 {(lookups.state === "none" || (lookups.state === "ready" && !items)) && (
                   <Notice tone="neutral" title={tr.noLookups}>{tr.noLookupsBody}</Notice>
                 )}
-                {lookups.state !== "loading" && <ResultSummary rules={ruleSet} items={items} asOf={asOf} tr={tr} />}
+                {lookups.state !== "loading" && <ResultSummary rules={ruleSet} items={items} asOf={asOf} tr={tr} filter={filter} onFilter={setFilter} />}
                 {ruleSet.length === 0 ? (
                   <Notice tone="neutral" title={tr.noRules} />
                 ) : (
-                  <ResultsByCategory rules={ruleSet} items={items} allRules={data.rules} asOf={asOf} lang={lang} tr={tr} />
+                  <ResultsByCategory rules={ruleSet} items={items} allRules={data.rules} asOf={asOf} lang={lang} tr={tr} filter={items ? filter : null} />
                 )}
               </>
             )}

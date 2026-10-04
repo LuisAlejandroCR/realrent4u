@@ -38,3 +38,7 @@
 @media (max-width: 520px) {
   .rr-sum-head { flex-direction: column; }
 }
+
+/* A chip that filters the cards below: pressed state. */
+.rr-sum-btn.is-on { border-color: var(--rr-stamp); box-shadow: inset 0 0 0 1px var(--rr-stamp); background: var(--rr-soft); }
+.rr-sum-all { padding-left: 12px; color: var(--rr-ink-2); }

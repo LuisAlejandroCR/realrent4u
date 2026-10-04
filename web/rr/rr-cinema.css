@@ -405,3 +405,29 @@ em.rr-cine-line { animation-delay: .14s; }
 .rr-clip { margin: 0; border-radius: 20px; overflow: hidden; background: var(--rr-night); box-shadow: 0 30px 60px -36px rgba(20, 28, 46, .55); aspect-ratio: 16 / 9; }
 .rr-clip video { width: 100%; height: 100%; display: block; object-fit: cover; }
 @media (max-width: 900px) { .rr-l-head { grid-template-columns: 1fr; gap: 20px; } }
+
+/* A dot that opens its address: grows on hover/focus, keeps a visible focus ring. */
+.rr-dot-link { cursor: pointer; }
+.rr-dot-link .rr-dot { transform-box: fill-box; transform-origin: center; }
+.rr-dot-link:hover .rr-dot, .rr-dot-link:focus-visible .rr-dot { transform: scale(1.9); stroke: var(--rr-ink); }
+.rr-dot-link:focus-visible { outline: none; }
+.rr-dot-link:focus-visible .rr-dot { stroke-width: 2; }
+.rr-map-sel { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .rr-dot { transition: none; } }
+
+/* Method: every result at the as-of date; a segment is a button that lists its reasons. */
+.rr-mix { margin: 28px 0; }
+.rr-mix-bar { height: 22px; }
+.rr-mix-bar .rr-seg { border: 0; padding: 0; cursor: pointer; min-width: 6px; }
+.rr-mix-bar .rr-seg:not(.is-on) { opacity: .55; }
+.rr-mix-bar .rr-seg:hover, .rr-mix-bar .rr-seg:focus-visible { opacity: 1; }
+.rr-mix .rr-bars { margin-top: 14px; }
+
+/* Change tests: KPI tiles that are also filters (mobile Changes header). */
+.rr-ktiles { margin: 0 0 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.rr-ktile { display: grid; gap: 2px; text-align: left; min-height: 44px; background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 14px; padding: 12px 14px; color: var(--rr-ink); font: inherit; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.rr-ktile:hover { border-color: var(--rr-stamp); }
+.rr-ktile.is-on { border-color: var(--rr-stamp); box-shadow: inset 0 0 0 1px var(--rr-stamp); background: var(--rr-soft); }
+.rr-ktile.is-warn:not(.is-on) { border-color: var(--rr-marigold); background: var(--rr-evidence); }
+.rr-ktile-v { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.rr-ktile-l { font-size: 12px; color: var(--rr-ink-2); font-weight: 600; }
