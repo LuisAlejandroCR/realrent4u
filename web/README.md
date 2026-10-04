@@ -38,6 +38,7 @@ Code: the UI lives in `rr/` (views, components, `data.ts`, `i18n.ts`, `rr.css` +
 | `addresses.json`, `sample_addresses.csv` | `data/data/sample_addresses.csv` | — |
 | `corpus.json` | `data/corpus/corpus_manifest.csv` (retrieval dates) | — |
 | `hero.json` | three addresses picked by predicate from the lookups above, with their results on every date (~20 KB, for the landing stage) | empty list: the stage is not shown |
+| `geo.json`, `address-dates.json` | written by `scripts/visual-data.mjs` from `derived/census/` and the lookups: metro maps (us-atlas county lines, addresses rounded to ~1 km) and result counts per address and date | empty: maps and the dates chart are not shown |
 | `manifest.json` | the sources used, demo dates (parsed from `realrent/paths.py`) and warnings | — |
 
 When any fixture is used, a **Fixture data** badge appears in the header.
@@ -50,8 +51,8 @@ The landing reads `web/landing.config.json`. `scripts/landing-media.mjs` runs be
 |---|---|
 | `site_url` | Public https URL of the deployed site (for example the Vercel URL). It builds QR codes for local video files and the default demo link (`<site_url>/dashboard/`). |
 | `demo.url` | Optional https link for the "Open the demo" QR. It overrides `site_url`. |
-| `videos[].title`, `videos[].context` | Title and one-line context (EN/ES) shown beside the video. The four storyboard entries are already filled in. |
-| `videos[].optional` | `true` marks a video the story can do without (video 4). It shows an "Optional" tag. |
+| `videos[].title`, `videos[].context` | Title and one-line context (EN/ES) shown beside the video. The three section clips (`how-it-works`, `five-results`, `change-over-time`; scripts in `docs/LANDING_CLIPS.md`) are already filled in. |
+| `videos[].optional` | `true` marks a clip the story can do without. It shows an "Optional" tag. |
 | `videos[].src` | An MP4 (H.264) under `web/public/media/` (for example `media/product-demo.mp4`), or an https URL to an MP4 file. It plays in a native player with controls and no autoplay. |
 | `videos[].url` | Optional https page for the video (YouTube, Drive and so on). It is used for the button and the QR. |
 | `videos[].poster` | A JPG or PNG under `web/public/media/`, or an https URL. |

@@ -198,6 +198,7 @@
 .rr-chev { width: 10px; height: 10px; margin-top: 8px; border-right: 2px solid var(--rr-ink-2); border-bottom: 2px solid var(--rr-ink-2); transform: rotate(45deg); }
 .is-open .rr-chev { transform: rotate(-135deg); margin-top: 12px; }
 .rr-test-body { padding: 0 18px 18px 68px; display: grid; gap: 16px; }
+.rr-test-body[hidden] { display: none; }
 .rr-test-body p { margin: 0; }
 .rr-scenario-dates { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; justify-self: start; padding: 6px 12px; border: 1px dashed var(--rr-ink-2); border-radius: 8px; font-size: 14px; }
 .rr-scenario-label { font-weight: 600; color: var(--rr-ink-2); }

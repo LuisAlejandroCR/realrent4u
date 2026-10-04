@@ -1,6 +1,7 @@
 "use client";
 // SearchView.tsx: dashboard tab "Address lookup": search a sample address (or pick a demo scenario) and see
-// each rule's result, reason, quoted source and retrieval date for the selected as-of date.
+// its approximate location and result mix across dates, then each rule's result, reason, quoted source and
+// retrieval date for the selected as-of date.
 import { useEffect, useRef, useState } from "react";
 import { AddressSearch } from "../components/AddressSearch";
 import { AddressSummary } from "../components/AddressSummary";
@@ -10,7 +11,44 @@ import { ResultSummary } from "../components/ResultSummary";
 import { Notice } from "../components/Notice";
 import { rulesInRecord, useLookups, type Dataset } from "../data";
 import { setParam, usePrefs } from "../prefs";
-import type { Address } from "../types";
+import type { Address, Jurisdiction } from "../types";
+import type { Dict } from "../i18n";
+import { DatesChart, MetroMap } from "../components/Charts";
+import { metroOf, useAddressDates, useGeo } from "../visual";
+
+/** Approximate location in its metro and the result mix across the precomputed dates. */
+function WhereWhen({ address, j, asOf, onDate, data, tr }: { address: Address; j?: Jurisdiction; asOf: string; onDate: (d: string) => void; data: Dataset; tr: Dict }) {
+  const geo = useGeo();
+  const ad = useAddressDates();
+  const metro = geo ? metroOf(geo, j?.jurisdiction) : null;
+  const rows = ad?.by[address.address_id];
+  if (!metro && !rows) return null;
+  const street = new Map(data.addresses.map((a) => [a.address_id, a.street_address]));
+  const p = geo?.points[address.address_id];
+  const dots = metro
+    ? Object.entries(geo!.points)
+        .filter(([id, q]) => q.m === metro.id && id !== address.address_id)
+        .map(([id, q]) => ({ id, x: q.x, y: q.y, tone: "off" as const, tip: `${id} · ${street.get(id) ?? ""}` }))
+    : [];
+  const place = metro?.places.find((x) => x.jurisdiction === j?.jurisdiction);
+  const sel = p ? { id: address.address_id, x: p.x, y: p.y, tone: "on" as const, tip: `${address.address_id} · ${address.street_address}` }
+    : place ? { id: address.address_id, x: place.x, y: place.y, tone: "on" as const, tip: j?.jurisdiction ?? "" } : null;
+  return (
+    <section className="rr-where" aria-label={tr.whereTitle}>
+      {metro && (
+        <div className="rr-where-map">
+          <MetroMap metro={metro} dots={dots} selected={sel} title={metro.name} tr={tr} />
+          <ul className="rr-map-legend">
+            <li><i className="rr-mkey is-sel" aria-hidden /> {tr.lgThis}</li>
+            <li><i className="rr-mkey is-off" aria-hidden /> {tr.lgOthers}</li>
+          </ul>
+          <p className="rr-meta">{p ? tr.whereNote : tr.notPlaced}</p>
+        </div>
+      )}
+      {rows && ad && <DatesChart order={ad.order} dates={ad.dates} rows={rows} current={asOf} onPick={onDate} tr={tr} />}
+    </section>
+  );
+}
 
 export function SearchBody({ data }: { data: Dataset }) {
   const prefs = usePrefs();
@@ -67,6 +105,7 @@ export function SearchBody({ data }: { data: Dataset }) {
         {address && (
           <>
             <AddressSummary address={address} jurisdiction={j} asOf={asOf} tr={tr} />
+            <WhereWhen address={address} j={j} asOf={asOf} onDate={prefs.setAsOf} data={data} tr={tr} />
             <h2 className="rr-section-title">
               {tr.results} <span className="rr-muted">· {tr.asOf} {asOf}</span>
             </h2>

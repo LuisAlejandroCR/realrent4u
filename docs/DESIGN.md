@@ -84,16 +84,15 @@ only signal.
 Acceptance: hero fits a 1440×900 screen with the header; no horizontal scroll at 360 px; the stage never
 claims a result that is not in the lookup files; reduced motion shows every state without autoplay.
 
-**Landing storyboard (section 3, "How it works")**: one short ElevenLabs video per row, beside its
-title, context and a real example read from the data. These are separate from the three submission
-videos in `VIDEO_SCRIPTS.md`.
+**Landing clips**: one short ElevenLabs clip per section (`how-it-works`, `five-results`,
+`change-over-time`), scripts and shot lists in `docs/LANDING_CLIPS.md`. A clip appears in its section only
+once `web/landing.config.json` has its file or link.
 
-| # | id | Topic | Example shown beside it |
-|---|---|---|---|
-| 1 | `why-address-and-date` | Why the rules change with address and date | T1 title and its scenario dates |
-| 2 | `postal-vs-legal` | Postal city vs legal jurisdiction | A0036: South Boston → Boston, MA |
-| 3 | `reading-results` | Reading a result; `unknown` = missing fact, never guessed | A0036 result counts at the as-of date (only if lookups exist) |
-| 4 (optional) | `open-the-source` | Opening the quote and the original source | Quoted span + citation of a sample rule |
+**Maps and charts (dashboard)**: plain SVG precomputed by `web/scripts/visual-data.mjs`, no tiles and no
+runtime geocoding. Five metro maps (jurisdictions within 30 km grouped), county lines from `us-atlas`,
+addresses rounded to ~1 km and labelled "approximate". Lookup: location map + results on each date. Change
+tests: KPI tiles + affected addresses on the maps of the states the test touches (diamond = needs review,
+hollow = not affected). Method: KPI row, coverage maps, rules by jurisdiction (one series, sorted).
 
 Type: system sans for UI; one serif italic (`Georgia`, `"Iowan Old Style"`) for the accent word.
 Fluid `h1` with `clamp(2rem, 4vw, 3.25rem)`, 16px body, monospace only for citations and address ids.

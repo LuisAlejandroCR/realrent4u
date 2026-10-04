@@ -154,3 +154,22 @@ test("method tab draws the pipeline with counts from the data", async ({ page })
   await expect(pipe).toContainText(/\d+ rules kept/);
   await expect(pipe).toContainText("Deterministic engine");
 });
+
+test("an address shows its approximate location and its results on every date", async ({ page }) => {
+  await page.goto("/dashboard?a=A0002&asOf=2026-10-01");
+  const where = page.getByRole("region", { name: "Where and when" });
+  await expect(where.locator(".rr-map svg")).toBeVisible();
+  await expect(where.locator(".rr-map-pin")).toHaveCount(1);
+  const rows = where.locator(".rr-dchart-rows button");
+  await expect(rows).toHaveCount(4);
+  await rows.last().click();
+  await expect(page).toHaveURL(/asOf=2027-07-02/);
+});
+
+test("an open change test shows KPI tiles and a map of affected addresses", async ({ page }) => {
+  await page.goto("/dashboard?tab=tests&t=T2");
+  const card = page.locator("#test-T2");
+  await expect(card.locator(".rr-kpis")).toContainText("Affected addresses");
+  await expect(card.locator(".rr-dot.is-flag").first()).toBeVisible();
+  await expect(page.locator("#test-T1 .rr-test-body")).toBeHidden();
+});
