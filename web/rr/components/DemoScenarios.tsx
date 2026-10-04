@@ -106,11 +106,16 @@ export function buildScenarios(d: Dataset, tr: Dict): Scenario[] {
     break;
   }
 
+  const inStates = (jur: string, states: string[]) => states.some((st) => jur === st || jur.endsWith(`, ${st}`));
+
   // Dated change tests (before/after): the first resolved address in the test's state, at both dates.
+  // Shown only if a rule on file for that state takes effect between the two dates, so the switch can change something.
   for (const t of d.changeTests) {
     if (!t.as_of_before || !t.as_of_after || !t.states?.length) continue;
-    const a = resolved.find((x) => t.states!.includes(jOf(x)!.state ?? ""));
-    if (!a) continue;
+    const before = t.as_of_before, after = t.as_of_after, states = t.states;
+    const flips = d.rules.some((r) => inStates(r.jurisdiction, states) && !!r.effective_date && r.effective_date > before && r.effective_date <= after);
+    const a = resolved.find((x) => states.includes(jOf(x)!.state ?? ""));
+    if (!a || !flips) continue;
     out.push({
       id: `dated-${t.test_id}`,
       title: t.title,
@@ -120,6 +125,22 @@ export function buildScenarios(d: Dataset, tr: Dict): Scenario[] {
         { address: a, asOf: t.as_of_before, detail: `${tr.scBefore} · ${t.as_of_before}` },
         { address: a, asOf: t.as_of_after, detail: `${tr.scAfter} · ${t.as_of_after}` },
       ],
+    });
+  }
+
+  // Pending change tests: an address in the test's state, shown only when a pending rule (a bill) is on file there.
+  for (const t of d.changeTests) {
+    if (t.type !== "pending" || !t.states?.length) continue;
+    const states = t.states;
+    const pending = d.rules.filter((r) => r.status === "pending" && inStates(r.jurisdiction, states)).length;
+    const a = resolved.find((x) => states.includes(jOf(x)!.state ?? ""));
+    if (!a || !pending) continue;
+    out.push({
+      id: `pending-${t.test_id}`,
+      title: t.title,
+      body: tr.scPendingB(pending),
+      tag: t.test_id,
+      picks: [{ address: a, asOf: t.as_of, detail: `${city(a)}${t.as_of ? ` · ${t.as_of}` : ""}` }],
     });
   }
 
