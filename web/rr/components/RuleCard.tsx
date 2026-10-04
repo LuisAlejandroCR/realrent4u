@@ -6,6 +6,7 @@ import type { Dict } from "../i18n";
 import { reasonLabel } from "../reason-labels";
 import { blank } from "../data";
 import { StatusBadge } from "./StatusBadge";
+import { earn } from "../stamps";
 
 export interface DisplacedRule {
   rule: Rule;
@@ -81,7 +82,7 @@ export function RuleCard({ rule, item, displaced = [], asOf, lang, tr }: RuleCar
         {rule.retrieved_at && <span><span className="rr-label">{tr.retrieved}</span> <span className="rr-mono">{rule.retrieved_at}</span></span>}
         <span><span className="rr-label">{tr.asOf}</span> <time className="rr-mono" dateTime={asOf}>{asOf}</time></span>
         {rule.source_url && (
-          <a href={rule.source_url} target="_blank" rel="noreferrer" className="rr-link">
+          <a href={rule.source_url} target="_blank" rel="noreferrer" className="rr-link" onClick={() => earn("source")}>
             {tr.source} <span aria-hidden>↗</span><span className="rr-sr"> ({tr.newTab})</span>
           </a>
         )}

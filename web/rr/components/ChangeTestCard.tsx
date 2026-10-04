@@ -9,6 +9,7 @@ import type { Dict } from "../i18n";
 import { TestRunPanel } from "./TestRunner";
 import { Kpis, MetroGrid } from "./Charts";
 import { useGeo } from "../visual";
+import { earn } from "../stamps";
 
 /** KPI tiles and the affected addresses on the metro maps of the states the test touches. */
 function TestVisuals({ test, result, data, addressHref, tr }: { test: ChangeTest; result: ChangeResult; data: Dataset; addressHref: (id: string, asOf?: string) => string; tr: Dict }) {
@@ -81,7 +82,10 @@ export function ChangeTestCard({ test, result, rules, addresses, addressHref, da
   return (
     <article id={anchor} className={`rr-test ${open ? "is-open" : ""}`}>
       <h2 className="rr-test-h">
-        <button type="button" className="rr-test-toggle" aria-expanded={open} aria-controls={`${id}-p`} onClick={() => setOpen(!open)}>
+        <button type="button" className="rr-test-toggle" aria-expanded={open} aria-controls={`${id}-p`} onClick={() => {
+          if (!open) earn("scenario");
+          setOpen(!open);
+        }}>
           <span className="rr-test-id">{test.test_id}</span>
           <span className="rr-test-main">
             <span className="rr-test-title">{test.title}</span>

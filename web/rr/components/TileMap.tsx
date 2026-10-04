@@ -7,17 +7,20 @@ import "leaflet/dist/leaflet.css";
 import type { Dict } from "../i18n";
 
 export type TileTone = "on" | "off" | "flag";
-export interface TilePoint { id: string; lat: number; lon: number; tone: TileTone; title: string; sub?: string }
+/** r: radius in px for a bubble (size = a count); default dot size otherwise. */
+export interface TilePoint { id: string; lat: number; lon: number; tone: TileTone; title: string; sub?: string; r?: number }
 
 const FILL: Record<TileTone, string> = { on: "#2949a8", flag: "#b86a0e", off: "#ffffff" };
 
-export function TileMap({ points, area, label, href, onOpen, height = 280, tr }: {
+export function TileMap({ points, area, label, href, onOpen, openLabel, height = 280, tr }: {
   points: TilePoint[];
   /** Approximate location of the address being viewed: a soft circle. */
   area?: { lat: number; lon: number } | null;
   label: string;
   href?: (id: string) => string;
   onOpen?: (id: string) => void;
+  /** Text of the card's link; "Open" by default. */
+  openLabel?: string;
   height?: number;
   tr: Dict;
 }) {
@@ -51,11 +54,11 @@ export function TileMap({ points, area, label, href, onOpen, height = 280, tr }:
       for (const t of order) {
         for (const p of points.filter((q) => q.tone === t)) {
           L.circleMarker([p.lat, p.lon], {
-            radius: t === "off" ? 5 : 7,
+            radius: p.r ?? (t === "off" ? 5 : 7),
             color: t === "off" ? "#8b93a6" : "#ffffff",
             weight: 2,
             fillColor: FILL[t],
-            fillOpacity: 0.95,
+            fillOpacity: p.r ? 0.6 : 0.95,
           })
             .bindTooltip(p.title, { direction: "top", offset: [0, -6] })
             .on("click", (e) => {
@@ -101,7 +104,7 @@ export function TileMap({ points, area, label, href, onOpen, height = 280, tr }:
                 onOpen(p.id);
               }}
             >
-              {tr.mapOpen} →
+              {openLabel ?? tr.mapOpen} →
             </a>
           )}
           <button type="button" className="rr-tmap-x" aria-label={tr.mapClose} onClick={() => setSel(null)}>×</button>
