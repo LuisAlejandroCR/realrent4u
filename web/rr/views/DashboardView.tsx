@@ -7,6 +7,7 @@ import { setParam, usePrefs } from "../prefs";
 import { SearchBody } from "./SearchView";
 import { TestsBody } from "./ChangesView";
 import { MethodBody } from "./AboutView";
+import { StampToast, StampWatch } from "../components/Story";
 
 export type Tab = "lookup" | "tests" | "method";
 const TABS: Tab[] = ["lookup", "tests", "method"];
@@ -31,6 +32,8 @@ export function DashboardView({ initial = "lookup" }: { initial?: Tab }) {
     <AppShell current="dashboard">
       {(data) => (
         <div className="rr-dash">
+          <StampWatch defaultAsOf={data.manifest.default_as_of} />
+          <StampToast />
           <div className="rr-dash-head">
             <p className="rr-kicker">{tr.dashKicker}</p>
             <div role="tablist" aria-label={tr.dashKicker} className="rr-tabs">

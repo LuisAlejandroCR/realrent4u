@@ -111,10 +111,11 @@ test("evaluated states render summaries, readable reasons, conflicts and superse
   await expect(unknown).toContainText("year built is missing");
   await expect(unknown).toContainText("Needs human review");
 
-  const localRule = page.getByRole("article", { name: /Annual General Adjustment capped/ });
-  await localRule.locator(".rr-displaced summary").click();
-  await expect(localRule).toContainText("The Berkeley rule displaces the state rule.");
-  await expect(localRule).toContainText("superseded by r-D006-01");
+  // Grouped by outcome: the displaced state rule has its own group and says what displaces it.
+  const displaced = page.getByRole("region", { name: /Displaced by another rule/ });
+  await expect(displaced).toContainText("superseded by r-D006-01");
+  await displaced.locator(".rr-rule-more summary").first().click();
+  await expect(displaced).toContainText("The Berkeley rule displaces the state rule.");
 });
 
 test("the landing stage replays address × date and hands control to the visitor", async ({ page }) => {
@@ -214,4 +215,33 @@ test("change-test tiles filter the tests", async ({ page }) => {
   await expect(page.locator("#test-T3")).toBeVisible();
   await page.getByRole("button", { name: /Need review/ }).click();
   await expect(page.locator(".rr-tests > *")).toHaveCount(5);
+});
+
+test("start-here roadmap earns stamps and the jurisdiction bubbles open an example", async ({ page }) => {
+  await page.goto("/dashboard");
+  const road = page.getByRole("region", { name: "Start here" });
+  await expect(road).toContainText("0 of 5 steps");
+  await road.getByRole("link", { name: /Spot a jurisdiction mismatch/ }).click();
+  await expect(page).toHaveURL(/a=A0065/);
+  await expect(page.locator(".rr-story-legal")).toHaveText("Boston, MA");
+  await expect(page.locator(".rr-toast")).toBeVisible();
+  await page.goto("/dashboard");
+  await expect(page.getByRole("region", { name: "Start here" })).toContainText("2 of 5 steps");
+
+  const bubbles = page.getByRole("region", { name: "Where the sample is" });
+  await expect(bubbles.locator("path.leaflet-interactive")).toHaveCount(9);
+  await bubbles.locator("path.leaflet-interactive").first().click({ force: true });
+  await expect(bubbles.locator(".rr-tmap-card")).toContainText(/sample addresses · \d+ rules on record/);
+  await bubbles.getByRole("link", { name: /Open an example/ }).click();
+  await expect(page).toHaveURL(/a=A\d{4}/);
+});
+
+test("rules are grouped by outcome, four at a time", async ({ page }) => {
+  await page.goto("/dashboard?a=A0322&asOf=2026-10-01");
+  const applies = page.getByRole("region", { name: /^Applies/ });
+  await expect(applies.locator("article")).toHaveCount(4);
+  await expect(applies.locator(".rr-cat-tag").first()).toBeVisible();
+  await applies.getByRole("button", { name: /Show all \d+/ }).click();
+  await expect(applies.locator("article")).toHaveCount(16);
+  await expect(page.getByRole("region", { name: /Can't tell yet/ }).locator("article")).toHaveCount(3);
 });

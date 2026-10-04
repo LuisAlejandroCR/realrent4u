@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AddressSearch } from "../components/AddressSearch";
 import { AddressSummary } from "../components/AddressSummary";
-import { ResultsByCategory } from "../components/ResultsByCategory";
+import { ResultsByOutcome } from "../components/ResultsByOutcome";
 import { DemoScenarios } from "../components/DemoScenarios";
 import { ResultSummary } from "../components/ResultSummary";
 import { Notice } from "../components/Notice";
@@ -16,6 +16,8 @@ import type { Dict } from "../i18n";
 import { DatesChart, MetroMap } from "../components/Charts";
 import { TileMap } from "../components/TileMap";
 import { metroOf, useAddressDates, useGeo } from "../visual";
+import { JurBubbles, Roadmap } from "../components/Story";
+import { earn } from "../stamps";
 
 /** Approximate location in its metro and the result mix across the precomputed dates. */
 function WhereWhen({ address, j, asOf, onDate, onOpen, data, tr }: { address: Address; j?: Jurisdiction; asOf: string; onDate: (d: string) => void; onOpen: (a: Address) => void; data: Dataset; tr: Dict }) {
@@ -80,6 +82,13 @@ export function SearchBody({ data }: { data: Dataset }) {
   const items = address && lookups.state === "ready" ? lookups.data?.[address.address_id] : undefined;
   const ruleSet = items ? data.rules.filter((r) => items.some((i) => i.team_rule_id === r.team_rule_id)) : rules;
 
+  // Stamps, as on mobile: opening an address; opening one whose postal city is not its legal jurisdiction.
+  useEffect(() => {
+    if (!address) return;
+    earn("find");
+    if (j?.place && j.place.toLowerCase() !== address.postal_city.toLowerCase()) earn("mismatch");
+  }, [address, j]);
+
   // A filter belongs to one address and one date; drop it when either changes.
   useEffect(() => setFilter(null), [addrId, asOf]);
 
@@ -107,6 +116,8 @@ export function SearchBody({ data }: { data: Dataset }) {
             <p className="rr-meta rr-find-key"><kbd>/</kbd> {tr.findShortcut}</p>
           </div>
         </div>
+        <Roadmap onFind={() => document.querySelector<HTMLInputElement>(".rr-find-box input")?.focus()} />
+        <JurBubbles data={data} asOf={asOf} />
         <DemoScenarios data={data} tr={tr} onPick={select} currentId={addrId} asOf={asOf} />
       </section>
     );
@@ -140,7 +151,7 @@ export function SearchBody({ data }: { data: Dataset }) {
                 {ruleSet.length === 0 ? (
                   <Notice tone="neutral" title={tr.noRules} />
                 ) : (
-                  <ResultsByCategory rules={ruleSet} items={items} allRules={data.rules} asOf={asOf} lang={lang} tr={tr} filter={items ? filter : null} />
+                  <ResultsByOutcome rules={ruleSet} items={items} asOf={asOf} lang={lang} tr={tr} filter={items ? filter : null} />
                 )}
               </>
             )}
