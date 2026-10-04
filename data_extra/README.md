@@ -24,7 +24,7 @@ consulting public sources but not bulk scraping against a site's terms.
 | D037 | morganlewis.com LawFlash (2026-08-21), pack entry for Jersey City | `/pubs/` allowed | saved |
 | D059 | wbur.org news (2026-06-23), pack entry for MA | allows `Claude-User`, crawl-delay 1 | saved |
 | X001 | hobokennj.gov press release, 2025-07-10 (ordinance adopted) | no restrictions | saved (new id, official) |
-| X002 | hobokennj.gov press release, 2025-05-30 (ordinance introduced) | no restrictions | saved (new id, official) |
+| X002 | hobokennj.gov press release, 2025-05-30 (ordinance introduced) | no restrictions | fetched, then removed: it announces the same ordinance X001 reports adopted, so it only produced a stale `pending` rule for Hoboken |
 | D032–D034, D070–D072 | ecode360.com (Hoboken, Newark code) | Cloudflare bot challenge, even on `robots.txt` | skipped |
 | D035 | hudsoncountyview.com news | HTTP 403 to a plain request | skipped |
 | — | Jersey City Ord. 25-057 PDF, cityofjerseycity.civicweb.net | `User-agent: * Disallow: /` | skipped |
