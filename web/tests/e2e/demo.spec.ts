@@ -158,8 +158,8 @@ test("method tab draws the pipeline with counts from the data", async ({ page })
 test("an address shows its approximate location and its results on every date", async ({ page }) => {
   await page.goto("/dashboard?a=A0002&asOf=2026-10-01");
   const where = page.getByRole("region", { name: "Where and when" });
-  await expect(where.locator(".rr-map svg")).toBeVisible();
-  await expect(where.locator(".rr-map-pin")).toHaveCount(1);
+  await expect(where.locator(".rr-tmap .leaflet-container")).toBeVisible();
+  await expect(where.locator(".rr-tmap path.leaflet-interactive").first()).toBeVisible();
   const rows = where.locator(".rr-dchart-rows button");
   await expect(rows).toHaveCount(4);
   await rows.last().click();
@@ -170,7 +170,7 @@ test("an open change test shows KPI tiles and a map of affected addresses", asyn
   await page.goto("/dashboard?tab=tests&t=T2");
   const card = page.locator("#test-T2");
   await expect(card.locator(".rr-kpis")).toContainText("Affected addresses");
-  await expect(card.locator(".rr-dot.is-flag").first()).toBeVisible();
+  await expect(card.locator(".rr-tmap path.leaflet-interactive[fill='#b86a0e']").first()).toBeVisible();
   await expect(page.locator("#test-T1 .rr-test-body")).toBeHidden();
 });
 
@@ -186,11 +186,14 @@ test("result chips filter an address's rule cards and show all again", async ({ 
   await expect(page.locator("article.rr-rule-applies").first()).toBeVisible();
 });
 
-test("a neighbour dot on the address map opens that address", async ({ page }) => {
+test("a neighbour dot on the address map selects it and its card opens that address", async ({ page }) => {
   await page.goto("/dashboard?a=A0322&asOf=2026-10-01");
-  const dot = page.getByRole("region", { name: "Where and when" }).locator(".rr-dot-link").first();
-  const id = (await dot.getAttribute("aria-label"))!.split(" · ")[0]!;
-  await dot.click();
+  const where = page.getByRole("region", { name: "Where and when" });
+  await where.locator(".rr-tmap path.leaflet-interactive[fill='#ffffff']").first().click({ force: true });
+  const card = where.locator(".rr-tmap-card");
+  await expect(card).toBeVisible();
+  const id = (await card.locator("small").textContent())!.split(" · ")[0]!;
+  await card.getByRole("link", { name: /Open/ }).click();
   await expect(page).toHaveURL(new RegExp(`a=${id}`));
   await expect(page.locator(".rr-summary .rr-id")).toContainText(id);
 });

@@ -114,7 +114,8 @@ if (atlas && Object.keys(pts).length) {
     });
     for (const i of ids) {
       const [x, y] = proj([pts[i].lon, pts[i].lat]);
-      geo.points[i] = { m: id, x: +x.toFixed(1), y: +y.toFixed(1), e: pts[i].exact ? 1 : 0 };
+      // la/lo: the geocoded point already rounded to ~1 km, for the tile maps.
+      geo.points[i] = { m: id, x: +x.toFixed(1), y: +y.toFixed(1), e: pts[i].exact ? 1 : 0, la: pts[i].lat, lo: pts[i].lon };
     }
   }
 }

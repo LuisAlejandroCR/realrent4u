@@ -1,5 +1,6 @@
-// RuleCard.tsx: one rule for one address: result badge, reason, requirement, extracted details, quoted text,
-// citation, source document, retrieval date, as-of date and the "not legal advice" line.
+// RuleCard.tsx: one rule for one address, lean as on mobile: result badge, title, one-line reason, the quoted
+// source text and its citation, retrieval date, as-of date and "not legal advice". The engine's full explanation,
+// requirement and extracted details sit behind one toggle.
 import type { LookupItem, Rule, Lang } from "../types";
 import type { Dict } from "../i18n";
 import { reasonLabel } from "../reason-labels";
@@ -62,39 +63,12 @@ export function RuleCard({ rule, item, displaced = [], asOf, lang, tr }: RuleCar
         <div className="rr-badges">
           <StatusBadge kind={kind} tr={tr} />
           {conflict && <StatusBadge kind="review" tr={tr} />}
-          <span className="rr-meta">{tr.ruleStatus}: {tr.status[rule.status] ?? rule.status}</span>
         </div>
         <h3 id={`h-${rule.team_rule_id}`} className="rr-rule-title">{rule.title}</h3>
-        <p className="rr-meta">
-          <span className="rr-id">{rule.team_rule_id}</span> · {rule.jurisdiction} · {tr.level[rule.level] ?? rule.level}
-          {rule.effective_date && <> · {tr.effective} {rule.effective_date}</>}
-        </p>
+        {item?.reason && <Reason reason={item.reason} lang={lang} tr={tr} />}
+        {keyValue && <p className="rr-key"><span className="rr-label">{tr.keyValue}</span> {keyValue}</p>}
       </header>
-
-      {explanation && (
-        <div className="rr-why">
-          <h4>{tr.why}</h4>
-          <p>{explanation}</p>
-          {item?.reason && <Reason reason={item.reason} lang={lang} tr={tr} />}
-        </div>
-      )}
       {conflict && rule.conflict_note && <p className="rr-review-note">{rule.conflict_note}</p>}
-
-      <p className="rr-req">{rule.requirement}</p>
-      {keyValue && <p className="rr-key"><span className="rr-label">{tr.keyValue}</span> {keyValue}</p>}
-
-      {details.length > 0 && (
-        // Coverage explains an unknown result, so it starts open there.
-        <details className="rr-rule-more" open={item?.result === "unknown" || undefined}>
-          <summary>{tr.ruleDetails}</summary>
-          <dl>
-            {details.map(([k, v]) => (
-              <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
-            ))}
-          </dl>
-        </details>
-      )}
-
       {rule.quoted_span && (
         <blockquote className="rr-quote">
           <span className="rr-sr">{tr.quoted}: </span>“{rule.quoted_span}”
@@ -113,6 +87,24 @@ export function RuleCard({ rule, item, displaced = [], asOf, lang, tr }: RuleCar
         )}
         <span className="rr-rule-advice">{tr.notAdvice}</span>
       </footer>
+
+      <details className="rr-rule-more" open={item?.result === "unknown" || undefined}>
+        <summary>{tr.fullExplanation}</summary>
+        {explanation && (
+          <div className="rr-why">
+            <h4>{tr.why}</h4>
+            <p>{explanation}</p>
+          </div>
+        )}
+        <p className="rr-req">{rule.requirement}</p>
+        <dl>
+          <div><dt>{tr.ruleStatus}</dt><dd>{tr.status[rule.status] ?? rule.status}</dd></div>
+          <div><dt>{tr.legalJurisdiction}</dt><dd><span className="rr-id">{rule.team_rule_id}</span> · {rule.jurisdiction} · {tr.level[rule.level] ?? rule.level}</dd></div>
+          {details.map(([k, v]) => (
+            <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
+        </dl>
+      </details>
 
       {displaced.length > 0 && (
         <details className="rr-displaced">

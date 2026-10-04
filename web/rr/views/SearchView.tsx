@@ -14,6 +14,7 @@ import { hrefWith, setParam, usePrefs } from "../prefs";
 import type { Address, Jurisdiction } from "../types";
 import type { Dict } from "../i18n";
 import { DatesChart, MetroMap } from "../components/Charts";
+import { TileMap } from "../components/TileMap";
 import { metroOf, useAddressDates, useGeo } from "../visual";
 
 /** Approximate location in its metro and the result mix across the precomputed dates. */
@@ -38,25 +39,23 @@ function WhereWhen({ address, j, asOf, onDate, onOpen, data, tr }: { address: Ad
     <section className="rr-where" aria-label={tr.whereTitle}>
       {metro && (
         <div className="rr-where-map">
-          <MetroMap
-            metro={metro}
-            dots={dots}
-            selected={sel}
-            title={metro.name}
-            // Every other dot is a neighbour: clicking one opens it here, like the mobile map card's Open.
-            link={{
-              href: (id) => hrefWith("/dashboard", prefs, { tab: "lookup", a: id }),
-              onPick: (id) => {
+          {p?.la != null && p.lo != null ? (
+            <TileMap
+              points={Object.entries(geo!.points)
+                .filter(([id, q]) => q.m === metro.id && id !== address.address_id && q.la != null && q.lo != null)
+                .map(([id, q]) => ({ id, lat: q.la!, lon: q.lo!, tone: "off" as const, title: street.get(id) ?? id, sub: `${id} · ${data.jurisdictions[id]?.jurisdiction ?? ""}` }))}
+              area={{ lat: p.la, lon: p.lo }}
+              label={`${address.street_address}: ${tr.whereNote}`}
+              href={(id) => hrefWith("/dashboard", prefs, { tab: "lookup", a: id })}
+              onOpen={(id) => {
                 const next = data.addresses.find((a) => a.address_id === id);
                 if (next) onOpen(next);
-              },
-            }}
-            tr={tr}
-          />
-          <ul className="rr-map-legend">
-            <li><i className="rr-mkey is-sel" aria-hidden /> {tr.lgThis}</li>
-            <li><i className="rr-mkey is-off" aria-hidden /> {tr.lgOthers}</li>
-          </ul>
+              }}
+              tr={tr}
+            />
+          ) : (
+            <MetroMap metro={metro} dots={dots} selected={sel} title={metro.name} tr={tr} />
+          )}
           <p className="rr-meta">{p ? tr.whereNote : tr.notPlaced} {dots.length > 0 && tr.mapPickHint}</p>
         </div>
       )}
