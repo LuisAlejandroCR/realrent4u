@@ -228,7 +228,13 @@ em.rr-cine-line { animation-delay: .14s; }
 /* Closing bookend */
 .rr-cine-close { padding: 88px 0; border-top: 0; }
 .rr-cine-close-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: center; }
-.rr-cine-qr { background: var(--rr-surface); color: var(--rr-ink); border-radius: 18px; padding: 6px 18px 18px; max-width: 360px; }
+.rr-cine-qr { background: transparent; color: var(--rr-ink); border-radius: 18px; padding: 0; width: min(100%, 520px); display: grid; gap: 12px; }
+.rr-cine-download, .rr-cine-qr > .rr-qr { min-height: 126px; padding: 16px 18px; border: 1px solid var(--rr-border); border-radius: 22px; background: var(--rr-surface); box-shadow: 0 18px 40px rgba(19, 29, 51, .08); }
+.rr-cine-download .rr-qr-code, .rr-cine-qr > .rr-qr .rr-qr-code { width: 104px; height: 104px; }
+.rr-cine-download .rr-qr-code img, .rr-cine-qr > .rr-qr .rr-qr-code img { width: 96px; height: 96px; }
+.rr-qr-eyebrow { margin: 0 0 6px !important; color: var(--rr-stamp); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+.rr-qr-label { font-size: 18px; }
+.rr-cine-download .rr-qr-copy .rr-meta { margin-top: 6px; }
 
 @media (max-width: 1080px) {
   .rr-cine-row { grid-template-columns: 1fr; gap: 40px; }
