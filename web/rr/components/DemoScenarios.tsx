@@ -21,7 +21,7 @@ export interface Scenario {
   picks: Pick[];
 }
 
-// AGENTS.md acceptance case A5 uses San Francisco; it is listed first when it has a fitting address.
+// Acceptance case A5 uses San Francisco; it is listed first when it has a fitting address.
 const PREFERRED_PRECEDENCE = "San Francisco, CA";
 // Older than the 1978–79 year-built cutoffs in the California local ordinances.
 const OLD_BUILDING_BEFORE = 1979;

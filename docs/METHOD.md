@@ -1,7 +1,7 @@
 <!--
 METHOD.md: nota de método de una página (entregable del brief): cómo se extraen, resuelven, aplican y
 rastrean las reglas, la política de `unknown` y los límites. La web la enlaza desde Method & audit.
-Se distingue de README.md (qué es el proyecto y cómo correrlo) y de AGENTS.md (criterios y reglas de trabajo).
+Se distingue de README.md (qué es el proyecto y cómo correrlo).
 -->
 
 # Method note

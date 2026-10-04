@@ -1,6 +1,6 @@
 "use client";
 // AddressSearch.tsx: accessible combobox over the 500 sample addresses (ID, street, city, ZIP).
-// "/" anywhere outside a text field focuses it (docs/DESIGN.md, keyboard rule).
+// "/" anywhere outside a text field focuses it.
 import { useEffect, useId, useRef, useState } from "react";
 import type { Address } from "../types";
 import type { Dict } from "../i18n";
