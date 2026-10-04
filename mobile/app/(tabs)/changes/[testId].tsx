@@ -192,8 +192,8 @@ export default function ScenarioScreen() {
 /** Headline number that is also a filter toggle. */
 function Big({ value, label, tone, active, onPress }: { value: number; label: string; tone: string; active: boolean; onPress: () => void }) {
   return (
-    <Tap onPress={onPress} feel="select" accessibilityLabel={`${value} ${label}`} accessibilityState={{ selected: active }}
-      style={{ flex: 1, padding: space.md, borderRadius: radius.md, backgroundColor: active ? tone : color.surface, borderWidth: 1, borderColor: active ? tone : color.line, borderTopWidth: 4, borderTopColor: tone }}>
+    <Tap onPress={onPress} feel="select" accessibilityLabel={`${value} ${label}`} accessibilityState={{ selected: active }} containerStyle={{ flex: 1 }}
+      style={{ padding: space.md, borderRadius: radius.md, backgroundColor: active ? tone : color.surface, borderWidth: 1, borderColor: active ? tone : color.line, borderTopWidth: 4, borderTopColor: tone }}>
       <CountUp value={value} style={{ fontFamily: font.serif, fontSize: 40, lineHeight: 44, fontWeight: "700", color: active ? color.onPrimary : tone }} />
       <T variant="small" style={{ color: active ? color.onPrimary : color.ink2 }}>{label} ›</T>
     </Tap>

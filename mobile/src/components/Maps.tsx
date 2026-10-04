@@ -10,7 +10,8 @@ import { MapLabel } from "./MapLabel";
 
 export { MapLabel };
 
-export interface MapPoint { id: string; lat: number; lon: number; fill: string; ring?: string }
+/** size = dot diameter in px (bubbles); default 14. */
+export interface MapPoint { id: string; lat: number; lon: number; fill: string; ring?: string; size?: number }
 
 /** Approximate location: a soft circle (~150 m for street matches, ~2 km for city-area fallbacks). Static. */
 export function LocationMap({ lat, lon, area, label, onPress, hint }: { lat: number; lon: number; area: boolean; label: string; onPress?: () => void; hint?: string }) {
@@ -51,13 +52,13 @@ export function PointsMap({ points, selected, onSelect, height = 240, focus }: {
         initialRegion={focus ? { latitude: focus.lat, longitude: focus.lon, latitudeDelta: focus.delta, longitudeDelta: focus.delta } : { latitude: points[0].lat, longitude: points[0].lon, latitudeDelta: 1, longitudeDelta: 1 }}>
         {points.map((p) => (
           <Marker key={p.id} coordinate={{ latitude: p.lat, longitude: p.lon }} tracksViewChanges={false} onPress={() => { haptic.select(); onSelect(p.id); }} anchor={{ x: 0.5, y: 0.5 }}>
-            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.fill, borderWidth: 2, borderColor: p.ring ?? color.surface }} />
+            <View style={{ width: p.size ?? 14, height: p.size ?? 14, borderRadius: (p.size ?? 14) / 2, backgroundColor: p.fill, borderWidth: 2, borderColor: p.ring ?? color.surface, opacity: p.size ? 0.85 : 1 }} />
           </Marker>
         ))}
         {/* The selected dot is its own marker (new key) so it re-renders even with tracksViewChanges off. */}
         {sel && (
           <Marker key={`sel-${sel.id}`} coordinate={{ latitude: sel.lat, longitude: sel.lon }} anchor={{ x: 0.5, y: 0.5 }} zIndex={10}>
-            <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: sel.fill, borderWidth: 4, borderColor: color.ink }} />
+            <View style={{ width: (sel.size ?? 14) + 10, height: (sel.size ?? 14) + 10, borderRadius: ((sel.size ?? 14) + 10) / 2, backgroundColor: sel.fill, borderWidth: 4, borderColor: color.ink }} />
           </Marker>
         )}
       </MapView>

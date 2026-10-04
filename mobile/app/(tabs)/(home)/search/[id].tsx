@@ -3,16 +3,16 @@
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Animated, Easing, ScrollView, Text, View } from "react-native";
-import { LegalDateBar } from "../../../src/components/Chrome";
-import { LocationMap } from "../../../src/components/Maps";
-import { FadeIn, Tap } from "../../../src/components/motion";
-import { Button, Chevron, Fact, Id, Kicker, Notice, SectionLabel, T } from "../../../src/components/ui";
-import { blank, rulesInRecord } from "../../../src/data";
-import { useReduceMotion } from "../../../src/feel";
-import { reasonText } from "../../../src/format";
-import { usePrefs } from "../../../src/prefs";
-import { badge, chart, chartTrack, color, radius, space, type BadgeKind } from "../../../src/theme";
-import type { LookupItem, Rule } from "../../../src/types";
+import { LegalDateBar } from "../../../../src/components/Chrome";
+import { LocationMap } from "../../../../src/components/Maps";
+import { FadeIn, Tap } from "../../../../src/components/motion";
+import { Button, Chevron, Fact, Id, Kicker, Notice, SectionLabel, T } from "../../../../src/components/ui";
+import { blank, rulesInRecord } from "../../../../src/data";
+import { useReduceMotion } from "../../../../src/feel";
+import { reasonText } from "../../../../src/format";
+import { usePrefs } from "../../../../src/prefs";
+import { badge, chart, chartTrack, color, radius, space, type BadgeKind } from "../../../../src/theme";
+import type { LookupItem, Rule } from "../../../../src/types";
 
 const ORDER: BadgeKind[] = ["applies", "unknown", "superseded", "not_yet_effective", "pending", "unevaluated"];
 const OUTCOMES: { key: string; kinds: BadgeKind[]; label: "groupApplies" | "groupUnknown" | "groupSuperseded" | "groupLater" | "groupNone" }[] = [

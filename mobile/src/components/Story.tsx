@@ -1,5 +1,5 @@
 // Story.tsx: the exploration layer: profile avatar with stamp ring, stamp toast, case-file list,
-// and the "try a tricky one" quick wins that open real sample addresses.
+// the "Start here" roadmap for Home, and the "try a tricky one" quick wins (search empty state).
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Easing, Text, View } from "react-native";
@@ -99,29 +99,62 @@ export function StampToast() {
   );
 }
 
-/** Case-file strip for Home: five marks + progress. Tapping expands the stamp list in place (no navigation). */
-export function CaseFileStrip() {
-  const { ms, stamps } = usePrefs();
-  const [open, setOpen] = useState(false);
-  const k = stamps.length;
+/**
+ * "Start here" roadmap for Home: the five stamps as ordered steps, each a deep link to the screen that earns it.
+ * The first unearned step is highlighted as Next; when all are done it folds to one line (tap to reopen).
+ */
+export function Roadmap() {
+  const { ms, stamps, data, asOf } = usePrefs();
+  const router = useRouter();
+  const done = stamps.length === STAMPS.length;
+  const [open, setOpen] = useState(!done);
+  const next = STAMPS.find((id) => !stamps.includes(id));
+  // Step 3 opens a rule of the Dorchester example that carries a quoted source.
+  const sourceRule = data.lookups[asOf]?.A0065?.map((li) => li.team_rule_id).find((rid) => data.rules.find((r) => r.team_rule_id === rid)?.quoted_span);
+  const go: Record<StampId, () => void> = {
+    find: () => router.push(`/search?focus=${Date.now()}`),
+    mismatch: () => router.push("/search/A0065"),
+    source: () => router.push(sourceRule ? `/search/rule/${sourceRule}?address=A0065` : "/search/A0065"),
+    time: () => router.push("/date"),
+    scenario: () => router.push("/changes/T3"),
+  };
   return (
-    <View style={{ gap: space.sm }}>
-      <Tap onPress={() => setOpen(!open)} feel="select" accessibilityLabel={`${ms.stampTitle}: ${ms.stampProgress(k, STAMPS.length)}`} accessibilityState={{ expanded: open }}
-        style={{ flexDirection: "row", alignItems: "center", gap: space.md, paddingVertical: space.sm }}>
-        <View style={{ flexDirection: "row", gap: 6 }}>
-          {STAMPS.map((id) => <StampMark key={id} id={id} earned={stamps.includes(id)} size={30} />)}
-        </View>
+    <View style={{ gap: space.xs, padding: space.md, borderRadius: radius.lg, backgroundColor: color.surface, borderWidth: 1, borderColor: color.line }}>
+      <Tap onPress={() => setOpen(!open)} feel="select" accessibilityState={{ expanded: open }} accessibilityLabel={`${ms.tourTitle}. ${ms.tourSteps(stamps.length, STAMPS.length)}`}
+        style={{ flexDirection: "row", alignItems: "center", gap: space.sm }}>
         <View style={{ flex: 1 }}>
-          <T variant="small" bold>{ms.stampTitle}</T>
-          <T variant="micro" muted>{k === STAMPS.length ? ms.stampDone : ms.stampProgress(k, STAMPS.length)}</T>
+          <T bold>{done ? `✓ ${ms.tourDone}` : ms.tourTitle}</T>
+          {!done && <T variant="micro" muted>{ms.tourSteps(stamps.length, STAMPS.length)}</T>}
+        </View>
+        <View style={{ flexDirection: "row", gap: 3 }}>
+          {STAMPS.map((id) => <View key={id} style={{ width: 14, height: 6, borderRadius: 3, backgroundColor: stamps.includes(id) ? color.accentBrand : color.line }} />)}
         </View>
         <Text style={{ color: color.primary, fontWeight: "800", fontSize: 18, transform: [{ rotate: open ? "90deg" : "0deg" }] }}>›</Text>
       </Tap>
-      {open && (
-        <FadeIn style={{ padding: space.md, borderRadius: radius.md, backgroundColor: color.surface, borderWidth: 1, borderColor: color.line }}>
-          <CaseFileList />
-        </FadeIn>
-      )}
+      {open && STAMPS.map((id, i) => {
+        const earned = stamps.includes(id);
+        const isNext = id === next;
+        return (
+          <FadeIn key={id} index={i}>
+            <Tap onPress={go[id]} accessibilityRole="link" accessibilityLabel={`${i + 1}. ${ms.stamp[id]}. ${earned ? ms.stampEarned : ms.stampHow[id]}`}
+              style={{ flexDirection: "row", alignItems: "center", gap: space.md, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radius.md,
+                backgroundColor: isNext ? color.primaryTint : "transparent", borderWidth: isNext ? 1.5 : 0, borderColor: color.primary }}>
+              {/* Rail: number until earned, then the stamp mark. */}
+              {earned ? <StampMark id={id} earned size={30} /> : (
+                <View style={{ width: 30, height: 30, borderRadius: 15, alignItems: "center", justifyContent: "center", borderWidth: 2, borderColor: isNext ? color.primary : color.lineStrong, backgroundColor: isNext ? color.primary : color.surface }}>
+                  <Text style={{ fontWeight: "800", color: isNext ? color.onPrimary : color.ink2 }}>{i + 1}</Text>
+                </View>
+              )}
+              <View style={{ flex: 1 }}>
+                <T variant="small" bold style={earned ? { color: color.ink2, textDecorationLine: "line-through" } : undefined}>{ms.stamp[id]}</T>
+                {!earned && <T variant="micro" muted>{ms.stampHow[id]}</T>}
+              </View>
+              {isNext && <Text style={{ fontSize: 11, fontWeight: "800", color: color.primary, textTransform: "uppercase" }}>{ms.tourNext}</Text>}
+              <ChevronIcon color={color.ink2} />
+            </Tap>
+          </FadeIn>
+        );
+      })}
     </View>
   );
 }

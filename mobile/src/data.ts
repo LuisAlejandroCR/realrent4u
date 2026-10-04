@@ -86,11 +86,12 @@ function unpackLookups(p: PackedLookups | null): Dataset["lookups"] {
 
 export const blank = (v: string | null | undefined) => v == null || String(v).trim() === "";
 
-export function searchAddresses(list: Address[], q: string, limit = 30): Address[] {
+/** Matches ID, street, postal city, state, ZIP and — when given — the legal jurisdiction ("Boston, MA" finds Dorchester). */
+export function searchAddresses(list: Address[], q: string, limit = 30, jurOf?: (id: string) => string | null | undefined): Address[] {
   const s = q.trim().toLowerCase();
   if (!s) return [];
   return list
-    .filter((a) => `${a.address_id} ${a.street_address} ${a.postal_city} ${a.state} ${a.zip}`.toLowerCase().includes(s))
+    .filter((a) => `${a.address_id} ${a.street_address} ${a.postal_city} ${a.state} ${a.zip} ${jurOf?.(a.address_id) ?? ""}`.toLowerCase().includes(s))
     .slice(0, limit);
 }
 

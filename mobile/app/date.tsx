@@ -6,7 +6,7 @@ import { CalendarIcon } from "../src/components/Icons";
 import { T } from "../src/components/ui";
 import { allDates } from "../src/data";
 import { isAndroid, preview } from "../src/platform";
-import SearchScreen from "./(tabs)/search/index";
+import SearchScreen from "./(tabs)/(home)/search/index";
 import { usePrefs } from "../src/prefs";
 import { color, font, minTouch, radius, space } from "../src/theme";
 

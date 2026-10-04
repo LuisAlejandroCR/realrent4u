@@ -1,8 +1,8 @@
-// _layout.tsx: bottom tabs (Home, Search, Changes, Method) with icon + pill + bold label for the active tab.
+// _layout.tsx: bottom tabs (Home, Changes, Method) with icon + pill + bold label for the active tab.
 import { Tabs } from "expo-router";
 import type { ComponentType } from "react";
 import { Text, View } from "react-native";
-import { ChangesIcon, HomeIcon, MethodIcon, SearchIcon } from "../../src/components/Icons";
+import { ChangesIcon, HomeIcon, MethodIcon } from "../../src/components/Icons";
 import { haptic } from "../../src/feel";
 import { isAndroid, preview } from "../../src/platform";
 import { usePrefs } from "../../src/prefs";
@@ -40,8 +40,8 @@ export default function TabsLayout() {
         tabBarItemStyle: { minHeight: minTouch },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: ms.tabHome, tabBarIcon: tabIcon(HomeIcon), tabBarLabel: tabLabel(ms.tabHome) }} />
-      <Tabs.Screen name="search" options={{ title: ms.tabSearch, tabBarIcon: tabIcon(SearchIcon), tabBarLabel: tabLabel(ms.tabSearch) }} />
+      {/* Search lives inside Home's stack (its bar is on Home), so three tabs, not four. */}
+      <Tabs.Screen name="(home)" options={{ title: ms.tabHome, tabBarIcon: tabIcon(HomeIcon), tabBarLabel: tabLabel(ms.tabHome) }} />
       <Tabs.Screen name="changes" options={{ title: ms.tabChanges, tabBarIcon: tabIcon(ChangesIcon), tabBarLabel: tabLabel(ms.tabChanges) }} />
       <Tabs.Screen name="method" options={{ title: ms.tabMethod, tabBarIcon: tabIcon(MethodIcon), tabBarLabel: tabLabel(ms.tabMethod) }} />
     </Tabs>
