@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import type { Dict } from "../i18n";
 import type { LookupResult } from "../types";
 import type { Geo, Metro } from "../visual";
+import { TileMap } from "./TileMap";
 
 export type DotTone = "on" | "off" | "flag";
 export interface Dot { id: string; x: number; y: number; tone: DotTone; tip: string }
@@ -88,13 +89,27 @@ export function MetroGrid({ geo, metroIds, tone, tip, legend, link, tr }: {
     <div className="rr-mapgrid">
       <ul className="rr-map-legend">
         {legend.map(([t, label]) => <li key={t}><i className={`rr-mkey is-${t}`} aria-hidden /> {label}</li>)}
-        <li className="rr-muted">{tr.mapApprox}{link && <> · {tr.mapPickHint}</>}</li>
+        {link && <li className="rr-muted">{tr.mapPickHint}</li>}
       </ul>
       <div className={`rr-mapgrid-maps n${Math.min(metros.length, 3)}`}>
         {metros.map((m) => {
-          const dots = Object.entries(geo.points)
-            .filter(([, p]) => p.m === m.id)
-            .map(([id, p]) => ({ id, x: p.x, y: p.y, tone: tone(id), tip: tip(id) }));
+          const pts = Object.entries(geo.points).filter(([, p]) => p.m === m.id);
+          // Real street tiles when the points carry coordinates (as on mobile); the SVG outline map otherwise.
+          if (pts.every(([, p]) => p.la != null && p.lo != null)) {
+            return (
+              <div key={m.id} className="rr-tmap-cell">
+                <p className="rr-tmap-name">{m.name}</p>
+                <TileMap
+                  points={pts.map(([id, p]) => ({ id, lat: p.la!, lon: p.lo!, tone: tone(id), title: tip(id) }))}
+                  label={`${m.name}: ${tr.mapAria(pts.length, pts.filter(([id]) => tone(id) !== "off").length)}`}
+                  href={link?.href}
+                  height={240}
+                  tr={tr}
+                />
+              </div>
+            );
+          }
+          const dots = pts.map(([id, p]) => ({ id, x: p.x, y: p.y, tone: tone(id), tip: tip(id) }));
           return <MetroMap key={m.id} metro={m} dots={dots} title={m.name} link={link} tr={tr} />;
         })}
       </div>

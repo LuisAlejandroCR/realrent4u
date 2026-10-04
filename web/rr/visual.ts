@@ -16,7 +16,7 @@ export interface Metro {
 }
 export interface Geo {
   metros: Metro[];
-  points: Record<string, { m: string; x: number; y: number; e: number }>;
+  points: Record<string, { m: string; x: number; y: number; e: number; la?: number; lo?: number }>;
   unplaced: string[];
 }
 export interface AddressDates {

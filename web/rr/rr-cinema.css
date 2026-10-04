@@ -431,3 +431,37 @@ em.rr-cine-line { animation-delay: .14s; }
 .rr-ktile.is-warn:not(.is-on) { border-color: var(--rr-marigold); background: var(--rr-evidence); }
 .rr-ktile-v { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 .rr-ktile-l { font-size: 12px; color: var(--rr-ink-2); font-weight: 600; }
+
+/* Tile maps (Leaflet), as on mobile: real streets, a soft circle for the address, a card for the picked dot. */
+.rr-tmap { position: relative; margin: 0; isolation: isolate; }
+.rr-tmap .leaflet-tile-pane { filter: grayscale(.7) contrast(.9) brightness(1.04); }
+.rr-tmap-box { width: 100%; border-radius: 14px; border: 1px solid var(--rr-border); overflow: hidden; background: #eef1f5; z-index: 0; }
+.rr-tmap-tag { position: absolute; right: 10px; top: 10px; z-index: 500; font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--rr-ink); box-shadow: var(--rr-shadow); pointer-events: none; }
+.rr-tmap-card { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 500; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--rr-surface); border: 1px solid var(--rr-border); box-shadow: 0 6px 20px rgba(20,28,46,.16); animation: rr-card-in .25s ease-out; }
+.rr-tmap-card-t { flex: 1; min-width: 0; display: grid; }
+.rr-tmap-card-t strong { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rr-tmap-card-t small { font-size: 12px; color: var(--rr-ink-2); }
+.rr-btn-mini { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--rr-stamp); color: #fff; font-weight: 700; font-size: 14px; text-decoration: none; }
+.rr-btn-mini:hover { filter: brightness(1.1); }
+.rr-tmap-x { border: 0; background: none; font-size: 20px; line-height: 1; color: var(--rr-ink-2); cursor: pointer; min-width: 32px; min-height: 32px; }
+.rr-tmap-name { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+.rr-tmap .leaflet-container { font-family: var(--rr-sans); }
+@keyframes rr-card-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .rr-tmap-card { animation: none; } }
+
+/* Address header as a story: mail says → law says, then fact chips. */
+.rr-story { display: grid; gap: 10px; }
+.rr-story .rr-h1 { margin: 0; }
+.rr-story-line { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 8px; font-size: 18px; }
+.rr-story-k { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--rr-ink-2); }
+.rr-story-line s { color: var(--rr-ink-2); text-decoration-thickness: 2px; text-decoration-color: var(--rr-marigold); }
+.rr-story-arrow { color: var(--rr-ink-2); }
+.rr-story-legal { font-size: 22px; color: var(--rr-stamp); padding: 0 8px; border: 2px solid var(--rr-stamp); border-radius: 6px; transform: rotate(-2deg); display: inline-block; animation: rr-stamp-in .45s cubic-bezier(.2,1.6,.4,1); }
+.rr-story-flag { justify-self: start; margin: 0; }
+.rr-factchips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.rr-factchips li { padding: 6px 12px; border-radius: 999px; background: var(--rr-soft); font-size: 14px; }
+.rr-factchips li span { color: var(--rr-ink-2); font-size: 12px; margin-right: 4px; }
+.rr-factchips li.is-missing { background: var(--rr-evidence); border: 1px dashed var(--rr-marigold); }
+.rr-factchips li.is-missing em { color: var(--rr-marigold-ink); }
+@keyframes rr-stamp-in { from { transform: rotate(-8deg) scale(1.6); opacity: 0; } to { transform: rotate(-2deg) scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .rr-story-legal { animation: none; } }
