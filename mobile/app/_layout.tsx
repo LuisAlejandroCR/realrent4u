@@ -1,0 +1,46 @@
+// _layout.tsx: root stack: prefs provider, safe area, the tab group and the date form sheet.
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PreviewChrome } from "../src/components/PreviewChrome";
+import { PrefsProvider, usePrefs } from "../src/prefs";
+import { color } from "../src/theme";
+
+function RootStack() {
+  const { ms, reduceMotion } = usePrefs();
+  return (
+    <Stack screenOptions={{ headerShown: false, animation: reduceMotion ? "none" : "default", contentStyle: { backgroundColor: color.paper } }}>
+      <Stack.Screen name="(tabs)" />
+      {/*
+        Date sheet sized to its content (no big empty dimmed area).
+        iOS: native form sheet with grabber. Android: react-native-screens bottom sheet (Material pattern);
+        system back dismisses it and keeps the current date.
+      */}
+      <Stack.Screen
+        name="date"
+        options={{
+          presentation: "formSheet",
+          sheetAllowedDetents: "fitToContents",
+          sheetGrabberVisible: true,
+          sheetCornerRadius: 24,
+          headerShown: false,
+          title: ms.dateTitle,
+          contentStyle: { backgroundColor: color.surface },
+        }}
+      />
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <SafeAreaProvider>
+      <PrefsProvider>
+        <StatusBar style="dark" />
+        <PreviewChrome>
+          <RootStack />
+        </PreviewChrome>
+      </PrefsProvider>
+    </SafeAreaProvider>
+  );
+}
