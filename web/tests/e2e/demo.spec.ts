@@ -111,10 +111,11 @@ test("evaluated states render summaries, readable reasons, conflicts and superse
   await expect(unknown).toContainText("year built is missing");
   await expect(unknown).toContainText("Needs human review");
 
-  const localRule = page.getByRole("article", { name: /Annual General Adjustment capped/ });
-  await localRule.locator(".rr-displaced summary").click();
-  await expect(localRule).toContainText("The Berkeley rule displaces the state rule.");
-  await expect(localRule).toContainText("superseded by r-D006-01");
+  // Grouped by outcome: the displaced state rule has its own group and says what displaces it.
+  const displaced = page.getByRole("region", { name: /Displaced by another rule/ });
+  await expect(displaced).toContainText("superseded by r-D006-01");
+  await displaced.locator(".rr-rule-more summary").first().click();
+  await expect(displaced).toContainText("The Berkeley rule displaces the state rule.");
 });
 
 test("the landing stage replays address × date and hands control to the visitor", async ({ page }) => {
@@ -233,4 +234,14 @@ test("start-here roadmap earns stamps and the jurisdiction bubbles open an examp
   await expect(bubbles.locator(".rr-tmap-card")).toContainText(/sample addresses · \d+ rules on record/);
   await bubbles.getByRole("link", { name: /Open an example/ }).click();
   await expect(page).toHaveURL(/a=A\d{4}/);
+});
+
+test("rules are grouped by outcome, four at a time", async ({ page }) => {
+  await page.goto("/dashboard?a=A0322&asOf=2026-10-01");
+  const applies = page.getByRole("region", { name: /^Applies/ });
+  await expect(applies.locator("article")).toHaveCount(4);
+  await expect(applies.locator(".rr-tag").first()).toBeVisible();
+  await applies.getByRole("button", { name: /Show all \d+/ }).click();
+  await expect(applies.locator("article")).toHaveCount(16);
+  await expect(page.getByRole("region", { name: /Can't tell yet/ }).locator("article")).toHaveCount(3);
 });

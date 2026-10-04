@@ -511,3 +511,11 @@ em.rr-cine-line { animation-delay: .14s; }
   .rr-road-chev, .rr-road-step { transition: none; }
 }
 .rr-find > .rr-road, .rr-find > .rr-bubbles { margin-top: 0; width: 100%; }
+
+/* Rules grouped by outcome (mobile R1): a colour key per group, category as a tag, 4 then "Show all". */
+.rr-group-h { display: flex; align-items: center; gap: 8px; }
+.rr-group-h .rr-seg-key { width: 14px; height: 14px; }
+.rr-group-n { font: 700 14px var(--rr-mono); color: var(--rr-ink-2); padding: 2px 8px; border-radius: 999px; background: var(--rr-soft); }
+.rr-tag { font-size: 12px; font-weight: 600; color: var(--rr-ink-2); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rr-border); background: var(--rr-paper); }
+.rr-group-more { margin: 4px 0 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--rr-stamp); background: var(--rr-surface); color: var(--rr-stamp); font: 700 14px var(--rr-sans); cursor: pointer; }
+.rr-group-more:hover { background: var(--rr-soft); }

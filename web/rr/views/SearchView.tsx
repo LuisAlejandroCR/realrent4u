@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AddressSearch } from "../components/AddressSearch";
 import { AddressSummary } from "../components/AddressSummary";
-import { ResultsByCategory } from "../components/ResultsByCategory";
+import { ResultsByOutcome } from "../components/ResultsByOutcome";
 import { DemoScenarios } from "../components/DemoScenarios";
 import { ResultSummary } from "../components/ResultSummary";
 import { Notice } from "../components/Notice";
@@ -151,7 +151,7 @@ export function SearchBody({ data }: { data: Dataset }) {
                 {ruleSet.length === 0 ? (
                   <Notice tone="neutral" title={tr.noRules} />
                 ) : (
-                  <ResultsByCategory rules={ruleSet} items={items} allRules={data.rules} asOf={asOf} lang={lang} tr={tr} filter={items ? filter : null} />
+                  <ResultsByOutcome rules={ruleSet} items={items} asOf={asOf} lang={lang} tr={tr} filter={items ? filter : null} />
                 )}
               </>
             )}

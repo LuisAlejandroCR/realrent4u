@@ -23,6 +23,8 @@ export interface RuleCardProps {
   asOf: string;
   lang: Lang;
   tr: Dict;
+  /** Show the rule's category as a tag (when cards are grouped by outcome, not by category). */
+  showCategory?: boolean;
 }
 
 // Fields rules.json carries beyond the frontend Rule type; read-only here, the contract stays in types.ts.
@@ -40,7 +42,7 @@ function Reason({ reason, lang, tr }: { reason: string; lang: Lang; tr: Dict }) 
   );
 }
 
-export function RuleCard({ rule, item, displaced = [], asOf, lang, tr }: RuleCardProps) {
+export function RuleCard({ rule, item, displaced = [], asOf, lang, tr, showCategory = false }: RuleCardProps) {
   const kind = item ? item.result : "unevaluated";
   // The engine decides conflicts per address; the rule-level flag only shows when nothing was evaluated.
   const conflict = item ? item.conflict_flag : !!rule.conflict_flag;
@@ -64,6 +66,7 @@ export function RuleCard({ rule, item, displaced = [], asOf, lang, tr }: RuleCar
         <div className="rr-badges">
           <StatusBadge kind={kind} tr={tr} />
           {conflict && <StatusBadge kind="review" tr={tr} />}
+          {showCategory && <span className="rr-tag">{tr.category[rule.category] ?? rule.category}</span>}
         </div>
         <h3 id={`h-${rule.team_rule_id}`} className="rr-rule-title">{rule.title}</h3>
         {item?.reason && <Reason reason={item.reason} lang={lang} tr={tr} />}
