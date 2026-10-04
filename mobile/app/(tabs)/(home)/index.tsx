@@ -1,15 +1,15 @@
 // index.tsx: 01 Home tab: brand, headline, one dominant search action, three real "tricky" addresses
 // as quick wins, and the case-file strip that tracks exploration stamps.
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LegalDateBar } from "../../src/components/Chrome";
-import { HouseMark, SearchIcon } from "../../src/components/Icons";
-import { FadeIn, Tap } from "../../src/components/motion";
-import { CaseFileStrip, ProfileButton, QuickWins } from "../../src/components/Story";
-import { Kicker, Mark, Notice, T } from "../../src/components/ui";
-import { usePrefs } from "../../src/prefs";
-import { color, minTouch, radius, shadow, space } from "../../src/theme";
+import { LegalDateBar } from "../../../src/components/Chrome";
+import { HouseMark, SearchIcon } from "../../../src/components/Icons";
+import { FadeIn, Tap } from "../../../src/components/motion";
+import { CaseFileStrip, ProfileButton, QuickWins } from "../../../src/components/Story";
+import { Kicker, Mark, Notice, T } from "../../../src/components/ui";
+import { usePrefs } from "../../../src/prefs";
+import { color, minTouch, radius, shadow, space } from "../../../src/theme";
 
 /** 01 Home — identity, the question, one dominant action (search), stories to try, progress. */
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={{ flex: 1, backgroundColor: color.paper }}>
+      <Stack.Screen options={{ headerShown: false, title: ms.tabHome }} />
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: space.lg, paddingVertical: space.xs }}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm }} accessible accessibilityRole="header" accessibilityLabel="RealRent4U">
           <HouseMark size={30} />
@@ -39,8 +40,8 @@ export default function Home() {
             accessibilityRole="search"
             accessibilityLabel={tr.ctaSearchShort}
             accessibilityHint={tr.searchHelp}
-            // Nonce: every tap re-focuses the field, not only the first one.
-            onPress={() => router.replace(`/search?focus=${Date.now()}`)}
+            // Pushes search in Home's stack (Back returns here). Nonce: every tap re-focuses the field.
+            onPress={() => router.push(`/search?focus=${Date.now()}`)}
             style={[{ minHeight: minTouch + 28, borderRadius: radius.lg, backgroundColor: color.primary, flexDirection: "row", alignItems: "center", gap: space.md, paddingHorizontal: space.lg }, shadow]}
           >
             <SearchIcon color={color.onPrimary} />
