@@ -3,6 +3,8 @@
 // files behind the demo, available dates and build warnings.
 import { Notice } from "../components/Notice";
 import { Pipeline } from "../components/Pipeline";
+import { BarChart, Kpis, MetroGrid } from "../components/Charts";
+import { useGeo } from "../visual";
 import type { Dataset } from "../data";
 import { usePrefs } from "../prefs";
 
@@ -12,6 +14,11 @@ const METHOD_NOTE_URL = "https://github.com/LuisAlejandroCR/realrent4u/blob/main
 export function MethodBody({ data }: { data: Dataset }) {
   const { manifest } = data;
   const { tr } = usePrefs();
+  const geo = useGeo();
+  const byJur = new Map<string, { n: number; level: string }>();
+  for (const r of data.rules) byJur.set(r.jurisdiction, { n: (byJur.get(r.jurisdiction)?.n ?? 0) + 1, level: r.level });
+  const street = new Map(data.addresses.map((a) => [a.address_id, `${a.address_id} · ${a.street_address}`]));
+  const dates = manifest.lookup_dates.length || manifest.demo_dates.length;
   return (
     <div className="rr-about">
       <header className="rr-page-head">
@@ -23,7 +30,36 @@ export function MethodBody({ data }: { data: Dataset }) {
           </a>
         </p>
       </header>
+      <Kpis
+        items={[
+          { value: manifest.sources.corpus?.count ?? "—", label: tr.kpiDocs },
+          { value: data.rules.length, label: tr.kpiRules },
+          { value: byJur.size, label: tr.kpiPlaces },
+          { value: data.addresses.length, label: tr.kpiAddresses },
+          { value: geo ? Object.keys(geo.points).length : "—", label: tr.kpiPlaced, note: ` ${tr.ofN(data.addresses.length)}` },
+          { value: dates, label: tr.kpiDates },
+        ]}
+      />
       <Pipeline data={data} tr={tr} />
+      <div className="rr-method-vis">
+        {geo && (
+          <section aria-labelledby="rr-cov-h">
+            <h2 id="rr-cov-h" className="rr-h2">{tr.coverageTitle}</h2>
+            <MetroGrid
+              geo={geo}
+              tone={(id) => (geo.points[id]?.e ? "on" : "off")}
+              tip={(id) => street.get(id) ?? id}
+              legend={[["on", tr.lgExact], ["off", tr.lgNonExact]]}
+              tr={tr}
+            />
+          </section>
+        )}
+        <BarChart
+          title={tr.rulesByJur}
+          rows={[...byJur].sort((a, b) => b[1].n - a[1].n).map(([label, v]) => ({ label, value: v.n, sub: tr.level[v.level] ?? v.level }))}
+          note={tr.rulesByJurNote}
+        />
+      </div>
 
       <div className="rr-audit-grid">
         <section aria-labelledby="rr-data-files-title">

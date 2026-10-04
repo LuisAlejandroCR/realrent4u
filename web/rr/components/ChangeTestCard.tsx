@@ -1,11 +1,49 @@
 "use client";
 // ChangeTestCard.tsx: one change test (T1–T5) in the dashboard: scenario, rules, expected behavior,
-// a "Run test" panel that recomputes it in the browser, and the affected addresses from changes.json.
+// KPI tiles and maps of the affected addresses, a "Run test" panel that recomputes it in the browser, and the
+// affected addresses from changes.json.
 import { useEffect, useId, useState } from "react";
 import type { Address, ChangeResult, ChangeTest, Rule } from "../types";
 import type { Dataset } from "../data";
 import type { Dict } from "../i18n";
 import { TestRunPanel } from "./TestRunner";
+import { Kpis, MetroGrid } from "./Charts";
+import { useGeo } from "../visual";
+
+/** KPI tiles and the affected addresses on the metro maps of the states the test touches. */
+function TestVisuals({ test, result, data, tr }: { test: ChangeTest; result: ChangeResult; data: Dataset; tr: Dict }) {
+  const geo = useGeo();
+  const affected = new Set(result.affected_address_ids ?? []);
+  const flagged = new Set(result.conflict_address_ids ?? []);
+  const jurOf = (id: string) => data.jurisdictions[id]?.jurisdiction ?? "";
+  const cities = new Set([...affected].map(jurOf));
+  const allCities = new Set(Object.values(data.jurisdictions).map((j) => j?.jurisdiction).filter(Boolean));
+  const total = data.addresses.length;
+  const states = new Set([...(test.states ?? []), ...[...affected].map((id) => data.jurisdictions[id]?.state ?? "")]);
+  const street = new Map(data.addresses.map((a) => [a.address_id, a.street_address]));
+  return (
+    <div className="rr-test-vis">
+      <Kpis
+        items={[
+          { value: affected.size, label: tr.kpiAffected, note: ` ${tr.ofN(total)}` },
+          { value: flagged.size, label: tr.kpiConflicts, tone: flagged.size ? "warn" : undefined },
+          { value: cities.size, label: tr.kpiCities, note: ` ${tr.ofN(allCities.size)}` },
+          { value: `${Math.round((affected.size / Math.max(1, total)) * 100)}%`, label: tr.kpiShare },
+        ]}
+      />
+      {geo && (
+        <MetroGrid
+          geo={geo}
+          metroIds={geo.metros.filter((m) => states.has(m.state)).map((m) => m.id)}
+          tone={(id) => (flagged.has(id) ? "flag" : affected.has(id) ? "on" : "off")}
+          tip={(id) => `${id} · ${street.get(id) ?? ""} · ${jurOf(id)}`}
+          legend={[["on", tr.lgAffected], ["flag", tr.lgConflict], ["off", tr.lgNotAffected]]}
+          tr={tr}
+        />
+      )}
+    </div>
+  );
+}
 
 export interface ChangeTestCardProps {
   test: ChangeTest;
@@ -64,6 +102,7 @@ export function ChangeTestCard({ test, result, rules, addresses, addressHref, da
       </h2>
 
       <div id={`${id}-p`} className="rr-test-body" hidden={!open}>
+        {open && result && <TestVisuals test={test} result={result} data={data} tr={tr} />}
         <div className="rr-scenario-dates">
           <span className="rr-scenario-label">{tr.scenarioDates}</span>
           <span className="rr-scenario-values">

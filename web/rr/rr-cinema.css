@@ -261,6 +261,84 @@ em.rr-cine-line { animation-delay: .14s; }
 
 /* Dashboard "at a glance": the same result-mix bar as the landing stage */
 .rr-sum-bar { margin-top: 10px; height: 10px; }
+/* 2px surface gap between touching segments, so neighbours read apart without a stroke */
+.rr-seg + .rr-seg { box-shadow: inset 2px 0 0 var(--rr-surface); }
+
+/* Maps: county outlines (us-atlas), sample addresses at ~1 km, no tiles */
+.rr-map { margin: 0; display: grid; gap: 6px; }
+.rr-map svg { width: 100%; height: auto; display: block; overflow: hidden; border-radius: 14px; border: 1px solid var(--rr-border); background: #dfe7f3; }
+.rr-map figcaption { font-size: 13px; font-weight: 600; color: var(--rr-ink); }
+.rr-map-water { fill: #dfe7f3; }
+.rr-map-land { fill: #fbfaf6; stroke: #c9ccd4; stroke-width: .6; }
+.rr-map-land.is-other { fill: #f0efe9; }
+.rr-map-land:hover { fill: #fff6e3; }
+.rr-map-place { font: 600 10px var(--rr-sans); fill: var(--rr-ink); paint-order: stroke; stroke: rgba(251, 250, 246, .9); stroke-width: 3px; pointer-events: none; }
+.rr-dot { stroke: var(--rr-surface); stroke-width: 1.2; transition: transform .3s; }
+.rr-dot.is-on { fill: var(--rr-stamp); }
+.rr-dot.is-off { fill: var(--rr-surface); stroke: #8b93a6; stroke-width: 1; }
+.rr-dot.is-flag { fill: var(--rr-marigold); }
+.rr-map-halo { fill: rgba(242, 182, 92, .35); stroke: var(--rr-marigold); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: rr-halo 2.2s ease-out infinite; }
+@keyframes rr-halo { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+.rr-map-pin { fill: var(--rr-night); stroke: var(--rr-glow); stroke-width: 2.5; }
+.rr-map-scale line { stroke: var(--rr-ink); stroke-width: 2; }
+.rr-map-scale text { font: 600 9px var(--rr-sans); fill: var(--rr-ink); }
+.rr-map-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--rr-ink-2); }
+.rr-map-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.rr-mkey { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.rr-mkey.is-on { background: var(--rr-stamp); }
+.rr-mkey.is-off { background: var(--rr-surface); border: 1.5px solid #8b93a6; }
+.rr-mkey.is-flag { background: var(--rr-marigold); border-radius: 1px; transform: rotate(45deg) scale(.85); }
+.rr-mkey.is-sel { background: var(--rr-night); border: 2px solid var(--rr-glow); width: 12px; height: 12px; }
+.rr-mapgrid { display: grid; gap: 10px; }
+.rr-mapgrid-maps { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rr-mapgrid-maps.n1 { grid-template-columns: minmax(0, 520px); }
+.rr-mapgrid-maps.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* KPI tiles */
+.rr-kpis { margin: 0 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.rr-kpis > div { background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 14px; padding: 12px 14px; display: grid; gap: 2px; }
+.rr-kpis dt { font-size: 12px; color: var(--rr-ink-2); font-weight: 600; order: 2; }
+.rr-kpis dd { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: var(--rr-ink); order: 1; }
+.rr-kpis dd small { font-size: 13px; font-weight: 500; color: var(--rr-ink-2); letter-spacing: 0; }
+.rr-kpis > .is-warn { border-color: var(--rr-marigold); background: var(--rr-evidence); }
+.rr-kpis > .is-warn dd::before { content: "▲ "; font-size: 16px; color: var(--rr-marigold); vertical-align: 4px; }
+
+/* Address: where and when */
+.rr-where { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.rr-where-map, .rr-dchart, .rr-bars { background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: var(--rr-radius); padding: 16px; display: grid; gap: 10px; margin: 0; }
+.rr-where-map .rr-meta { font-size: 12px; }
+.rr-dchart-h { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--rr-ink-2); }
+.rr-dchart-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--rr-ink-2); }
+.rr-dchart-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.rr-dchart-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.rr-dchart-rows button { width: 100%; min-height: 44px; display: grid; grid-template-columns: 92px minmax(0, 1fr) 64px; gap: 10px; align-items: center; padding: 6px 8px; border: 1px solid transparent; border-radius: 10px; background: none; color: var(--rr-ink); font: 13px var(--rr-sans); cursor: pointer; text-align: left; }
+.rr-dchart-rows button:hover:not(:disabled) { background: var(--rr-paper); }
+.rr-dchart-rows .is-current button { border-color: var(--rr-stamp); background: var(--rr-soft); }
+.rr-dchart-bar { display: flex; height: 18px; border-radius: 0 4px 4px 0; overflow: hidden; min-width: 4px; transition: width .6s var(--rr-ease); }
+.rr-dchart-bar .rr-seg { height: 100%; }
+.rr-dchart-d { color: var(--rr-ink-2); }
+.rr-dchart-n { font-family: var(--rr-mono); font-weight: 700; text-align: right; }
+.rr-dchart-n small { color: var(--rr-marigold-ink); font-weight: 600; }
+
+/* Single-series bar chart */
+.rr-bars ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.rr-bars li { display: grid; grid-template-columns: minmax(120px, 170px) minmax(0, 1fr) 36px; gap: 10px; align-items: center; font-size: 13px; min-height: 28px; }
+.rr-bars-l { overflow-wrap: anywhere; }
+.rr-bars-l small { color: var(--rr-ink-2); }
+.rr-bars-track { height: 16px; }
+.rr-bars-bar { display: block; height: 100%; background: var(--rr-stamp); border-radius: 0 4px 4px 0; min-width: 2px; }
+.rr-bars-v { font-family: var(--rr-mono); font-weight: 700; text-align: right; }
+.rr-method-vis { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 24px; align-items: start; margin-bottom: 36px; }
+.rr-test-vis { display: grid; gap: 4px; }
+
+@media (max-width: 900px) {
+  .rr-where, .rr-method-vis { grid-template-columns: 1fr; }
+  .rr-mapgrid-maps, .rr-mapgrid-maps.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .rr-mapgrid-maps, .rr-mapgrid-maps.n2, .rr-mapgrid-maps.n1 { grid-template-columns: 1fr; }
+  .rr-dchart-rows button { grid-template-columns: 84px minmax(0, 1fr) 52px; gap: 6px; }
+}
 
 /* Dashboard lookup: one big search before any address is open */
 .rr-find { display: grid; gap: 40px; }

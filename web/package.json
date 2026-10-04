@@ -8,9 +8,9 @@
   },
   "scripts": {
     "copy-data": "node scripts/copy-data.mjs",
-    "predev": "node scripts/copy-data.mjs && node scripts/landing-media.mjs",
+    "predev": "node scripts/copy-data.mjs && node scripts/visual-data.mjs && node scripts/landing-media.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/copy-data.mjs && node scripts/landing-media.mjs",
+    "prebuild": "node scripts/copy-data.mjs && node scripts/visual-data.mjs && node scripts/landing-media.mjs",
     "build": "next build",
     "test:e2e": "playwright test",
     "serve": "npx --yes serve out -l 3000"
@@ -25,7 +25,10 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "d3-geo": "^3.1.1",
     "qrcode-generator": "^2.0.4",
-    "typescript": "^5"
+    "topojson-client": "^3.1.0",
+    "typescript": "^5",
+    "us-atlas": "^3.0.1"
   }
 }

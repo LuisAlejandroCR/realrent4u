@@ -58,8 +58,11 @@ function Landing({ data }: { data: Dataset }) {
   const dates = data.manifest.lookup_dates.length ? data.manifest.lookup_dates : data.manifest.demo_dates;
   const dash = (extra: Record<string, string> = {}) => hrefWith("/dashboard", prefs, extra);
   const fact = (v: string | null | undefined) => (blank(v) ? <span className="rr-missing">{tr.notInRecord}</span> : v);
-  // Only videos with a real file or link are shown; pending ones stay out of the story.
-  const videos = media.videos.filter((v) => v.src || v.url);
+  // One narrated clip per section (docs/LANDING_CLIPS.md), shown only once it has a real file or link.
+  const clip = (id: string) => {
+    const v = media.videos.find((x) => x.id === id && (x.src || x.url));
+    return v ? <div className="rr-l-story"><VideoCard video={v} lang={lang} tr={tr} featured /></div> : null;
+  };
 
   return (
     <div className="rr-l">
@@ -134,12 +137,7 @@ function Landing({ data }: { data: Dataset }) {
           <Stat value={quoted} label={tr.statQuoted(places)} />
           <Stat value={dates.length} label={tr.statDates} />
         </dl>
-        {videos.length > 0 && (
-          <div className="rr-l-story">
-            <h3 className="rr-l-h3">{tr.videosTitle}</h3>
-            {videos.map((v, i) => <VideoCard key={v.id} video={v} lang={lang} tr={tr} step={i + 1} />)}
-          </div>
-        )}
+        {clip("how-it-works")}
       </Section>
 
       {/* 3 · Results */}
@@ -156,6 +154,7 @@ function Landing({ data }: { data: Dataset }) {
             </div>
           ))}
         </dl>
+        {clip("five-results")}
       </Section>
 
       {/* 4 · Change over time */}
@@ -171,6 +170,7 @@ function Landing({ data }: { data: Dataset }) {
           href={(id) => dash({ tab: "tests", t: id })}
           tr={tr}
         />
+        {clip("change-over-time")}
       </Section>
 
       {/* 5 · Closing: dark bookend */}
