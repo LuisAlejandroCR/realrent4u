@@ -1,9 +1,12 @@
-// Icons.tsx: SVG icons for tabs, brand mark, chevrons, calendar and external link.
+// Icons.tsx: SVG icons for tabs, brand mark, chevrons, calendar, external link and profile.
+import { Platform } from "react-native";
 import Svg, { Circle, Path, Rect } from "react-native-svg";
 
 /** Custom 24×24 stroke icons (react-native-svg). Decorative: labels always accompany them. */
 type P = { color: string; size?: number; filled?: boolean };
-const base = (size: number) => ({ width: size, height: size, viewBox: "0 0 24 24", accessibilityElementsHidden: true, importantForAccessibility: "no-hide-descendants" as const });
+// Native-only a11y props: on web react-native-svg forwards them to the DOM and React warns.
+const hidden = Platform.OS === "web" ? {} : { accessibilityElementsHidden: true, importantForAccessibility: "no-hide-descendants" as const };
+const base = (size: number) => ({ width: size, height: size, viewBox: "0 0 24 24", ...hidden });
 
 export function SearchIcon({ color, size = 24, filled }: P) {
   return (
@@ -81,6 +84,16 @@ export function ExternalIcon({ color, size = 16 }: P) {
   return (
     <Svg {...base(size)}>
       <Path d="M14 4H20V10M20 4L11 13M18 14V19.5H4.5V6H10" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </Svg>
+  );
+}
+
+/** Person — profile button. */
+export function UserIcon({ color, size = 22 }: P) {
+  return (
+    <Svg {...base(size)}>
+      <Circle cx="12" cy="8.5" r="3.8" stroke={color} strokeWidth={2} fill="none" />
+      <Path d="M4.8 20C5.8 16.4 8.6 14.5 12 14.5S18.2 16.4 19.2 20" stroke={color} strokeWidth={2} strokeLinecap="round" fill="none" />
     </Svg>
   );
 }
