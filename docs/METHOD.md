@@ -1,6 +1,6 @@
 <!--
 METHOD.md: nota de método de una página (entregable del brief): cómo se extraen, resuelven, aplican y
-rastrean las reglas, la política de `unknown` y los límites. La web la muestra en /method.
+rastrean las reglas, la política de `unknown` y los límites. La web la enlaza desde Method & audit.
 Se distingue de README.md (qué es el proyecto y cómo correrlo) y de AGENTS.md (criterios y reglas de trabajo).
 -->
 
@@ -11,13 +11,16 @@ retrieval date and an as-of date (default 2026-10-01). It never suggests ways ar
 
 ## Extraction (Module A)
 
-One Claude call (`claude-opus-5-5`) per captured document: 54 of the 87 sources; the other 33 are
-link-only. Structured output constrains the answer to a flat JSON schema built from the official rule
+One Claude call (`claude-opus-5-5`) per document with text: the 54 captured sources of the 87 in the
+pack, plus 3 public pages the team fetched one at a time (`data_extra/`, with URL, retrieval date and
+robots.txt check) because the pack only links the T2/T5 sources. Structured output constrains the answer to a flat JSON schema built from the official rule
 record; code maps it onto `rule_record.schema.json`, adds `source_url` and `retrieved_at` from the
 manifest, and validates. The prompt (version 2) allows only the six categories and no facts from memory.
 
 - **Quote check:** a rule survives only if its `quoted_span` is found verbatim in its own
   source; otherwise it is dropped and logged. The validator re-checks every quote.
+- **Source scope:** a rule is kept only for its document's manifest jurisdiction or that
+  jurisdiction's state, so a survey article listed for Jersey City cannot create rules for other cities.
 - **Dates:** a missing effective date is derived only from the enactment date (via a clause in the
   source or California's January 1 default for statutes) and noted on the rule.
 - **Audit log:** raw output per document is cached in `runs/raw/` (model, prompt version, tokens);
@@ -25,8 +28,9 @@ manifest, and validates. The prompt (version 2) allows only the six categories a
 - **Offline rebuild:** `extract --offline` rebuilds the identical `rules.json` from the cache, with
   no model call.
 
-Current run: 94 candidates, 1 dropped (quote not in source), 11 duplicates merged, 82 rules from 48
-documents; 362k input and 109k output tokens, about $3.60.
+Final run: 112 candidates; 13 dropped as outside their source's jurisdiction, 1 dropped (quote not in
+source), 11 duplicates merged: **85 rules from 51 documents**; 375k input and 118k output tokens, about
+$3.86. `realrent.pipeline --check` regenerates every submitted file offline and finds no difference.
 
 ## Jurisdiction (Module B)
 
@@ -67,15 +71,18 @@ ban only inside its city. T4: addresses where the bills are `pending`. T5: must 
 The extractor flags a rule whose source shows disagreeing dates or possible preemption. In T3, NJ
 addresses where the FAIR Act and a local ban both appear are flagged for human review, not resolved.
 
-**In progress:** with the extracted rules, T1 flips all 250 CA addresses, T3 all 140 NJ addresses,
-T4 reaches all 110 MA addresses as pending, and T5 is empty; `lookups.json` and `changes.json` on
-`main` are still empty until the final run. T2 and the T3 flags are empty: the Hoboken and Jersey
-City bans (D032–D035) are link-only, so there is no text to extract.
+**Results (affected / flagged):** T1 250 / 0 (every CA address) · T2 90 / 90 (Hoboken 40 + Jersey City
+50, no Newark) · T3 140 / 90 (every NJ address; flags on Hoboken and Jersey City) · T4 110 / 0 (every
+MA address, pending) · T5 0 / 0. `lookups.json` covers all 500 addresses at 2026-10-01: 7,200 applies,
+1,337 unknown, 195 superseded, 140 not yet effective, 460 pending.
 
 ## Limits
 
 - No owner data, so small-landlord exemptions always stay `unknown`.
-- Link-only sources yield no rules; T5's empty result is backed by c. 40P, since the struck ballot
-  question (D059) is link-only.
+- Link-only sources yield no rules. The Hoboken ordinance text itself (ecode360) blocks automated
+  access, so Hoboken's ban rests on the city's official press release and Jersey City's on a law-firm
+  summary; both are secondary to the ordinances. D059 records the struck MA ballot question as
+  `failed`, and c. 40P backs T5's empty result.
+- Two pending MA documents produce near-duplicate rules for S.2983.
 - The quote check catches invented text, not misreadings of real text.
 - Not legal advice: results are information, not a compliance check.
