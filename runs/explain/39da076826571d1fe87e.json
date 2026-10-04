@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2027-07-02",
+ "template": "Income standard for subsidized applicants based on tenant's portion of rent applies to this address. Source: Cal. Gov. Code § 12955(o)(1)(A); as of 2027-07-02. Not legal advice.",
+ "rewrite": "For applicants who receive a rent subsidy, any income requirement at this address is based on the tenant's portion of the rent. Source: Cal. Gov. Code § 12955(o)(1)(A); as of 2027-07-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:14:51+00:00"
+}

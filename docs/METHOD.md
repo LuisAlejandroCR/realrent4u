@@ -52,8 +52,9 @@ A deterministic engine (no network, no model) evaluates rule Ã— building facts Ã
    at that address; if the local rule is `unknown`, the state rule becomes `unknown`.
 5. **Mass. G.L. c. 40P** bars local rent control. It is shown as a bar, never as a rent cap.
 
-Explanations (English and Spanish) are templates with citation, as-of date and disclaimer; an optional
-LLM rewrite must keep all three.
+Explanations (English and Spanish) start as templates with citation, as-of date and disclaimer. Claude
+rewords each distinct template (700) in plain language; a rewrite is kept only if all three survive, and
+is cached in `runs/explain/`, so offline runs reproduce the same text without a key.
 
 ## The `unknown` policy
 

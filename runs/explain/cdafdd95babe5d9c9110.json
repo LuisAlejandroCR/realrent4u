@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2026-01-02",
+ "template": "FEHA limits on criminal-history screening of rental applicants aplica a esta dirección. Fuente: California Fair Employment and Housing Act (FEHA); a fecha de 2026-01-02. No es asesoría legal.",
+ "rewrite": "A esta dirección le aplican los límites de la FEHA sobre la revisión de antecedentes penales de las personas que solicitan alquilar una vivienda. Fuente: California Fair Employment and Housing Act (FEHA), vigente al 2026-01-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:11:06+00:00"
+}

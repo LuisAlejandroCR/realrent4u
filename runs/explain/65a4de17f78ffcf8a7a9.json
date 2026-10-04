@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2025-12-31",
+ "template": "Security deposit interest under Berkeley Rent Ordinance applies to this address. Source: Berkeley Rent Ordinance; as of 2025-12-31. Not legal advice.",
+ "rewrite": "The Berkeley Rent Ordinance's rules on interest for security deposits apply to this address. Source: Berkeley Rent Ordinance; as of 2025-12-31. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:10:14+00:00"
+}

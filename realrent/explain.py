@@ -1,12 +1,18 @@
 # explain.py: plain-language EN/ES explanation of one lookup result (rule x address x as_of).
 # Deterministic templates by default; an opt-in Claude rewrite (REALRENT_LLM_EXPLAIN=1 + key) only
 # polishes wording and is discarded unless it keeps the citation, the as-of date and the disclaimer.
+# Rewrites are cached in runs/explain/ (committed, like runs/raw/), so offline runs reproduce them.
 
+import hashlib
+import json
 import os
+from datetime import datetime, timezone
 
 from realrent import paths
 
 MODEL = "claude-opus-5-5"
+# One JSON file per rewritten text: the audit trail of model output (A14) and the offline cache.
+CACHE_DIR = paths.RUNS / "explain"
 LANGS = ("en", "es")
 DISCLAIMER = {"en": "Not legal advice.", "es": "No es asesoría legal."}
 
@@ -195,13 +201,40 @@ REWRITE_SYSTEM = (
 def _rewrite(client, text: str, lang: str, as_of: str) -> str:
     response = client.messages.create(
         model=MODEL,
-        max_tokens=400,
+        # The model may think before answering, and thinking shares this budget; 400 cut answers short.
+        max_tokens=1500,
         system=REWRITE_SYSTEM.format(
             language="English" if lang == "en" else "Spanish", as_of=as_of, disclaimer=DISCLAIMER[lang]
         ),
         messages=[{"role": "user", "content": text}],
     )
+    if getattr(response, "stop_reason", None) == "max_tokens":
+        return ""  # a cut-off answer is never used or cached
     return "".join(getattr(b, "text", "") for b in response.content).strip()
+
+
+def _cache_file(text: str, lang: str, as_of: str):
+    system = REWRITE_SYSTEM.format(
+        language="English" if lang == "en" else "Spanish", as_of=as_of, disclaimer=DISCLAIMER[lang]
+    )
+    digest = hashlib.sha256("\n".join((MODEL, system, text)).encode("utf-8")).hexdigest()[:20]
+    return CACHE_DIR / f"{digest}.json"
+
+
+def _cached(text: str, lang: str, as_of: str) -> str | None:
+    try:
+        return json.loads(_cache_file(text, lang, as_of).read_text(encoding="utf-8")).get("rewrite")
+    except (OSError, ValueError):
+        return None
+
+
+def _store(text: str, lang: str, as_of: str, rewrite: str, kept: bool) -> None:
+    f = _cache_file(text, lang, as_of)
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_text(json.dumps({
+        "model": MODEL, "lang": lang, "as_of": as_of, "template": text, "rewrite": rewrite,
+        "kept": kept, "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
 def _rewrite_ok(rewrite: str, citation: str, as_of: str, lang: str) -> bool:
@@ -214,9 +247,14 @@ def explain(rule: dict, item: dict, lang: str = "en", as_of: str | None = None, 
     lang = _lang(lang)
     as_of = _text(as_of) or _text((item or {}).get("as_of")) or paths.DEFAULT_AS_OF
     text = template(rule, item, lang, as_of)
-    if client is None and not _llm_enabled(use_llm):
+    citation = citation_of(rule, lang)
+    if use_llm is False:
         return text
-    if client is not None and use_llm is False:
+    # A cached rewrite is reused with or without a key, so offline runs give the same text (A2).
+    cached = _cached(text, lang, as_of) if client is None else None
+    if cached is not None:
+        return cached if _rewrite_ok(cached, citation, as_of, lang) else text
+    if client is None and not _llm_enabled(use_llm):
         return text
     try:
         if client is None:
@@ -226,4 +264,8 @@ def explain(rule: dict, item: dict, lang: str = "en", as_of: str | None = None, 
         rewrite = _rewrite(client, text, lang, as_of)
     except Exception:
         return text
-    return rewrite if _rewrite_ok(rewrite, citation_of(rule, lang), as_of, lang) else text
+    if not rewrite:
+        return text
+    kept = _rewrite_ok(rewrite, citation, as_of, lang)
+    _store(text, lang, as_of, rewrite, kept)
+    return rewrite if kept else text

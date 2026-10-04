@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2026-10-01",
+ "template": "Prohibition on algorithmic devices used to set rents or manage occupancy (Rent Ordinance Section 37.10C) applies to this address. Source: San Francisco Rent Ordinance Section 37.10C; as of 2026-10-01. Not legal advice.",
+ "rewrite": "At this address, landlords may not use algorithmic devices to set rents or manage occupancy (Rent Ordinance Section 37.10C). Source: San Francisco Rent Ordinance Section 37.10C, as of 2026-10-01. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:14:11+00:00"
+}

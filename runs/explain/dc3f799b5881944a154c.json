@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2027-07-02",
+ "template": "No podemos saber si Just Cause Ordinance (JCO) – just cause required and relocation assistance for no-fault evictions aplica a esta dirección porque no tenemos el año de construcción del edificio. Fuente: Los Angeles Just Cause Ordinance (JCO); a fecha de 2027-07-02. No es asesoría legal.",
+ "rewrite": "No podemos saber si la Just Cause Ordinance (JCO), que exige una causa justificada para desalojar y ayuda de reubicación en los desalojos sin culpa del inquilino, se aplica a esta dirección, porque no tenemos el año de construcción del edificio. Fuente: Los Angeles Just Cause Ordinance (JCO); a fecha de 2027-07-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:19:32+00:00"
+}

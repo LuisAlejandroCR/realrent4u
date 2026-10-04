@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2027-07-02",
+ "template": "Move-in and move-out photograph requirement aplica a esta dirección. Fuente: Cal. Civ. Code § 1950.5(g); a fecha de 2027-07-02. No es asesoría legal.",
+ "rewrite": "A esta dirección le aplica el requisito de tomar fotografías al mudarse y al dejar la vivienda. Fuente: Cal. Civ. Code § 1950.5(g), a fecha de 2027-07-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:14:47+00:00"
+}

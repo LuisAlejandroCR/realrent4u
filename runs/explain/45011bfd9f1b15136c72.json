@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2025-12-31",
+ "template": "No podemos saber si Residential Tenant Protections – just cause required for termination of tenancy aplica a esta dirección porque no tenemos el año de construcción del edificio. Fuente: San Diego Municipal Code §§98.0704, 98.0706 (O-21647 N.S.; amended O-21769 N.S.); a fecha de 2025-12-31. No es asesoría legal.",
+ "rewrite": "No podemos saber si la norma Residential Tenant Protections (que exige una causa justa para terminar un arrendamiento) aplica a esta dirección, porque no tenemos el año de construcción del edificio. Fuente: San Diego Municipal Code §§98.0704, 98.0706 (O-21647 N.S.; amended O-21769 N.S.), a fecha de 2025-12-31. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:10:53+00:00"
+}

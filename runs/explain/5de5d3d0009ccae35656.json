@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2027-07-02",
+ "template": "Credit report cost and reasonable application fees allowed aplica a esta dirección. Fuente: 15 U.S.C.A. § 1681m; a fecha de 2027-07-02. No es asesoría legal.",
+ "rewrite": "En esta dirección se permite cobrar el costo del informe de crédito y cargos razonables por la solicitud. Fuente: 15 U.S.C.A. § 1681m, vigente a fecha de 2027-07-02. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:15:14+00:00"
+}

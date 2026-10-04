@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2026-01-02",
+ "template": "Relocation payments for owner/relative move-in, demolition/removal, temporary capital improvement and substantial rehabilitation evictions would cover this address but is not yet in effect; it takes effect on 2026-03-01. Source: San Francisco Rent Ordinance Section 37.9C; as of 2026-01-02. Not legal advice.",
+ "rewrite": "The relocation payment rule for evictions due to owner or relative move-in, demolition or removal, temporary capital improvement, or substantial rehabilitation would apply to this address, but it doesn't take effect until 2026-03-01. Source: San Francisco Rent Ordinance Section 37.9C; as of 2026-01-02. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:18:15+00:00"
+}

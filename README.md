@@ -100,9 +100,9 @@ change (A2).
 | C · Track | `uv run python -m realrent.changes` | `submission/changes.json` (`--dry-run` prints instead) | same |
 | Validate | `uv run python -m realrent.validate` | nothing (`--init` overwrites with empty valid files) | — |
 
-Without an API key everything above except a fresh extraction works. Explanations are templates; set
-`REALRENT_LLM_EXPLAIN=1` with a key to let Claude reword them (the rewrite is kept only if citation,
-as-of date and disclaimer survive). If `rules.json` is ever empty, `lookups` uses the test fixtures
+Without an API key everything above except a fresh extraction works. Explanations come from templates
+reworded by Claude and cached in `runs/explain/` (kept only if citation, as-of date and disclaimer
+survive); offline runs reuse that cache. Set `REALRENT_LLM_EXPLAIN=1` with a key to fill it for new texts. If `rules.json` is ever empty, `lookups` uses the test fixtures
 for `derived/lookups/` only and leaves `submission/lookups.json` alone, and `changes` prefixes its
 notes with `[FIXTURE INPUT, not a submission]`: never submit that output.
 

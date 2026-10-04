@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2026-10-01",
+ "template": "We cannot tell whether Security deposit cap of 1.5 months' rent (Security Deposit Law) applies to this address because the rule exempts some small or owner-occupied properties, and we do not have ownership data to check that. Source: N.J.S.A. 46:8-21.2; as of 2026-10-01. Not legal advice.",
+ "rewrite": "We can't tell if the Security Deposit Law's cap of 1.5 months' rent applies to this address, because some small or owner-occupied properties are exempt and we don't have the ownership information needed to check. Source: N.J.S.A. 46:8-21.2; as of 2026-10-01. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:13:21+00:00"
+}

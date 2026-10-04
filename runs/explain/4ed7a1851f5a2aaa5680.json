@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "es",
+ "as_of": "2026-10-01",
+ "template": "Security deposit held in separate interest-bearing account; receipts and annual interest aplica a esta dirección. Fuente: M.G.L. c. 186, § 15B(2)(b)-(d), (3); a fecha de 2026-10-01. No es asesoría legal.",
+ "rewrite": "Para esta dirección aplica la norma de que el depósito de seguridad se guarde en una cuenta separada que genere intereses, junto con las reglas sobre recibos e intereses anuales. Fuente: M.G.L. c. 186, § 15B(2)(b)-(d), (3); a fecha de 2026-10-01. No es asesoría legal.",
+ "kept": true,
+ "created_at": "2026-10-04T06:18:48+00:00"
+}

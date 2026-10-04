@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "lang": "en",
+ "as_of": "2025-12-31",
+ "template": "Return of security deposit within 30 days; permitted deductions applies to this address. Source: M.G.L. c. 186, § 15B(4), (6), (7); as of 2025-12-31. Not legal advice.",
+ "rewrite": "The rule on returning the security deposit within 30 days, and on which deductions are permitted, applies to this address. Source: M.G.L. c. 186, § 15B(4), (6), (7), as of 2025-12-31. Not legal advice.",
+ "kept": true,
+ "created_at": "2026-10-04T06:10:33+00:00"
+}
