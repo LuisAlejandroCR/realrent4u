@@ -215,3 +215,22 @@ test("change-test tiles filter the tests", async ({ page }) => {
   await page.getByRole("button", { name: /Need review/ }).click();
   await expect(page.locator(".rr-tests > *")).toHaveCount(5);
 });
+
+test("start-here roadmap earns stamps and the jurisdiction bubbles open an example", async ({ page }) => {
+  await page.goto("/dashboard");
+  const road = page.getByRole("region", { name: "Start here" });
+  await expect(road).toContainText("0 of 5 steps");
+  await road.getByRole("link", { name: /Spot a jurisdiction mismatch/ }).click();
+  await expect(page).toHaveURL(/a=A0065/);
+  await expect(page.locator(".rr-story-legal")).toHaveText("Boston, MA");
+  await expect(page.locator(".rr-toast")).toBeVisible();
+  await page.goto("/dashboard");
+  await expect(page.getByRole("region", { name: "Start here" })).toContainText("2 of 5 steps");
+
+  const bubbles = page.getByRole("region", { name: "Where the sample is" });
+  await expect(bubbles.locator("path.leaflet-interactive")).toHaveCount(9);
+  await bubbles.locator("path.leaflet-interactive").first().click({ force: true });
+  await expect(bubbles.locator(".rr-tmap-card")).toContainText(/sample addresses · \d+ rules on record/);
+  await bubbles.getByRole("link", { name: /Open an example/ }).click();
+  await expect(page).toHaveURL(/a=A\d{4}/);
+});

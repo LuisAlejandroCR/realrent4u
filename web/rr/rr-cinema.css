@@ -465,3 +465,49 @@ em.rr-cine-line { animation-delay: .14s; }
 .rr-factchips li.is-missing em { color: var(--rr-marigold-ink); }
 @keyframes rr-stamp-in { from { transform: rotate(-8deg) scale(1.6); opacity: 0; } to { transform: rotate(-2deg) scale(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .rr-story-legal { animation: none; } }
+
+/* "Start here" roadmap (mobile Home): five steps that earn stamps; the next one is highlighted. */
+.rr-road { margin: 22px auto 0; max-width: 720px; background: var(--rr-surface); border: 1px solid var(--rr-border); border-radius: 16px; padding: 6px; text-align: left; }
+.rr-road-head { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; min-height: 44px; border: 0; background: none; font: inherit; color: var(--rr-ink); cursor: pointer; text-align: left; border-radius: 12px; }
+.rr-road-head > span:first-child { flex: 1; display: grid; }
+.rr-road-head strong { font-size: 17px; }
+.rr-road-head small { font-size: 13px; color: var(--rr-ink-2); }
+.rr-road-pips { display: flex; gap: 3px; }
+.rr-road-pips i { width: 16px; height: 6px; border-radius: 3px; background: var(--rr-border); transition: background .3s; }
+.rr-road-pips i.is-on { background: var(--rr-marigold); }
+.rr-road-chev { font-size: 22px; font-weight: 800; color: var(--rr-stamp); transition: transform .2s; }
+.rr-road-chev.is-open { transform: rotate(90deg); }
+.rr-road-steps { list-style: none; margin: 0; padding: 0 4px 6px; display: grid; gap: 2px; }
+.rr-road-steps li { animation: rr-step-in .35s ease-out both; animation-delay: calc(var(--i) * 60ms); }
+.rr-road-step { width: 100%; display: flex; align-items: center; gap: 12px; padding: 9px 10px; min-height: 52px; border-radius: 12px; border: 1.5px solid transparent; background: none; font: inherit; color: var(--rr-ink); text-decoration: none; text-align: left; cursor: pointer; transition: background .15s, transform .15s; }
+.rr-road-step:hover { background: var(--rr-paper); }
+.rr-road-step:active { transform: scale(.985); }
+.rr-road-step.is-next { background: var(--rr-soft); border-color: var(--rr-stamp); }
+.rr-road-n { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--rr-border); font-weight: 800; color: var(--rr-ink-2); }
+.rr-road-step.is-next .rr-road-n { background: var(--rr-stamp); border-color: var(--rr-stamp); color: #fff; }
+.rr-road-t { flex: 1; display: grid; }
+.rr-road-t strong { font-size: 15px; }
+.rr-road-t small { font-size: 13px; color: var(--rr-ink-2); }
+.rr-road-step.is-done .rr-road-t strong { color: var(--rr-ink-2); text-decoration: line-through; }
+.rr-road-next { font-size: 13px; font-weight: 800; color: var(--rr-stamp); }
+.rr-stampmark { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 2px dashed var(--rr-border); font: 800 14px var(--rr-serif); color: var(--rr-border); }
+.rr-stampmark.is-earned { border-style: solid; border-color: var(--rr-marigold); background: var(--rr-evidence); color: var(--rr-marigold-ink); transform: rotate(-8deg); }
+@keyframes rr-step-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Stamp toast: slides down, leaves on its own, never blocks clicks. */
+.rr-toast { position: fixed; top: 84px; left: 50%; z-index: 1000; display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-width: 260px; border-radius: 14px; background: var(--rr-ink); color: #fff; box-shadow: 0 10px 30px rgba(20,28,46,.3); pointer-events: none; transform: translateX(-50%); animation: rr-toast .4s cubic-bezier(.2,1.4,.4,1); }
+.rr-toast > span:last-child { display: grid; }
+.rr-toast small { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #ffe29a; }
+.rr-toast strong { font-size: 16px; }
+.rr-toast .rr-stampmark { width: 38px; height: 38px; }
+@keyframes rr-toast { from { transform: translate(-50%, -40px); } to { transform: translate(-50%, 0); } }
+
+/* Jurisdiction bubbles (mobile Home): where the sample is. */
+.rr-bubbles { margin: 26px auto 0; max-width: 960px; text-align: left; display: grid; gap: 6px; }
+.rr-bubbles .rr-h2 { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rr-road-steps li, .rr-toast { animation: none; }
+  .rr-road-chev, .rr-road-step { transition: none; }
+}
+.rr-find > .rr-road, .rr-find > .rr-bubbles { margin-top: 0; width: 100%; }

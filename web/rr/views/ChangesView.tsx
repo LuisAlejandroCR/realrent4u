@@ -7,6 +7,7 @@ import { LawTimeline } from "../components/LawTimeline";
 import { Notice } from "../components/Notice";
 import type { Dataset } from "../data";
 import { hrefWith, setParam, usePrefs } from "../prefs";
+import { earn } from "../stamps";
 
 type TestFilter = "all" | "changes" | "review" | "none";
 
@@ -16,11 +17,15 @@ export function TestsBody({ data, focus: initial }: { data: Dataset; focus?: str
   const [filter, setFilter] = useState<TestFilter>("all");
   // The dashboard reads ?t= after mount; follow it.
   useEffect(() => {
-    if (initial) setFocus(initial);
+    if (initial) {
+      setFocus(initial);
+      earn("scenario");
+    }
   }, [initial]);
   // A lane opens its card (and only that one) and brings it into view.
   const pick = (id: string) => {
     setFocus(id);
+    earn("scenario");
     setParam("t", id);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     requestAnimationFrame(() => document.getElementById(`test-${id}`)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }));
