@@ -372,7 +372,7 @@
 
 /* Desktop dashboard refinements */
 .rr-wrap { max-width: 1440px; padding-left: 32px; padding-right: 32px; }
-.rr-about { width: min(100%, 1200px); }
+.rr-about { width: min(100%, 1200px); max-width: none; }
 .rr-about > .rr-page-head { max-width: 820px; }
 .rr-audit-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr); gap: 32px; align-items: start; }
 .rr-audit-grid > section, .rr-audit-side > section { min-width: 0; }

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import "../rr/rr.css";
 import "../rr/rr-landing.css";
 import "../rr/rr-home.css";
+import "../rr/rr-cinema.css";
 import { PrefsProvider } from "../rr/prefs";
 
 export const metadata: Metadata = {

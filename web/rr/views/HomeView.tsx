@@ -13,7 +13,6 @@ import { blank, rulesInRecord, type Dataset } from "../data";
 import { useLandingConfig } from "../landing";
 import { useCountUp, useHero, useReveal } from "../hero";
 import { hrefWith, usePrefs } from "../prefs";
-import "../rr-cinema.css";
 
 // First address whose postal city differs from its legal jurisdiction and has a quoted, sourced rule.
 function pickSample(d: Dataset) {

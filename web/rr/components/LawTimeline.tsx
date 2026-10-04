@@ -11,10 +11,15 @@ export interface LawTimelineProps {
   results: ChangeResult[];
   total: number;
   href: (testId: string) => string;
+  /** In-page handler (dashboard): open the test below instead of following the link. */
+  onPick?: (testId: string) => void;
+  /** Lane of the test currently open, marked as current. */
+  current?: string | null;
+  note?: string;
   tr: Dict;
 }
 
-export function LawTimeline({ tests, results, total, href, tr }: LawTimelineProps) {
+export function LawTimeline({ tests, results, total, href, onPick, current, note, tr }: LawTimelineProps) {
   const ref = useReveal<HTMLDivElement>();
   const dates = Array.from(new Set(tests.flatMap((t) => [t.as_of_before, t.as_of_after, t.as_of]).filter((d): d is string => !!d))).sort();
   const col = (d: string) => dates.indexOf(d) + 1;
@@ -40,7 +45,12 @@ export function LawTimeline({ tests, results, total, href, tr }: LawTimelineProp
           const shape = t.type === "pending" ? "is-pending" : !n && r ? "is-empty" : "is-dot";
           return (
             <li key={t.test_id} style={{ ["--i" as string]: i }}>
-              <a href={href(t.test_id)} className="rr-tl-lane">
+              <a
+                href={href(t.test_id)}
+                className="rr-tl-lane"
+                aria-current={current === t.test_id ? "true" : undefined}
+                onClick={onPick ? (e) => (e.preventDefault(), onPick(t.test_id)) : undefined}
+              >
                 <span className="rr-tl-label">
                   <span className="rr-test-id">{t.test_id}</span>
                   <span className="rr-tl-title">{t.title}</span>
@@ -77,7 +87,7 @@ export function LawTimeline({ tests, results, total, href, tr }: LawTimelineProp
           );
         })}
       </ol>
-      <p className="rr-meta rr-tl-note">{tr.tlNote}</p>
+      <p className="rr-meta rr-tl-note">{note ?? tr.tlNote}</p>
     </div>
   );
 }

@@ -136,3 +136,21 @@ test("the landing stage replays address × date and hands control to the visitor
   await expect(stage.locator(".rr-stage-tabs button").nth(1)).toHaveAttribute("aria-pressed", "true");
   await expect(stage.locator(".rr-stage-foot a")).toHaveAttribute("href", /tab=lookup&a=A\d{4}/);
 });
+
+test("change-test timeline opens the picked test", async ({ page }) => {
+  await page.goto("/dashboard?tab=tests");
+  const lane = page.locator(".rr-tl-lane").filter({ hasText: "T3" });
+  await lane.click();
+  await expect(page).toHaveURL(/t=T3/);
+  await expect(lane).toHaveAttribute("aria-current", "true");
+  await expect(page.locator("#test-T3 .rr-test-toggle")).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#test-T1 .rr-test-toggle")).toHaveAttribute("aria-expanded", "false");
+});
+
+test("method tab draws the pipeline with counts from the data", async ({ page }) => {
+  await page.goto("/dashboard?tab=method");
+  const pipe = page.getByRole("figure", { name: /From public text/ });
+  await expect(pipe).toContainText(/\d+ public documents/);
+  await expect(pipe).toContainText(/\d+ rules kept/);
+  await expect(pipe).toContainText("Deterministic engine");
+});

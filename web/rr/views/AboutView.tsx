@@ -1,14 +1,16 @@
 "use client";
-// AboutView.tsx: dashboard tab "Method & audit": how a result is produced, the data files behind the
-// demo, available dates and build warnings.
+// AboutView.tsx: dashboard tab "Method & audit": the pipeline diagram (how a result is produced), the data
+// files behind the demo, available dates and build warnings.
 import { Notice } from "../components/Notice";
+import { Pipeline } from "../components/Pipeline";
 import type { Dataset } from "../data";
 import { usePrefs } from "../prefs";
 
 /** The one-page method note (docs/METHOD.md), read on GitHub so the demo stays a static export. */
 const METHOD_NOTE_URL = "https://github.com/LuisAlejandroCR/realrent4u/blob/main/docs/METHOD.md";
 
-export function MethodBody({ data: { manifest } }: { data: Dataset }) {
+export function MethodBody({ data }: { data: Dataset }) {
+  const { manifest } = data;
   const { tr } = usePrefs();
   return (
     <div className="rr-about">
@@ -21,11 +23,7 @@ export function MethodBody({ data: { manifest } }: { data: Dataset }) {
           </a>
         </p>
       </header>
-      <ol className="rr-steps">
-        {[tr.m1, tr.m2, tr.m3, tr.m4].map((m, i) => (
-          <li key={i}><span className="rr-step-n">{i + 1}</span><p>{m}</p></li>
-        ))}
-      </ol>
+      <Pipeline data={data} tr={tr} />
 
       <div className="rr-audit-grid">
         <section aria-labelledby="rr-data-files-title">

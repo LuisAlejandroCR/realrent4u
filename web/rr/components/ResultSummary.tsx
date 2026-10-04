@@ -5,7 +5,6 @@ import type { LookupItem, LookupResult, Rule } from "../types";
 import type { Dict } from "../i18n";
 import { StatusBadge } from "./StatusBadge";
 import "../rr-scenarios.css";
-import "../rr-cinema.css";
 
 const ORDER: LookupResult[] = ["applies", "unknown", "superseded", "not_yet_effective", "pending"];
 

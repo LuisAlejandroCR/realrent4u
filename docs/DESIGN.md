@@ -73,6 +73,14 @@ only signal.
 4. T1–T5 on one date axis (`LawTimeline`; "results not available" ≠ "0, confirmed empty").
 5. Closing, dark: CTA, links and the demo QR (QR hidden on phones).
 
+**Dashboard (`/dashboard`)** shares the dark header (night band with the "Not legal advice" + As of bar).
+- Lookup, no address: one big centred search (`/` focuses it) with the demo scenarios as cards below.
+  With an address: the side panel returns; "At a glance" adds the result-mix bar; rule cards rise in with a
+  40 ms stagger.
+- Change tests: the same T1–T5 timeline on top; a lane opens its card (only that one) and scrolls to it.
+- Method & audit: the pipeline as one diagram (documents → extract → quote-checked rules; addresses →
+  geocoder → facts; both → deterministic engine → dated results), every count read from the build.
+
 Acceptance: hero fits a 1440×900 screen with the header; no horizontal scroll at 360 px; the stage never
 claims a result that is not in the lookup files; reduced motion shows every state without autoplay.
 

@@ -18,12 +18,14 @@ export interface ChangeTestCardProps {
   tr: Dict;
   /** Open by default (e.g. on desktop). Defaults to open at ≥ 900px. */
   defaultOpen?: boolean;
+  /** Element id the timeline scrolls to. */
+  anchor?: string;
 }
 
 const PREVIEW = 6;
 
 /** Expandable summary card for one fixed scenario (T1–T5). */
-export function ChangeTestCard({ test, result, rules, addresses, addressHref, data, tr, defaultOpen }: ChangeTestCardProps) {
+export function ChangeTestCard({ test, result, rules, addresses, addressHref, data, tr, defaultOpen, anchor }: ChangeTestCardProps) {
   const id = useId();
   const [open, setOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -38,7 +40,7 @@ export function ChangeTestCard({ test, result, rules, addresses, addressHref, da
   const dates = test.as_of_before ? [test.as_of_before, test.as_of_after!] : test.as_of ? [test.as_of] : [];
 
   return (
-    <article className={`rr-test ${open ? "is-open" : ""}`}>
+    <article id={anchor} className={`rr-test ${open ? "is-open" : ""}`}>
       <h2 className="rr-test-h">
         <button type="button" className="rr-test-toggle" aria-expanded={open} aria-controls={`${id}-p`} onClick={() => setOpen(!open)}>
           <span className="rr-test-id">{test.test_id}</span>
