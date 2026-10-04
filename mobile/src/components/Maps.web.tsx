@@ -5,7 +5,8 @@ import { Pressable, View } from "react-native";
 import { color, radius } from "../theme";
 import { MapLabel } from "./MapLabel";
 
-export interface MapPoint { id: string; lat: number; lon: number; fill: string; ring?: string }
+/** size = dot diameter in px (bubbles); default 14. */
+export interface MapPoint { id: string; lat: number; lon: number; fill: string; ring?: string; size?: number }
 export { MapLabel };
 
 export function LocationMap({ lat, lon, area, label, onPress, hint }: { lat: number; lon: number; area: boolean; label: string; onPress?: () => void; hint?: string }) {
@@ -45,7 +46,7 @@ export function PointsMap({ points, selected, onSelect, height = 240 }: {
       {/* Plain DOM svg on web: react-native-svg's onPress leaks responder props into the DOM. */}
       {createElement("svg", { width: "100%", height: "100%", viewBox: `0 0 ${W} ${H}`, role: "img", onClick: () => onSelect(null) },
         ordered.map((p) => createElement("circle", {
-          key: p.id, cx: ox + (p.lon * k - x0) * s, cy: H - (oy + (p.lat - y0) * s), r: p.id === selected ? 9 : 5,
+          key: p.id, cx: ox + (p.lon * k - x0) * s, cy: H - (oy + (p.lat - y0) * s), r: (p.size ? p.size / 3 : 5) + (p.id === selected ? 4 : 0), fillOpacity: p.size ? 0.85 : 1,
           fill: p.fill, stroke: p.id === selected ? color.ink : p.ring ?? color.surface, strokeWidth: p.id === selected ? 3 : 2,
           style: { cursor: "pointer" }, "data-id": p.id,
           onClick: (e: { stopPropagation: () => void }) => { e.stopPropagation(); onSelect(p.id); },
