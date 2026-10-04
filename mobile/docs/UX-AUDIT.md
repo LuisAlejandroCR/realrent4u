@@ -73,6 +73,15 @@ exploration earns small wins. Never legal advice, never invented data.
 | R1 | Rules on record grouped by outcome (Applies · Can't tell · Displaced · Not yet in force); one compact row per rule, category as a tag | No status line repeated per row |
 | R2 | Rule detail: stamp + one-line reason; status / effective / jurisdiction tiles; requirement clamped to 3 lines; quote card visible; engine text behind "Full explanation"; empty sections hidden | No "No information" rows |
 
+## Fourth pass — three tabs, Changes as a timeline (spec)
+
+| # | Change | Acceptance |
+|---|---|---|
+| N1 | Search leaves the tab bar: tabs are Home · Changes · Method. Search, address and rule screens live in Home's stack (`app/(tabs)/(home)/`); URLs unchanged | `/search/A0001` opens with Home tab active and Back to Home |
+| N2 | Home's search bar pushes the search screen (native header with Back) | Back from search returns to Home |
+| C1 | Changes list: KPI row (tests · address changes · need review · no effect) that filters the list | "Need review" → T2, T3 only |
+| C2 | One timeline row per test: ID, title, a track across the four dates (dot = one date, bar = before → after), affected count; date header sets the as-of date | Tap T1 row → scenario; tap a date → as-of changes |
+
 ## Verify — 2026-10-04
 
 Done: `npm run typecheck` passes; web preview on a cache-cleared Metro: B1 (T1–T5 = 250/90/140/110/0), B2
@@ -83,6 +92,9 @@ address approximate-map card, clean console.
 Third pass: typecheck passes; web preview: I1 (dot → card "A0040 · Needs review · Hoboken, NJ"), I2 (`/map?address=A0322`,
 50 San Diego dots), I3 (Hoboken bar → 40 dots / 40 addresses; Method "Unknown" → by category + reasons, 890 = owner
 not in record), I4 ("need human review" tile → 90), R1 (Applies 16 → 4 + "Show all"), R2 (stamp, tiles, clamp).
+Fourth pass: typecheck passes; web preview: three tabs (Home · Changes · Method); Home → search pushes with Back;
+`/search/A0002` from T2 opens with Home tab active and Back; Changes KPIs 5 · 590 · 2 · 1, "need review" → T2, T3;
+timeline rows with dot / before→after bar, date header labels "Dec 31 / 2025"; KPI tiles equal width.
 Known, web preview only: ~12 React-Native-Web "Unknown event handler property onResponder*" warnings on a full page
 load (none on in-app navigation); not reproduced on native.
 Pending on a device in Expo Go: haptics, native sheets, native maps (Apple/Google tiles).

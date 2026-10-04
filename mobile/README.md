@@ -34,8 +34,8 @@ omiten); sin lookups para la fecha, muestra las reglas del registro como **Not e
 ```text
 Stack (root)
 ├─ (tabs)  Tabs inferiores
-│  ├─ index               01 Inicio (pestaña Home / Inicio)
-│  ├─ search  Stack      02 Buscar → search/[id] 03 Resultado → search/rule/[ruleId]?address= 04 Regla
+│  ├─ (home)  Stack      01 Inicio → search 02 Buscar → search/[id] 03 Resultado → search/rule/[ruleId]?address= 04 Regla
+│  │                     (Buscar no tiene pestaña propia: se abre desde la barra de Inicio)
 │  ├─ changes Stack      06 Pruebas T1–T5 → changes/[testId] 07 Detalle
 │  └─ method             08 Método y auditoría
 └─ date  (modal)         05 Elegir fecha — formSheet en iOS, modal deslizante en Android
@@ -47,12 +47,12 @@ Equivalente React Navigation: `NativeStack(Home, Tabs, Date{presentation:'formSh
 ## Pantallas y componentes
 | Archivo | Pantalla |
 |---|---|
-| `app/(tabs)/index.tsx` | 01 Inicio: marca, intro, CTA, fecha actual, aviso legal |
-| `app/(tabs)/search/index.tsx` | 02 Búsqueda: vacía, sin coincidencias, resultados; teclado (`KeyboardAvoidingView`, `keyboardShouldPersistTaps`) |
-| `app/(tabs)/search/[id].tsx` | 03 Dirección: jurisdicción ≠ ciudad postal, datos ausentes, fecha + Cambiar, reglas por categoría |
-| `app/(tabs)/search/rule/[ruleId].tsx` | 04 Regla: estado, motivo, cita, texto literal, fuente (navegador in-app), recuperación, conflicto |
+| `app/(tabs)/(home)/index.tsx` | 01 Inicio: marca, CTA de búsqueda, casos rápidos, expediente |
+| `app/(tabs)/(home)/search/index.tsx` | 02 Búsqueda: vacía, sin coincidencias, resultados; teclado (`KeyboardAvoidingView`, `keyboardShouldPersistTaps`) |
+| `app/(tabs)/(home)/search/[id].tsx` | 03 Dirección: jurisdicción ≠ ciudad postal, datos ausentes, fecha + Cambiar, reglas por categoría |
+| `app/(tabs)/(home)/search/rule/[ruleId].tsx` | 04 Regla: estado, motivo, cita, texto literal, fuente (navegador in-app), recuperación, conflicto |
 | `app/date.tsx` | 05 Fechas del manifiesto, marca las que no tienen resultados |
-| `app/(tabs)/changes/*` | 06/07 T1–T5; "Results not available" ≠ "0 affected" |
+| `app/(tabs)/changes/*` | 06 línea de tiempo T1–T5 con KPIs filtro · 07 detalle con mapa y gráficos; "Results not available" ≠ "0 affected" |
 | `app/(tabs)/method.tsx` | 08 Fuentes, fixtures, fechas, avisos, límites |
 | `app/profile.tsx` | 09 "Tú": expediente de sellos + ajustes (idioma detectado del teléfono, vibración, reducir movimiento). Solo sesión, sin cuenta |
 
