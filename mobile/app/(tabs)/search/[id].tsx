@@ -1,13 +1,13 @@
-// [id].tsx: 03 address details: postal city → legal jurisdiction, building facts, a result strip that doubles
-// as a filter, and compact rule rows grouped by category. Earns the "find" and "mismatch" stamps.
+// [id].tsx: 03 address details: postal city → legal jurisdiction, a tappable approximate map, building facts,
+// a result strip that doubles as a filter, and compact rule rows grouped by outcome. Earns "find" and "mismatch".
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Animated, Easing, ScrollView, Text, View } from "react-native";
 import { LegalDateBar } from "../../../src/components/Chrome";
 import { LocationMap } from "../../../src/components/Maps";
 import { FadeIn, Tap } from "../../../src/components/motion";
-import { Chevron, Fact, Id, Kicker, Notice, SectionLabel, T } from "../../../src/components/ui";
-import { blank, groupByCategory, rulesInRecord } from "../../../src/data";
+import { Button, Chevron, Fact, Id, Kicker, Notice, SectionLabel, T } from "../../../src/components/ui";
+import { blank, rulesInRecord } from "../../../src/data";
 import { useReduceMotion } from "../../../src/feel";
 import { reasonText } from "../../../src/format";
 import { usePrefs } from "../../../src/prefs";
@@ -15,6 +15,13 @@ import { badge, chart, chartTrack, color, radius, space, type BadgeKind } from "
 import type { LookupItem, Rule } from "../../../src/types";
 
 const ORDER: BadgeKind[] = ["applies", "unknown", "superseded", "not_yet_effective", "pending", "unevaluated"];
+const OUTCOMES: { key: string; kinds: BadgeKind[]; label: "groupApplies" | "groupUnknown" | "groupSuperseded" | "groupLater" | "groupNone" }[] = [
+  { key: "applies", kinds: ["applies"], label: "groupApplies" },
+  { key: "unknown", kinds: ["unknown"], label: "groupUnknown" },
+  { key: "superseded", kinds: ["superseded"], label: "groupSuperseded" },
+  { key: "later", kinds: ["not_yet_effective", "pending"], label: "groupLater" },
+  { key: "none", kinds: ["unevaluated"], label: "groupNone" },
+];
 
 /** 03 Address result — anchor, jurisdiction, facts, one picture of all results, then the rules. */
 export default function AddressScreen() {
@@ -45,7 +52,9 @@ export default function AddressScreen() {
   const counts = ORDER.map((k) => [k, rules.filter((r) => kindOf(r) === k).length] as const).filter(([, n]) => n > 0);
   const nConflict = rules.filter(conflictOf).length;
   const visible = filter == null ? rules : rules.filter((r) => (filter === "review" ? conflictOf(r) : kindOf(r) === filter));
-  const groups = groupByCategory(visible);
+  // Grouped by outcome (what the reader needs first), not by legal category (shown as a tag on each row).
+  const groups = OUTCOMES.map((g) => ({ ...g, list: visible.filter((r) => g.kinds.includes(kindOf(r))) })).filter((g) => g.list.length > 0);
+  const router = useRouter();
 
   if (!a) return <View style={{ padding: space.lg }}><Notice tone="warn" title={tr.noMatches} /></View>;
   const geo = data.geo[a.address_id];
@@ -77,7 +86,7 @@ export default function AddressScreen() {
 
         {geo && (
           <FadeIn index={2}>
-            <LocationMap lat={geo[0]} lon={geo[1]} area={geo[2] === "area"} label={geo[2] === "area" ? ms.approxArea : ms.approxStreet} />
+            <LocationMap lat={geo[0]} lon={geo[1]} area={geo[2] === "area"} label={geo[2] === "area" ? ms.approxArea : ms.approxStreet} hint={ms.mapExplore} onPress={() => router.push(`/map?address=${a.address_id}`)} />
           </FadeIn>
         )}
 
@@ -106,15 +115,13 @@ export default function AddressScreen() {
               ))}
               {nConflict > 0 && <FilterChip kind="review" n={nConflict} on={filter === "review"} onPress={() => setFilter(filter === "review" ? null : "review")} />}
             </View>
-            {groups.map(([cat, list], gi) => (
-              <View key={`${cat}-${filter}`} style={{ gap: space.xs + 2, marginTop: space.xs }}>
-                <Kicker tone="primary">{tr.category[cat] ?? cat} · {list.length}</Kicker>
-                {list.map((r, i) => (
-                  <FadeIn key={r.team_rule_id} index={gi + i}>
+            {groups.map((g) => (
+              <OutcomeGroup key={`${g.key}-${filter}`} title={ms[g.label]} kind={g.kinds[0]} rules={g.list} collapse={g.key === "applies" && filter == null}
+                render={(r, i) => (
+                  <FadeIn key={r.team_rule_id} index={i}>
                     <RuleRow r={r} li={lookups?.find((x) => x.team_rule_id === r.team_rule_id)} addressId={a.address_id} />
                   </FadeIn>
-                ))}
-              </View>
+                )} />
             ))}
           </>
         )}
@@ -166,30 +173,48 @@ function FilterChip({ kind, n, on, onPress }: { kind: BadgeKind; n: number; on: 
   );
 }
 
-/** Compact rule row: colour rail + status line + title + plain-language reason (only when there is one). */
+/** Outcome section: glyph + title + count; long "Applies" lists show 4 rows until expanded. */
+function OutcomeGroup({ title, kind, rules, collapse, render }: { title: string; kind: BadgeKind; rules: Rule[]; collapse: boolean; render: (r: Rule, i: number) => ReactNode }) {
+  const { tr } = usePrefs();
+  const [all, setAll] = useState(false);
+  const b = badge[kind];
+  const cut = collapse && !all ? rules.slice(0, 4) : rules;
+  return (
+    <View style={{ gap: space.xs + 2, marginTop: space.sm }}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm }} accessibilityRole="header">
+        <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: chart[kind as keyof typeof chart] ?? b.fg }} />
+        <Text maxFontSizeMultiplier={1.4} style={{ color: b.fg, fontWeight: "800", fontSize: 15 }}>{b.glyph} {title}</Text>
+        <Text maxFontSizeMultiplier={1.4} style={{ color: color.ink2, fontWeight: "700", fontSize: 13 }}>{rules.length}</Text>
+      </View>
+      {cut.map(render)}
+      {cut.length < rules.length && <Button variant="ghost" label={tr.showAll(rules.length)} onPress={() => setAll(true)} />}
+    </View>
+  );
+}
+
+/** Compact rule row: colour rail + title + one muted line (category · plain reason). Status lives in the group header. */
 function RuleRow({ r, li, addressId }: { r: Rule; li: LookupItem | undefined; addressId: string }) {
   const { tr, ms, data } = usePrefs();
   const router = useRouter();
   const kind: BadgeKind = li ? li.result : "unevaluated";
-  const b = badge[kind];
   const conflict = !!(li?.conflict_flag || r.conflict_flag);
   const label = kind === "unevaluated" ? tr.notEvaluated : tr.result[kind] ?? kind;
   const why = reasonText(li?.reason, ms.reasons, ms.displacedBy, (rid) => data.rules.find((x) => x.team_rule_id === rid)?.title);
+  const cat = tr.category[r.category] ?? r.category;
   return (
     <Tap
       onPress={() => router.push(`/search/rule/${r.team_rule_id}?address=${addressId}`)}
       accessibilityRole="link"
-      accessibilityLabel={`${label}${conflict ? `, ${tr.needsReview}` : ""}. ${r.title}${why ? `. ${why}` : ""}`}
+      accessibilityLabel={`${label}${conflict ? `, ${tr.needsReview}` : ""}. ${r.title}. ${cat}${why ? `. ${why}` : ""}`}
       accessibilityHint={ms.openRule}
-      style={{ flexDirection: "row", alignItems: "center", gap: space.md, paddingVertical: space.sm + 2, paddingRight: space.md, paddingLeft: space.md, backgroundColor: color.surface, borderRadius: radius.md, borderWidth: 1, borderColor: color.line, borderLeftWidth: 5, borderLeftColor: b.fg }}
+      style={{ flexDirection: "row", alignItems: "center", gap: space.md, paddingVertical: space.sm + 2, paddingHorizontal: space.md, backgroundColor: color.surface, borderRadius: radius.md, borderWidth: 1, borderColor: conflict ? color.danger : color.line, borderLeftWidth: 5, borderLeftColor: chart[kind as keyof typeof chart] ?? badge[kind].fg }}
     >
       <View style={{ flex: 1, gap: 2 }}>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: space.sm }}>
-          <Text maxFontSizeMultiplier={1.4} style={{ color: b.fg, fontWeight: "800", fontSize: 12 }}>{b.glyph} {label}</Text>
-          {conflict && <Text maxFontSizeMultiplier={1.4} style={{ color: color.danger, fontWeight: "800", fontSize: 12 }}>! {tr.needsReview}</Text>}
-        </View>
         <T bold numberOfLines={2}>{r.title}</T>
-        {why ? <T variant="small" muted numberOfLines={2}>{why}</T> : null}
+        <T variant="micro" muted numberOfLines={2}>
+          {conflict ? <T variant="micro" bold style={{ color: color.danger }}>! {tr.needsReview} · </T> : null}
+          {cat}{why ? ` · ${why}` : ""}
+        </T>
       </View>
       <Chevron />
     </Tap>
