@@ -137,6 +137,11 @@ const en = {
   byCategoryFor: (r: string) => `${r} by category`,
   rulesIn: (c: string) => `Rules in ${c}`,
   tapToDrill: "Tap a segment or bar to drill down.",
+  kpiTests: "change tests",
+  kpiChanges: "address changes",
+  kpiReview: "need review",
+  kpiNoEffect: "with no effect",
+  timelineHint: "Tap a date to see the whole app on that day. Tap a row to open the test.",
 };
 
 const es: typeof en = {
@@ -274,6 +279,11 @@ const es: typeof en = {
   byCategoryFor: (r: string) => `${r} por categoría`,
   rulesIn: (c: string) => `Reglas de ${c}`,
   tapToDrill: "Toca un segmento o barra para ver el detalle.",
+  kpiTests: "pruebas de cambio",
+  kpiChanges: "cambios en direcciones",
+  kpiReview: "requieren revisión",
+  kpiNoEffect: "sin efecto",
+  timelineHint: "Toca una fecha para ver toda la app ese día. Toca una fila para abrir la prueba.",
 };
 
 export const strings = { en, es };
