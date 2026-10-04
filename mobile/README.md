@@ -54,8 +54,11 @@ Equivalente React Navigation: `NativeStack(Home, Tabs, Date{presentation:'formSh
 | `app/date.tsx` | 05 Fechas del manifiesto, marca las que no tienen resultados |
 | `app/(tabs)/changes/*` | 06/07 T1–T5; "Results not available" ≠ "0 affected" |
 | `app/(tabs)/method.tsx` | 08 Fuentes, fixtures, fechas, avisos, límites |
+| `app/profile.tsx` | 09 "Tú": expediente de sellos + ajustes (idioma detectado del teléfono, vibración, reducir movimiento). Solo sesión, sin cuenta |
 
 Componentes (`src/components/ui.tsx`): `T(variant, muted, serif, mono)`, `Button(label, onPress, variant: primary|ghost, hint?)`, `Row(title, subtitle?, leading?, trailing?, onPress)`, `StatusBadge(kind, tr)`, `Notice(tone: info|warn|danger, title, children?)`, `Fact(label, value, missing)`, `Card`, `Id`, `SectionLabel`, `Kicker`. `Chrome.tsx`: `LangToggle`, `LegalDateBar` (aviso + fecha, en flujo normal, nunca tapa contenido). `States.tsx`: `LoadingState`, `LoadErrorScreen`.
+
+Movimiento y hápticos: `src/feel.ts` (`haptic.select/tap/thunk/success/warn`, `useReduceMotion`), `src/components/motion.tsx` (`Tap`, `FadeIn`, `CountUp`, `Stamp`), `src/components/Story.tsx` (avatar con anillo de sellos, toast, expediente, casos rápidos). Mapas y gráficos: `src/components/Maps.tsx` (+ `Maps.web.tsx` para la vista web), `src/components/Charts.tsx` (`KpiRow`, `StackedBar`, `BarList`); puntos aproximados (~100 m) en `assets/data/geo.json`, generados por `build-data` desde `derived/census/`. Auditoría y criterios: `docs/UX-AUDIT.md`.
 
 Tipos: `Address, Rule, LookupItem, LookupResult, Jurisdiction, ChangeTest, ChangeResult, Manifest` (`src/types.ts`), `Dataset` (`src/data.ts`), `BadgeKind` (`src/theme.ts`).
 
