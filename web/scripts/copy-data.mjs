@@ -175,6 +175,80 @@ const manifest = { generated_at: new Date().toISOString(), uses_fixtures: false,
   manifest.sources.corpus = { kind: rows.length ? "starter_pack" : "missing", path: rel(csv), count: rows.length };
 }
 
+// Landing hero: three real addresses across every lookup date, small enough for the first paint
+// (the full lookups are ~6 MB per date). Picked by predicate, never by id:
+//   dates  — the result mix changes most across dates (prefers one with a superseded state rule);
+//   review — carries conflict flags and an unknown result;
+//   postal — the postal city differs from the legal place.
+{
+  const rules = readJson(path.join(OUT, "rules.json"))?.rules ?? [];
+  const jur = readJson(path.join(OUT, "jurisdictions.json")) ?? {};
+  const addrs = readJson(path.join(OUT, "addresses.json")) ?? [];
+  const dates = manifest.lookup_dates;
+  const lk = Object.fromEntries(dates.map((d) => [d, readJson(path.join(OUT, "lookups", `${d}.json`))?.lookups ?? {}]));
+  const hero = { dates, addresses: [], rules: {} };
+  if (dates.length) {
+    const sig = (id) => dates.map((d) => (lk[d][id] ?? []).map((i) => `${i.team_rule_id}:${i.result}`).sort().join("|"));
+    const changes = (id) => new Set(sig(id)).size - 1;
+    const has = (id, f) => dates.some((d) => (lk[d][id] ?? []).some(f));
+    const cands = addrs.filter((a) => jur[a.address_id]?.jurisdiction && (lk[dates[0]][a.address_id] ?? []).length);
+    const used = new Set();
+    const best = (score) => {
+      const list = cands.filter((a) => !used.has(jur[a.address_id].jurisdiction)).map((a) => [score(a), a]).filter(([s]) => s > 0);
+      list.sort((x, y) => y[0] - x[0]);
+      const a = list[0]?.[1];
+      if (a) used.add(jur[a.address_id].jurisdiction);
+      return a;
+    };
+    const picks = [
+      ["dates", best((a) => changes(a.address_id) * 10 + (has(a.address_id, (i) => i.result === "superseded") ? 5 : 0))],
+      ["review", best((a) => (has(a.address_id, (i) => i.conflict_flag) && has(a.address_id, (i) => i.result === "unknown") ? 1 + changes(a.address_id) : 0))],
+      ["postal", best((a) => {
+        const j = jur[a.address_id];
+        return j.place && j.place.toLowerCase() !== a.postal_city.toLowerCase() ? 1 : 0;
+      })],
+    ].filter(([, a]) => a);
+    const byId = new Map(rules.map((r) => [r.team_rule_id, r]));
+    for (const [kind, a] of picks) {
+      const j = jur[a.address_id];
+      const results = Object.fromEntries(
+        dates.map((d) => [d, (lk[d][a.address_id] ?? []).map((i) => ({ id: i.team_rule_id, r: i.result, c: !!i.conflict_flag }))]),
+      );
+      for (const d of dates) for (const i of results[d]) {
+        const r = byId.get(i.id);
+        if (r && !hero.rules[i.id]) hero.rules[i.id] = { title: r.title, level: r.level, jurisdiction: r.jurisdiction, category: r.category };
+      }
+      // One quoted, sourced rule that applies on the default date, local first: the evidence line.
+      const ev = (results[dd0()] ?? results[dates[0]])
+        .filter((i) => i.r === "applies")
+        .map((i) => byId.get(i.id))
+        .filter((r) => r?.quoted_span && r.source_url)
+        .sort((x, y) => Number(y.level !== "state") - Number(x.level !== "state"))[0];
+      hero.addresses.push({
+        kind,
+        address_id: a.address_id,
+        street: a.street_address,
+        postal_city: a.postal_city,
+        state: a.state,
+        zip: a.zip,
+        year_built: a.year_built || null,
+        units: a.units || null,
+        jurisdiction: j.jurisdiction,
+        county: j.county ?? null,
+        place: j.place ?? null,
+        results,
+        evidence: ev ? { id: ev.team_rule_id, quote: ev.quoted_span.length > 150 ? `${ev.quoted_span.slice(0, 150).trimEnd()}…` : ev.quoted_span, citation: ev.citation, url: ev.source_url, retrieved_at: ev.retrieved_at ?? null } : null,
+      });
+    }
+  }
+  writeJson("hero.json", hero);
+  console.log(`copy-data: hero.json with ${hero.addresses.map((a) => `${a.kind}=${a.address_id}`).join(", ") || "no addresses"}`);
+}
+
+function dd0() {
+  return demoDates().def;
+}
+
 const dd = demoDates();
 manifest.demo_dates = dd.dates;
 manifest.default_as_of = dd.def;

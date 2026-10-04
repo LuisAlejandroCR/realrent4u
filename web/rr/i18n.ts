@@ -287,6 +287,20 @@ const en = {
   pipelineNotes: "Pipeline notes (from changes.json)",
   lookupDates: "Dates with precomputed lookups",
   defaultDate: "(default date)",
+  // Cinematic landing: live stage, three-step diagram and the change timeline.
+  heroTicks: ["Public sources, quoted", "Legal city, not postal city", "Unknown, never guessed"],
+  stageLive: "Live from the sample data",
+  stagePlay: "Play",
+  stagePause: "Pause",
+  stageAddresses: "Sample addresses",
+  stageKind: { dates: "The date changes it", review: "Missing facts, flagged", postal: "Postal city ≠ legal city" } as Record<string, string>,
+  stageReach: (n: number) => `rule${n === 1 ? "" : "s"} reach${n === 1 ? "es" : ""} this address`,
+  stageNotReached: "Not reached on this date",
+  lHowTitle2: "Three facts decide.",
+  lHowEm2: "We check each one.",
+  stepDateBody: "Same building, four dates.",
+  videosTitle: "Watch how it works",
+  tlNote: "Dates are evenly spaced, not to scale. Each lane opens its test in the dashboard.",
 };
 
 const es: typeof en = {
@@ -563,6 +577,19 @@ const es: typeof en = {
   pipelineNotes: "Notas del pipeline (de changes.json)",
   lookupDates: "Fechas con consultas precalculadas",
   defaultDate: "(fecha predeterminada)",
+  heroTicks: ["Fuentes públicas, citadas", "Ciudad legal, no postal", "Desconocido, nunca supuesto"],
+  stageLive: "En vivo desde los datos de muestra",
+  stagePlay: "Reproducir",
+  stagePause: "Pausar",
+  stageAddresses: "Direcciones de muestra",
+  stageKind: { dates: "La fecha lo cambia", review: "Faltan datos, con alerta", postal: "Ciudad postal ≠ legal" },
+  stageReach: (n: number) => `regla${n === 1 ? "" : "s"} alcanza${n === 1 ? "" : "n"} esta dirección`,
+  stageNotReached: "No la alcanza en esta fecha",
+  lHowTitle2: "Tres datos deciden.",
+  lHowEm2: "Revisamos cada uno.",
+  stepDateBody: "Mismo edificio, cuatro fechas.",
+  videosTitle: "Mira cómo funciona",
+  tlNote: "Fechas equiespaciadas, no a escala. Cada fila abre su prueba en el panel.",
 };
 
 export const dict = { en, es };

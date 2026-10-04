@@ -1,15 +1,19 @@
 "use client";
-// HomeView.tsx: landing page (Stamp & Marigold, light only): hero, the postal-vs-legal problem, how it
-// works with videos and QR, the five results, T1–T5 over time and a closing call to the dashboard.
-// Every example and number is read from the data files; missing media and links show as pending.
+// HomeView.tsx: cinematic landing in five beats: a dark hero with the live "address × date" stage, a three-step
+// diagram (legal city, building facts, date) with counted stats, the five results, the T1–T5 timeline and a dark
+// closing bookend. Every example and number is read from the data files; videos appear only once configured.
 import type { ReactNode } from "react";
 import { AppShell } from "../components/AppShell";
 import { StatusBadge } from "../components/StatusBadge";
 import { QrBlock } from "../components/QrBlock";
 import { VideoCard } from "../components/VideoCard";
-import { blank, rulesInRecord, useLookups, type Dataset } from "../data";
+import { HeroStage } from "../components/HeroStage";
+import { LawTimeline } from "../components/LawTimeline";
+import { blank, rulesInRecord, type Dataset } from "../data";
 import { useLandingConfig } from "../landing";
+import { useCountUp, useHero, useReveal } from "../hero";
 import { hrefWith, usePrefs } from "../prefs";
+import "../rr-cinema.css";
 
 // First address whose postal city differs from its legal jurisdiction and has a quoted, sourced rule.
 function pickSample(d: Dataset) {
@@ -18,15 +22,14 @@ function pickSample(d: Dataset) {
     return j?.jurisdiction && j.place && j.place !== x.postal_city && rulesInRecord(d.rules, j).some((r) => r.quoted_span && r.source_url);
   });
   if (!a) return null;
-  const j = d.jurisdictions[a.address_id]!;
-  const rules = rulesInRecord(d.rules, j);
-  return { a, j, rules, rule: rules.find((r) => r.quoted_span && r.source_url)! };
+  return { a, j: d.jurisdictions[a.address_id]! };
 }
 
 function Section({ n, label, id, tone, children }: { n: number; label: string; id?: string; tone?: "white" | "soft"; children: ReactNode }) {
+  const ref = useReveal<HTMLDivElement>();
   return (
     <section id={id} className={`rr-l-sec ${tone ? `rr-l-${tone}` : ""}`} aria-labelledby={`sec-${n}`}>
-      <div className="rr-l-wrap">
+      <div className="rr-l-wrap rr-rise" ref={ref}>
         <p className="rr-l-n" id={`sec-${n}`}><span>{String(n).padStart(2, "0")}</span> {label}</p>
         {children}
       </div>
@@ -34,192 +37,161 @@ function Section({ n, label, id, tone, children }: { n: number; label: string; i
   );
 }
 
+function Stat({ value, label }: { value: number; label: string }) {
+  const { ref, n } = useCountUp(value);
+  return (
+    <div>
+      <dt><span ref={ref} aria-hidden>{n}</span><span className="rr-sr">{value}</span></dt>
+      <dd>{label}</dd>
+    </div>
+  );
+}
+
 function Landing({ data }: { data: Dataset }) {
   const prefs = usePrefs();
   const { tr, lang } = prefs;
   const media = useLandingConfig();
-  const asOf = prefs.asOf ?? data.manifest.default_as_of;
-  const lookups = useLookups(data.manifest, asOf);
+  const hero = useHero();
   const s = pickSample(data);
-  const items = s && lookups.state === "ready" ? lookups.data?.[s.a.address_id] : undefined;
-  const byId = new Map(data.rules.map((r) => [r.team_rule_id, r]));
   const resolved = Object.values(data.jurisdictions).filter((j) => j?.jurisdiction).length;
   const quoted = data.rules.filter((r) => r.quoted_span).length;
   const places = new Set(data.rules.map((r) => r.jurisdiction)).size;
   const dates = data.manifest.lookup_dates.length ? data.manifest.lookup_dates : data.manifest.demo_dates;
   const dash = (extra: Record<string, string> = {}) => hrefWith("/dashboard", prefs, extra);
-  const t1 = data.changeTests.find((t) => t.as_of_before);
-  const counts = new Map<string, number>();
-  for (const i of items ?? []) counts.set(i.result, (counts.get(i.result) ?? 0) + 1);
-  // A real example from the data for each storyboard video (by id); other ids get none.
-  const proof = (id: string) => {
-    if (!s) return null;
-    const p = (c: ReactNode) => <p className="rr-l-proof">{c}</p>;
-    if (id === "why-address-and-date" && t1)
-      return p(<><span className="rr-test-id">{t1.test_id}</span> {t1.title}: <span className="rr-mono">{t1.as_of_before} → {t1.as_of_after}</span></>);
-    if (id === "postal-vs-legal")
-      return p(<>{s.a.address_id} · {tr.postalCity} {s.a.postal_city} → {tr.legalJurisdiction} <strong>{s.j.jurisdiction}</strong></>);
-    if (id === "reading-results" && counts.size)
-      return p(<>{s.a.address_id}, {asOf}: {[...counts].map(([k, n]) => `${n} ${tr.result[k] ?? k}`).join(" · ")}</>);
-    if (id === "open-the-source")
-      return p(<>“{s.rule.quoted_span!.slice(0, 110)}{s.rule.quoted_span!.length > 110 ? "…" : ""}” <span className="rr-muted">— {s.rule.citation}</span></>);
-    return null;
-  };
   const fact = (v: string | null | undefined) => (blank(v) ? <span className="rr-missing">{tr.notInRecord}</span> : v);
+  // Only videos with a real file or link are shown; pending ones stay out of the story.
+  const videos = media.videos.filter((v) => v.src || v.url);
 
   return (
     <div className="rr-l">
-      {/* 1 · Hero */}
-      <section className="rr-l-hero" aria-labelledby="hero-h">
-        <div className="rr-l-wrap rr-l-hero-grid">
-          <div className="rr-l-hero-copy">
-            <p className="rr-l-kicker">{tr.lKicker}</p>
-            <h1 id="hero-h" className="rr-l-title">{tr.lTitle} <em>{tr.lTitleEm}</em></h1>
-            <p className="rr-l-body">{tr.lBody}</p>
+      {/* 1 · Hero: dark stage */}
+      <section className="rr-cine" aria-labelledby="hero-h">
+        <div className="rr-cine-grid" aria-hidden />
+        <div className="rr-l-wrap rr-cine-row">
+          <div className="rr-cine-copy">
+            <p className="rr-cine-kicker"><span aria-hidden /> {tr.lKicker}</p>
+            <h1 id="hero-h" className="rr-cine-title">
+              <span className="rr-cine-line">{tr.lTitle}</span>{" "}
+              <em className="rr-cine-line">{tr.lTitleEm}</em>
+            </h1>
+            <p className="rr-cine-body">{tr.lBody}</p>
             <div className="rr-l-ctas">
-              <a className="rr-l-btn rr-l-btn-primary" href={dash()}>{tr.lCta} <span aria-hidden>→</span></a>
-              <a className="rr-l-btn rr-l-btn-ghost" href="#how">{tr.lHow}</a>
+              <a className="rr-l-btn rr-cine-btn" href={dash()}>{tr.lCta} <span aria-hidden>→</span></a>
+              <a className="rr-l-btn rr-cine-ghost" href="#how">{tr.lHow}</a>
             </div>
+            <ul className="rr-cine-ticks">
+              {tr.heroTicks.map((t) => <li key={t}>{t}</li>)}
+            </ul>
           </div>
-          {s && (
-            <aside className="rr-l-sample" aria-label={tr.exampleFromData}>
-              <p className="rr-label">{tr.exampleFromData}</p>
-              <p className="rr-l-sample-addr">{s.a.street_address}</p>
-              <p className="rr-l-sample-j">
-                <span className="rr-id">{s.a.address_id}</span> · {tr.postalCity} {s.a.postal_city} <span aria-hidden>→</span>{" "}
-                {tr.legalJurisdiction} <strong>{s.j.jurisdiction}</strong>
-              </p>
-              {items && items.length > 0 ? (
-                <>
-                  <p className="rr-l-sample-h">{tr.sampleResultsTitle(asOf)}</p>
-                  <ul>
-                    {items.slice(0, 3).map((i) => (
-                      <li key={i.team_rule_id}>
-                        <StatusBadge kind={i.result} tr={tr} />
-                        <span>{byId.get(i.team_rule_id)?.title ?? i.team_rule_id}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a className="rr-link" href={dash({ tab: "lookup", a: s.a.address_id })}>{tr.openAddress} →</a>
-                </>
-              ) : (
-                <p className="rr-meta">{tr.sampleNoResults(asOf)}</p>
-              )}
-            </aside>
-          )}
+          {hero !== null && <div className="rr-cine-stage">{hero ? <HeroStage hero={hero} tr={tr} /> : <div className="rr-stage-skel" aria-hidden />}</div>}
         </div>
       </section>
 
-      {/* 2 · Problem */}
-      <Section n={2} label={tr.lCh[0]!} tone="white">
-        <div className="rr-l-split">
-          <div className="rr-l-read">
-            <h2 className="rr-l-h2">{tr.lProblemTitle} <em>{tr.lProblemEm}</em></h2>
-            <p>{tr.lProblemP1}</p>
-            <p>{tr.lProblemP2}</p>
-          </div>
-          {s && (
-            <figure className="rr-l-example">
-              <figcaption className="rr-label">{tr.exampleFromData}</figcaption>
-              <dl>
-                <div><dt>{tr.addressId}</dt><dd className="rr-mono">{s.a.address_id} · {s.a.street_address}</dd></div>
-                <div><dt>{tr.postalCity}</dt><dd>{s.a.postal_city}, {s.a.state} {s.a.zip}</dd></div>
-                <div><dt>{tr.legalJurisdiction}</dt><dd><mark>{s.j.jurisdiction}</mark></dd></div>
-                <div><dt>{tr.yearBuilt}</dt><dd>{fact(s.a.year_built)}</dd></div>
-                <div><dt>{tr.units}</dt><dd>{fact(s.a.units)}</dd></div>
-              </dl>
-            </figure>
-          )}
-        </div>
-        <ul className="rr-l-factors">
-          {tr.lFactors.map(([t, b]) => (
-            <li key={t}><h3>{t}</h3><p>{b}</p></li>
-          ))}
-        </ul>
+      {/* 2 · How it works: three facts, one picture each */}
+      <Section n={1} label={tr.lCh[1]!} id="how" tone="white">
+        <h2 className="rr-l-h2">{tr.lHowTitle2} <em>{tr.lHowEm2}</em></h2>
+        <ol className="rr-steps3">
+          <li>
+            <div className="rr-step-vis" aria-hidden>
+              {s && (
+                <p className="rr-vis-city">
+                  <s>{s.a.postal_city}</s>
+                  <span className="rr-vis-arrow">→</span>
+                  <b>{s.j.jurisdiction}</b>
+                </p>
+              )}
+            </div>
+            <h3><span className="rr-step3-n">1</span> {tr.lFactors[0]![0]}</h3>
+            <p>{tr.lFactors[0]![1]}</p>
+            {s && <p className="rr-meta"><span className="rr-id">{s.a.address_id}</span> · {s.a.street_address}</p>}
+          </li>
+          <li>
+            <div className="rr-step-vis" aria-hidden>
+              {s && (
+                <p className="rr-vis-facts">
+                  <span className="rr-vis-chip">{tr.yearBuilt} <b>{fact(s.a.year_built)}</b></span>
+                  <span className={`rr-vis-chip ${blank(s.a.units) ? "is-gap" : ""}`}>{tr.units} <b>{fact(s.a.units)}</b></span>
+                  {blank(s.a.units) || blank(s.a.year_built) ? <StatusBadge kind="unknown" tr={tr} /> : null}
+                </p>
+              )}
+            </div>
+            <h3><span className="rr-step3-n">2</span> {tr.lFactors[1]![0]}</h3>
+            <p>{tr.lFactors[1]![1]}</p>
+          </li>
+          <li>
+            <div className="rr-step-vis" aria-hidden>
+              <div className="rr-vis-dates">
+                {dates.map((d, i) => (
+                  <span key={d} style={{ ["--i" as string]: i }}><i /><small className="rr-mono">{d.slice(0, 7)}</small></span>
+                ))}
+              </div>
+            </div>
+            <h3><span className="rr-step3-n">3</span> {tr.lFactors[2]![0]}</h3>
+            <p>{tr.lFactors[2]![1]}</p>
+          </li>
+        </ol>
         <dl className="rr-l-stats" aria-label={tr.statsNote}>
-          <div><dt>{resolved}</dt><dd>{tr.statResolved}</dd></div>
-          <div><dt>{quoted}</dt><dd>{tr.statQuoted(places)}</dd></div>
-          <div><dt>{dates.length}</dt><dd>{tr.statDates}</dd></div>
+          <Stat value={resolved} label={tr.statResolved} />
+          <Stat value={quoted} label={tr.statQuoted(places)} />
+          <Stat value={dates.length} label={tr.statDates} />
         </dl>
+        {videos.length > 0 && (
+          <div className="rr-l-story">
+            <h3 className="rr-l-h3">{tr.videosTitle}</h3>
+            {videos.map((v, i) => <VideoCard key={v.id} video={v} lang={lang} tr={tr} step={i + 1} />)}
+          </div>
+        )}
       </Section>
 
-      {/* 3 · How it works: one storyboard video per step, each beside a real example from the data */}
-      <Section n={3} label={tr.lCh[1]!} id="how" tone="soft">
-        <div className="rr-l-read">
-          <h2 className="rr-l-h2">{tr.lHowTitle} <em>{tr.lHowEm}</em></h2>
-          <p>{tr.lVideosBody}</p>
-        </div>
-        <div className="rr-l-story">
-          {media.videos.map((v, i) => (
-            <VideoCard key={v.id} video={v} lang={lang} tr={tr} step={i + 1}>
-              {proof(v.id)}
-            </VideoCard>
-          ))}
-        </div>
-        <div className="rr-l-demo">
-          <h3 className="rr-video-title">{tr.openDemo}</h3>
-          <QrBlock label={tr.openDemo} target={media.demo.url} qr={media.demo.qr} tr={tr} />
-        </div>
-      </Section>
-
-      {/* 4 · Results */}
-      <Section n={4} label={tr.lCh[2]!}>
+      {/* 3 · Results */}
+      <Section n={2} label={tr.lCh[2]!}>
         <div className="rr-l-read">
           <h2 className="rr-l-h2">{tr.lResultsTitle} <em>{tr.lResultsEm}</em></h2>
           <p>{tr.lResultsBody}</p>
         </div>
         <dl className="rr-states rr-l-states">
-          {(["applies", "unknown", "superseded", "not_yet_effective", "pending"] as const).map((key) => (
-            <div key={key} className={`rr-state rr-rule-${key}`}>
-              <dt><StatusBadge kind={key} tr={tr} /> <code className="rr-mono rr-muted">{key}</code></dt>
+          {(["applies", "unknown", "superseded", "not_yet_effective", "pending"] as const).map((key, i) => (
+            <div key={key} className={`rr-state rr-rule-${key}`} style={{ ["--i" as string]: i }}>
+              <dt><StatusBadge kind={key} tr={tr} /></dt>
               <dd>{tr.stateDesc[key]}</dd>
             </div>
           ))}
         </dl>
       </Section>
 
-      {/* 5 · Change over time */}
-      <Section n={5} label={tr.lCh[3]!} tone="white">
+      {/* 4 · Change over time */}
+      <Section n={3} label={tr.lCh[3]!} tone="white">
         <div className="rr-l-read">
           <h2 className="rr-l-h2">{tr.lTestsTitle} <em>{tr.lTestsEm}</em></h2>
           <p>{tr.lTestsBody}</p>
-          <p className="rr-meta">{tr.globalAsOfNote}</p>
         </div>
-        <ol className="rr-l-tests">
-          {data.changeTests.map((t) => {
-            const r = data.changeResults.find((x) => x.test_id === t.test_id);
-            const n = r?.affected_address_ids?.length ?? 0;
-            return (
-              <li key={t.test_id}>
-                <span className="rr-test-id">{t.test_id}</span>
-                <span className="rr-l-tests-main">
-                  <strong>{t.title}</strong>
-                  <span className="rr-meta"><span className="rr-scenario-label">{tr.scenarioDates}:</span> <span className="rr-mono">{t.as_of_before ? `${t.as_of_before} → ${t.as_of_after}` : t.as_of}</span></span>
-                </span>
-                <span className={`rr-l-avail ${r ? (n ? "is-yes" : "is-zero") : "is-no"}`}>
-                  {!r ? tr.resNotAvailable : n ? tr.nAffected(n) : tr.confirmedEmpty}
-                </span>
-                <a className="rr-l-run" href={dash({ tab: "tests", t: t.test_id })}>{r ? tr.runInDash : tr.openInDash}</a>
-              </li>
-            );
-          })}
-        </ol>
+        <LawTimeline
+          tests={data.changeTests}
+          results={data.changeResults}
+          total={data.addresses.length}
+          href={(id) => dash({ tab: "tests", t: id })}
+          tr={tr}
+        />
       </Section>
 
-      {/* 6 · Closing */}
-      <section className="rr-l-sec" aria-labelledby="close-h">
-        <div className="rr-l-wrap">
-          <div className="rr-l-close">
-            <p className="rr-l-kicker">{tr.lCloseKicker}</p>
-            <h2 id="close-h" className="rr-l-h2">{tr.lCloseTitle} <em>{tr.lCloseEm}</em></h2>
+      {/* 5 · Closing: dark bookend */}
+      <section className="rr-cine rr-cine-close" aria-labelledby="close-h">
+        <div className="rr-cine-grid" aria-hidden />
+        <div className="rr-l-wrap rr-cine-close-row">
+          <div>
+            <p className="rr-cine-kicker"><span aria-hidden /> {tr.lCloseKicker}</p>
+            <h2 id="close-h" className="rr-cine-title rr-cine-title-sm">{tr.lCloseTitle} <em>{tr.lCloseEm}</em></h2>
             <div className="rr-l-ctas">
-              <a className="rr-l-btn rr-l-btn-primary" href={dash()}>{tr.lCta} <span aria-hidden>→</span></a>
+              <a className="rr-l-btn rr-cine-btn" href={dash()}>{tr.lCta} <span aria-hidden>→</span></a>
+              <a className="rr-l-btn rr-cine-ghost" href={dash({ tab: "tests" })}>{tr.navChanges}</a>
+              <a className="rr-l-btn rr-cine-ghost" href={dash({ tab: "method" })}>{tr.navAbout}</a>
             </div>
-            <p className="rr-l-close-links">
-              <a className="rr-link" href={dash({ tab: "tests" })}>{tr.navChanges}</a>
-              <a className="rr-link" href={dash({ tab: "method" })}>{tr.navAbout}</a>
-            </p>
           </div>
+          {media.demo.url && (
+            <div className="rr-cine-qr">
+              <QrBlock label={tr.openDemo} target={media.demo.url} qr={media.demo.qr} tr={tr} />
+            </div>
+          )}
         </div>
       </section>
     </div>

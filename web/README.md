@@ -37,6 +37,7 @@ Code: the UI lives in `rr/` (views, components, `data.ts`, `i18n.ts`, `rr.css` +
 | `change_tests.json` | `data/dev/change_tests.json` | — |
 | `addresses.json`, `sample_addresses.csv` | `data/data/sample_addresses.csv` | — |
 | `corpus.json` | `data/corpus/corpus_manifest.csv` (retrieval dates) | — |
+| `hero.json` | three addresses picked by predicate from the lookups above, with their results on every date (~20 KB, for the landing stage) | empty list: the stage is not shown |
 | `manifest.json` | the sources used, demo dates (parsed from `realrent/paths.py`) and warnings | — |
 
 When any fixture is used, a **Fixture data** badge appears in the header.
