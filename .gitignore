@@ -9,3 +9,7 @@ __pycache__/
 .venv/
 node_modules/
 .next/
+
+# Raw ElevenLabs clips and voice takes (inputs of web/scripts/landing-clips.py) and source recordings; large, kept local
+web/public/media/raw/
+/media/

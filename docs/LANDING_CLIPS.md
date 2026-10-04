@@ -1,140 +1,101 @@
 <!--
-LANDING_CLIPS.md: guiones de narración (EN/ES) para ElevenLabs de los 3 clips cortos de la landing, uno por
-sección (Cómo funciona, Cinco resultados, Cambio en el tiempo), con tomas, mapas y gráficos de la demo.
-Se distingue de VIDEO_SCRIPTS.md (los 3 videos de entrega de ≤ 60 s) y de DESIGN.md (cómo se ve la web).
+LANDING_CLIPS.md: prompts de video (sin voz) para que ElevenLabs genere los 3 clips de la landing, un video
+de 6–8 s por paso, siguiendo el flujo de la página. Se distingue de RECORDING.md (los 2 videos de entrega de
+1 minuto) y de DESIGN.md (cómo se ve la web).
 -->
 
-# Landing clips — ElevenLabs scripts
+# Landing clips: ElevenLabs prompts, one 8 s video per step
 
-Three short clips, one per landing section. Each one runs **≤ 35 s** and plays beside its section. They
-show the product's own maps and charts and nothing invented: every number below comes from this build's data
-files (2026-10-04 run). These are **not** the three submission videos in `VIDEO_SCRIPTS.md`.
+ElevenLabs has never seen the page, so every prompt describes the shot in full. Generate each step as its
+own silent video (16:9, 1920×1080, 8 s), then join the 4 steps of each clip. No voice: the on-screen
+titles carry the story.
 
-| Clip id (`web/landing.config.json`) | Section on `/` | Target |
-|---|---|---|
-| `how-it-works` | 01 How it works · *Three facts decide. We check each one.* | ≤ 35 s |
-| `five-results` | 02 What each result means · *Five results, always labelled.* | ≤ 35 s |
-| `change-over-time` | 03 Change over time · *Five scenarios across time.* | ≤ 35 s |
+**Use the same style block in every video prompt** (paste it at the end):
 
-## Produce with the ElevenLabs MCP
+> Style: clean motion-graphics explainer, flat 2D, no people, no logos, no real brand names. Deep night-navy
+> background #0F1626 with a faint grid of thin lines like city blocks. Cards are off-white #F5F4EF with
+> rounded corners and soft shadows. Accent colors: ink blue #2949A8 for "applies", marigold #F2B65C for
+> highlights and warnings. Text in a clean sans-serif; one word in serif italic for emphasis. Slow, calm
+> camera push-in, smooth easing, no fast cuts. All on-screen text exactly as written, in English.
 
-1. Add the server once, in a terminal where `claude` runs:
-
-   ```bash
-   claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp
-   ```
-
-   Then authenticate it from an interactive `claude` session (`/mcp` → elevenlabs). The key stays in your
-   ElevenLabs account, never in this repo.
-2. Ask Claude: *"With the elevenlabs MCP, synthesize clip `how-it-works` (EN) from docs/LANDING_CLIPS.md,
-   voice Lauren, model eleven_multilingual_v2, stability 0.5, similarity 0.75, style 0, speed 1.0, save to
-   web/public/media/how-it-works-en.mp3"*. Repeat per clip and language. These are the same voice settings
-   as `VIDEO_SCRIPTS.md`.
-3. Measure each file (`ffprobe -i file.mp3 -show_entries format=duration -v quiet -of csv=p=0`). It must be
-   ≤ 35 s. If a clip runs long, cut words; never speed up the voice.
-4. Record the screen to the audio length (1920×1080, 30 fps), mux it to `web/public/media/<id>.mp4` and write
-   captions `<id>.en.vtt` / `<id>.es.vtt` from the narration below.
-5. Fill `src`, `poster`, `duration`, `captions` and `transcript` for the clip in `web/landing.config.json`.
-   The clip then appears in its section. Until then the section shows no placeholder.
-
-## Numbers used (source)
-
-| Figure | Value | Source |
-|---|---|---|
-| Sample addresses, cities | 500 in 9 cities | `data/data/sample_addresses.csv`, `derived/jurisdictions.json` |
-| Postal city ≠ legal city | 38 addresses | same, `place` vs `postal_city` |
-| Year built / units missing | 212 / 242 addresses | `sample_addresses.csv` |
-| On the map | 485 of 500 (15 placed at city level) | `derived/census/batch*.csv` → `public/data/geo.json` |
-| Results on 2026-10-01 | 9,332: 7,200 applies · 1,337 unknown · 195 superseded · 140 not yet effective · 460 pending · 180 flags | `derived/lookups/2026-10-01.json` |
-| T1 … T5 affected | 250 · 90 (90 flags) · 140 (90 flags) · 110 · 0 | `submission/changes.json` |
+**Output:** join each clip to `web/public/media/<id>.mp4`, then set `src` and `duration` for that id in
+`web/landing.config.json`.
 
 ---
 
-## 1. `how-it-works` — Three facts decide (≈ 32 s)
+## Clip 1 · `how-it-works`: "Three facts decide. We check each one."
 
-| Time | Shot (all real screens) |
-|---|---|
-| 0:00–0:08 | Landing hero stage, tab "Postal city ≠ legal city": **33 WARD ST**, *South Boston* struck, **Boston, MA** stamped |
-| 0:08–0:15 | Dashboard `?a=A0036` → **map**: *Boston · Cambridge* metro, county lines, the pin pulsing in South Boston among the other sample dots, 5 km scale bar |
-| 0:15–0:23 | Facts strip: *Year built 2019 · Units not in the record*, then a rule card whose result is **Unknown** with "units is missing" |
-| 0:23–0:32 | **Chart** "Results for this address on each date": four stacked bars (2025-12-31 → 2027-07-02); click the last row and the As of picker follows |
+**Step 1 · Three facts decide (8 s)**
+- **Video:** An envelope slides in with a printed address "33 WARD ST, SOUTH BOSTON, MA 02127". The camera
+  pushes in on the address. Three empty rounded tiles fade in below it, labelled "Legal city", "Building",
+  "Date". Title appears at the top: "Three facts decide."
 
-**Narration (EN, 78 words)**
+**Step 2 · The legal city (8 s)**
+- **Video:** A simple flat map of a coastal city with thin grey county lines and blue water. A glowing
+  marigold pin drops on a neighborhood. The label "South Boston" appears, then a marigold line strikes
+  through it, and a stamp "Boston, MA" lands next to it with a small bounce. Corner caption: "Location
+  rounded to about 1 km".
 
-```text
-Three facts decide which rules reach a building. <break time="0.4s" />
-First, the legal city. This mail says South Boston, but the Census geocoder places it inside Boston, so Boston's ordinances apply.
-Second, the building record. Year built and number of units can bring a building in or out of a rule. When one is missing, the answer is unknown, never a guess.
-Third, the date. Each rule is checked against the day you ask.
-```
+**Step 3 · The building record (8 s)**
+- **Video:** An off-white record card with two rows: "Year built: 2019" (solid) and "Units: not in the record"
+  (dashed marigold outline, blinking softly). A small badge appears beside it: a hollow ring and the word
+  "Unknown". Title: "Missing fact = unknown".
 
-**Narración (ES, 79 palabras)**
+**Step 4 · The date (8 s)**
+- **Video:** A horizontal timeline with four dots labelled "2025-12-31", "2026-01-02", "2026-10-01",
+  "2027-07-02". A marigold marker slides from left to right; above each dot, a short stacked bar grows and
+  changes its mix of blue and striped segments as the marker passes. Title: "Same building, four dates."
 
-```text
-Tres datos deciden qué reglas alcanzan a un edificio. <break time="0.4s" />
-Primero, la ciudad legal. El correo dice South Boston, pero el geocodificador del Censo lo ubica dentro de Boston, así que aplican las ordenanzas de Boston.
-Segundo, el registro del edificio. El año de construcción y el número de unidades pueden incluirlo o excluirlo de una regla. Si falta uno, la respuesta es desconocido, nunca una suposición.
-Tercero, la fecha. Cada regla se revisa contra el día de la consulta.
-```
+---
 
-## 2. `five-results` — Five results, always labelled (≈ 34 s)
+## Clip 2 · `five-results`: "Five results, always labelled."
 
-| Time | Shot |
-|---|---|
-| 0:00–0:07 | Landing section 02: the five result cards rising in |
-| 0:07–0:14 | **Chart** (record the "At a glance" bar on several addresses or build one slide): **9,332 results on 2026-10-01**, stacked: 7,200 applies · 1,337 unknown · 195 superseded · 140 not yet effective · 460 pending |
-| 0:14–0:20 | `?a=A0016` (3515 Fillmore St, San Francisco, 1926): city rule card *Applies*; open "Displaces 1": the state cap §1947.12 is **Superseded** |
-| 0:20–0:26 | `?a=A0005` (1609 Addison St, Berkeley): *Unknown*, "year built is missing" |
-| 0:26–0:34 | `?a=A0036`: three **Pending** Massachusetts bills (S.2983, H.5222); KPI "Needs human review" tile on T3 to close |
+**Step 1 · Five results (8 s)**
+- **Video:** Five pill-shaped labels slide in one by one in a row, each with its own small marker shape:
+  "Applies" (filled blue dot), "Unknown" (hollow ring), "Superseded" (short bar), "Not yet effective"
+  (diamond, dashed outline), "Pending" (diamond, dashed outline). Title: "Five results, always labelled."
 
-**Narration (EN, 84 words)**
+**Step 2 · Applies and superseded (8 s)**
+- **Video:** Two stacked cards. Top card: "San Francisco Rent Ordinance", blue pill "Applies". Bottom card:
+  "Statewide rent cap (Civil Code 1947.12)" slides down and turns grey, its pill changing to "Superseded".
+  A thin arrow from the top card to the bottom one. Small caption: "3515 Fillmore St · built 1926".
 
-```text
-Every rule gets one of five results, each with its own label and marker.
-On October first, 2026, the sample produces nine thousand three hundred results. Most apply.
-Superseded means a local rule displaces a state one, like San Francisco's rent ordinance over the statewide cap.
-Unknown means the record lacks a fact, here a Berkeley building with no year built.
-Not yet effective means signed, with a later start date. Pending means a bill, never law in force.
-And when rules may clash, we flag them for a human.
-```
+**Step 3 · Unknown (8 s)**
+- **Video:** A rule card "Berkeley rent stabilization" with a dashed marigold left border and the pill
+  "Unknown". A line of text fades in under it: "Year built is missing from the record." A small magnifier
+  hovers over an empty field labelled "Year built".
 
-**Narración (ES, 86 palabras)**
+**Step 4 · Not yet effective and pending (8 s)**
+- **Video:** Split screen. Left card: "New Jersey FAIR Act", pill "Not yet effective", a calendar flipping to
+  "July 1, 2027". Right card: "Massachusetts bill S.2983", pill "Pending", a paper stamped "BILL, NOT LAW".
 
-```text
-Cada regla recibe uno de cinco resultados, cada uno con su etiqueta y su marcador.
-El primero de octubre de 2026, la muestra produce nueve mil trescientos resultados. La mayoría aplica.
-Desplazada significa que una regla local reemplaza a una estatal, como la ordenanza de alquiler de San Francisco frente al tope estatal.
-Desconocido significa que falta un dato, aquí un edificio de Berkeley sin año de construcción.
-Aún no vigente: firmada, con fecha de inicio posterior. Pendiente: un proyecto, nunca ley vigente.
-Y si las reglas pueden chocar, lo marcamos para revisión humana.
-```
+---
 
-## 3. `change-over-time` — Five scenarios across time (≈ 35 s)
+## Clip 3 · `change-over-time`: "Five scenarios across time."
 
-| Time | Shot |
-|---|---|
-| 0:00–0:06 | Landing section 03: the **timeline** draws T1–T5 on the date axis |
-| 0:06–0:13 | Dashboard `?tab=tests&t=T1`: KPIs **250 of 500 · 4 of 9 cities · 50%**; **maps** of Los Angeles, San Francisco · Berkeley and San Diego, all dots lit |
-| 0:13–0:20 | `t=T2`: map *Newark · Jersey City · Hoboken*: Hoboken and Jersey City lit, **Newark hollow** |
-| 0:20–0:27 | `t=T3`: the same map, Newark lit too; 90 diamonds = needs human review; KPI tile ▲ 90 |
-| 0:27–0:35 | `t=T4` Boston · Cambridge lit as *pending*; `t=T5`: same map, **all hollow, 0 confirmed empty** |
+**Step 1 · The law moves (8 s)**
+- **Video:** A horizontal date axis with four ticks: "2025-12-31", "2026-01-02", "2026-10-01", "2027-07-02".
+  Five lanes labelled "T1" to "T5" in serif italic draw in one after another: blue spans for T1 and T3,
+  single dots for T2 and T4, a hollow ring for T5. Title: "Five scenarios across time."
 
-**Narration (EN, 86 words)**
+**Step 2 · T1: 250 addresses (8 s)**
+- **Video:** Three small flat maps side by side, labelled "Los Angeles", "San Francisco · Berkeley",
+  "San Diego", each with clusters of grey hollow dots. All the dots turn solid blue in a wave. A large counter
+  above ticks from 0 to "250 of 500". Caption: "California pricing-algorithm ban takes effect".
 
-```text
-The law moves, so we test five changes over time.
-T1: California's algorithmic pricing ban takes effect on January first, 2026. Two hundred fifty addresses switch from not yet effective to applies.
-T2: Hoboken and Jersey City ban rent algorithms. Newark, next door, does not, and its addresses stay dark.
-T3: New Jersey's FAIR Act is signed but starts in July 2027. Ninety addresses get a flag where it meets those city bans.
-T4: two Massachusetts bills, pending. T5: a struck ballot question. Zero addresses, confirmed.
-```
+**Step 3 · T2: the city line (8 s)**
+- **Video:** One flat map with three neighbouring cities labelled "Newark", "Jersey City", "Hoboken". The dots
+  in Jersey City and Hoboken turn solid; the Newark dots stay hollow grey. A thin dashed city boundary glows
+  between Newark and Jersey City. Caption: "Local bans stop at the city line".
 
-**Narración (ES, 88 palabras)**
+**Step 4 · T3: 90 for review · T5: zero (8 s)**
+- **Video:** The same map: now the Newark dots also turn solid, and 90 dots in Jersey City and Hoboken become
+  marigold diamonds with a small "▲ 90 need human review" counter. Then a quick cut to a Boston map where
+  every dot stays hollow, with the caption "T5 · 0 addresses · confirmed empty".
 
-```text
-La ley cambia, así que probamos cinco cambios en el tiempo.
-T1: la prohibición de precios algorítmicos de California entra en vigor el primero de enero de 2026. Doscientas cincuenta direcciones pasan de aún no vigente a aplica.
-T2: Hoboken y Jersey City prohíben los algoritmos de alquiler. Newark, al lado, no, y sus direcciones quedan apagadas.
-T3: la Ley FAIR de Nueva Jersey está firmada, pero empieza en julio de 2027. Noventa direcciones reciben una alerta donde choca con esas prohibiciones.
-T4: dos proyectos de Massachusetts, pendientes. T5: una pregunta electoral anulada. Cero direcciones, confirmado.
-```
+## Production (done)
+
+Raw clips came from ElevenLabs (`kling-3-pro`, people, ~5 s each) into `web/public/media/raw/` (gitignored).
+`python web/scripts/landing-clips.py` blurs only the boxes where the model drew unreadable text (people stay
+sharp) and draws the exact titles in two beats, writing `web/public/media/<id>.mp4` + `<id>.jpg`. The landing
+plays each one muted and looping beside its section heading; with reduced motion it shows the poster.
