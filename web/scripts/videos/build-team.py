@@ -18,7 +18,7 @@ SRC = ROOT / "media" / "out" / "team-video.mov"
 WORK = ROOT / "media" / "work" / "team"
 OUT = ROOT / "media" / "out" / "team.mp4"
 W, H, FPS = bp.W, bp.H, bp.FPS
-END = 72.45  # after "Let's keep building the future."
+END = 73.0  # after "Let's keep building the future.", before "Peace!"
 PAD, MIN_GAP = 0.14, 0.45  # keep 0.14 s around speech; only pauses longer than 0.45 s are cut
 PX, PW = 110, 608  # speaker: portrait 608×1080 on the left
 RX, RW = 820, 1000  # right panel
@@ -87,6 +87,9 @@ def speech_intervals():
             merged[-1] = (merged[-1][0], max(b, merged[-1][1]))
         else:
             merged.append((a, b))
+    # The last word fades below the silence threshold: keep the whole tail up to END so it is never clipped.
+    if merged:
+        merged[-1] = (merged[-1][0], END)
     return merged
 
 
@@ -180,7 +183,7 @@ def main():
         fc += (f";[{n}:v]format=rgba,fade=t=in:st={m(s):.2f}:d=0.25:alpha=1[k{n}];"
                f"[{last}][k{n}]overlay=0:0:enable='between(t,{m(s):.2f},{m(e):.2f})'[c{n}]")
         last, n = f"c{n}", n + 1
-    fc += f";[{last}]format=yuv420p[v]"
+    fc += f";[{last}]fade=t=out:st={total - 0.4:.2f}:d=0.4,format=yuv420p[v]"
     subs = [(m(s), m(e), en, es) for s, e, en, es in SUBS_SRC]
     en, es = bp.write_subs(subs, OUT.with_suffix(""))
     inputs += ["-i", str(en), "-i", str(es)]
