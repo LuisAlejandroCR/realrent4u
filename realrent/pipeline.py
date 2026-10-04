@@ -93,6 +93,8 @@ def stage_tree(root: Path, stage: Path, online: bool, skip_extract: bool) -> Non
     tests/fixtures/ is left out on purpose: a step that falls back to fixture data fails instead."""
     shutil.copytree(PACKAGE, stage / "realrent", ignore=shutil.ignore_patterns("__pycache__"))
     link_dir(stage / "data", root / "data")
+    if (root / "data_extra").is_dir():  # team-fetched texts (data_extra/README.md) are read-only inputs too
+        link_dir(stage / "data_extra", root / "data_extra")
     for cache in ("runs/raw", "derived/census"):
         src = root / cache
         if online:

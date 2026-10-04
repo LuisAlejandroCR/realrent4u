@@ -143,6 +143,14 @@ def test_check_skips_lookups_and_changes_while_placeholders(tmp_path, capfd, mon
     assert "DIFFERS  submission/rules.json" in capfd.readouterr().out
 
 
+def test_stage_links_team_fetched_texts(tmp_path):
+    root = mini_root(tmp_path / "repo")
+    (root / "data_extra" / "text").mkdir(parents=True)
+    (root / "data_extra" / "manifest.csv").write_text("doc_id\n", encoding="utf-8")
+    pipeline.stage_tree(root, tmp_path / "stage", online=False, skip_extract=False)
+    assert (tmp_path / "stage" / "data_extra" / "manifest.csv").exists()
+
+
 def test_stops_at_first_failing_step_and_writes_nothing(tmp_path, capfd):
     root = mini_root(tmp_path / "repo")
     calls = []
@@ -237,6 +245,14 @@ def _same(got: list[str], expected: list[str], what: str) -> None:
 
 def test_t1_affects_every_ca_address(change_results):
     _same(change_results["T1"]["affected_address_ids"], CA, "T1 affected (all CA)")
+
+
+def test_t2_affects_only_cities_with_an_extracted_ban(change_results):
+    """A local ban reaches its own city only (A8): never Newark, never the rest of NJ."""
+    if not CITIES_WITH_BANS:
+        pytest.skip("no Hoboken/Jersey City ban rules extracted yet (link-only sources)")
+    expected = _ids(lambda j: j.get("jurisdiction") in CITIES_WITH_BANS)
+    _same(change_results["T2"]["affected_address_ids"], expected, f"T2 affected ({' + '.join(CITIES_WITH_BANS)})")
 
 
 def test_t3_affects_every_nj_address(change_results):
