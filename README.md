@@ -82,8 +82,10 @@ uv run pytest -q                      # all tests: no network, no API key
 uv run python -m realrent.validate    # check submission/*.json against the schema and templates
 ```
 
-**One command:** `uv run python -m realrent.pipeline` runs the steps below in order. It lands with
-the `chore/pipeline` branch (not merged yet); until then, run the steps one by one.
+**One command:** `uv run python -m realrent.pipeline` runs the steps below in order, offline by
+default (rules from `runs/raw/`, jurisdictions from `derived/census/`). `--check` regenerates
+everything in a temporary folder and fails if any committed file in `submission/` or `derived/` would
+change (A2).
 
 **Step by step**
 
@@ -111,14 +113,18 @@ cd web && npm install && npm run build   # copies the pipeline JSON into web/pub
 npm run dev                              # from web/: local preview on http://localhost:3000
 ```
 
-Deploy notes (Vercel) are in [web/README.md](web/README.md).
+Deploy notes (Vercel) are in [web/README.md](web/README.md). Live: https://realrent4u.vercel.app
+
+**Mobile app** (Expo, iOS/Android, optional extra): `cd mobile && npm install && npm start`, then scan
+the QR with Expo Go. Details in [mobile/README.md](mobile/README.md).
 
 ## Status
 
-Extraction, resolution, apply engine, change tracking, explanations and the web demo are merged, and
-`submission/rules.json` holds 82 extracted rules. `lookups.json` and `changes.json` are still the
-empty placeholders until the final run regenerates them. [docs/METHOD.md](docs/METHOD.md) says what
-is done and what is still open.
+Final run committed (W8). `submission/rules.json`: 85 rules from 51 documents.
+`submission/lookups.json`: all 500 addresses as of 2026-10-01, 9,332 results.
+`submission/changes.json` (affected / conflict-flagged): T1 250/0, T2 90/90, T3 140/90, T4 110/0,
+T5 0/0. `validate` and `pipeline --check` pass. Limits and open points are in
+[docs/METHOD.md](docs/METHOD.md).
 
 ## Responsible use
 

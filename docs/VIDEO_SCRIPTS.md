@@ -19,19 +19,19 @@ with `ffprobe`, leaving room for transitions. If a clip runs long, cut words; ne
 3. Measure each clip (`ffprobe -i clip.mp3 -show_entries format=duration -v quiet -of csv=p=0`); it must
    be ≤ 57 s. Then record the screen to that length.
 4. Mix at 1920×1080, 30 fps. Nobody touches the machine while recording.
-5. **Before recording, replace every `{{…}}`** with the value from the final run (W8) and check it
-   against its source. Numbers marked ✅ are already measured.
+5. **Before recording, replace the personal `{{…}}` fields** in the team video (name, city, why,
+   next). Every number is already filled from the final run (W8) and marked ✅.
 
 ### Numbers and their sources
 
 | Placeholder | Value now | Source |
 |---|---|---|
-| documents in corpus | 87 (54 with text) ✅ | `data/corpus/corpus_manifest.csv` |
+| documents in corpus | 87 (54 with text) + 3 team-fetched ✅ | `data/corpus/corpus_manifest.csv`, `data_extra/manifest.csv` |
 | sample addresses | 500 in 9 cities ✅ | `data/data/sample_addresses.csv` |
 | addresses resolved | 500 / 500 (485 Census, 15 fallback) ✅ | `derived/jurisdictions.json` (PR #5) |
-| `{{RULES}}` | 82 after first run — update | `submission/rules.json` |
-| quotes verified | `{{QUOTES_OK}}` of `{{QUOTES_TOTAL}}` (first run: all) | `runs/extract-*.jsonl` |
-| `{{EXTRACT_COST}}` | ~$3.30 per full run | extractor's token report |
+| rules | 85 from 51 documents ✅ | `submission/rules.json` (final run) |
+| quotes verified | 111 of 112 candidates (1 dropped) ✅ | `runs/extract-20261004T030858Z.jsonl` |
+| extraction cost | ~$3.86 per full run ✅ | extractor's token report |
 | change tests | T1–T5 ✅ | `data/dev/change_tests.json` |
 
 ---
@@ -73,8 +73,8 @@ In English or Spanish. And never as legal advice.
 **Narration**
 
 ```text
-Claude reads each of the {{TEXT_DOCS}} documents with text and returns rules in the official schema. <break time="0.4s" />
-Then code takes over. Every quote must exist, word for word, in its source, or the rule is dropped and logged. {{QUOTES_OK}} of {{QUOTES_TOTAL}} passed, for about {{EXTRACT_COST}} per run.
+Claude reads each of the 57 documents with text and returns rules in the official schema. <break time="0.4s" />
+Then code takes over. Every quote must exist, word for word, in its source, or the rule is dropped and logged. 111 of 112 passed, for about four dollars per run.
 Addresses go through the Census geocoder by street, not ZIP. Some sample ZIPs are wrong on purpose; all 500 still resolve to their legal city.
 A deterministic engine tests each rule against the building's facts and the query date. Local law overrides state law only where the state's text says so. Missing facts become unknown, with the reason.
 Outputs are cached, so one command rebuilds the same answers offline, and the five change tests run on top.
