@@ -84,7 +84,7 @@ export interface ChangeResult {
 export interface Manifest {
   generated_at: string;
   uses_fixtures: boolean;
-  sources: Record<string, { kind: string; path?: string; count?: number; files?: string[] }>;
+  sources: Record<string, { kind: string; path?: string; count?: number; files?: Array<string | { as_of?: string; path: string; items?: number }> }>;
   lookup_dates: string[];
   warnings: string[];
   demo_dates: string[];
